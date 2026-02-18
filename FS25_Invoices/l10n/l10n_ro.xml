@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <elements>
+        <e k="invoice_menu_title" v="Facturare" />
+        <e k="invoice_tab_incoming" v="PRIMITE" />
+        <e k="invoice_tab_outgoing" v="EMISE" />
+        <e k="invoice_status_unpaid" v="În așteptare" />
+        <e k="invoice_status_paid" v="Plătită" />
+        <e k="invoice_col_date" v="Dată" />
+        <e k="invoice_col_farm" v="Fermă" />
+        <e k="invoice_col_amount" v="Sumă" />
+        <e k="invoice_col_field" v="Teren" />
+        <e k="invoice_col_area" v="Suprafață" />
+        <e k="invoice_btn_newInvoice" v="Factură nouă" />
+        <e k="invoice_btn_payInvoice" v="Plătește" />
+        <e k="invoice_btn_deleteInvoice" v="Șterge" />
+        <e k="invoice_btn_showDetails" v="Detalii" />
+        <e k="invoice_btn_add" v="Adaugă" />
+        <e k="invoice_btn_remove" v="Elimină" />
+        <e k="invoice_btn_cancel" v="Anulează" />
+        <e k="invoice_btn_close" v="Închide" />
+        <e k="invoice_btn_select" v="Selectează" />
+        <e k="invoice_btn_selectFarm" v="Sel. Client" />
+        <e k="invoice_btn_next" v="Următor" />
+        <e k="invoice_btn_back" v="Înapoi" />
+        <e k="invoice_label_from" v="De la:" />
+        <e k="invoice_label_to" v="Către:" />
+        <e k="invoice_label_note" v="Observații:" />
+        <e k="invoice_label_total" v="Total:" />
+        <e k="invoice_dialog_details" v="Detalii factură" />
+        <e k="invoice_dialog_selectField" v="Selecție teren" />
+        <e k="invoice_wizard_mainTitle" v="FACTURĂ NOUĂ" />
+        <e k="invoice_wizard_step1_subtitle" v="CLIENT" />
+        <e k="invoice_wizard_step1_label" v="Selectați ferma client:" />
+        <e k="invoice_wizard_step2_subtitle" v="SERVICII" />
+        <e k="invoice_wizard_step2_label" v="Selectați tipul lucrării:" />
+        <e k="invoice_wizard_step3_subtitle" v="TERENURI" />
+        <e k="invoice_wizard_step3_label" v="Selectați terenurile:" />
+        <e k="invoice_wizard_step4_subtitle" v="REZUMAT" />
+        <e k="invoice_btn_sendInvoice" v="Trimite factura" />
+        <e k="invoice_wizard_no_items" v="Niciun serviciu selectat." />
+        <e k="invoice_error_select_work" v="Vă rugăm selectați un serviciu." />
+        <e k="invoice_wizard_invoice_created" v="Factură creată cu succes!" />
+        <e k="invoice_wizard_invoice_failed" v="Eroare la creare." />
+        <e k="invoice_wizard_client_fields" v="Câmpuri client" />
+        <e k="invoice_wizard_other_fields" v="Alte câmpuri" />
+        <e k="invoice_wizard_selection_summary" v="Servicii:" />
+        <e k="invoice_wizard_field_selection_summary" v="Locație:" />
+        <e k="invoice_format_field_id" v="Teren %d" />
+        <e k="invoice_step4_col_service" v="Descriere" />
+        <e k="invoice_step4_col_qty" v="Cant." />
+        <e k="invoice_step4_col_unitprice" v="Preț" />
+        <e k="invoice_step4_col_amount" v="Sumă" />
+        <e k="invoice_step4_from" v="Emitent: %s" />
+        <e k="invoice_step4_to" v="Client: %s" />
+        <e k="invoice_step4_total" v="DE PLATĂ" />
+        <e k="invoice_detail_col_service" v="Descriere" />
+        <e k="invoice_detail_col_qty" v="Cant." />
+        <e k="invoice_detail_col_unit" v="Unit." />
+        <e k="invoice_detail_col_unitprice" v="Preț" />
+        <e k="invoice_detail_col_amount" v="Sumă" />
+        <e k="invoice_col_number" v="Nr. Factură" />
+        <e k="invoice_col_status" v="Stare" />
+        <e k="invoice_popup_added" v="Adăugat: %s" />
+        <e k="invoice_popup_removed" v="Eliminat: %s" />
+        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_empty_list" v="Fără facturi" />
+        <e k="invoice_format_inv_number" v="FAC-%03d" />
+        <e k="invoice_format_services_count" v="%d rând(uri)" />
+        <e k="invoice_confirm_pay" v="Confirmați plata către '%s'?" />
+        <e k="invoice_confirm_delete" v="Ștergeți definitiv?" />
+        <e k="invoice_notification_new" v="Factură de la %s: %s" />
+        <e k="invoice_reminder_single" v="Factură neplătită: %s" />
+        <e k="invoice_reminder_multiple" v="%d facturi neplătite în valoare de %s" />
+        <e k="invoice_format_date" v="%02d.%02d.A%d - %02d:%02d" />
+        <e k="invoice_format_date_legacy" v="Z%d - %02d:%02d" />
+        <e k="invoice_format_field" v="Teren %s (%.2f ha)" />
+        <e k="invoice_format_fieldId" v="Teren %s" />
+        <e k="invoice_invoices_unit_piece" v="buc" />
+        <e k="invoice_invoices_unit_hour" v="h" />
+        <e k="invoice_invoices_unit_hectare" v="ha" />
+        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_work_stoneCollection" v="Adunare pietre" />
+        <e k="invoice_work_plowing" v="Arat" />
+        <e k="invoice_work_cultivating" v="Cultivare" />
+        <e k="invoice_work_mulching" v="Tocare resturi" />
+        <e k="invoice_work_rolling" v="Tăvălugire" />
+        <e k="invoice_work_harrowing" v="Grăpare" />
+        <e k="invoice_work_seeding" v="Semănat" />
+        <e k="invoice_work_seedingPotato" v="Plantare (Cartofi)" />
+        <e k="invoice_work_seedingSugarcane" v="Plantare (Trestie)" />
+        <e k="invoice_work_seedingRice" v="Semănat (Orez)" />
+        <e k="invoice_work_seedingRoot" v="Semănat (Rădăcinoase)" />
+        <e k="invoice_work_pruning" v="Tăiere vie" />
+        <e k="invoice_work_spraying" v="Erbicidare" />
+        <e k="invoice_work_organicFertilizer" v="Fertilizare (Organic)" />
+        <e k="invoice_work_mineralFertilizer" v="Fertilizare" />
+        <e k="invoice_work_mechanicalWeeding" v="Prășire" />
+        <e k="invoice_work_harvestGrain" v="Recoltare (Cereale)" />
+        <e k="invoice_work_harvestPotato" v="Recoltare (Cartofi)" />
+        <e k="invoice_work_harvestSugarbeet" v="Recoltare (Sfeclă)" />
+        <e k="invoice_work_harvestSugarcane" v="Recoltare (Trestie)" />
+        <e k="invoice_work_harvestCotton" v="Recoltare (Bumbac)" />
+        <e k="invoice_work_harvestGrape" v="Recoltare (Struguri)" />
+        <e k="invoice_work_harvestOlive" v="Recoltare (Măsline)" />
+        <e k="invoice_work_harvestRice" v="Recoltare (Orez)" />
+        <e k="invoice_work_harvestSpinach" v="Recoltare (Spanac)" />
+        <e k="invoice_work_harvestPeas" v="Recoltare (Mazăre)" />
+        <e k="invoice_work_harvestGreenBeans" v="Recoltare (Fasole)" />
+        <e k="invoice_work_harvestVegetables" v="Recoltare Legume" />
+        <e k="invoice_work_harvestOnion" v="Recoltare (Ceapă)" />
+        <e k="invoice_work_chaffing" v="Însilozare" />
+        <e k="invoice_work_mowing" v="Cosire" />
+        <e k="invoice_work_tedding" v="Întoarcere fân" />
+        <e k="invoice_work_windrowing" v="Greblare" />
+        <e k="invoice_work_baling" v="Balotare" />
+        <e k="invoice_work_wrapping" v="Înfoliere" />
+        <e k="invoice_work_buyBales" v="Comerț (Cumpărare)" />
+        <e k="invoice_work_sellBales" v="Vânzare (Baloți)" />
+        <e k="invoice_work_animalFeeding" v="Hrănire" />
+        <e k="invoice_work_barnCleaning" v="Curățare grajd" />
+        <e k="invoice_work_animalTransport" v="Transport animale" />
+        <e k="invoice_work_snowRemoval" v="Deszăpezire" />
+        <e k="invoice_work_generalLabor" v="Muncă manuală" />
+        <e k="invoice_work_loaderWork" v="Încărcare" />
+        <e k="invoice_work_driving" v="Șofer" />
+        <e k="invoice_work_siloWork" v="Tasare siloz" />
+        <e k="invoice_work_delivery" v="Livrare" />
+        <e k="invoice_work_transport" v="Transport" />
+        <e k="invoice_work_equipmentRental" v="Închiriere" />
+        <e k="invoice_work_heapLoading" v="Încărcare grămezi (margine câmp)" />
+        <e k="invoice_work_treePlanting" v="Plantare copaci" />
+        <e k="invoice_work_treeCutting" v="Tăiere copaci" />
+        <e k="invoice_work_treeRemoval" v="Transport Bușteni" />
+        <e k="invoice_work_goods" v="Provizii" />
+        <e k="invoice_work_miscellaneous" v="Diverse" />
+        <e k="finance_invoicePayment" v="Plată factură" />
+        <e k="invoice_moneyType" v="Facturare" />
+        <e k="invoice_error_permission_required" v="Acțiune rezervată managerilor de fermă." />
+        <e k="invoice_error_insufficient_funds" v="Sold insuficient pentru plata acestei facturi." />    </elements>
+</l10n>

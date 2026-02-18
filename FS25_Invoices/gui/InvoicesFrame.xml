@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!--
+    InvoicesFrame.xml - Main invoice menu frame
+-->
+<GUI name="InvoicesFrame">
+    <GuiElement profile="fs25_menuContainer">
+
+        <!-- Header -->
+        <GuiElement profile="fs25_menuHeaderPanel">
+            <Bitmap profile="fs25_menuHeaderIconBg">
+                <Bitmap profile="invHeaderIcon" id="categoryHeaderIcon"/>
+            </Bitmap>
+            <Text profile="fs25_menuHeaderTitle" id="categoryHeaderText" text="$l10n_invoice_menu_title"/>
+            <RoundCorner profile="fs25_shopMoneyBoxBg" id="shopMoneyBoxBg"/>
+            <BoxLayout profile="fs25_shopMoneyBox" id="shopMoneyBox">
+                <Text profile="fs25_shopBalance" text="$l10n_ui_balance:"/>
+                <Text profile="fs25_shopMoney" id="currentBalanceText"/>
+            </BoxLayout>
+        </GuiElement>
+
+        <!-- Tabs: Incoming / Outgoing -->
+        <BoxLayout profile="fs25_subCategorySelectorTabbedBox" id="subCategoryBox">
+            <Button profile="fs25_subCategorySelectorTabbedTab" id="subCategoryTabs[1]" text="$l10n_invoice_tab_incoming" onClick="onClickIncoming">
+                <ThreePartBitmap profile="fs25_subCategorySelectorTabbedTabBg" name="background"/>
+            </Button>
+            <Button profile="fs25_subCategorySelectorTabbedTab" id="subCategoryTabs[2]" text="$l10n_invoice_tab_outgoing" onClick="onClickOutgoing">
+                <ThreePartBitmap profile="fs25_subCategorySelectorTabbedTabBg" name="background"/>
+            </Button>
+        </BoxLayout>
+
+        <!-- Separator + paging -->
+        <ThreePartBitmap profile="fs25_lineSeparatorTopHighlighted" position="0px -57px"/>
+        <MultiTextOption profile="fs25_subCategorySelectorTabbed" id="subCategoryPaging" position="0px -10px" onClick="updateSubCategoryPages"/>
+
+        <!-- Tab 1: Incoming -->
+        <GuiElement profile="fs25_subCategorySelectorTabbedContainer" id="subCategoryPages[1]">
+
+            <GuiElement id="invoiceListContainer" profile="invListContentArea">
+
+                <!-- Column headers -->
+                <GuiElement profile="fs25_statisticsHeaderBox">
+                    <Text profile="invColumnHeaderBtnCenter" position="20px -20px"  size="100px 32px" text="$l10n_invoice_col_number"/>
+                    <Text profile="invColumnHeaderBtnCenter" position="130px -20px" size="170px 32px" text="$l10n_invoice_col_date"/>
+                    <Text profile="invColumnHeaderBtnCenter" position="310px -20px" size="390px 32px" text="$l10n_invoice_col_farm"/>
+                    <Text profile="invColumnHeaderBtnCenter" position="710px -20px" size="280px 32px" text="$l10n_invoice_step4_col_service"/>
+                    <Text profile="invColumnHeaderBtnCenter" position="1110px -20px" size="120px 32px" text="$l10n_invoice_col_status"/>
+                    <Text profile="invColumnHeaderBtnCenter" position="1280px -20px" size="270px 32px" text="$l10n_invoice_col_amount"/>
+                </GuiElement>
+
+                <!-- Invoice list -->
+                <SmoothList id="listInvoices" profile="invInvoiceList" position="0px -50px">
+                    <ListItem profile="invInvoiceListItem">
+                        <Text profile="invRowCellLeft"   position="20px 0px"   size="100px 32px" name="cellNumber"/>
+                        <Text profile="invRowCellLeft"   position="130px 0px"  size="170px 32px" name="cellDate"/>
+                        <Text profile="invRowCellLeft"   position="310px 0px"  size="390px 32px" name="cellFarm"/>
+                        <Text profile="invRowCellDim"    position="710px 0px"  size="280px 32px" name="cellServices"/>
+                        <Text profile="invRowCellCenter" position="1110px 0px" size="120px 32px" name="cellStatus"/>
+                        <Text profile="invRowCellRight"  position="1280px 0px" size="270px 32px" name="cellAmount"/>
+                    </ListItem>
+                </SmoothList>
+
+                <!-- Slider -->
+                <ThreePartBitmap profile="invSliderBox" position="0px -50px">
+                    <Slider profile="fs25_listSlider" dataElementId="listInvoices"/>
+                </ThreePartBitmap>
+
+            </GuiElement>
+
+            <!-- Empty state -->
+            <GuiElement id="emptyListContainer" profile="invListContentArea">
+                <Text profile="invEmptyStateText" id="emptyStateText" position="540px -350px" text="$l10n_invoice_empty_list"/>
+            </GuiElement>
+
+        </GuiElement>
+
+        <!-- Tab 2: Outgoing -->
+        <GuiElement profile="fs25_subCategorySelectorTabbedContainer" id="subCategoryPages[2]">
+
+            <GuiElement id="invoiceListContainer2" profile="invListContentArea">
+
+                <!-- Column headers -->
+                <GuiElement profile="fs25_statisticsHeaderBox">
+                    <Text profile="invColumnHeaderBtnCenter" position="20px -20px"  size="100px 32px" text="$l10n_invoice_col_number"/>
+                    <Text profile="invColumnHeaderBtnCenter" position="130px -20px" size="170px 32px" text="$l10n_invoice_col_date"/>
+                    <Text profile="invColumnHeaderBtnCenter" position="310px -20px" size="390px 32px" text="$l10n_invoice_col_farm"/>
+                    <Text profile="invColumnHeaderBtnCenter" position="710px -20px" size="280px 32px" text="$l10n_invoice_step4_col_service"/>
+                    <Text profile="invColumnHeaderBtnCenter" position="1110px -20px" size="120px 32px" text="$l10n_invoice_col_status"/>
+                    <Text profile="invColumnHeaderBtnCenter" position="1280px -20px" size="270px 32px" text="$l10n_invoice_col_amount"/>
+                </GuiElement>
+
+                <!-- Invoice list -->
+                <SmoothList id="listInvoices2" profile="invInvoiceList" position="0px -50px">
+                    <ListItem profile="invInvoiceListItem">
+                        <Text profile="invRowCellLeft"   position="20px 0px"   size="100px 32px" name="cellNumber"/>
+                        <Text profile="invRowCellLeft"   position="130px 0px"  size="170px 32px" name="cellDate"/>
+                        <Text profile="invRowCellLeft"   position="310px 0px"  size="390px 32px" name="cellFarm"/>
+                        <Text profile="invRowCellDim"    position="710px 0px"  size="280px 32px" name="cellServices"/>
+                        <Text profile="invRowCellCenter" position="1110px 0px" size="120px 32px" name="cellStatus"/>
+                        <Text profile="invRowCellRight"  position="1280px 0px" size="270px 32px" name="cellAmount"/>
+                    </ListItem>
+                </SmoothList>
+
+                <!-- Slider -->
+                <ThreePartBitmap profile="invSliderBox" position="0px -50px">
+                    <Slider profile="fs25_listSlider" dataElementId="listInvoices2"/>
+                </ThreePartBitmap>
+
+            </GuiElement>
+
+            <!-- Empty state -->
+            <GuiElement id="emptyListContainer2" profile="invListContentArea">
+                <Text profile="invEmptyStateText" id="emptyStateText2" position="540px -350px" text="$l10n_invoice_empty_list"/>
+            </GuiElement>
+
+        </GuiElement>
+
+    </GuiElement>
+</GUI>

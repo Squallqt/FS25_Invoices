@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <elements>
+        <e k="invoice_menu_title" v="Faturalandırma" />
+        <e k="invoice_tab_incoming" v="GELEN" />
+        <e k="invoice_tab_outgoing" v="GİDEN" />
+        <e k="invoice_status_unpaid" v="Beklemede" />
+        <e k="invoice_status_paid" v="Ödendi" />
+        <e k="invoice_col_date" v="Tarih" />
+        <e k="invoice_col_farm" v="Çiftlik" />
+        <e k="invoice_col_amount" v="Tutar" />
+        <e k="invoice_col_field" v="Tarla" />
+        <e k="invoice_col_area" v="Alan" />
+        <e k="invoice_btn_newInvoice" v="Yeni Fatura" />
+        <e k="invoice_btn_payInvoice" v="Öde" />
+        <e k="invoice_btn_deleteInvoice" v="Sil" />
+        <e k="invoice_btn_showDetails" v="Detaylar" />
+        <e k="invoice_btn_add" v="Ekle" />
+        <e k="invoice_btn_remove" v="Kaldır" />
+        <e k="invoice_btn_cancel" v="İptal" />
+        <e k="invoice_btn_close" v="Kapat" />
+        <e k="invoice_btn_select" v="Seç" />
+        <e k="invoice_btn_selectFarm" v="Müşteri Seç" />
+        <e k="invoice_btn_next" v="İleri" />
+        <e k="invoice_btn_back" v="Geri" />
+        <e k="invoice_label_from" v="Gönderen:" />
+        <e k="invoice_label_to" v="Alıcı:" />
+        <e k="invoice_label_note" v="Notlar:" />
+        <e k="invoice_label_total" v="Toplam:" />
+        <e k="invoice_dialog_details" v="Fatura Detayları" />
+        <e k="invoice_dialog_selectField" v="Tarla Seçimi" />
+        <e k="invoice_wizard_mainTitle" v="YENİ FATURA" />
+        <e k="invoice_wizard_step1_subtitle" v="MÜŞTERİ" />
+        <e k="invoice_wizard_step1_label" v="Müşteri çiftliği seçin:" />
+        <e k="invoice_wizard_step2_subtitle" v="HİZMETLER" />
+        <e k="invoice_wizard_step2_label" v="İş tipini seçin:" />
+        <e k="invoice_wizard_step3_subtitle" v="TARLALAR" />
+        <e k="invoice_wizard_step3_label" v="İlgili tarlaları seçin:" />
+        <e k="invoice_wizard_step4_subtitle" v="ÖZET" />
+        <e k="invoice_btn_sendInvoice" v="Faturayı Gönder" />
+        <e k="invoice_wizard_no_items" v="Hizmet seçilmedi." />
+        <e k="invoice_error_select_work" v="Lütfen bir hizmet seçin." />
+        <e k="invoice_wizard_invoice_created" v="Fatura başarıyla oluşturuldu!" />
+        <e k="invoice_wizard_invoice_failed" v="Oluşturma hatası." />
+        <e k="invoice_wizard_client_fields" v="Müşteri alanları" />
+        <e k="invoice_wizard_other_fields" v="Diğer alanlar" />
+        <e k="invoice_wizard_selection_summary" v="Hizmetler:" />
+        <e k="invoice_wizard_field_selection_summary" v="Konum:" />
+        <e k="invoice_format_field_id" v="Tarla %d" />
+        <e k="invoice_step4_col_service" v="Açıklama" />
+        <e k="invoice_step4_col_qty" v="Miktar" />
+        <e k="invoice_step4_col_unitprice" v="Fiyat" />
+        <e k="invoice_step4_col_amount" v="Tutar" />
+        <e k="invoice_step4_from" v="Gönderen: %s" />
+        <e k="invoice_step4_to" v="Müşteri: %s" />
+        <e k="invoice_step4_total" v="ÖDENECEK" />
+        <e k="invoice_detail_col_service" v="Açıklama" />
+        <e k="invoice_detail_col_qty" v="Miktar" />
+        <e k="invoice_detail_col_unit" v="Birim" />
+        <e k="invoice_detail_col_unitprice" v="Fiyat" />
+        <e k="invoice_detail_col_amount" v="Tutar" />
+        <e k="invoice_col_number" v="Fatura No" />
+        <e k="invoice_col_status" v="Durum" />
+        <e k="invoice_popup_added" v="Eklendi: %s" />
+        <e k="invoice_popup_removed" v="Kaldırıldı: %s" />
+        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_empty_list" v="Fatura yok" />
+        <e k="invoice_format_inv_number" v="FAT-%03d" />
+        <e k="invoice_format_services_count" v="%d satır" />
+        <e k="invoice_confirm_pay" v="'%s' kişisine ödeme yapılsın mı?" />
+        <e k="invoice_confirm_delete" v="Kalıcı olarak silinsin mi?" />
+        <e k="invoice_notification_new" v="%s kişisinden fatura alındı: %s" />
+        <e k="invoice_reminder_single" v="Ödenmemiş fatura: %s" />
+        <e k="invoice_reminder_multiple" v="%d ödenmemiş fatura, toplam %s" />
+        <e k="invoice_format_date" v="%02d.%02d.Y%d - %02d:%02d" />
+        <e k="invoice_format_date_legacy" v="G%d - %02d:%02d" />
+        <e k="invoice_format_field" v="Tarla %s (%.2f ha)" />
+        <e k="invoice_format_fieldId" v="Tarla %s" />
+        <e k="invoice_invoices_unit_piece" v="ad" />
+        <e k="invoice_invoices_unit_hour" v="sa" />
+        <e k="invoice_invoices_unit_hectare" v="ha" />
+        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_work_stoneCollection" v="Taş Toplama" />
+        <e k="invoice_work_plowing" v="Sürüm (Pulluk)" />
+        <e k="invoice_work_cultivating" v="Kültivatör" />
+        <e k="invoice_work_mulching" v="Malçlama" />
+        <e k="invoice_work_rolling" v="Silindirleme" />
+        <e k="invoice_work_harrowing" v="Tırmıklama" />
+        <e k="invoice_work_seeding" v="Ekim" />
+        <e k="invoice_work_seedingPotato" v="Dikim (Patates)" />
+        <e k="invoice_work_seedingSugarcane" v="Dikim (Kamış)" />
+        <e k="invoice_work_seedingRice" v="Ekim (Pirinç)" />
+        <e k="invoice_work_seedingRoot" v="Ekim (Kök Bitkiler)" />
+        <e k="invoice_work_pruning" v="Budama" />
+        <e k="invoice_work_spraying" v="İlaçlama" />
+        <e k="invoice_work_organicFertilizer" v="Gübreleme (Organik)" />
+        <e k="invoice_work_mineralFertilizer" v="Gübreleme (Suni)" />
+        <e k="invoice_work_mechanicalWeeding" v="Mekanik Ot Alma" />
+        <e k="invoice_work_harvestGrain" v="Hasat (Tahıl)" />
+        <e k="invoice_work_harvestPotato" v="Hasat (Patates)" />
+        <e k="invoice_work_harvestSugarbeet" v="Hasat (Pancar)" />
+        <e k="invoice_work_harvestSugarcane" v="Hasat (Şeker Kamışı)" />
+        <e k="invoice_work_harvestCotton" v="Hasat (Pamuk)" />
+        <e k="invoice_work_harvestGrape" v="Hasat (Üzüm)" />
+        <e k="invoice_work_harvestOlive" v="Hasat (Zeytin)" />
+        <e k="invoice_work_harvestRice" v="Hasat (Pirinç)" />
+        <e k="invoice_work_harvestSpinach" v="Hasat (Ispanak)" />
+        <e k="invoice_work_harvestPeas" v="Hasat (Bezelye)" />
+        <e k="invoice_work_harvestGreenBeans" v="Hasat (Fasulye)" />
+        <e k="invoice_work_harvestVegetables" v="Sebze Hasadı" />
+        <e k="invoice_work_harvestOnion" v="Hasat (Soğan)" />
+        <e k="invoice_work_chaffing" v="Silaj Yapımı" />
+        <e k="invoice_work_mowing" v="Biçme" />
+        <e k="invoice_work_tedding" v="Ot Çevirme" />
+        <e k="invoice_work_windrowing" v="Namlu Yapma" />
+        <e k="invoice_work_baling" v="Balyalama" />
+        <e k="invoice_work_wrapping" v="Paketleme" />
+        <e k="invoice_work_buyBales" v="Ticaret (Satın Alma)" />
+        <e k="invoice_work_sellBales" v="Satış (Balya)" />
+        <e k="invoice_work_animalFeeding" v="Yemleme" />
+        <e k="invoice_work_barnCleaning" v="Ahır Temizliği" />
+        <e k="invoice_work_animalTransport" v="Hayvan Taşıma" />
+        <e k="invoice_work_snowRemoval" v="Kar Temizleme" />
+        <e k="invoice_work_generalLabor" v="El İşçiliği" />
+        <e k="invoice_work_loaderWork" v="Yükleyici İşi" />
+        <e k="invoice_work_driving" v="Şoförlük" />
+        <e k="invoice_work_siloWork" v="Silo Sıkıştırma" />
+        <e k="invoice_work_delivery" v="Teslimat" />
+        <e k="invoice_work_transport" v="Nakliye" />
+        <e k="invoice_work_equipmentRental" v="Ekipman Kiralama" />
+        <e k="invoice_work_heapLoading" v="Yığın Yükleme (Tarla Kenarı)" />
+        <e k="invoice_work_treePlanting" v="Ağaç Dikimi" />
+        <e k="invoice_work_treeCutting" v="Ağaç Kesimi" />
+        <e k="invoice_work_treeRemoval" v="Tomruk Taşıma" />
+        <e k="invoice_work_goods" v="Malzemeler" />
+        <e k="invoice_work_miscellaneous" v="Çeşitli" />
+        <e k="finance_invoicePayment" v="Fatura Ödemesi" />
+        <e k="invoice_moneyType" v="Faturalandırma" />
+        <e k="invoice_error_permission_required" v="İşlem sadece çiftlik yöneticilerine ayrılmıştır." />
+        <e k="invoice_error_insufficient_funds" v="Bu faturayı ödemek için yetersiz bakiye." />    </elements>
+</l10n>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <elements>
+        <e k="invoice_menu_title" v="发票管理" />
+        <e k="invoice_tab_incoming" v="收入" />
+        <e k="invoice_tab_outgoing" v="支出" />
+        <e k="invoice_status_unpaid" v="待处理" />
+        <e k="invoice_status_paid" v="已付" />
+        <e k="invoice_col_date" v="日期" />
+        <e k="invoice_col_farm" v="农场" />
+        <e k="invoice_col_amount" v="金额" />
+        <e k="invoice_col_field" v="田地" />
+        <e k="invoice_col_area" v="面积" />
+        <e k="invoice_btn_newInvoice" v="新发票" />
+        <e k="invoice_btn_payInvoice" v="支付" />
+        <e k="invoice_btn_deleteInvoice" v="删除" />
+        <e k="invoice_btn_showDetails" v="详情" />
+        <e k="invoice_btn_add" v="添加" />
+        <e k="invoice_btn_remove" v="移除" />
+        <e k="invoice_btn_cancel" v="取消" />
+        <e k="invoice_btn_close" v="关闭" />
+        <e k="invoice_btn_select" v="选择" />
+        <e k="invoice_btn_selectFarm" v="选择客户" />
+        <e k="invoice_btn_next" v="下一步" />
+        <e k="invoice_btn_back" v="返回" />
+        <e k="invoice_label_from" v="来自:" />
+        <e k="invoice_label_to" v="致:" />
+        <e k="invoice_label_note" v="备注:" />
+        <e k="invoice_label_total" v="总计:" />
+        <e k="invoice_dialog_details" v="发票详情" />
+        <e k="invoice_dialog_selectField" v="田地选择" />
+        <e k="invoice_wizard_mainTitle" v="新发票" />
+        <e k="invoice_wizard_step1_subtitle" v="客户" />
+        <e k="invoice_wizard_step1_label" v="选择客户农场:" />
+        <e k="invoice_wizard_step2_subtitle" v="服务" />
+        <e k="invoice_wizard_step2_label" v="选择工作类型:" />
+        <e k="invoice_wizard_step3_subtitle" v="田地" />
+        <e k="invoice_wizard_step3_label" v="选择相关田地:" />
+        <e k="invoice_wizard_step4_subtitle" v="摘要" />
+        <e k="invoice_btn_sendInvoice" v="发送发票" />
+        <e k="invoice_wizard_no_items" v="未选择服务。" />
+        <e k="invoice_error_select_work" v="请选择一项服务。" />
+        <e k="invoice_wizard_invoice_created" v="发票创建成功！" />
+        <e k="invoice_wizard_invoice_failed" v="创建失败。" />
+        <e k="invoice_wizard_client_fields" v="客户田地" />
+        <e k="invoice_wizard_other_fields" v="其他田地" />
+        <e k="invoice_wizard_selection_summary" v="服务:" />
+        <e k="invoice_wizard_field_selection_summary" v="位置:" />
+        <e k="invoice_format_field_id" v="田地 %d" />
+        <e k="invoice_step4_col_service" v="描述" />
+        <e k="invoice_step4_col_qty" v="数量" />
+        <e k="invoice_step4_col_unitprice" v="单价" />
+        <e k="invoice_step4_col_amount" v="金额" />
+        <e k="invoice_step4_from" v="开票人: %s" />
+        <e k="invoice_step4_to" v="客户: %s" />
+        <e k="invoice_step4_total" v="应付金额" />
+        <e k="invoice_detail_col_service" v="描述" />
+        <e k="invoice_detail_col_qty" v="数量" />
+        <e k="invoice_detail_col_unit" v="单位" />
+        <e k="invoice_detail_col_unitprice" v="单价" />
+        <e k="invoice_detail_col_amount" v="金额" />
+        <e k="invoice_col_number" v="发票编号" />
+        <e k="invoice_col_status" v="状态" />
+        <e k="invoice_popup_added" v="已添加: %s" />
+        <e k="invoice_popup_removed" v="已移除: %s" />
+        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_empty_list" v="无发票" />
+        <e k="invoice_format_inv_number" v="INV-%03d" />
+        <e k="invoice_format_services_count" v="%d 行" />
+        <e k="invoice_confirm_pay" v="确认支付给 '%s'？" />
+        <e k="invoice_confirm_delete" v="永久删除？" />
+        <e k="invoice_notification_new" v="收到来自 %s 的发票: %s" />
+        <e k="invoice_reminder_single" v="未付款发票: %s" />
+        <e k="invoice_reminder_multiple" v="%d 张未付款发票，总计 %s" />
+        <e k="invoice_format_date" v="%02d/%02d/Y%d - %02d:%02d" />
+        <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
+        <e k="invoice_format_field" v="田地 %s (%.2f 公顷)" />
+        <e k="invoice_format_fieldId" v="田地 %s" />
+        <e k="invoice_invoices_unit_piece" v="件" />
+        <e k="invoice_invoices_unit_hour" v="小时" />
+        <e k="invoice_invoices_unit_hectare" v="公顷" />
+        <e k="invoice_invoices_unit_liter" v="升" />
+        <e k="invoice_work_stoneCollection" v="捡石" />
+        <e k="invoice_work_plowing" v="犁地" />
+        <e k="invoice_work_cultivating" v="中耕" />
+        <e k="invoice_work_mulching" v="覆盖" />
+        <e k="invoice_work_rolling" v="滚压" />
+        <e k="invoice_work_harrowing" v="耙地" />
+        <e k="invoice_work_seeding" v="播种" />
+        <e k="invoice_work_seedingPotato" v="种植 (马铃薯)" />
+        <e k="invoice_work_seedingSugarcane" v="种植 (甘蔗)" />
+        <e k="invoice_work_seedingRice" v="播种 (水稻)" />
+        <e k="invoice_work_seedingRoot" v="播种 (根茎类)" />
+        <e k="invoice_work_pruning" v="修剪" />
+        <e k="invoice_work_spraying" v="喷洒" />
+        <e k="invoice_work_organicFertilizer" v="施肥 (有机)" />
+        <e k="invoice_work_mineralFertilizer" v="施肥 (化肥)" />
+        <e k="invoice_work_mechanicalWeeding" v="除草" />
+        <e k="invoice_work_harvestGrain" v="收割 (谷物)" />
+        <e k="invoice_work_harvestPotato" v="收获 (马铃薯)" />
+        <e k="invoice_work_harvestSugarbeet" v="收获 (甜菜)" />
+        <e k="invoice_work_harvestSugarcane" v="收割 (甘蔗)" />
+        <e k="invoice_work_harvestCotton" v="收割 (棉花)" />
+        <e k="invoice_work_harvestGrape" v="收获 (葡萄)" />
+        <e k="invoice_work_harvestOlive" v="收获 (橄榄)" />
+        <e k="invoice_work_harvestRice" v="收获 (水稻)" />
+        <e k="invoice_work_harvestSpinach" v="收获 (菠菜)" />
+        <e k="invoice_work_harvestPeas" v="收获 (豌豆)" />
+        <e k="invoice_work_harvestGreenBeans" v="收获 (青豆)" />
+        <e k="invoice_work_harvestVegetables" v="蔬菜收获" />
+        <e k="invoice_work_harvestOnion" v="收获 (洋葱)" />
+        <e k="invoice_work_chaffing" v="青贮切碎" />
+        <e k="invoice_work_mowing" v="割草" />
+        <e k="invoice_work_tedding" v="翻晒" />
+        <e k="invoice_work_windrowing" v="堆行" />
+        <e k="invoice_work_baling" v="打包" />
+        <e k="invoice_work_wrapping" v="裹包" />
+        <e k="invoice_work_buyBales" v="交易 (购买)" />
+        <e k="invoice_work_sellBales" v="销售 (草捆)" />
+        <e k="invoice_work_animalFeeding" v="喂养" />
+        <e k="invoice_work_barnCleaning" v="清洁畜舍" />
+        <e k="invoice_work_animalTransport" v="牲畜运输" />
+        <e k="invoice_work_snowRemoval" v="除雪" />
+        <e k="invoice_work_generalLabor" v="人工劳作" />
+        <e k="invoice_work_loaderWork" v="装载工作" />
+        <e k="invoice_work_driving" v="驾驶" />
+        <e k="invoice_work_siloWork" v="青贮压实" />
+        <e k="invoice_work_delivery" v="送货" />
+        <e k="invoice_work_transport" v="运输" />
+        <e k="invoice_work_equipmentRental" v="设备租赁" />
+        <e k="invoice_work_heapLoading" v="堆料装载（田边）" />
+        <e k="invoice_work_treePlanting" v="植树" />
+        <e k="invoice_work_treeCutting" v="伐木" />
+        <e k="invoice_work_treeRemoval" v="木材运输" />
+        <e k="invoice_work_goods" v="物资" />
+        <e k="invoice_work_miscellaneous" v="杂项" />
+        <e k="finance_invoicePayment" v="支付发票" />
+        <e k="invoice_moneyType" v="发票" />
+        <e k="invoice_error_permission_required" v="仅农场经理可执行此操作。" />
+        <e k="invoice_error_insufficient_funds" v="余额不足，无法支付此发票。" />    </elements>
+</l10n>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <elements>
+        <e k="invoice_menu_title" v="Laskutus" />
+        <e k="invoice_tab_incoming" v="SAAPUVAT" />
+        <e k="invoice_tab_outgoing" v="LÄHTEVÄT" />
+        <e k="invoice_status_unpaid" v="Odottaa" />
+        <e k="invoice_status_paid" v="Maksettu" />
+        <e k="invoice_col_date" v="Pvm" />
+        <e k="invoice_col_farm" v="Tila" />
+        <e k="invoice_col_amount" v="Summa" />
+        <e k="invoice_col_field" v="Pelto" />
+        <e k="invoice_col_area" v="Ala" />
+        <e k="invoice_btn_newInvoice" v="Uusi lasku" />
+        <e k="invoice_btn_payInvoice" v="Maksa" />
+        <e k="invoice_btn_deleteInvoice" v="Poista" />
+        <e k="invoice_btn_showDetails" v="Tiedot" />
+        <e k="invoice_btn_add" v="Lisää" />
+        <e k="invoice_btn_remove" v="Poista" />
+        <e k="invoice_btn_cancel" v="Peruuta" />
+        <e k="invoice_btn_close" v="Sulje" />
+        <e k="invoice_btn_select" v="Valitse" />
+        <e k="invoice_btn_selectFarm" v="Valitse asiakas" />
+        <e k="invoice_btn_next" v="Seuraava" />
+        <e k="invoice_btn_back" v="Edellinen" />
+        <e k="invoice_label_from" v="Lähettäjä:" />
+        <e k="invoice_label_to" v="Vastaanottaja:" />
+        <e k="invoice_label_note" v="Huomautukset:" />
+        <e k="invoice_label_total" v="Yhteensä:" />
+        <e k="invoice_dialog_details" v="Laskun tiedot" />
+        <e k="invoice_dialog_selectField" v="Pellon valinta" />
+        <e k="invoice_wizard_mainTitle" v="UUSI LASKU" />
+        <e k="invoice_wizard_step1_subtitle" v="ASIAKAS" />
+        <e k="invoice_wizard_step1_label" v="Valitse asiakastila:" />
+        <e k="invoice_wizard_step2_subtitle" v="PALVELUT" />
+        <e k="invoice_wizard_step2_label" v="Valitse työn tyyppi:" />
+        <e k="invoice_wizard_step3_subtitle" v="PELLOT" />
+        <e k="invoice_wizard_step3_label" v="Valitse liittyvät pellot:" />
+        <e k="invoice_wizard_step4_subtitle" v="YHTEENVETO" />
+        <e k="invoice_btn_sendInvoice" v="Lähetä lasku" />
+        <e k="invoice_wizard_no_items" v="Ei palvelua valittu." />
+        <e k="invoice_error_select_work" v="Valitse palvelu." />
+        <e k="invoice_wizard_invoice_created" v="Lasku luotu onnistuneesti!" />
+        <e k="invoice_wizard_invoice_failed" v="Virhe luonnissa." />
+        <e k="invoice_wizard_client_fields" v="Asiakaskentät" />
+        <e k="invoice_wizard_other_fields" v="Muut kentät" />
+        <e k="invoice_wizard_selection_summary" v="Palvelut:" />
+        <e k="invoice_wizard_field_selection_summary" v="Sijainti:" />
+        <e k="invoice_format_field_id" v="Pelto %d" />
+        <e k="invoice_step4_col_service" v="Kuvaus" />
+        <e k="invoice_step4_col_qty" v="Määrä" />
+        <e k="invoice_step4_col_unitprice" v="Hinta" />
+        <e k="invoice_step4_col_amount" v="Summa" />
+        <e k="invoice_step4_from" v="Lähettäjä: %s" />
+        <e k="invoice_step4_to" v="Asiakas: %s" />
+        <e k="invoice_step4_total" v="MAKSETTAVAA" />
+        <e k="invoice_detail_col_service" v="Kuvaus" />
+        <e k="invoice_detail_col_qty" v="Määrä" />
+        <e k="invoice_detail_col_unit" v="Yks." />
+        <e k="invoice_detail_col_unitprice" v="Hinta" />
+        <e k="invoice_detail_col_amount" v="Summa" />
+        <e k="invoice_col_number" v="Laskunumero" />
+        <e k="invoice_col_status" v="Tila" />
+        <e k="invoice_popup_added" v="Lisätty: %s" />
+        <e k="invoice_popup_removed" v="Poistettu: %s" />
+        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_empty_list" v="Ei laskuja" />
+        <e k="invoice_format_inv_number" v="L-%03d" />
+        <e k="invoice_format_services_count" v="%d rivi(ä)" />
+        <e k="invoice_confirm_pay" v="Vahvista maksu kohteelle '%s'?" />
+        <e k="invoice_confirm_delete" v="Poista lasku pysyvästi?" />
+        <e k="invoice_notification_new" v="Lasku saatu: %s - %s" />
+        <e k="invoice_reminder_single" v="Maksamaton lasku: %s" />
+        <e k="invoice_reminder_multiple" v="%d maksamatonta laskua yhteensä %s" />
+        <e k="invoice_format_date" v="%02d.%02d.V%d - %02d:%02d" />
+        <e k="invoice_format_date_legacy" v="P%d - %02d:%02d" />
+        <e k="invoice_format_field" v="Pelto %s (%.2f ha)" />
+        <e k="invoice_format_fieldId" v="Pelto %s" />
+        <e k="invoice_invoices_unit_piece" v="kpl" />
+        <e k="invoice_invoices_unit_hour" v="h" />
+        <e k="invoice_invoices_unit_hectare" v="ha" />
+        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_work_stoneCollection" v="Kivien keruu" />
+        <e k="invoice_work_plowing" v="Kyntö" />
+        <e k="invoice_work_cultivating" v="Muokkaus" />
+        <e k="invoice_work_mulching" v="Murskaus" />
+        <e k="invoice_work_rolling" v="Jyräys" />
+        <e k="invoice_work_harrowing" v="Äestys" />
+        <e k="invoice_work_seeding" v="Kylvö" />
+        <e k="invoice_work_seedingPotato" v="Istutus (Peruna)" />
+        <e k="invoice_work_seedingSugarcane" v="Istutus (Ruoko)" />
+        <e k="invoice_work_seedingRice" v="Kylvö (Riisi)" />
+        <e k="invoice_work_seedingRoot" v="Kylvö (Juurekset)" />
+        <e k="invoice_work_pruning" v="Leikkaus" />
+        <e k="invoice_work_spraying" v="Ruiskutus" />
+        <e k="invoice_work_organicFertilizer" v="Lannoitus (Orgaaninen)" />
+        <e k="invoice_work_mineralFertilizer" v="Lannoitus" />
+        <e k="invoice_work_mechanicalWeeding" v="Rikkakasvien torjunta" />
+        <e k="invoice_work_harvestGrain" v="Puinti" />
+        <e k="invoice_work_harvestPotato" v="Nosto (Peruna)" />
+        <e k="invoice_work_harvestSugarbeet" v="Nosto (Juurikas)" />
+        <e k="invoice_work_harvestSugarcane" v="Korjuu (Ruoko)" />
+        <e k="invoice_work_harvestCotton" v="Korjuu (Puuvilla)" />
+        <e k="invoice_work_harvestGrape" v="Sadonkorjuu (Viini)" />
+        <e k="invoice_work_harvestOlive" v="Sadonkorjuu (Oliivi)" />
+        <e k="invoice_work_harvestRice" v="Korjuu (Riisi)" />
+        <e k="invoice_work_harvestSpinach" v="Korjuu (Pinaatti)" />
+        <e k="invoice_work_harvestPeas" v="Korjuu (Herne)" />
+        <e k="invoice_work_harvestGreenBeans" v="Korjuu (Pavut)" />
+        <e k="invoice_work_harvestVegetables" v="Vihanneskorjuu" />
+        <e k="invoice_work_harvestOnion" v="Korjuu (Sipuli)" />
+        <e k="invoice_work_chaffing" v="Rehun teko" />
+        <e k="invoice_work_mowing" v="Niitto" />
+        <e k="invoice_work_tedding" v="Pöyhintä" />
+        <e k="invoice_work_windrowing" v="Karhotus" />
+        <e k="invoice_work_baling" v="Paalaus" />
+        <e k="invoice_work_wrapping" v="Käärintä" />
+        <e k="invoice_work_buyBales" v="Kauppa (Osto)" />
+        <e k="invoice_work_sellBales" v="Myynti (Paalit)" />
+        <e k="invoice_work_animalFeeding" v="Ruokinta" />
+        <e k="invoice_work_barnCleaning" v="Navetan siivous" />
+        <e k="invoice_work_animalTransport" v="Eläinkuljetus" />
+        <e k="invoice_work_snowRemoval" v="Lumityöt" />
+        <e k="invoice_work_generalLabor" v="Muu työ" />
+        <e k="invoice_work_loaderWork" v="Kuormaus" />
+        <e k="invoice_work_driving" v="Kuljetus" />
+        <e k="invoice_work_siloWork" v="Siilotyöt" />
+        <e k="invoice_work_delivery" v="Toimitus" />
+        <e k="invoice_work_transport" v="Rahti" />
+        <e k="invoice_work_equipmentRental" v="Vuokraus" />
+        <e k="invoice_work_heapLoading" v="Kasankuormaus (pellon reuna)" />
+        <e k="invoice_work_treePlanting" v="Metsänistutus" />
+        <e k="invoice_work_treeCutting" v="Hakkuu" />
+        <e k="invoice_work_treeRemoval" v="Puunajo" />
+        <e k="invoice_work_goods" v="Tarvikkeet" />
+        <e k="invoice_work_miscellaneous" v="Sekalainen" />
+        <e k="finance_invoicePayment" v="Laskun maksu" />
+        <e k="invoice_moneyType" v="Laskutus" />
+        <e k="invoice_error_permission_required" v="Toiminto varattu maatilan johtajille." />
+        <e k="invoice_error_insufficient_funds" v="Riittämätön saldo tämän laskun maksamiseen." />    </elements>
+</l10n>

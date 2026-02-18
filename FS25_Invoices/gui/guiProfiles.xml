@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!--
+    guiProfiles.xml - Shared GUI profiles for Invoices mod
+-->
+<GUIProfiles>
+    <!-- Header Icon Profile -->
+    
+    <Profile name="invHeaderIcon" extends="baseReference">
+        <imageUVs value="0 0 1 1" />
+        <imageColor value="$preset_fs25_colorMainDark" />
+        <imageSliceId value="noSlice" />
+    </Profile>
+    <!-- Dialog backgrounds -->
+<Profile name="invSelectFieldDialog" extends="fs25_dialogBg">
+        <size value="560px 780px"/>
+    </Profile>
+    <!-- Common BoxLayout containers -->
+    
+    <Profile name="invSelectMainBox" extends="emptyPanel">
+        <size value="520px 710px"/>
+        <flowDirection value="vertical"/>
+        <elementSpacing value="10px"/>
+    </Profile>
+
+    
+    <Profile name="invSelectListSection" extends="emptyPanel">
+        <size value="520px 660px"/>
+    </Profile>
+    
+    <Profile name="invSelectHeader" extends="emptyPanel">
+        <size value="500px 40px"/>
+        <imageColor value="0 0 0 0.35"/>
+    </Profile>
+    
+    <Profile name="invSelectHeaderCell" extends="fs25_statisticsHeaderText">
+        <size value="200px 40px"/>
+        <textSize value="16px"/>
+        <textBold value="false"/>
+        <textColor value="0.5 0.5 0.5 1"/>
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+    
+    <Profile name="invSelectList" extends="emptyPanel">
+        <size value="500px 600px"/>
+    </Profile>
+    
+    <Profile name="invSelectListItem" extends="invTableItem">
+        <size value="500px 40px"/>
+    </Profile>
+    <!-- Common table/list profiles -->
+    
+    <Profile name="invTableItem" extends="baseReference" with="anchorTopStretchingX">
+        <height value="40px"/>
+        <imageColor value="$preset_fs25_colorGrey"/>
+        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+    </Profile>
+    
+    <Profile name="invTableCell" extends="baseReference">
+        <textSize value="16px"/>
+        <textColor value="$preset_fs25_colorMainLight"/>
+        <textSelectedColor value="$preset_fs25_colorMainDark"/>
+        <textAlignment value="left"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+<Profile name="invTableCellCenter" extends="invTableCell">
+        <textAlignment value="center"/>
+    </Profile>
+    
+
+    <!-- Menu frame profiles (InvoicesFrame) -->
+
+    <!-- Column header button (RedTape rtTableHeader pattern) -->
+    <Profile name="invColumnHeaderBtn" extends="baseReference" with="anchorTopLeft">
+        <imageColor value="0 0 0 0"/>
+        <textFocusedColor value="$preset_fs25_colorMainHighlight"/>
+        <textHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+        <textSize value="16px"/>
+        <textBold value="true"/>
+        <textUpperCase value="true"/>
+        <textColor value="$preset_colorWhite_50"/>
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+        <textDisabledColor value="$preset_colorDisabled"/>
+    </Profile>
+
+    
+    <Profile name="invColumnHeaderBtnCenter" extends="invColumnHeaderBtn">
+        <textAlignment value="center"/>
+    </Profile>
+
+<!-- Content area: list + slider -->
+    <Profile name="invListContentArea" extends="emptyPanel" with="anchorTopStretchingX pivotTopLeft"/>
+
+    <!-- Invoice list -->
+    <Profile name="invInvoiceList" extends="emptyPanel" with="pivotTopLeft">
+        <size value="1480px 670px"/>
+    </Profile>
+
+    <!-- Invoice list item row -->
+    <Profile name="invInvoiceListItem" extends="baseReference" with="anchorTopStretchingX alternating">
+        <height value="32px"/>
+        <imageColor value="$preset_fs25_colorGrey"/>
+        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+        <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
+    </Profile>
+
+    <!-- Row cell: center-aligned base -->
+    <Profile name="invRowCellLeft" extends="baseReference" with="anchorStretchingYLeft">
+        <textBold value="false"/>
+        <textSize value="15px"/>
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+        <textColor value="$preset_fs25_colorMainLight"/>
+        <textSelectedColor value="$preset_fs25_colorMainDark"/>
+        <textDisabledColor value="$preset_colorDisabled"/>
+    </Profile>
+
+    <!-- Row cell: dimmed text for secondary info -->
+    <Profile name="invRowCellDim" extends="invRowCellLeft">
+        <textColor value="0.6 0.6 0.6 1"/>
+        <textSelectedColor value="$preset_fs25_colorMainDark"/>
+        <textSize value="14px"/>
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+
+    <!-- Row cell: center-aligned (status) -->
+    <Profile name="invRowCellCenter" extends="invRowCellLeft">
+        <textAlignment value="center"/>
+        <textBold value="true"/>
+        <textSize value="14px"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+
+    <!-- Row cell: center-aligned (amount) -->
+    <Profile name="invRowCellRight" extends="baseReference" with="anchorStretchingYLeft">
+        <textBold value="true"/>
+        <textSize value="15px"/>
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+        <textColor value="$preset_fs25_colorMainLight"/>
+        <textSelectedColor value="$preset_fs25_colorMainDark"/>
+        <textDisabledColor value="$preset_colorDisabled"/>
+    </Profile>
+
+    <!-- Slider -->
+    <Profile name="invSliderBox" extends="fs25_listSliderBox" with="anchorTopRight">
+        <height value="670px"/>
+    </Profile>
+
+    <!-- Empty state text -->
+    <Profile name="invEmptyStateText" extends="baseReference" with="anchorTopLeft">
+        <size value="400px 40px"/>
+        <textSize value="18px"/>
+        <textBold value="false"/>
+        <textColor value="0.45 0.45 0.45 1"/>
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+
+</GUIProfiles>

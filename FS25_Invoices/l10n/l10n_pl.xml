@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <elements>
+        <e k="invoice_menu_title" v="Fakturowanie" />
+        <e k="invoice_tab_incoming" v="OTRZYMANE" />
+        <e k="invoice_tab_outgoing" v="WYSTAWIONE" />
+        <e k="invoice_status_unpaid" v="Oczekująca" />
+        <e k="invoice_status_paid" v="Opłacona" />
+        <e k="invoice_col_date" v="Data" />
+        <e k="invoice_col_farm" v="Gospodarstwo" />
+        <e k="invoice_col_amount" v="Kwota" />
+        <e k="invoice_col_field" v="Pole" />
+        <e k="invoice_col_area" v="Obszar" />
+        <e k="invoice_btn_newInvoice" v="Nowa faktura" />
+        <e k="invoice_btn_payInvoice" v="Zapłać" />
+        <e k="invoice_btn_deleteInvoice" v="Usuń" />
+        <e k="invoice_btn_showDetails" v="Szczegóły" />
+        <e k="invoice_btn_add" v="Dodaj" />
+        <e k="invoice_btn_remove" v="Usuń" />
+        <e k="invoice_btn_cancel" v="Anuluj" />
+        <e k="invoice_btn_close" v="Zamknij" />
+        <e k="invoice_btn_select" v="Wybierz" />
+        <e k="invoice_btn_selectFarm" v="Wybierz klienta" />
+        <e k="invoice_btn_next" v="Dalej" />
+        <e k="invoice_btn_back" v="Wstecz" />
+        <e k="invoice_label_from" v="Od:" />
+        <e k="invoice_label_to" v="Do:" />
+        <e k="invoice_label_note" v="Uwagi:" />
+        <e k="invoice_label_total" v="Razem:" />
+        <e k="invoice_dialog_details" v="Szczegóły faktury" />
+        <e k="invoice_dialog_selectField" v="Wybór pola" />
+        <e k="invoice_wizard_mainTitle" v="NOWA FAKTURA" />
+        <e k="invoice_wizard_step1_subtitle" v="KLIENT" />
+        <e k="invoice_wizard_step1_label" v="Wybierz gospodarstwo klienta:" />
+        <e k="invoice_wizard_step2_subtitle" v="USŁUGI" />
+        <e k="invoice_wizard_step2_label" v="Wybierz rodzaj pracy:" />
+        <e k="invoice_wizard_step3_subtitle" v="POLA" />
+        <e k="invoice_wizard_step3_label" v="Wybierz pola:" />
+        <e k="invoice_wizard_step4_subtitle" v="PODSUMOWANIE" />
+        <e k="invoice_btn_sendInvoice" v="Wyślij fakturę" />
+        <e k="invoice_wizard_no_items" v="Nie wybrano usługi." />
+        <e k="invoice_error_select_work" v="Proszę wybrać usługę." />
+        <e k="invoice_wizard_invoice_created" v="Faktura utworzona!" />
+        <e k="invoice_wizard_invoice_failed" v="Błąd tworzenia." />
+        <e k="invoice_wizard_client_fields" v="Pola klienta" />
+        <e k="invoice_wizard_other_fields" v="Inne pola" />
+        <e k="invoice_wizard_selection_summary" v="Usługi:" />
+        <e k="invoice_wizard_field_selection_summary" v="Lokalizacja:" />
+        <e k="invoice_format_field_id" v="Pole %d" />
+        <e k="invoice_step4_col_service" v="Opis" />
+        <e k="invoice_step4_col_qty" v="Ilość" />
+        <e k="invoice_step4_col_unitprice" v="Cena" />
+        <e k="invoice_step4_col_amount" v="Kwota" />
+        <e k="invoice_step4_from" v="Wystawca: %s" />
+        <e k="invoice_step4_to" v="Klient: %s" />
+        <e k="invoice_step4_total" v="DO ZAPŁATY" />
+        <e k="invoice_detail_col_service" v="Opis" />
+        <e k="invoice_detail_col_qty" v="Ilość" />
+        <e k="invoice_detail_col_unit" v="Jedn." />
+        <e k="invoice_detail_col_unitprice" v="Cena" />
+        <e k="invoice_detail_col_amount" v="Kwota" />
+        <e k="invoice_col_number" v="Nr Faktury" />
+        <e k="invoice_col_status" v="Status" />
+        <e k="invoice_popup_added" v="Dodano: %s" />
+        <e k="invoice_popup_removed" v=" Usunięto: %s" />
+        <e k="invoice_popup_already_selected" v="Już wybrano: %s" />
+        <e k="invoice_empty_list" v="Brak faktur" />
+        <e k="invoice_format_inv_number" v="FAK-%03d" />
+        <e k="invoice_format_services_count" v="%d linii" />
+        <e k="invoice_confirm_pay" v="Potwierdzić płatność dla '%s'?" />
+        <e k="invoice_confirm_delete" v="Usunąć trwale?" />
+        <e k="invoice_notification_new" v="Faktura od %s: %s" />
+        <e k="invoice_reminder_single" v="Nieopłacona faktura: %s" />
+        <e k="invoice_reminder_multiple" v="%d nieopłaconych faktur na łączną kwotę %s" />
+        <e k="invoice_format_date" v="%02d.%02d.R%d - %02d:%02d" />
+        <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
+        <e k="invoice_format_field" v="Pole %s (%.2f ha)" />
+        <e k="invoice_format_fieldId" v="Pole %s" />
+        <e k="invoice_invoices_unit_piece" v="szt" />
+        <e k="invoice_invoices_unit_hour" v="h" />
+        <e k="invoice_invoices_unit_hectare" v="ha" />
+        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_work_stoneCollection" v="Zbieranie kamieni" />
+        <e k="invoice_work_plowing" v="Orka" />
+        <e k="invoice_work_cultivating" v="Kultywacja" />
+        <e k="invoice_work_mulching" v="Mulczowanie" />
+        <e k="invoice_work_rolling" v="Wałowanie" />
+        <e k="invoice_work_harrowing" v="Bronowanie" />
+        <e k="invoice_work_seeding" v="Siew" />
+        <e k="invoice_work_seedingPotato" v="Sadzenie (Ziemniaki)" />
+        <e k="invoice_work_seedingSugarcane" v="Sadzenie (Trzcina)" />
+        <e k="invoice_work_seedingRice" v="Siew (Ryż)" />
+        <e k="invoice_work_seedingRoot" v="Siew (Okopowe)" />
+        <e k="invoice_work_pruning" v="Przycinanie" />
+        <e k="invoice_work_spraying" v="Oprysk" />
+        <e k="invoice_work_organicFertilizer" v="Rozrzucanie obornika" />
+        <e k="invoice_work_mineralFertilizer" v="Nawożenie" />
+        <e k="invoice_work_mechanicalWeeding" v="Odchwaszczanie mech." />
+        <e k="invoice_work_harvestGrain" v="Żniwa (Zboże)" />
+        <e k="invoice_work_harvestPotato" v="Zbiór (Ziemniaki)" />
+        <e k="invoice_work_harvestSugarbeet" v="Zbiór (Buraki)" />
+        <e k="invoice_work_harvestSugarcane" v="Zbiór (Trzcina)" />
+        <e k="invoice_work_harvestCotton" v="Zbiór (Bawełna)" />
+        <e k="invoice_work_harvestGrape" v="Winobranie" />
+        <e k="invoice_work_harvestOlive" v="Zbiór (Oliwki)" />
+        <e k="invoice_work_harvestRice" v="Zbiór (Ryż)" />
+        <e k="invoice_work_harvestSpinach" v="Zbiór (Szpinak)" />
+        <e k="invoice_work_harvestPeas" v="Zbiór (Groszek)" />
+        <e k="invoice_work_harvestGreenBeans" v="Zbiór (Fasola)" />
+        <e k="invoice_work_harvestVegetables" v="Zbiór warzyw" />
+        <e k="invoice_work_harvestOnion" v="Zbiór (Cebula)" />
+        <e k="invoice_work_chaffing" v="Sieczka" />
+        <e k="invoice_work_mowing" v="Koszenie" />
+        <e k="invoice_work_tedding" v="Przetrząsanie" />
+        <e k="invoice_work_windrowing" v="Zgrabianie" />
+        <e k="invoice_work_baling" v="Prasowanie" />
+        <e k="invoice_work_wrapping" v="Owijanie" />
+        <e k="invoice_work_buyBales" v="Handel (Zakup)" />
+        <e k="invoice_work_sellBales" v="Sprzedaż (Bele)" />
+        <e k="invoice_work_animalFeeding" v="Karmienie" />
+        <e k="invoice_work_barnCleaning" v="Czyszczenie obory" />
+        <e k="invoice_work_animalTransport" v="Transport zwierząt" />
+        <e k="invoice_work_snowRemoval" v="Odśnieżanie" />
+        <e k="invoice_work_generalLabor" v="Praca fizyczna" />
+        <e k="invoice_work_loaderWork" v="Praca ładowaczem" />
+        <e k="invoice_work_driving" v="Kierowca" />
+        <e k="invoice_work_siloWork" v="Ugniatanie silosu" />
+        <e k="invoice_work_delivery" v="Dostawa" />
+        <e k="invoice_work_transport" v="Transport" />
+        <e k="invoice_work_equipmentRental" v="Wynajem sprzętu" />
+        <e k="invoice_work_heapLoading" v="Załadunek hałd (skraj pola)" />
+        <e k="invoice_work_treePlanting" v="Sadzenie drzew" />
+        <e k="invoice_work_treeCutting" v="Wycinka" />
+        <e k="invoice_work_treeRemoval" v="Zrywka drewna" />
+        <e k="invoice_work_goods" v="Towary" />
+        <e k="invoice_work_miscellaneous" v="Inne" />
+        <e k="finance_invoicePayment" v="Opłata faktury" />
+        <e k="invoice_moneyType" v="Fakturowanie" />
+        <e k="invoice_error_permission_required" v="Akcja zarezerwowana dla kierowników gospodarstwa." />
+        <e k="invoice_error_insufficient_funds" v="Niewystarczające saldo do zapłacenia tej faktury." />    </elements>
+</l10n>

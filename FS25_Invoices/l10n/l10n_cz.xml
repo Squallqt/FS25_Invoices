@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <elements>
+        <e k="invoice_menu_title" v="Fakturace" />
+        <e k="invoice_tab_incoming" v="PŘIJATÉ" />
+        <e k="invoice_tab_outgoing" v="VYDANÉ" />
+        <e k="invoice_status_unpaid" v="Čekající" />
+        <e k="invoice_status_paid" v="Zaplaceno" />
+        <e k="invoice_col_date" v="Datum" />
+        <e k="invoice_col_farm" v="Farma" />
+        <e k="invoice_col_amount" v="Částka" />
+        <e k="invoice_col_field" v="Pole" />
+        <e k="invoice_col_area" v="Plocha" />
+        <e k="invoice_btn_newInvoice" v="Nová faktura" />
+        <e k="invoice_btn_payInvoice" v="Zaplatit" />
+        <e k="invoice_btn_deleteInvoice" v="Smazat" />
+        <e k="invoice_btn_showDetails" v="Podrobnosti" />
+        <e k="invoice_btn_add" v="Přidat" />
+        <e k="invoice_btn_remove" v="Odebrat" />
+        <e k="invoice_btn_cancel" v="Zrušit" />
+        <e k="invoice_btn_close" v="Zavřít" />
+        <e k="invoice_btn_select" v="Vybrat" />
+        <e k="invoice_btn_selectFarm" v="Vybrat klienta" />
+        <e k="invoice_btn_next" v="Další" />
+        <e k="invoice_btn_back" v="Zpět" />
+        <e k="invoice_label_from" v="Od:" />
+        <e k="invoice_label_to" v="Pro:" />
+        <e k="invoice_label_note" v="Poznámky:" />
+        <e k="invoice_label_total" v="Celkem:" />
+        <e k="invoice_dialog_details" v="Detaily faktury" />
+        <e k="invoice_dialog_selectField" v="Výběr pole" />
+        <e k="invoice_wizard_mainTitle" v="NOVÁ FAKTURA" />
+        <e k="invoice_wizard_step1_subtitle" v="KLIENT" />
+        <e k="invoice_wizard_step1_label" v="Vyberte farmu klienta:" />
+        <e k="invoice_wizard_step2_subtitle" v="SLUŽBY" />
+        <e k="invoice_wizard_step2_label" v="Vyberte typ práce:" />
+        <e k="invoice_wizard_step3_subtitle" v="POLE" />
+        <e k="invoice_wizard_step3_label" v="Vyberte dotčená pole:" />
+        <e k="invoice_wizard_step4_subtitle" v="SOUHRN" />
+        <e k="invoice_btn_sendInvoice" v="Odeslat fakturu" />
+        <e k="invoice_wizard_no_items" v="Žádná služba nevybrána." />
+        <e k="invoice_error_select_work" v="Prosím vyberte službu." />
+        <e k="invoice_wizard_invoice_created" v="Faktura úspěšně vytvořena!" />
+        <e k="invoice_wizard_invoice_failed" v="Chyba při vytváření." />
+        <e k="invoice_wizard_client_fields" v="Pole klienta" />
+        <e k="invoice_wizard_other_fields" v="Ostatní pole" />
+        <e k="invoice_wizard_selection_summary" v="Služby:" />
+        <e k="invoice_wizard_field_selection_summary" v="Lokace:" />
+        <e k="invoice_format_field_id" v="Pole %d" />
+        <e k="invoice_step4_col_service" v="Popis" />
+        <e k="invoice_step4_col_qty" v="Množ." />
+        <e k="invoice_step4_col_unitprice" v="Cena" />
+        <e k="invoice_step4_col_amount" v="Částka" />
+        <e k="invoice_step4_from" v="Vystavil: %s" />
+        <e k="invoice_step4_to" v="Klient: %s" />
+        <e k="invoice_step4_total" v="K ÚHRADĚ" />
+        <e k="invoice_detail_col_service" v="Popis" />
+        <e k="invoice_detail_col_qty" v="Množ." />
+        <e k="invoice_detail_col_unit" v="Jedn." />
+        <e k="invoice_detail_col_unitprice" v="Cena" />
+        <e k="invoice_detail_col_amount" v="Částka" />
+        <e k="invoice_col_number" v="Č. faktury" />
+        <e k="invoice_col_status" v="Stav" />
+        <e k="invoice_popup_added" v="Přidáno: %s" />
+        <e k="invoice_popup_removed" v="Odstraněno: %s" />
+        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_empty_list" v="Žádné faktury" />
+        <e k="invoice_format_inv_number" v="FAK-%03d" />
+        <e k="invoice_format_services_count" v="%d řádek/ky" />
+        <e k="invoice_confirm_pay" v="Potvrdit platbu pro '%s'?" />
+        <e k="invoice_confirm_delete" v="Trvale smazat?" />
+        <e k="invoice_notification_new" v="Faktura od %s: %s" />
+        <e k="invoice_reminder_single" v="Nezaplacená faktura: %s" />
+        <e k="invoice_reminder_multiple" v="%d nezaplacených faktur celkem %s" />
+        <e k="invoice_format_date" v="%02d.%02d.R%d - %02d:%02d" />
+        <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
+        <e k="invoice_format_field" v="Pole %s (%.2f ha)" />
+        <e k="invoice_format_fieldId" v="Pole %s" />
+        <e k="invoice_invoices_unit_piece" v="ks" />
+        <e k="invoice_invoices_unit_hour" v="h" />
+        <e k="invoice_invoices_unit_hectare" v="ha" />
+        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_work_stoneCollection" v="Sbírání kamenů" />
+        <e k="invoice_work_plowing" v="Orba" />
+        <e k="invoice_work_cultivating" v="Kultivace" />
+        <e k="invoice_work_mulching" v="Mulčování" />
+        <e k="invoice_work_rolling" v="Válcování" />
+        <e k="invoice_work_harrowing" v="Vláčení" />
+        <e k="invoice_work_seeding" v="Setí" />
+        <e k="invoice_work_seedingPotato" v="Sázení (Brambory)" />
+        <e k="invoice_work_seedingSugarcane" v="Sázení (Třtina)" />
+        <e k="invoice_work_seedingRice" v="Setí (Rýže)" />
+        <e k="invoice_work_seedingRoot" v="Setí (Kořenové)" />
+        <e k="invoice_work_pruning" v="Prořezávání" />
+        <e k="invoice_work_spraying" v="Postřik" />
+        <e k="invoice_work_organicFertilizer" v="Hnojení (Statkové)" />
+        <e k="invoice_work_mineralFertilizer" v="Hnojení" />
+        <e k="invoice_work_mechanicalWeeding" v="Mechanické pletí" />
+        <e k="invoice_work_harvestGrain" v="Sklizeň (Obilí)" />
+        <e k="invoice_work_harvestPotato" v="Sklizeň (Brambory)" />
+        <e k="invoice_work_harvestSugarbeet" v="Sklizeň (Řepa)" />
+        <e k="invoice_work_harvestSugarcane" v="Sklizeň (Třtina)" />
+        <e k="invoice_work_harvestCotton" v="Sklizeň (Bavlna)" />
+        <e k="invoice_work_harvestGrape" v="Vinobraní" />
+        <e k="invoice_work_harvestOlive" v="Sklizeň (Olivy)" />
+        <e k="invoice_work_harvestRice" v="Sklizeň (Rýže)" />
+        <e k="invoice_work_harvestSpinach" v="Sklizeň (Špenát)" />
+        <e k="invoice_work_harvestPeas" v="Sklizeň (Hrách)" />
+        <e k="invoice_work_harvestGreenBeans" v="Sklizeň (Fazolky)" />
+        <e k="invoice_work_harvestVegetables" v="Sklizeň zeleniny" />
+        <e k="invoice_work_harvestOnion" v="Sklizeň (Cibule)" />
+        <e k="invoice_work_chaffing" v="Řezání" />
+        <e k="invoice_work_mowing" v="Sečení" />
+        <e k="invoice_work_tedding" v="Obracení" />
+        <e k="invoice_work_windrowing" v="Shrnování" />
+        <e k="invoice_work_baling" v="Lisování" />
+        <e k="invoice_work_wrapping" v="Balení" />
+        <e k="invoice_work_buyBales" v="Obchod (Nákup)" />
+        <e k="invoice_work_sellBales" v="Prodej (Balíky)" />
+        <e k="invoice_work_animalFeeding" v="Krmení" />
+        <e k="invoice_work_barnCleaning" v="Čištění stájí" />
+        <e k="invoice_work_animalTransport" v="Přeprava dobytka" />
+        <e k="invoice_work_snowRemoval" v="Odklízení sněhu" />
+        <e k="invoice_work_generalLabor" v="Manuální práce" />
+        <e k="invoice_work_loaderWork" v="Práce s nakladačem" />
+        <e k="invoice_work_driving" v="Řízení" />
+        <e k="invoice_work_siloWork" v="Dusání siláže" />
+        <e k="invoice_work_delivery" v="Doručování" />
+        <e k="invoice_work_transport" v="Doprava" />
+        <e k="invoice_work_equipmentRental" v="Pronájem vybavení" />
+        <e k="invoice_work_heapLoading" v="Nakládání hromad (okraj pole)" />
+        <e k="invoice_work_treePlanting" v="Výsadba stromů" />
+        <e k="invoice_work_treeCutting" v="Kácení" />
+        <e k="invoice_work_treeRemoval" v="Svoz dřeva" />
+        <e k="invoice_work_goods" v="Zásoby" />
+        <e k="invoice_work_miscellaneous" v="Různé" />
+        <e k="finance_invoicePayment" v="Platba faktur" />
+        <e k="invoice_moneyType" v="Fakturace" />
+        <e k="invoice_error_permission_required" v="Akce vyhrazená pro vedoucí farmy." />
+        <e k="invoice_error_insufficient_funds" v="Nedostatečný zůstatek pro zaplací této faktury." />    </elements>
+</l10n>

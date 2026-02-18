@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <elements>
+        <e k="invoice_menu_title" v="Рахунки" />
+        <e k="invoice_tab_incoming" v="ВХІДНІ" />
+        <e k="invoice_tab_outgoing" v="ВИХІДНІ" />
+        <e k="invoice_status_unpaid" v="Очікування" />
+        <e k="invoice_status_paid" v="Оплачено" />
+        <e k="invoice_col_date" v="Дата" />
+        <e k="invoice_col_farm" v="Ферма" />
+        <e k="invoice_col_amount" v="Сума" />
+        <e k="invoice_col_field" v="Поле" />
+        <e k="invoice_col_area" v="Площа" />
+        <e k="invoice_btn_newInvoice" v="Новий рахунок" />
+        <e k="invoice_btn_payInvoice" v="Сплатити" />
+        <e k="invoice_btn_deleteInvoice" v="Видалити" />
+        <e k="invoice_btn_showDetails" v="Деталі" />
+        <e k="invoice_btn_add" v="Додати" />
+        <e k="invoice_btn_remove" v="Прибрати" />
+        <e k="invoice_btn_cancel" v="Скасувати" />
+        <e k="invoice_btn_close" v="Закрити" />
+        <e k="invoice_btn_select" v="Обрати" />
+        <e k="invoice_btn_selectFarm" v="Вибір клієнта" />
+        <e k="invoice_btn_next" v="Далі" />
+        <e k="invoice_btn_back" v="Назад" />
+        <e k="invoice_label_from" v="Від:" />
+        <e k="invoice_label_to" v="Кому:" />
+        <e k="invoice_label_note" v="Примітки:" />
+        <e k="invoice_label_total" v="Всього:" />
+        <e k="invoice_dialog_details" v="Деталі рахунку" />
+        <e k="invoice_dialog_selectField" v="Вибір поля" />
+        <e k="invoice_wizard_mainTitle" v="НОВИЙ РАХУНОК" />
+        <e k="invoice_wizard_step1_subtitle" v="КЛІЄНТ" />
+        <e k="invoice_wizard_step1_label" v="Оберіть ферму клієнта:" />
+        <e k="invoice_wizard_step2_subtitle" v="ПОСЛУГИ" />
+        <e k="invoice_wizard_step2_label" v="Оберіть тип робіт:" />
+        <e k="invoice_wizard_step3_subtitle" v="ПОЛЯ" />
+        <e k="invoice_wizard_step3_label" v="Оберіть поля:" />
+        <e k="invoice_wizard_step4_subtitle" v="ПІДСУМОК" />
+        <e k="invoice_btn_sendInvoice" v="Надіслати рахунок" />
+        <e k="invoice_wizard_no_items" v="Послугу не обрано." />
+        <e k="invoice_error_select_work" v="Будь ласка, оберіть послугу." />
+        <e k="invoice_wizard_invoice_created" v="Рахунок створено!" />
+        <e k="invoice_wizard_invoice_failed" v="Помилка створення." />
+        <e k="invoice_wizard_client_fields" v="Поля клієнта" />
+        <e k="invoice_wizard_other_fields" v="Інші поля" />
+        <e k="invoice_wizard_selection_summary" v="Послуги:" />
+        <e k="invoice_wizard_field_selection_summary" v="Місце:" />
+        <e k="invoice_format_field_id" v="Поле %d" />
+        <e k="invoice_step4_col_service" v="Опис" />
+        <e k="invoice_step4_col_qty" v="Кіл-ть" />
+        <e k="invoice_step4_col_unitprice" v="Ціна" />
+        <e k="invoice_step4_col_amount" v="Сума" />
+        <e k="invoice_step4_from" v="Відправник: %s" />
+        <e k="invoice_step4_to" v="Клієнт: %s" />
+        <e k="invoice_step4_total" v="ДО СПЛАТИ" />
+        <e k="invoice_detail_col_service" v="Опис" />
+        <e k="invoice_detail_col_qty" v="Кіл-ть" />
+        <e k="invoice_detail_col_unit" v="Од." />
+        <e k="invoice_detail_col_unitprice" v="Ціна" />
+        <e k="invoice_detail_col_amount" v="Сума" />
+        <e k="invoice_col_number" v="№ Рахунку" />
+        <e k="invoice_col_status" v="Статус" />
+        <e k="invoice_popup_added" v="Додано: %s" />
+        <e k="invoice_popup_removed" v="Видалено: %s" />
+        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_empty_list" v="Немає рахунків" />
+        <e k="invoice_format_inv_number" v="РАХ-%03d" />
+        <e k="invoice_format_services_count" v="%d рядк(ів)" />
+        <e k="invoice_confirm_pay" v="Підтвердити оплату '%s'?" />
+        <e k="invoice_confirm_delete" v="Видалити назавжди?" />
+        <e k="invoice_notification_new" v="Рахунок отримано від %s: %s" />
+        <e k="invoice_reminder_single" v="Неоплачений рахунок: %s" />
+        <e k="invoice_reminder_multiple" v="%d неоплачених рахунків на суму %s" />
+        <e k="invoice_format_date" v="%02d.%02d.Р%d - %02d:%02d" />
+        <e k="invoice_format_date_legacy" v="Д%d - %02d:%02d" />
+        <e k="invoice_format_field" v="Поле %s (%.2f га)" />
+        <e k="invoice_format_fieldId" v="Поле %s" />
+        <e k="invoice_invoices_unit_piece" v="шт" />
+        <e k="invoice_invoices_unit_hour" v="год" />
+        <e k="invoice_invoices_unit_hectare" v="га" />
+        <e k="invoice_invoices_unit_liter" v="Л" />
+        <e k="invoice_work_stoneCollection" v="Збирання каміння" />
+        <e k="invoice_work_plowing" v="Оранка" />
+        <e k="invoice_work_cultivating" v="Культивація" />
+        <e k="invoice_work_mulching" v="Мульчування" />
+        <e k="invoice_work_rolling" v="Коткування" />
+        <e k="invoice_work_harrowing" v="Боронування" />
+        <e k="invoice_work_seeding" v="Посів" />
+        <e k="invoice_work_seedingPotato" v="Садіння (Картопля)" />
+        <e k="invoice_work_seedingSugarcane" v="Садіння (Тростина)" />
+        <e k="invoice_work_seedingRice" v="Посів (Рис)" />
+        <e k="invoice_work_seedingRoot" v="Посів (Коренеплоди)" />
+        <e k="invoice_work_pruning" v="Обрізка" />
+        <e k="invoice_work_spraying" v="Обприскування" />
+        <e k="invoice_work_organicFertilizer" v="Внесення органіки" />
+        <e k="invoice_work_mineralFertilizer" v="Внесення добрив" />
+        <e k="invoice_work_mechanicalWeeding" v="Прополювання" />
+        <e k="invoice_work_harvestGrain" v="Збирання (Зерно)" />
+        <e k="invoice_work_harvestPotato" v="Збирання (Картопля)" />
+        <e k="invoice_work_harvestSugarbeet" v="Збирання (Буряк)" />
+        <e k="invoice_work_harvestSugarcane" v="Збирання (Тростина)" />
+        <e k="invoice_work_harvestCotton" v="Збирання (Бавовна)" />
+        <e k="invoice_work_harvestGrape" v="Збір винограду" />
+        <e k="invoice_work_harvestOlive" v="Збір оливок" />
+        <e k="invoice_work_harvestRice" v="Збирання (Рис)" />
+        <e k="invoice_work_harvestSpinach" v="Збирання (Шпинат)" />
+        <e k="invoice_work_harvestPeas" v="Збирання (Горох)" />
+        <e k="invoice_work_harvestGreenBeans" v="Збирання (Квасоля)" />
+        <e k="invoice_work_harvestVegetables" v="Збирання овочів" />
+        <e k="invoice_work_harvestOnion" v="Збирання (Цибуля)" />
+        <e k="invoice_work_chaffing" v="Заготівля силосу" />
+        <e k="invoice_work_mowing" v="Косіння" />
+        <e k="invoice_work_tedding" v="Ворошіння" />
+        <e k="invoice_work_windrowing" v="Згрібання" />
+        <e k="invoice_work_baling" v="Пресування" />
+        <e k="invoice_work_wrapping" v="Обмотування" />
+        <e k="invoice_work_buyBales" v="Торгівля (Купівля)" />
+        <e k="invoice_work_sellBales" v="Продаж (Тюки)" />
+        <e k="invoice_work_animalFeeding" v="Годування" />
+        <e k="invoice_work_barnCleaning" v="Чищення стійл" />
+        <e k="invoice_work_animalTransport" v="Перевезення худоби" />
+        <e k="invoice_work_snowRemoval" v="Прибирання снігу" />
+        <e k="invoice_work_generalLabor" v="Ручна праця" />
+        <e k="invoice_work_loaderWork" v="Навантаження" />
+        <e k="invoice_work_driving" v="Водій" />
+        <e k="invoice_work_siloWork" v="Трамбування силосу" />
+        <e k="invoice_work_delivery" v="Доставка" />
+        <e k="invoice_work_transport" v="Транспорт" />
+        <e k="invoice_work_equipmentRental" v="Оренда техніки" />
+        <e k="invoice_work_heapLoading" v="Навантаження куп (край поля)" />
+        <e k="invoice_work_treePlanting" v="Садіння дерев" />
+        <e k="invoice_work_treeCutting" v="Валяння дерев" />
+        <e k="invoice_work_treeRemoval" v="Трелювання" />
+        <e k="invoice_work_goods" v="Матеріали" />
+        <e k="invoice_work_miscellaneous" v="Різне" />
+        <e k="finance_invoicePayment" v="Оплата рахунків" />
+        <e k="invoice_moneyType" v="Рахунки" />
+        <e k="invoice_error_permission_required" v="Дія доступна лише керівникам ферми." />
+        <e k="invoice_error_insufficient_funds" v="Недостатньо коштів для оплати цього рахунку." />    </elements>
+</l10n>
