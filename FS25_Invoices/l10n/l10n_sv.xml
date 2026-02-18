@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <elements>
+        <e k="invoice_menu_title" v="Fakturering" />
+        <e k="invoice_tab_incoming" v="INKOMMANDE" />
+        <e k="invoice_tab_outgoing" v="UTGÅENDE" />
+        <e k="invoice_status_unpaid" v="Väntande" />
+        <e k="invoice_status_paid" v="Betald" />
+        <e k="invoice_col_date" v="Datum" />
+        <e k="invoice_col_farm" v="Gård" />
+        <e k="invoice_col_amount" v="Belopp" />
+        <e k="invoice_col_field" v="Fält" />
+        <e k="invoice_col_area" v="Område" />
+        <e k="invoice_btn_newInvoice" v="Ny faktura" />
+        <e k="invoice_btn_payInvoice" v="Betala" />
+        <e k="invoice_btn_deleteInvoice" v="Radera" />
+        <e k="invoice_btn_showDetails" v="Detaljer" />
+        <e k="invoice_btn_add" v="Lägg till" />
+        <e k="invoice_btn_remove" v="Ta bort" />
+        <e k="invoice_btn_cancel" v="Avbryt" />
+        <e k="invoice_btn_close" v="Stäng" />
+        <e k="invoice_btn_select" v="Välj" />
+        <e k="invoice_btn_selectFarm" v="Välj kund" />
+        <e k="invoice_btn_next" v="Nästa" />
+        <e k="invoice_btn_back" v="Tillbaka" />
+        <e k="invoice_label_from" v="Från:" />
+        <e k="invoice_label_to" v="Till:" />
+        <e k="invoice_label_note" v="Anteckningar:" />
+        <e k="invoice_label_total" v="Totalt:" />
+        <e k="invoice_dialog_details" v="Fakturadetaljer" />
+        <e k="invoice_dialog_selectField" v="Fältval" />
+        <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
+        <e k="invoice_wizard_step1_subtitle" v="KUND" />
+        <e k="invoice_wizard_step1_label" v="Välj kundens gård:" />
+        <e k="invoice_wizard_step2_subtitle" v="TJÄNSTER" />
+        <e k="invoice_wizard_step2_label" v="Välj typ av arbete:" />
+        <e k="invoice_wizard_step3_subtitle" v="FÄLT" />
+        <e k="invoice_wizard_step3_label" v="Välj berörda fält:" />
+        <e k="invoice_wizard_step4_subtitle" v="SAMMANFATTNING" />
+        <e k="invoice_btn_sendInvoice" v="Skicka faktura" />
+        <e k="invoice_wizard_no_items" v="Ingen tjänst vald." />
+        <e k="invoice_error_select_work" v="Vänligen välj en tjänst." />
+        <e k="invoice_wizard_invoice_created" v="Faktura skapad!" />
+        <e k="invoice_wizard_invoice_failed" v="Fel vid skapande." />
+        <e k="invoice_wizard_client_fields" v="Kundfält" />
+        <e k="invoice_wizard_other_fields" v="Andra fält" />
+        <e k="invoice_wizard_selection_summary" v="Tjänster:" />
+        <e k="invoice_wizard_field_selection_summary" v="Plats:" />
+        <e k="invoice_format_field_id" v="Fält %d" />
+        <e k="invoice_step4_col_service" v="Beskrivning" />
+        <e k="invoice_step4_col_qty" v="Antal" />
+        <e k="invoice_step4_col_unitprice" v="Pris" />
+        <e k="invoice_step4_col_amount" v="Belopp" />
+        <e k="invoice_step4_from" v="Avsändare: %s" />
+        <e k="invoice_step4_to" v="Kund: %s" />
+        <e k="invoice_step4_total" v="ATT BETALA" />
+        <e k="invoice_detail_col_service" v="Beskrivning" />
+        <e k="invoice_detail_col_qty" v="Antal" />
+        <e k="invoice_detail_col_unit" v="Enh." />
+        <e k="invoice_detail_col_unitprice" v="Pris" />
+        <e k="invoice_detail_col_amount" v="Belopp" />
+        <e k="invoice_col_number" v="Fakturanr" />
+        <e k="invoice_col_status" v="Status" />
+        <e k="invoice_popup_added" v="Tillagt: %s" />
+        <e k="invoice_popup_removed" v="Borttaget: %s" />
+        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_empty_list" v="Inga fakturor" />
+        <e k="invoice_format_inv_number" v="FAK-%03d" />
+        <e k="invoice_format_services_count" v="%d rad(er)" />
+        <e k="invoice_confirm_pay" v="Bekräfta betalning till '%s'?" />
+        <e k="invoice_confirm_delete" v="Radera permanent?" />
+        <e k="invoice_notification_new" v="Faktura från %s: %s" />
+        <e k="invoice_reminder_single" v="Obetald faktura: %s" />
+        <e k="invoice_reminder_multiple" v="%d obetalda fakturor totalt %s" />
+        <e k="invoice_format_date" v="%02d/%02d/Å%d - %02d:%02d" />
+        <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
+        <e k="invoice_format_field" v="Fält %s (%.2f ha)" />
+        <e k="invoice_format_fieldId" v="Fält %s" />
+        <e k="invoice_invoices_unit_piece" v="st" />
+        <e k="invoice_invoices_unit_hour" v="h" />
+        <e k="invoice_invoices_unit_hectare" v="ha" />
+        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_work_stoneCollection" v="Stenplockning" />
+        <e k="invoice_work_plowing" v="Plogning" />
+        <e k="invoice_work_cultivating" v="Kultivering" />
+        <e k="invoice_work_mulching" v="Mulching" />
+        <e k="invoice_work_rolling" v="Vältning" />
+        <e k="invoice_work_harrowing" v="Harvning" />
+        <e k="invoice_work_seeding" v="Sådd" />
+        <e k="invoice_work_seedingPotato" v="Sättning (Potatis)" />
+        <e k="invoice_work_seedingSugarcane" v="Plantering (Rör)" />
+        <e k="invoice_work_seedingRice" v="Sådd (Ris)" />
+        <e k="invoice_work_seedingRoot" v="Sådd (Rotfrukter)" />
+        <e k="invoice_work_pruning" v="Beskärning" />
+        <e k="invoice_work_spraying" v="Besprutning" />
+        <e k="invoice_work_organicFertilizer" v="Spridning (Organisk)" />
+        <e k="invoice_work_mineralFertilizer" v="Gödsling" />
+        <e k="invoice_work_mechanicalWeeding" v="Ogräsrensning" />
+        <e k="invoice_work_harvestGrain" v="Tröskning" />
+        <e k="invoice_work_harvestPotato" v="Upptagning (Potatis)" />
+        <e k="invoice_work_harvestSugarbeet" v="Upptagning (Betor)" />
+        <e k="invoice_work_harvestSugarcane" v="Skörd (Rör)" />
+        <e k="invoice_work_harvestCotton" v="Skörd (Bomull)" />
+        <e k="invoice_work_harvestGrape" v="Skörd (Druvor)" />
+        <e k="invoice_work_harvestOlive" v="Skörd (Oliver)" />
+        <e k="invoice_work_harvestRice" v="Skörd (Ris)" />
+        <e k="invoice_work_harvestSpinach" v="Skörd (Spenat)" />
+        <e k="invoice_work_harvestPeas" v="Skörd (Ärter)" />
+        <e k="invoice_work_harvestGreenBeans" v="Skörd (Bönor)" />
+        <e k="invoice_work_harvestVegetables" v="Grönsaksskörd" />
+        <e k="invoice_work_harvestOnion" v="Skörd (Lök)" />
+        <e k="invoice_work_chaffing" v="Hackning" />
+        <e k="invoice_work_mowing" v="Slåtter" />
+        <e k="invoice_work_tedding" v="Vändning" />
+        <e k="invoice_work_windrowing" v="Strängläggning" />
+        <e k="invoice_work_baling" v="Balning" />
+        <e k="invoice_work_wrapping" v="Inplastning" />
+        <e k="invoice_work_buyBales" v="Handel (Köp)" />
+        <e k="invoice_work_sellBales" v="Försäljning (Balar)" />
+        <e k="invoice_work_animalFeeding" v="Utfodring" />
+        <e k="invoice_work_barnCleaning" v="Rengöring stall" />
+        <e k="invoice_work_animalTransport" v="Djurtransport" />
+        <e k="invoice_work_snowRemoval" v="Snöröjning" />
+        <e k="invoice_work_generalLabor" v="Manuellt arbete" />
+        <e k="invoice_work_loaderWork" v="Lastararbete" />
+        <e k="invoice_work_driving" v="Körning" />
+        <e k="invoice_work_siloWork" v="Silopackning" />
+        <e k="invoice_work_delivery" v="Leverans" />
+        <e k="invoice_work_transport" v="Transport" />
+        <e k="invoice_work_equipmentRental" v="Uthyrning" />
+        <e k="invoice_work_heapLoading" v="Höglastning (fältkant)" />
+        <e k="invoice_work_treePlanting" v="Plantering" />
+        <e k="invoice_work_treeCutting" v="Avverkning" />
+        <e k="invoice_work_treeRemoval" v="Timmer transport" />
+        <e k="invoice_work_goods" v="Varor" />
+        <e k="invoice_work_miscellaneous" v="Övrigt" />
+        <e k="finance_invoicePayment" v="Fakturabetalning" />
+        <e k="invoice_moneyType" v="Fakturering" />
+        <e k="invoice_error_permission_required" v="Åtgärd reserverad för gårdschefer." />
+        <e k="invoice_error_insufficient_funds" v="Otillräckligt saldo för att betala denna faktura." />
+    </elements>
+</l10n>

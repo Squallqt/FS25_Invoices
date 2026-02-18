@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <elements>
+        <e k="invoice_menu_title" v="Tagihan" />
+        <e k="invoice_tab_incoming" v="MASUK" />
+        <e k="invoice_tab_outgoing" v="KELUAR" />
+        <e k="invoice_status_unpaid" v="Tertunda" />
+        <e k="invoice_status_paid" v="Dibayar" />
+        <e k="invoice_col_date" v="Tanggal" />
+        <e k="invoice_col_farm" v="Peternakan" />
+        <e k="invoice_col_amount" v="Jumlah" />
+        <e k="invoice_col_field" v="Ladang" />
+        <e k="invoice_col_area" v="Area" />
+        <e k="invoice_btn_newInvoice" v="Faktur Baru" />
+        <e k="invoice_btn_payInvoice" v="Bayar" />
+        <e k="invoice_btn_deleteInvoice" v="Hapus" />
+        <e k="invoice_btn_showDetails" v="Rincian" />
+        <e k="invoice_btn_add" v="Tambah" />
+        <e k="invoice_btn_remove" v="Hapus" />
+        <e k="invoice_btn_cancel" v="Batal" />
+        <e k="invoice_btn_close" v="Tutup" />
+        <e k="invoice_btn_select" v="Pilih" />
+        <e k="invoice_btn_selectFarm" v="Pilih Pelanggan" />
+        <e k="invoice_btn_next" v="Lanjut" />
+        <e k="invoice_btn_back" v="Kembali" />
+        <e k="invoice_label_from" v="Dari:" />
+        <e k="invoice_label_to" v="Kepada:" />
+        <e k="invoice_label_note" v="Catatan:" />
+        <e k="invoice_label_total" v="Total:" />
+        <e k="invoice_dialog_details" v="Rincian Faktur" />
+        <e k="invoice_dialog_selectField" v="Pilihan Ladang" />
+        <e k="invoice_wizard_mainTitle" v="FAKTUR BARU" />
+        <e k="invoice_wizard_step1_subtitle" v="PELANGGAN" />
+        <e k="invoice_wizard_step1_label" v="Pilih peternakan pelanggan:" />
+        <e k="invoice_wizard_step2_subtitle" v="LAYANAN" />
+        <e k="invoice_wizard_step2_label" v="Pilih jenis pekerjaan:" />
+        <e k="invoice_wizard_step3_subtitle" v="LADANG" />
+        <e k="invoice_wizard_step3_label" v="Pilih ladang terkait:" />
+        <e k="invoice_wizard_step4_subtitle" v="RINGKASAN" />
+        <e k="invoice_btn_sendInvoice" v="Kirim Faktur" />
+        <e k="invoice_wizard_no_items" v="Tidak ada layanan dipilih." />
+        <e k="invoice_error_select_work" v="Silakan pilih layanan." />
+        <e k="invoice_wizard_invoice_created" v="Faktur berhasil dibuat!" />
+        <e k="invoice_wizard_invoice_failed" v="Gagal membuat." />
+        <e k="invoice_wizard_client_fields" v="Bidang klien" />
+        <e k="invoice_wizard_other_fields" v="Bidang lainnya" />
+        <e k="invoice_wizard_selection_summary" v="Layanan:" />
+        <e k="invoice_wizard_field_selection_summary" v="Lokasi:" />
+        <e k="invoice_format_field_id" v="Ladang %d" />
+        <e k="invoice_step4_col_service" v="Deskripsi" />
+        <e k="invoice_step4_col_qty" v="Jml" />
+        <e k="invoice_step4_col_unitprice" v="Harga" />
+        <e k="invoice_step4_col_amount" v="Jumlah" />
+        <e k="invoice_step4_from" v="Pengirim: %s" />
+        <e k="invoice_step4_to" v="Pelanggan: %s" />
+        <e k="invoice_step4_total" v="TAGIHAN" />
+        <e k="invoice_detail_col_service" v="Deskripsi" />
+        <e k="invoice_detail_col_qty" v="Jml" />
+        <e k="invoice_detail_col_unit" v="Satuan" />
+        <e k="invoice_detail_col_unitprice" v="Harga" />
+        <e k="invoice_detail_col_amount" v="Jumlah" />
+        <e k="invoice_col_number" v="No. Faktur" />
+        <e k="invoice_col_status" v="Status" />
+        <e k="invoice_popup_added" v="Ditambahkan: %s" />
+        <e k="invoice_popup_removed" v="Dihapus: %s" />
+        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_empty_list" v="Tidak ada faktur" />
+        <e k="invoice_format_inv_number" v="INV-%03d" />
+        <e k="invoice_format_services_count" v="%d baris" />
+        <e k="invoice_confirm_pay" v="Konfirmasi pembayaran ke '%s'?" />
+        <e k="invoice_confirm_delete" v="Hapus permanen?" />
+        <e k="invoice_notification_new" v="Faktur diterima dari %s: %s" />
+        <e k="invoice_reminder_single" v="Faktur belum dibayar: %s" />
+        <e k="invoice_reminder_multiple" v="%d faktur belum dibayar total %s" />
+        <e k="invoice_format_date" v="%02d/%02d/Y%d - %02d:%02d" />
+        <e k="invoice_format_date_legacy" v="H%d - %02d:%02d" />
+        <e k="invoice_format_field" v="Ladang %s (%.2f ha)" />
+        <e k="invoice_format_fieldId" v="Ladang %s" />
+        <e k="invoice_invoices_unit_piece" v="pcs" />
+        <e k="invoice_invoices_unit_hour" v="jam" />
+        <e k="invoice_invoices_unit_hectare" v="ha" />
+        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_work_stoneCollection" v="Pengumpulan Batu" />
+        <e k="invoice_work_plowing" v="Membajak" />
+        <e k="invoice_work_cultivating" v="Mengolah Tanah" />
+        <e k="invoice_work_mulching" v="Mulsa" />
+        <e k="invoice_work_rolling" v="Penggilingan" />
+        <e k="invoice_work_harrowing" v="Menyisir" />
+        <e k="invoice_work_seeding" v="Penebaran Benih" />
+        <e k="invoice_work_seedingPotato" v="Penanaman (Kentang)" />
+        <e k="invoice_work_seedingSugarcane" v="Penanaman (Tebu)" />
+        <e k="invoice_work_seedingRice" v="Penebaran (Padi)" />
+        <e k="invoice_work_seedingRoot" v="Penebaran (Umbi)" />
+        <e k="invoice_work_pruning" v="Pemangkasan" />
+        <e k="invoice_work_spraying" v="Penyemprotan" />
+        <e k="invoice_work_organicFertilizer" v="Pemupukan (Organik)" />
+        <e k="invoice_work_mineralFertilizer" v="Pemupukan" />
+        <e k="invoice_work_mechanicalWeeding" v="Penyiangan Mekanis" />
+        <e k="invoice_work_harvestGrain" v="Panen (Biji-bijian)" />
+        <e k="invoice_work_harvestPotato" v="Panen (Kentang)" />
+        <e k="invoice_work_harvestSugarbeet" v="Panen (Bit Gula)" />
+        <e k="invoice_work_harvestSugarcane" v="Panen (Tebu)" />
+        <e k="invoice_work_harvestCotton" v="Panen (Kapas)" />
+        <e k="invoice_work_harvestGrape" v="Panen (Anggur)" />
+        <e k="invoice_work_harvestOlive" v="Panen (Zaitun)" />
+        <e k="invoice_work_harvestRice" v="Panen (Padi)" />
+        <e k="invoice_work_harvestSpinach" v="Panen (Bayam)" />
+        <e k="invoice_work_harvestPeas" v="Panen (Kacang Polong)" />
+        <e k="invoice_work_harvestGreenBeans" v="Panen (Buncis)" />
+        <e k="invoice_work_harvestVegetables" v="Panen Sayuran" />
+        <e k="invoice_work_harvestOnion" v="Panen (Bawang)" />
+        <e k="invoice_work_chaffing" v="Pencacahan" />
+        <e k="invoice_work_mowing" v="Pemotongan Rumput" />
+        <e k="invoice_work_tedding" v="Pembalik Jerami" />
+        <e k="invoice_work_windrowing" v="Pengumpulan Jerami" />
+        <e k="invoice_work_baling" v="Pembuatan Bal" />
+        <e k="invoice_work_wrapping" v="Pembungkusan" />
+        <e k="invoice_work_buyBales" v="Perdagangan (Beli)" />
+        <e k="invoice_work_sellBales" v="Penjualan (Bal)" />
+        <e k="invoice_work_animalFeeding" v="Pemberian Pakan" />
+        <e k="invoice_work_barnCleaning" v="Pembersihan Kandang" />
+        <e k="invoice_work_animalTransport" v="Transportasi Ternak" />
+        <e k="invoice_work_snowRemoval" v="Pembersihan Salju" />
+        <e k="invoice_work_generalLabor" v="Tenaga Kerja Manual" />
+        <e k="invoice_work_loaderWork" v="Kerja Pemuat" />
+        <e k="invoice_work_driving" v="Pengemudi" />
+        <e k="invoice_work_siloWork" v="Pemadatan Silo" />
+        <e k="invoice_work_delivery" v="Pengiriman" />
+        <e k="invoice_work_transport" v="Transportasi" />
+        <e k="invoice_work_equipmentRental" v="Penyewaan Alat" />
+        <e k="invoice_work_heapLoading" v="Pemuatan Tumpukan (Pinggir Ladang)" />
+        <e k="invoice_work_treePlanting" v="Penanaman Pohon" />
+        <e k="invoice_work_treeCutting" v="Penebangan Pohon" />
+        <e k="invoice_work_treeRemoval" v="Pengangkutan Kayu" />
+        <e k="invoice_work_goods" v="Barang" />
+        <e k="invoice_work_miscellaneous" v="Lain-lain" />
+        <e k="finance_invoicePayment" v="Pembayaran Faktur" />
+        <e k="invoice_moneyType" v="Penagihan" />
+        <e k="invoice_error_permission_required" v="Tindakan khusus untuk manajer farm." />
+        <e k="invoice_error_insufficient_funds" v="Saldo tidak mencukupi untuk membayar faktur ini." />
+    </elements>
+</l10n>

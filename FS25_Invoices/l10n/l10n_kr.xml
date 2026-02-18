@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <elements>
+        <e k="invoice_menu_title" v="청구서" />
+        <e k="invoice_tab_incoming" v="수신" />
+        <e k="invoice_tab_outgoing" v="발신" />
+        <e k="invoice_status_unpaid" v="대기 중" />
+        <e k="invoice_status_paid" v="지불됨" />
+        <e k="invoice_col_date" v="날짜" />
+        <e k="invoice_col_farm" v="농장" />
+        <e k="invoice_col_amount" v="금액" />
+        <e k="invoice_col_field" v="밭" />
+        <e k="invoice_col_area" v="면적" />
+        <e k="invoice_btn_newInvoice" v="새 청구서" />
+        <e k="invoice_btn_payInvoice" v="지불" />
+        <e k="invoice_btn_deleteInvoice" v="삭제" />
+        <e k="invoice_btn_showDetails" v="상세" />
+        <e k="invoice_btn_add" v="추가" />
+        <e k="invoice_btn_remove" v="제거" />
+        <e k="invoice_btn_cancel" v="취소" />
+        <e k="invoice_btn_close" v="닫기" />
+        <e k="invoice_btn_select" v="선택" />
+        <e k="invoice_btn_selectFarm" v="고객 선택" />
+        <e k="invoice_btn_next" v="다음" />
+        <e k="invoice_btn_back" v="이전" />
+        <e k="invoice_label_from" v="보내는 사람:" />
+        <e k="invoice_label_to" v="받는 사람:" />
+        <e k="invoice_label_note" v="비고:" />
+        <e k="invoice_label_total" v="합계:" />
+        <e k="invoice_dialog_details" v="청구서 상세" />
+        <e k="invoice_dialog_selectField" v="밭 선택" />
+        <e k="invoice_wizard_mainTitle" v="새 청구서" />
+        <e k="invoice_wizard_step1_subtitle" v="고객" />
+        <e k="invoice_wizard_step1_label" v="고객 농장을 선택하세요:" />
+        <e k="invoice_wizard_step2_subtitle" v="서비스" />
+        <e k="invoice_wizard_step2_label" v="작업 유형을 선택하세요:" />
+        <e k="invoice_wizard_step3_subtitle" v="밭" />
+        <e k="invoice_wizard_step3_label" v="관련된 밭을 선택하세요:" />
+        <e k="invoice_wizard_step4_subtitle" v="요약" />
+        <e k="invoice_btn_sendInvoice" v="청구서 전송" />
+        <e k="invoice_wizard_no_items" v="선택된 서비스 없음." />
+        <e k="invoice_error_select_work" v="서비스를 선택해주세요." />
+        <e k="invoice_wizard_invoice_created" v="청구서 생성 완료!" />
+        <e k="invoice_wizard_invoice_failed" v="생성 오류." />
+        <e k="invoice_wizard_client_fields" v="고객 필드" />
+        <e k="invoice_wizard_other_fields" v="기타 필드" />
+        <e k="invoice_wizard_selection_summary" v="서비스:" />
+        <e k="invoice_wizard_field_selection_summary" v="위치:" />
+        <e k="invoice_format_field_id" v="%d번 밭" />
+        <e k="invoice_step4_col_service" v="설명" />
+        <e k="invoice_step4_col_qty" v="수량" />
+        <e k="invoice_step4_col_unitprice" v="단가" />
+        <e k="invoice_step4_col_amount" v="금액" />
+        <e k="invoice_step4_from" v="발신: %s" />
+        <e k="invoice_step4_to" v="수신: %s" />
+        <e k="invoice_step4_total" v="청구액" />
+        <e k="invoice_detail_col_service" v="설명" />
+        <e k="invoice_detail_col_qty" v="수량" />
+        <e k="invoice_detail_col_unit" v="단위" />
+        <e k="invoice_detail_col_unitprice" v="단가" />
+        <e k="invoice_detail_col_amount" v="금액" />
+        <e k="invoice_col_number" v="청구서 번호" />
+        <e k="invoice_col_status" v="상태" />
+        <e k="invoice_popup_added" v="추가됨: %s" />
+        <e k="invoice_popup_removed" v="제거됨: %s" />
+        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_empty_list" v="청구서 없음" />
+        <e k="invoice_format_inv_number" v="INV-%03d" />
+        <e k="invoice_format_services_count" v="%d 줄" />
+        <e k="invoice_confirm_pay" v="'%s'에게 지불하시겠습니까?" />
+        <e k="invoice_confirm_delete" v="영구 삭제하시겠습니까?" />
+        <e k="invoice_notification_new" v="%s로부터 청구서 수신: %s" />
+        <e k="invoice_reminder_single" v="미결제 청구서: %s" />
+        <e k="invoice_reminder_multiple" v="%d개의 미결제 청구서 (총 %s)" />
+        <e k="invoice_format_date" v="%02d/%02d/Y%d - %02d:%02d" />
+        <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
+        <e k="invoice_format_field" v="%s번 밭 (%.2f ha)" />
+        <e k="invoice_format_fieldId" v="%s번 밭" />
+        <e k="invoice_invoices_unit_piece" v="개" />
+        <e k="invoice_invoices_unit_hour" v="시간" />
+        <e k="invoice_invoices_unit_hectare" v="ha" />
+        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_work_stoneCollection" v="돌 줍기" />
+        <e k="invoice_work_plowing" v="쟁기질" />
+        <e k="invoice_work_cultivating" v="경작" />
+        <e k="invoice_work_mulching" v="멀칭" />
+        <e k="invoice_work_rolling" v="롤링" />
+        <e k="invoice_work_harrowing" v="써레질" />
+        <e k="invoice_work_seeding" v="파종" />
+        <e k="invoice_work_seedingPotato" v="심기 (감자)" />
+        <e k="invoice_work_seedingSugarcane" v="심기 (사탕수수)" />
+        <e k="invoice_work_seedingRice" v="파종 (쌀)" />
+        <e k="invoice_work_seedingRoot" v="파종 (뿌리채소)" />
+        <e k="invoice_work_pruning" v="가지치기" />
+        <e k="invoice_work_spraying" v="살포" />
+        <e k="invoice_work_organicFertilizer" v="거름 주기" />
+        <e k="invoice_work_mineralFertilizer" v="비료 뿌리기" />
+        <e k="invoice_work_mechanicalWeeding" v="제초" />
+        <e k="invoice_work_harvestGrain" v="수확 (곡물)" />
+        <e k="invoice_work_harvestPotato" v="수확 (감자)" />
+        <e k="invoice_work_harvestSugarbeet" v="수확 (사탕무)" />
+        <e k="invoice_work_harvestSugarcane" v="수확 (사탕수수)" />
+        <e k="invoice_work_harvestCotton" v="수확 (목화)" />
+        <e k="invoice_work_harvestGrape" v="수확 (포도)" />
+        <e k="invoice_work_harvestOlive" v="수확 (올리브)" />
+        <e k="invoice_work_harvestRice" v="수확 (쌀)" />
+        <e k="invoice_work_harvestSpinach" v="수확 (시금치)" />
+        <e k="invoice_work_harvestPeas" v="수확 (완두콩)" />
+        <e k="invoice_work_harvestGreenBeans" v="수확 (강낭콩)" />
+        <e k="invoice_work_harvestVegetables" v="채소 수확" />
+        <e k="invoice_work_harvestOnion" v="수확 (양파)" />
+        <e k="invoice_work_chaffing" v="여물 만들기" />
+        <e k="invoice_work_mowing" v="제초" />
+        <e k="invoice_work_tedding" v="테딩" />
+        <e k="invoice_work_windrowing" v="윈드로잉" />
+        <e k="invoice_work_baling" v="베일링" />
+        <e k="invoice_work_wrapping" v="랩핑" />
+        <e k="invoice_work_buyBales" v="거래 (구매)" />
+        <e k="invoice_work_sellBales" v="판매 (베일)" />
+        <e k="invoice_work_animalFeeding" v="먹이 주기" />
+        <e k="invoice_work_barnCleaning" v="축사 청소" />
+        <e k="invoice_work_animalTransport" v="가축 운송" />
+        <e k="invoice_work_snowRemoval" v="제설" />
+        <e k="invoice_work_generalLabor" v="일반 노동" />
+        <e k="invoice_work_loaderWork" v="로더 작업" />
+        <e k="invoice_work_driving" v="운전" />
+        <e k="invoice_work_siloWork" v="사일로 작업" />
+        <e k="invoice_work_delivery" v="배달" />
+        <e k="invoice_work_transport" v="운송" />
+        <e k="invoice_work_equipmentRental" v="장비 대여" />
+        <e k="invoice_work_heapLoading" v="퇴적물 적재 (밭 가장자리)" />
+        <e k="invoice_work_treePlanting" v="나무 심기" />
+        <e k="invoice_work_treeCutting" v="나무 자르기" />
+        <e k="invoice_work_treeRemoval" v="목재 운송" />
+        <e k="invoice_work_goods" v="물품" />
+        <e k="invoice_work_miscellaneous" v="기타" />
+        <e k="finance_invoicePayment" v="청구서 지불" />
+        <e k="invoice_moneyType" v="청구" />
+        <e k="invoice_error_permission_required" v="농장 관리자 전용 작업입니다." />
+        <e k="invoice_error_insufficient_funds" v="이 청구서를 지불하기에 잔액이 부족합니다." />    </elements>
+</l10n>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="106">
+    <author>Squallqt</author>
+    <version>1.0.0.0</version>
+    <title>
+        <en>Invoices</en>
+        <fr>Factures</fr>
+        <de>Rechnungen</de>
+        <es>Facturas</es>
+        <it>Fatture</it>
+        <pt>Faturas</pt>
+        <br>Faturas</br>
+        <nl>Facturen</nl>
+        <pl>Faktury</pl>
+        <ru>Счета</ru>
+        <cz>Faktury</cz>
+        <cs>Faktury</cs>
+        <ct>發票</ct>
+        <hu>Számlák</hu>
+        <ro>Facturi</ro>
+        <tr>Faturalar</tr>
+        <da>Fakturaer</da>
+        <no>Fakturaer</no>
+        <sv>Fakturor</sv>
+        <fi>Laskut</fi>
+        <uk>Рахунки</uk>
+        <jp>請求書</jp>
+        <kr>청구서</kr>
+        <vn>Hóa đơn</vn>
+        <id>Faktur</id>
+    </title>
+    <description>
+        <en><![CDATA[Create, send and manage invoices between farms in singleplayer and multiplayer.
+
+Ideal for agricultural contractor gameplay. Bill other farms for services performed: plowing, harvesting, transport, animal care, equipment rental, and 50+ predefined work types. Base prices are automatically adjusted based on your economic difficulty setting, and the user can modify any price directly when creating an invoice.
+
+Features:
+- Full invoice wizard: select recipient farm, work types, fields, quantities and prices
+- Incoming and outgoing invoice tabs with status tracking
+- Pay or delete invoices with automatic financial integration
+- Finance tab entry for invoice payments
+- Automatic payment reminders
+- Savegame persistent, fully synchronized in multiplayer
+- 25 languages supported
+
+Access via the dedicated tab in the InGame Menu (ESC).]]></en>
+        <fr><![CDATA[Créez, envoyez et gérez des factures entre fermes en solo et en multijoueur.
+
+Idéal pour le gameplay de type ETA (Entreprise de Travaux Agricoles). Facturez les autres fermes pour les prestations réalisées : labour, récolte, transport, soins aux animaux, location de matériel, et plus de 50 types de travaux prédéfinis. Les prix de base s'ajustent automatiquement selon le niveau de difficulté économique, et l'utilisateur peut modifier librement chaque prix lors de la création d'une facture.
+
+Fonctionnalités :
+- Assistant de création complet : choix du destinataire, des travaux, des champs, quantités et prix
+- Onglets factures reçues et émises avec suivi des statuts
+- Règlement ou suppression des factures avec intégration financière automatique
+- Ligne dédiée dans l'onglet Finance pour les règlements
+- Rappels de paiement automatiques
+- Sauvegarde persistante, synchronisation complète en multijoueur
+- 25 langues supportées
+
+Accès via l'onglet dédié dans le menu en jeu (ECHAP).]]></fr>
+        <de><![CDATA[Erstellen, senden und verwalten Sie Rechnungen zwischen Betrieben im Einzel- und Mehrspielermodus.
+
+Ideal für Lohnunternehmer-Gameplay. Stellen Sie anderen Betrieben Rechnungen für erbrachte Leistungen: Pflügen, Ernten, Transport, Tierpflege, Maschinenverleih und über 50 vordefinierte Arbeitstypen. Die Grundpreise werden automatisch an den wirtschaftlichen Schwierigkeitsgrad angepasst, und der Benutzer kann jeden Preis bei der Rechnungserstellung frei ändern.
+
+Funktionen:
+- Vollständiger Rechnungsassistent: Empfänger, Arbeitstypen, Felder, Mengen und Preise wählen
+- Tabs für eingehende und ausgehende Rechnungen mit Statusverfolgung
+- Rechnungen bezahlen oder löschen mit automatischer Finanzintegration
+- Eintrag im Finanz-Tab für Rechnungszahlungen
+- Automatische Zahlungserinnerungen
+- Spielstand-persistent, vollständig synchronisiert im Multiplayer
+- 25 Sprachen unterstützt
+
+Zugriff über den eigenen Tab im InGame-Menü (ESC).]]></de>
+        <es><![CDATA[Crea, envía y gestiona facturas entre granjas en individual y multijugador.
+
+Ideal para el estilo de juego de contratista agrícola. Factura a otras granjas por los servicios realizados con más de 50 tipos de trabajo predefinidos. Los precios base se ajustan automáticamente según el nivel de dificultad económica, y el usuario puede modificar cualquier precio al crear una factura.
+
+Acceso desde la pestaña dedicada en el menú del juego (ESC).]]></es>
+        <it><![CDATA[Crea, invia e gestisci fatture tra aziende agricole in singolo e multiplayer.
+
+Ideale per il gameplay da contoterzista. Fattura altre aziende per i servizi svolti con oltre 50 tipi di lavoro predefiniti. I prezzi base vengono regolati automaticamente in base al livello di difficoltà economica, e l'utente può modificare liberamente ogni prezzo durante la creazione della fattura.
+
+Accesso tramite la scheda dedicata nel menu di gioco (ESC).]]></it>
+        <pl><![CDATA[Twórz, wysyłaj i zarządzaj fakturami między gospodarstwami w trybie jednoosobowym i wieloosobowym.
+
+Idealne do rozgrywki w stylu usług rolniczych. Wystawiaj faktury za wykonane prace z ponad 50 predefiniowanymi rodzajami prac. Ceny bazowe dostosowują się automatycznie do poziomu trudności ekonomicznej, a użytkownik może dowolnie modyfikować każdą cenę podczas tworzenia faktury.
+
+Dostęp przez dedykowaną kartę w menu gry (ESC).]]></pl>
+        <ru><![CDATA[Создавайте, отправляйте и управляйте счетами между фермами в одиночном и многопользовательском режимах.
+
+Идеально для геймплея сельскохозяйственного подрядчика. Выставляйте счета другим фермам за выполненные работы с более чем 50 предустановленными видами работ. Базовые цены автоматически корректируются в зависимости от уровня экономической сложности, а пользователь может свободно изменять любую цену при создании счёта.
+
+Доступ через вкладку в игровом меню (ESC).]]></ru>
+    </description>
+    <iconFilename>icon_Invoices.dds</iconFilename>
+    <multiplayer supported="true" />
+
+    <extraSourceFiles>
+        <sourceFile filename="scripts/Main.lua" />
+    </extraSourceFiles>
+    <l10n filenamePrefix="l10n/l10n" />
+</modDesc>

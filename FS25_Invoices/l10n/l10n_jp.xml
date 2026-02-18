@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <elements>
+        <e k="invoice_menu_title" v="請求管理" />
+        <e k="invoice_tab_incoming" v="受信" />
+        <e k="invoice_tab_outgoing" v="送信" />
+        <e k="invoice_status_unpaid" v="未払い" />
+        <e k="invoice_status_paid" v="支払い済み" />
+        <e k="invoice_col_date" v="日付" />
+        <e k="invoice_col_farm" v="農場" />
+        <e k="invoice_col_amount" v="金額" />
+        <e k="invoice_col_field" v="畑" />
+        <e k="invoice_col_area" v="面積" />
+        <e k="invoice_btn_newInvoice" v="新規請求書" />
+        <e k="invoice_btn_payInvoice" v="支払う" />
+        <e k="invoice_btn_deleteInvoice" v="削除" />
+        <e k="invoice_btn_showDetails" v="詳細" />
+        <e k="invoice_btn_add" v="追加" />
+        <e k="invoice_btn_remove" v="削除" />
+        <e k="invoice_btn_cancel" v="キャンセル" />
+        <e k="invoice_btn_close" v="閉じる" />
+        <e k="invoice_btn_select" v="選択" />
+        <e k="invoice_btn_selectFarm" v="顧客を選択" />
+        <e k="invoice_btn_next" v="次へ" />
+        <e k="invoice_btn_back" v="戻る" />
+        <e k="invoice_label_from" v="請求元:" />
+        <e k="invoice_label_to" v="請求先:" />
+        <e k="invoice_label_note" v="備考:" />
+        <e k="invoice_label_total" v="合計:" />
+        <e k="invoice_dialog_details" v="請求書詳細" />
+        <e k="invoice_dialog_selectField" v="畑の選択" />
+        <e k="invoice_wizard_mainTitle" v="新しい請求書" />
+        <e k="invoice_wizard_step1_subtitle" v="顧客" />
+        <e k="invoice_wizard_step1_label" v="顧客の農場を選択:" />
+        <e k="invoice_wizard_step2_subtitle" v="サービス" />
+        <e k="invoice_wizard_step2_label" v="作業の種類を選択:" />
+        <e k="invoice_wizard_step3_subtitle" v="畑" />
+        <e k="invoice_wizard_step3_label" v="対象の畑を選択:" />
+        <e k="invoice_wizard_step4_subtitle" v="概要" />
+        <e k="invoice_btn_sendInvoice" v="送信" />
+        <e k="invoice_wizard_no_items" v="サービスが選択されていません。" />
+        <e k="invoice_error_select_work" v="サービスを選択してください。" />
+        <e k="invoice_wizard_invoice_created" v="請求書を作成しました！" />
+        <e k="invoice_wizard_invoice_failed" v="作成エラー。" />
+        <e k="invoice_wizard_client_fields" v="顧客フィールド" />
+        <e k="invoice_wizard_other_fields" v="その他のフィールド" />
+        <e k="invoice_wizard_selection_summary" v="サービス:" />
+        <e k="invoice_wizard_field_selection_summary" v="場所:" />
+        <e k="invoice_format_field_id" v="畑 %d" />
+        <e k="invoice_step4_col_service" v="説明" />
+        <e k="invoice_step4_col_qty" v="数量" />
+        <e k="invoice_step4_col_unitprice" v="単価" />
+        <e k="invoice_step4_col_amount" v="金額" />
+        <e k="invoice_step4_from" v="請求元: %s" />
+        <e k="invoice_step4_to" v="顧客: %s" />
+        <e k="invoice_step4_total" v="請求額" />
+        <e k="invoice_detail_col_service" v="説明" />
+        <e k="invoice_detail_col_qty" v="数量" />
+        <e k="invoice_detail_col_unit" v="単位" />
+        <e k="invoice_detail_col_unitprice" v="単価" />
+        <e k="invoice_detail_col_amount" v="金額" />
+        <e k="invoice_col_number" v="請求書番号" />
+        <e k="invoice_col_status" v="状態" />
+        <e k="invoice_popup_added" v="追加: %s" />
+        <e k="invoice_popup_removed" v="削除: %s" />
+        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_empty_list" v="請求書なし" />
+        <e k="invoice_format_inv_number" v="請求-%03d" />
+        <e k="invoice_format_services_count" v="%d 件" />
+        <e k="invoice_confirm_pay" v="'%s' への支払いを確定しますか？" />
+        <e k="invoice_confirm_delete" v="完全に削除しますか？" />
+        <e k="invoice_notification_new" v="%s から請求書を受信: %s" />
+        <e k="invoice_reminder_single" v="未払い請求書: %s" />
+        <e k="invoice_reminder_multiple" v="%d件の未払い請求書（合計 %s）" />
+        <e k="invoice_format_date" v="%02d/%02d/%d年 - %02d:%02d" />
+        <e k="invoice_format_date_legacy" v="%d日目 - %02d:%02d" />
+        <e k="invoice_format_field" v="畑 %s (%.2f ha)" />
+        <e k="invoice_format_fieldId" v="畑 %s" />
+        <e k="invoice_invoices_unit_piece" v="個" />
+        <e k="invoice_invoices_unit_hour" v="時間" />
+        <e k="invoice_invoices_unit_hectare" v="ha" />
+        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_work_stoneCollection" v="石拾い" />
+        <e k="invoice_work_plowing" v="耕起 (プラウ)" />
+        <e k="invoice_work_cultivating" v="整地 (カルティベーター)" />
+        <e k="invoice_work_mulching" v="マルチング" />
+        <e k="invoice_work_rolling" v="鎮圧" />
+        <e k="invoice_work_harrowing" v="ハロー掛け" />
+        <e k="invoice_work_seeding" v="播種" />
+        <e k="invoice_work_seedingPotato" v="植付 (ジャガイモ)" />
+        <e k="invoice_work_seedingSugarcane" v="植付 (サトウキビ)" />
+        <e k="invoice_work_seedingRice" v="播種 (米)" />
+        <e k="invoice_work_seedingRoot" v="播種 (根菜)" />
+        <e k="invoice_work_pruning" v="剪定" />
+        <e k="invoice_work_spraying" v="薬剤散布" />
+        <e k="invoice_work_organicFertilizer" v="堆肥散布" />
+        <e k="invoice_work_mineralFertilizer" v="肥料散布" />
+        <e k="invoice_work_mechanicalWeeding" v="除草" />
+        <e k="invoice_work_harvestGrain" v="収穫 (穀物)" />
+        <e k="invoice_work_harvestPotato" v="収穫 (ジャガイモ)" />
+        <e k="invoice_work_harvestSugarbeet" v="収穫 (テンサイ)" />
+        <e k="invoice_work_harvestSugarcane" v="収穫 (サトウキビ)" />
+        <e k="invoice_work_harvestCotton" v="収穫 (綿花)" />
+        <e k="invoice_work_harvestGrape" v="収穫 (ブドウ)" />
+        <e k="invoice_work_harvestOlive" v="収穫 (オリーブ)" />
+        <e k="invoice_work_harvestRice" v="収穫 (米)" />
+        <e k="invoice_work_harvestSpinach" v="収穫 (ホウレンソウ)" />
+        <e k="invoice_work_harvestPeas" v="収穫 (エンドウ)" />
+        <e k="invoice_work_harvestGreenBeans" v="収穫 (インゲン)" />
+        <e k="invoice_work_harvestVegetables" v="野菜収穫" />
+        <e k="invoice_work_harvestOnion" v="収穫 (タマネギ)" />
+        <e k="invoice_work_chaffing" v="飼料刈り取り" />
+        <e k="invoice_work_mowing" v="草刈り" />
+        <e k="invoice_work_tedding" v="反転" />
+        <e k="invoice_work_windrowing" v="集草 (ウインドロウ)" />
+        <e k="invoice_work_baling" v="梱包 (ベール)" />
+        <e k="invoice_work_wrapping" v="ラッピング" />
+        <e k="invoice_work_buyBales" v="取引 (購入)" />
+        <e k="invoice_work_sellBales" v="販売 (ベール)" />
+        <e k="invoice_work_animalFeeding" v="給餌" />
+        <e k="invoice_work_barnCleaning" v="畜舎清掃" />
+        <e k="invoice_work_animalTransport" v="家畜輸送" />
+        <e k="invoice_work_snowRemoval" v="除雪" />
+        <e k="invoice_work_generalLabor" v="手作業" />
+        <e k="invoice_work_loaderWork" v="積込作業" />
+        <e k="invoice_work_driving" v="運転代行" />
+        <e k="invoice_work_siloWork" v="サイロ踏圧" />
+        <e k="invoice_work_delivery" v="配送" />
+        <e k="invoice_work_transport" v="輸送" />
+        <e k="invoice_work_equipmentRental" v="機材レンタル" />
+        <e k="invoice_work_heapLoading" v="集積物の積込（圃場端）" />
+        <e k="invoice_work_treePlanting" v="植林" />
+        <e k="invoice_work_treeCutting" v="伐採" />
+        <e k="invoice_work_treeRemoval" v="木材搬出" />
+        <e k="invoice_work_goods" v="消耗品" />
+        <e k="invoice_work_miscellaneous" v="その他" />
+        <e k="finance_invoicePayment" v="請求書支払い" />
+        <e k="invoice_moneyType" v="請求" />
+        <e k="invoice_error_permission_required" v="ファームマネージャー専用の操作です。" />
+        <e k="invoice_error_insufficient_funds" v="この請求書を支払うには残高が不足しています。" />    </elements>
+</l10n>
