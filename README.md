@@ -179,7 +179,7 @@ I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)
 
 ## Contact
 
-**Squallqt**  
+**Squallqt@gmail.com**  
 GitHub: [@Squallqt](https://github.com/Squallqt)
 
 ---
