@@ -24,6 +24,7 @@ function InvoicesWizardStep4.new(target, customMt)
     local self = DialogElement.new(target, customMt or InvoicesWizardStep4_mt)
     self.lineItems = {}
     self.selectedIndex = -1
+    self.suppressEditFieldUpdate = false
     return self
 end
 
@@ -166,7 +167,20 @@ end
 
 function InvoicesWizardStep4:onListSelectionChanged(list, section, index)
     self.selectedIndex = index
-    self:updateEditFields()
+    if not self.suppressEditFieldUpdate then
+        self:updateEditFields()
+    end
+end
+
+function InvoicesWizardStep4:refreshListKeepSelection()
+    if self.listItems == nil then return end
+    local savedIndex = self.selectedIndex
+    self.suppressEditFieldUpdate = true
+    self.listItems:reloadData()
+    if savedIndex >= 1 and savedIndex <= #self.lineItems then
+        self.listItems:setSelectedIndex(savedIndex)
+    end
+    self.suppressEditFieldUpdate = false
 end
 
 function InvoicesWizardStep4:updateEditFields()
@@ -243,6 +257,7 @@ function InvoicesWizardStep4:onPriceTextChanged(element, text)
     end
     item.amount = item.price * item.quantity
 
+    self:refreshListKeepSelection()
     self:updateTotal()
 end
 
@@ -277,6 +292,7 @@ function InvoicesWizardStep4:onQtyTextChanged(element, text)
     end
     item.amount = item.price * item.quantity
 
+    self:refreshListKeepSelection()
     self:updateTotal()
 end
 
