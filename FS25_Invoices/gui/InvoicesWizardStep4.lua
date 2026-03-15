@@ -268,8 +268,8 @@ function InvoicesWizardStep4:updateTotal()
 
     if self.textVatHt ~= nil and self.textVatTva ~= nil then
         if totalVAT > 0 then
-            local htText = string.format("%s :  %s", g_i18n:getText("invoice_step4_subtotal_ht"), g_i18n:formatMoney(totalHT, 0, true, false))
-            local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_step4_vat_label"), g_i18n:formatMoney(totalVAT, 0, true, false))
+            local htText = string.format("%s :  %s", g_i18n:getText("invoice_label_subtotal_ht"), g_i18n:formatMoney(totalHT, 0, true, false))
+            local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_label_vat"), g_i18n:formatMoney(totalVAT, 0, true, false))
             self.textVatHt:setText(htText)
             self.textVatTva:setText(tvaText)
             self.textVatHt:setVisible(true)

@@ -123,8 +123,8 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
             local vatAmount = invoice.vatAmount or 0
             if vatAmount > 0 then
                 local totalHT = invoice.totalHT or invoice.totalAmount
-                local htText = string.format("%s :  %s", g_i18n:getText("invoice_step4_subtotal_ht"), g_i18n:formatMoney(totalHT, 0, true, false))
-                local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_step4_vat_label"), g_i18n:formatMoney(vatAmount, 0, true, false))
+                local htText = string.format("%s :  %s", g_i18n:getText("invoice_label_subtotal_ht"), g_i18n:formatMoney(totalHT, 0, true, false))
+                local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_label_vat"), g_i18n:formatMoney(vatAmount, 0, true, false))
                 self.textVatHt:setText(htText)
                 self.textVatTva:setText(tvaText)
                 self.textVatHt:setVisible(true)

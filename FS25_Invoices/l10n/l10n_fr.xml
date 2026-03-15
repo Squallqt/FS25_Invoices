@@ -135,8 +135,8 @@
         <e k="invoice_work_goods" v="Fournitures" />
         <e k="invoice_work_miscellaneous" v="Frais divers" />
         <e k="invoice_step4_col_vat" v="TVA %" />
-        <e k="invoice_step4_subtotal_ht" v="Sous-total HT" />
-        <e k="invoice_step4_vat_label" v="TVA" />
+        <e k="invoice_label_subtotal_ht" v="Sous-total HT" />
+        <e k="invoice_label_vat" v="TVA" />
         <e k="finance_invoiceIncome" v="Revenus factures" />
         <e k="finance_invoiceExpense" v="Dépenses factures" />
         <e k="invoice_moneyType_income" v="Facture (Recette)" />
