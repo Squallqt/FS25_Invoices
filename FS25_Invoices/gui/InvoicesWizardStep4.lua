@@ -18,8 +18,8 @@ InvoicesWizardStep4.CONTROLS = {
     INPUT_QTY    = "inputQty",
     INPUT_VAT    = "inputVat",
     TEXT_TOTAL   = "textTotal",
-    TEXT_VAT_INFO_LABEL = "textVatInfoLabel",
-    TEXT_VAT_INFO_VALUE = "textVatInfoValue",
+    TEXT_VAT_HT  = "textVatHt",
+    TEXT_VAT_TVA = "textVatTva",
     BTN_SEND     = "btnSend",
 }
 
@@ -253,29 +253,27 @@ function InvoicesWizardStep4:updateTotal()
     for _, item in ipairs(state.lineItems) do
         local lineAmount = item.amount or 0
         local lineVatRate = item.vatRate or 0
-        local lineHT = lineAmount
+        local lineVAT = 0
         if lineVatRate > 0 then
-            lineHT = math.floor(lineAmount / (1 + lineVatRate))
+            lineVAT = math.floor(lineAmount * lineVatRate / (1 + lineVatRate) + 0.5)
         end
-        totalHT = totalHT + lineHT
-        totalVAT = totalVAT + (lineAmount - lineHT)
+        totalHT = totalHT + (lineAmount - lineVAT)
+        totalVAT = totalVAT + lineVAT
     end
 
     if self.textTotal ~= nil then
         self.textTotal:setText(g_i18n:formatMoney(total, 0, true, true))
     end
 
-    if self.textVatInfoLabel ~= nil and self.textVatInfoValue ~= nil then
+    if self.textVatHt ~= nil and self.textVatTva ~= nil then
         if totalVAT > 0 then
-            local htStr = g_i18n:formatMoney(totalHT, 0, true, false)
-            local vatStr = g_i18n:formatMoney(totalVAT, 0, true, false)
-            self.textVatInfoLabel:setText(string.format("HT: %s  —", htStr))
-            self.textVatInfoValue:setText(string.format("TVA: %s", vatStr))
-            self.textVatInfoLabel:setVisible(true)
-            self.textVatInfoValue:setVisible(true)
+            self.textVatHt:setText(string.format("%s :  %s", g_i18n:getText("invoice_step4_subtotal_ht"), g_i18n:formatMoney(totalHT, 0, true, false)))
+            self.textVatTva:setText(string.format("%s :  %s", g_i18n:getText("invoice_step4_vat_label"), g_i18n:formatMoney(totalVAT, 0, true, false)))
+            self.textVatHt:setVisible(true)
+            self.textVatTva:setVisible(true)
         else
-            self.textVatInfoLabel:setVisible(false)
-            self.textVatInfoValue:setVisible(false)
+            self.textVatHt:setVisible(false)
+            self.textVatTva:setVisible(false)
         end
     end
 

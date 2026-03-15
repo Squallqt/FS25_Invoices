@@ -69,13 +69,13 @@ function InvoiceCreateEvent:run(connection)
         for _, item in ipairs(invoice.lineItems or {}) do
             local lineAmount = item.amount or 0
             local lineVatRate = item.vatRate or 0
-            local lineHT = lineAmount
+            local lineVAT = 0
             if lineVatRate > 0 then
-                lineHT = math.floor(lineAmount / (1 + lineVatRate))
+                lineVAT = math.floor(lineAmount * lineVatRate / (1 + lineVatRate) + 0.5)
             end
             total = total + lineAmount
-            totalHT = totalHT + lineHT
-            totalVAT = totalVAT + (lineAmount - lineHT)
+            totalHT = totalHT + (lineAmount - lineVAT)
+            totalVAT = totalVAT + lineVAT
         end
         invoice.totalAmount = total
         invoice.totalHT = totalHT

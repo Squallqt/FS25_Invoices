@@ -56,11 +56,11 @@ function Invoice:populateFromData(id, items, recipientFarmId, senderFarmId)
     for _, item in pairs(items) do
         local lineAmount = item.amount or 0
         local lineVatRate = item.vatRate or 0
-        local lineHT = lineAmount
+        local lineVAT = 0
         if lineVatRate > 0 then
-            lineHT = math.floor(lineAmount / (1 + lineVatRate))
+            lineVAT = math.floor(lineAmount * lineVatRate / (1 + lineVatRate) + 0.5)
         end
-        local lineVAT = lineAmount - lineHT
+        local lineHT = lineAmount - lineVAT
         self.totalAmount = self.totalAmount + lineAmount
         self.vatAmount = self.vatAmount + lineVAT
         self.totalHT = self.totalHT + lineHT

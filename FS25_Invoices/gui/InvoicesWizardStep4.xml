@@ -81,10 +81,11 @@
 
                 <!-- TOTAL section -->
                 <Bitmap profile="wizStep4TotalBarBg"/>
-                <Text   profile="wizStep4TotalLabel" text="$l10n_invoice_step4_total"/>
-                <Text   profile="wizStep4VatInfoLabel" id="textVatInfoLabel"/>
-                <Text   profile="wizStep4VatInfoValue" id="textVatInfoValue"/>
-                <Text   profile="wizStep4TotalValue"   id="textTotal"/>
+                <Text   profile="wizStep4TotalLabel"  text="$l10n_invoice_step4_total"/>
+                <Text   profile="wizStep4VatHtText"   id="textVatHt"/>
+                <Text   profile="wizStep4VatTvaText"  id="textVatTva"/>
+                <Bitmap profile="wizStep4TotalSep"/>
+                <Text   profile="wizStep4TotalValue"  id="textTotal"/>
 
             </GuiElement>
         </BoxLayout>
@@ -356,10 +357,10 @@
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
 
-        <!-- Footer: Note (0-170) | P.U. (185-355) | Qty (370-540) | TVA (555-740) -->
+        <!-- Footer: Note (0-210) | P.U. (220-430) | Qty (440-620) | TVA (650-740) -->
         <Profile name="wizStep4FooterNoteLabel" extends="baseReference" with="anchorTopLeft">
             <position value="0px -316px"/>
-            <size value="170px 18px"/>
+            <size value="210px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="center"/>
@@ -367,91 +368,97 @@
         </Profile>
         <Profile name="wizStep4FooterNoteInput" extends="fs25_textInput" with="anchorTopLeft">
             <position value="0px -336px"/>
-            <size value="170px 28px"/>
+            <size value="210px 28px"/>
             <textAlignment value="center"/>
             <textOffset value="0px 3px"/>
         </Profile>
         <Profile name="wizStep4FooterPriceLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="185px -316px"/>
-            <size value="170px 18px"/>
+            <position value="220px -316px"/>
+            <size value="210px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4FooterPriceInput" extends="fs25_textInput" with="anchorTopLeft">
-            <position value="185px -336px"/>
-            <size value="170px 28px"/>
+            <position value="220px -336px"/>
+            <size value="210px 28px"/>
             <textAlignment value="center"/>
             <textOffset value="0px 3px"/>
         </Profile>
         <Profile name="wizStep4FooterQtyLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="370px -316px"/>
-            <size value="170px 18px"/>
+            <position value="440px -316px"/>
+            <size value="200px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4FooterQtyInput" extends="fs25_textInput" with="anchorTopLeft">
-            <position value="370px -336px"/>
-            <size value="170px 28px"/>
+            <position value="440px -336px"/>
+            <size value="200px 28px"/>
             <textAlignment value="center"/>
             <textOffset value="0px 3px"/>
         </Profile>
         <Profile name="wizStep4FooterVatLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="555px -316px"/>
-            <size value="185px 18px"/>
+            <position value="650px -316px"/>
+            <size value="90px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4FooterVatInput" extends="fs25_textInput" with="anchorTopLeft">
-            <position value="555px -336px"/>
-            <size value="185px 28px"/>
+            <position value="650px -336px"/>
+            <size value="90px 28px"/>
             <textAlignment value="center"/>
             <textOffset value="0px 3px"/>
         </Profile>
 
-        <!-- Total bar (60px to fit HT/TVA breakdown + TTC)                -->
+        <!-- Total bar (64px — HT line + TVA line + separator + TTC)       -->
         <Profile name="wizStep4TotalBarBg" extends="baseReference" with="anchorTopLeft">
             <position value="0px -376px"/>
-            <size value="740px 60px"/>
+            <size value="740px 64px"/>
             <imageColor value="0 0 0 1"/>
         </Profile>
         <Profile name="wizStep4TotalLabel" extends="baseReference" with="anchorTopLeft">
             <position value="20px -376px"/>
-            <size value="200px 60px"/>
+            <size value="200px 64px"/>
             <textSize value="22px"/>
             <textBold value="true"/>
             <textColor value="0.6 0.6 0.6 1"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <!-- HT/TVA labels (top-right of total bar)                        -->
-        <Profile name="wizStep4VatInfoLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="300px -378px"/>
-            <size value="220px 22px"/>
-            <textSize value="13px"/>
+        <!-- HT line (right side, top)                                     -->
+        <Profile name="wizStep4VatHtText" extends="baseReference" with="anchorTopLeft">
+            <position value="350px -378px"/>
+            <size value="370px 16px"/>
+            <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="wizStep4VatInfoValue" extends="baseReference" with="anchorTopLeft">
-            <position value="530px -378px"/>
-            <size value="190px 22px"/>
-            <textSize value="13px"/>
-            <textBold value="true"/>
-            <textColor value="1 1 1 1"/>
+        <!-- TVA line (right side, below HT)                               -->
+        <Profile name="wizStep4VatTvaText" extends="baseReference" with="anchorTopLeft">
+            <position value="350px -394px"/>
+            <size value="370px 16px"/>
+            <textSize value="12px"/>
+            <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <!-- TTC amount (bottom-right of total bar)                        -->
+        <!-- Thin separator between VAT info and TTC                       -->
+        <Profile name="wizStep4TotalSep" extends="baseReference" with="anchorTopLeft">
+            <position value="500px -411px"/>
+            <size value="220px 1px"/>
+            <imageColor value="0.3 0.3 0.3 0.8"/>
+        </Profile>
+        <!-- TTC amount (right side, bottom)                               -->
         <Profile name="wizStep4TotalValue" extends="baseReference" with="anchorTopLeft">
-            <position value="300px -400px"/>
-            <size value="420px 34px"/>
-            <textSize value="28px"/>
+            <position value="350px -412px"/>
+            <size value="370px 26px"/>
+            <textSize value="24px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
             <textAlignment value="right"/>

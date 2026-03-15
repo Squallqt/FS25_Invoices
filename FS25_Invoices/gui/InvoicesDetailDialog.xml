@@ -72,10 +72,12 @@
                 <!-- Separator before total -->
                 <Bitmap profile="invDetSepBeforeTotal"/>
 
-                <!-- TOTAL bar (full width) -->
+                <!-- TOTAL bar -->
                 <Bitmap profile="invDetTotalBarBg"/>
                 <Text   profile="invDetTotalLabel" text="$l10n_invoice_label_total" id="textTotalLabel"/>
-                <Text   profile="invDetVatInfoText" id="textVatInfo"/>
+                <Text   profile="invDetVatHtText"  id="textVatHt"/>
+                <Text   profile="invDetVatTvaText" id="textVatTva"/>
+                <Bitmap profile="invDetTotalSep"/>
                 <Text   profile="invDetTotalValue" id="textTotal"/>
 
             </GuiElement>
@@ -391,33 +393,46 @@
             <size value="740px 1px"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
-        <!-- Total bar -->
+        <!-- Total bar (60px — HT + TVA + sep + TTC)                    -->
         <Profile name="invDetTotalBarBg" extends="baseReference" with="anchorTopLeft">
             <position value="0px -384px"/>
-            <size value="740px 45px"/>
+            <size value="740px 60px"/>
             <imageColor value="0 0 0 1"/>
         </Profile>
         <Profile name="invDetTotalLabel" extends="baseReference" with="anchorTopLeft">
             <position value="20px -384px"/>
-            <size value="200px 45px"/>
+            <size value="200px 60px"/>
             <textSize value="20px"/>
             <textBold value="true"/>
             <textColor value="0.6 0.6 0.6 1"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="invDetVatInfoText" extends="baseReference" with="anchorTopLeft">
-            <position value="250px -384px"/>
-            <size value="470px 18px"/>
+        <Profile name="invDetVatHtText" extends="baseReference" with="anchorTopLeft">
+            <position value="350px -386px"/>
+            <size value="370px 16px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
+        <Profile name="invDetVatTvaText" extends="baseReference" with="anchorTopLeft">
+            <position value="350px -402px"/>
+            <size value="370px 16px"/>
+            <textSize value="12px"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="invDetTotalSep" extends="baseReference" with="anchorTopLeft">
+            <position value="500px -419px"/>
+            <size value="220px 1px"/>
+            <imageColor value="0.3 0.3 0.3 0.8"/>
+        </Profile>
         <Profile name="invDetTotalValue" extends="baseReference" with="anchorTopLeft">
-            <position value="250px -402px"/>
-            <size value="470px 27px"/>
-            <textSize value="26px"/>
+            <position value="350px -420px"/>
+            <size value="370px 22px"/>
+            <textSize value="22px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
             <textAlignment value="right"/>

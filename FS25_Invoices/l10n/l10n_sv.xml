@@ -135,6 +135,8 @@
         <e k="invoice_work_goods" v="Varor" />
         <e k="invoice_work_miscellaneous" v="Övrigt" />
         <e k="invoice_step4_col_vat" v="VAT %" />
+        <e k="invoice_step4_subtotal_ht" v="Subtotal excl. tax" />
+        <e k="invoice_step4_vat_label" v="VAT" />
         <e k="finance_invoiceIncome" v="Invoice Income" />
         <e k="finance_invoiceExpense" v="Invoice Expense" />
         <e k="invoice_moneyType_income" v="Invoice (Income)" />
