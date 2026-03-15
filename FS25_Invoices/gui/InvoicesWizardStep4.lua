@@ -20,6 +20,7 @@ InvoicesWizardStep4.CONTROLS = {
     TEXT_TOTAL   = "textTotal",
     TEXT_VAT_HT  = "textVatHt",
     TEXT_VAT_TVA = "textVatTva",
+    TOTAL_SEP    = "totalSep",
     BTN_SEND     = "btnSend",
 }
 
@@ -267,13 +268,32 @@ function InvoicesWizardStep4:updateTotal()
 
     if self.textVatHt ~= nil and self.textVatTva ~= nil then
         if totalVAT > 0 then
-            self.textVatHt:setText(string.format("%s :  %s", g_i18n:getText("invoice_step4_subtotal_ht"), g_i18n:formatMoney(totalHT, 0, true, false)))
-            self.textVatTva:setText(string.format("%s :  %s", g_i18n:getText("invoice_step4_vat_label"), g_i18n:formatMoney(totalVAT, 0, true, false)))
+            local htText = string.format("%s :  %s", g_i18n:getText("invoice_step4_subtotal_ht"), g_i18n:formatMoney(totalHT, 0, true, false))
+            local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_step4_vat_label"), g_i18n:formatMoney(totalVAT, 0, true, false))
+            self.textVatHt:setText(htText)
+            self.textVatTva:setText(tvaText)
             self.textVatHt:setVisible(true)
             self.textVatTva:setVisible(true)
+            -- Dynamic separator: align width to the longest text line
+            if self.totalSep ~= nil then
+                local htWidth = getTextWidth(self.textVatHt.textSize, htText)
+                local tvaWidth = getTextWidth(self.textVatTva.textSize, tvaText)
+                local totalWidth = getTextWidth(self.textTotal.textSize, self.textTotal.text or "")
+                local maxWidth = math.max(htWidth, tvaWidth, totalWidth)
+                local padding = self.textVatHt.textSize * 0.5
+                local sepWidth = maxWidth + padding
+                local containerRight = self.textVatHt.absPosition[1] + self.textVatHt.absSize[1]
+                local sepX = containerRight - sepWidth
+                self.totalSep:setPosition(sepX, self.totalSep.absPosition[2])
+                self.totalSep:setSize(sepWidth, self.totalSep.absSize[2])
+                self.totalSep:setVisible(true)
+            end
         else
             self.textVatHt:setVisible(false)
             self.textVatTva:setVisible(false)
+            if self.totalSep ~= nil then
+                self.totalSep:setVisible(false)
+            end
         end
     end
 

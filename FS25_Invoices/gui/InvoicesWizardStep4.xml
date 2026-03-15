@@ -80,11 +80,11 @@
                 </TextInput>
 
                 <!-- TOTAL section -->
-                <Bitmap profile="wizStep4TotalBarBg"/>
+                <RoundCorner profile="wizStep4TotalBarBg"/>
                 <Text   profile="wizStep4TotalLabel"  text="$l10n_invoice_step4_total"/>
                 <Text   profile="wizStep4VatHtText"   id="textVatHt"/>
                 <Text   profile="wizStep4VatTvaText"  id="textVatTva"/>
-                <Bitmap profile="wizStep4TotalSep"/>
+                <Bitmap profile="wizStep4TotalSep"    id="totalSep"/>
                 <Text   profile="wizStep4TotalValue"  id="textTotal"/>
 
             </GuiElement>
@@ -419,7 +419,8 @@
         <Profile name="wizStep4TotalBarBg" extends="baseReference" with="anchorTopLeft">
             <position value="0px -376px"/>
             <size value="740px 64px"/>
-            <imageColor value="0 0 0 1"/>
+            <color value="0 0 0 1"/>
+            <cornerSize value="0.3"/>
         </Profile>
         <Profile name="wizStep4TotalLabel" extends="baseReference" with="anchorTopLeft">
             <position value="20px -376px"/>
