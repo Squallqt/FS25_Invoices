@@ -134,8 +134,11 @@
         <e k="invoice_work_treeRemoval" v="Débardage" />
         <e k="invoice_work_goods" v="Fournitures" />
         <e k="invoice_work_miscellaneous" v="Frais divers" />
-        <e k="finance_invoicePayment" v="Règlement factures" />
-        <e k="invoice_moneyType" v="Facturation" />
+        <e k="invoice_step4_col_vat" v="TVA %" />
+        <e k="finance_invoiceIncome" v="Revenus factures" />
+        <e k="finance_invoiceExpense" v="Dépenses factures" />
+        <e k="invoice_moneyType_income" v="Facture (Recette)" />
+        <e k="invoice_moneyType_expense" v="Facture (Dépense)" />
         <e k="invoice_error_permission_required" v="Action réservée aux gérants de ferme." />
         <e k="invoice_error_insufficient_funds" v="Solde insuffisant pour régler cette facture." />
     </elements>

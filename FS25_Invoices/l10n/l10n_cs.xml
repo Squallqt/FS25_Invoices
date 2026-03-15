@@ -134,8 +134,11 @@
         <e k="invoice_work_treeRemoval" v="木材运输" />
         <e k="invoice_work_goods" v="物资" />
         <e k="invoice_work_miscellaneous" v="杂项" />
-        <e k="finance_invoicePayment" v="支付发票" />
-        <e k="invoice_moneyType" v="发票" />
+        <e k="invoice_step4_col_vat" v="VAT %" />
+        <e k="finance_invoiceIncome" v="Invoice Income" />
+        <e k="finance_invoiceExpense" v="Invoice Expense" />
+        <e k="invoice_moneyType_income" v="Invoice (Income)" />
+        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
         <e k="invoice_error_permission_required" v="仅农场经理可执行此操作。" />
         <e k="invoice_error_insufficient_funds" v="余额不足，无法支付此发票。" />    </elements>
 </l10n>

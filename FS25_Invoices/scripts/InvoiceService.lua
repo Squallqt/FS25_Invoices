@@ -72,7 +72,7 @@ function InvoiceService.new(repository)
     local self = setmetatable({}, InvoiceService_mt)
 
     self.repository = repository
-    
+
     self.reminderTimer = 0
     self.reminderActive = false
     self.reminderFarmId = nil
@@ -80,7 +80,61 @@ function InvoiceService.new(repository)
     self.initialCheckDone = false
     self.lastNotifiedFarmId = nil
 
+    self.vatGroups = {}
+    self.workTypeGroups = {}
+
     return self
+end
+
+function InvoiceService:loadVatRates(xmlPath)
+    local xmlFile = loadXMLFile("vatRates", xmlPath)
+    if xmlFile == 0 then
+        Logging.warning("[InvoiceService] Failed to load vatRates.xml from %s", xmlPath)
+        return
+    end
+
+    self.vatGroups = {}
+    self.workTypeGroups = {}
+
+    local i = 0
+    while true do
+        local key = string.format("vatRates.groups.group(%d)", i)
+        if not hasXMLProperty(xmlFile, key) then break end
+        local name = getXMLString(xmlFile, key .. "#name")
+        local rate = getXMLFloat(xmlFile, key .. "#defaultRate")
+        if name ~= nil and rate ~= nil then
+            self.vatGroups[name] = rate
+        end
+        i = i + 1
+    end
+
+    i = 0
+    while true do
+        local key = string.format("vatRates.workTypes.workType(%d)", i)
+        if not hasXMLProperty(xmlFile, key) then break end
+        local id = getXMLInt(xmlFile, key .. "#id")
+        local group = getXMLString(xmlFile, key .. "#group")
+        if id ~= nil and group ~= nil then
+            self.workTypeGroups[id] = group
+        end
+        i = i + 1
+    end
+
+    delete(xmlFile)
+    Logging.info("[InvoiceService] VAT rates loaded: %d groups, %d work type mappings", i, i)
+end
+
+function InvoiceService:isVatEnabled()
+    return g_currentMission.RedTape ~= nil
+       and g_currentMission.RedTape.TaxSystem ~= nil
+       and g_currentMission.RedTape.TaxSystem:isEnabled()
+end
+
+function InvoiceService:getVatRateForWorkType(workTypeId)
+    if not self:isVatEnabled() then return 0 end
+    local group = self.workTypeGroups[workTypeId]
+    if group == nil then return 0 end
+    return self.vatGroups[group] or 0
 end
 
 function InvoiceService:getWorkTypes()
@@ -201,23 +255,30 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
         local recipientFarm = g_farmManager:getFarmById(invoice.recipientFarmId)
 
         if senderFarm and recipientFarm and invoice.totalAmount > 0 then
+            local creditAmount = invoice.totalHT or invoice.totalAmount
+
             g_currentMission:addMoney(
                 -invoice.totalAmount,
                 invoice.recipientFarmId,
-                MoneyType.INVOICE_PAYMENT,
+                MoneyType.INVOICE_EXPENSE,
                 true,
                 true
             )
-            Logging.devInfo("[InvoiceService] Payer %s debited %.2f", recipientFarm.name, invoice.totalAmount)
+            Logging.devInfo("[InvoiceService] Payer %s debited %d (TTC)", recipientFarm.name, invoice.totalAmount)
 
             g_currentMission:addMoney(
-                invoice.totalAmount,
+                creditAmount,
                 invoice.senderFarmId,
-                MoneyType.INVOICE_PAYMENT,
+                MoneyType.INVOICE_INCOME,
                 true,
                 true
             )
-            Logging.devInfo("[InvoiceService] Provider %s credited %.2f", senderFarm.name, invoice.totalAmount)
+            Logging.devInfo("[InvoiceService] Provider %s credited %d (HT)", senderFarm.name, creditAmount)
+
+            local vatLost = invoice.totalAmount - creditAmount
+            if vatLost > 0 then
+                Logging.devInfo("[InvoiceService] VAT %d removed from economy", vatLost)
+            end
         else
             Logging.warning("[InvoiceService] executePayment: cannot transfer money for invoice %d (missing farm or zero amount)", invoiceId)
         end

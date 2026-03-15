@@ -75,6 +75,7 @@
                 <!-- TOTAL bar (full width) -->
                 <Bitmap profile="invDetTotalBarBg"/>
                 <Text   profile="invDetTotalLabel" text="$l10n_invoice_label_total" id="textTotalLabel"/>
+                <Text   profile="invDetVatInfoText" id="textVatInfo"/>
                 <Text   profile="invDetTotalValue" id="textTotal"/>
 
             </GuiElement>
@@ -405,9 +406,17 @@
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
+        <Profile name="invDetVatInfoText" extends="baseReference" with="anchorTopLeft">
+            <position value="250px -384px"/>
+            <size value="470px 18px"/>
+            <textSize value="12px"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
         <Profile name="invDetTotalValue" extends="baseReference" with="anchorTopLeft">
-            <position value="400px -384px"/>
-            <size value="320px 45px"/>
+            <position value="250px -402px"/>
+            <size value="470px 27px"/>
             <textSize value="26px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>

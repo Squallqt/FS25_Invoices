@@ -30,6 +30,8 @@ function Invoice.new(customMt)
     self.recipientFarmId = 0
     self.state = Invoice.STATE.NEW
     self.totalAmount = 0
+    self.vatAmount = 0
+    self.totalHT = 0
     self.lineItems = {}
     self.createdAt = {
         day = 0,
@@ -49,8 +51,19 @@ function Invoice:populateFromData(id, items, recipientFarmId, senderFarmId)
     self.lineItems = items
     
     self.totalAmount = 0
+    self.vatAmount = 0
+    self.totalHT = 0
     for _, item in pairs(items) do
-        self.totalAmount = self.totalAmount + (item.amount or 0)
+        local lineAmount = item.amount or 0
+        local lineVatRate = item.vatRate or 0
+        local lineHT = lineAmount
+        if lineVatRate > 0 then
+            lineHT = math.floor(lineAmount / (1 + lineVatRate))
+        end
+        local lineVAT = lineAmount - lineHT
+        self.totalAmount = self.totalAmount + lineAmount
+        self.vatAmount = self.vatAmount + lineVAT
+        self.totalHT = self.totalHT + lineHT
     end
     
     if g_currentMission and g_currentMission.environment then
@@ -89,6 +102,8 @@ function Invoice:writeToXML(xmlFile, key)
     setXMLInt(xmlFile, key .. "#senderFarmId", self.senderFarmId)
     setXMLInt(xmlFile, key .. "#recipientFarmId", self.recipientFarmId)
     setXMLInt(xmlFile, key .. "#state", self.state)
+    setXMLInt(xmlFile, key .. "#vatAmount", self.vatAmount or 0)
+    setXMLInt(xmlFile, key .. "#totalHT", self.totalHT or 0)
     setXMLInt(xmlFile, key .. ".createdAt#day", self.createdAt.day)
     setXMLInt(xmlFile, key .. ".createdAt#hour", self.createdAt.hour)
     setXMLInt(xmlFile, key .. ".createdAt#minute", self.createdAt.minute)
@@ -104,6 +119,7 @@ function Invoice:writeToXML(xmlFile, key)
         setXMLInt(xmlFile, itemKey .. "#fieldId", item.fieldId or 0)
         setXMLFloat(xmlFile, itemKey .. "#fieldArea", item.fieldArea or 0)
         setXMLString(xmlFile, itemKey .. "#note", item.note or "")
+        setXMLFloat(xmlFile, itemKey .. "#vatRate", item.vatRate or 0)
     end
 end
 
@@ -127,16 +143,19 @@ function Invoice:readFromXML(xmlFile, key)
         year = getXMLInt(xmlFile, key .. ".createdAt#year") or 0
     }
     
+    self.vatAmount = getXMLInt(xmlFile, key .. "#vatAmount") or 0
+    self.totalHT = getXMLInt(xmlFile, key .. "#totalHT") or 0
+
     self.lineItems = {}
     self.totalAmount = 0
-    
+
     local i = 0
     while true do
         local itemKey = string.format("%s.lineItems.item(%d)", key, i)
         if not hasXMLProperty(xmlFile, itemKey) then
             break
         end
-        
+
         local amount = getXMLFloat(xmlFile, itemKey .. "#amount") or 0
         local item = {
             workTypeId = getXMLInt(xmlFile, itemKey .. "#workTypeId") or 0,
@@ -145,12 +164,18 @@ function Invoice:readFromXML(xmlFile, key)
             unitType = getXMLInt(xmlFile, itemKey .. "#unitType") or Invoice.UNIT_PIECE,
             fieldId = getXMLInt(xmlFile, itemKey .. "#fieldId") or 0,
             fieldArea = getXMLFloat(xmlFile, itemKey .. "#fieldArea") or 0,
-            note = getXMLString(xmlFile, itemKey .. "#note") or ""
+            note = getXMLString(xmlFile, itemKey .. "#note") or "",
+            vatRate = getXMLFloat(xmlFile, itemKey .. "#vatRate") or 0
         }
-        
+
         table.insert(self.lineItems, item)
         self.totalAmount = self.totalAmount + amount
         i = i + 1
+    end
+
+    -- Retrocompat v2: recalculate totalHT if missing
+    if self.totalHT == 0 and self.totalAmount > 0 then
+        self.totalHT = self.totalAmount
     end
 end
 
@@ -159,12 +184,14 @@ function Invoice:writeStream(streamId)
     streamWriteInt32(streamId, self.senderFarmId)
     streamWriteInt32(streamId, self.recipientFarmId)
     streamWriteInt8(streamId, self.state)
+    streamWriteInt32(streamId, self.vatAmount or 0)
+    streamWriteInt32(streamId, self.totalHT or 0)
     streamWriteInt8(streamId, self.createdAt.day)
     streamWriteInt8(streamId, self.createdAt.hour)
     streamWriteInt8(streamId, self.createdAt.minute)
     streamWriteInt8(streamId, self.createdAt.period or 0)
     streamWriteInt16(streamId, self.createdAt.year or 0)
-    
+
     streamWriteInt16(streamId, #self.lineItems)
     for _, item in ipairs(self.lineItems) do
         streamWriteInt16(streamId, item.workTypeId or 0)
@@ -174,6 +201,7 @@ function Invoice:writeStream(streamId)
         streamWriteInt16(streamId, item.fieldId or 0)
         streamWriteFloat32(streamId, item.fieldArea or 0)
         streamWriteString(streamId, item.note or "")
+        streamWriteFloat32(streamId, item.vatRate or 0)
     end
 end
 
@@ -182,7 +210,9 @@ function Invoice:readStream(streamId)
     self.senderFarmId = streamReadInt32(streamId)
     self.recipientFarmId = streamReadInt32(streamId)
     self.state = streamReadInt8(streamId)
-    
+    self.vatAmount = streamReadInt32(streamId)
+    self.totalHT = streamReadInt32(streamId)
+
     self.createdAt = {
         day = streamReadInt8(streamId),
         hour = streamReadInt8(streamId),
@@ -190,10 +220,10 @@ function Invoice:readStream(streamId)
         period = streamReadInt8(streamId),
         year = streamReadInt16(streamId)
     }
-    
+
     self.lineItems = {}
     self.totalAmount = 0
-    
+
     local count = streamReadInt16(streamId)
     for _ = 1, count do
         local workTypeId = streamReadInt16(streamId)
@@ -205,9 +235,10 @@ function Invoice:readStream(streamId)
             unitType = streamReadInt8(streamId),
             fieldId = streamReadInt16(streamId),
             fieldArea = streamReadFloat32(streamId),
-            note = streamReadString(streamId)
+            note = streamReadString(streamId),
+            vatRate = streamReadFloat32(streamId)
         }
-        
+
         table.insert(self.lineItems, item)
         self.totalAmount = self.totalAmount + amount
     end

@@ -62,11 +62,24 @@ function InvoiceCreateEvent:run(connection)
             return
         end
         
+        -- Server-authoritative recalculation of totals
         local total = 0
+        local totalHT = 0
+        local totalVAT = 0
         for _, item in ipairs(invoice.lineItems or {}) do
-            total = total + (item.amount or 0)
+            local lineAmount = item.amount or 0
+            local lineVatRate = item.vatRate or 0
+            local lineHT = lineAmount
+            if lineVatRate > 0 then
+                lineHT = math.floor(lineAmount / (1 + lineVatRate))
+            end
+            total = total + lineAmount
+            totalHT = totalHT + lineHT
+            totalVAT = totalVAT + (lineAmount - lineHT)
         end
         invoice.totalAmount = total
+        invoice.totalHT = totalHT
+        invoice.vatAmount = totalVAT
         
         manager.service:createAndSendInvoice(self.invoice, true)
         g_server:broadcastEvent(self, nil, connection)

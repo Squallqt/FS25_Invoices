@@ -20,6 +20,7 @@ InvoicesDetailDialog.CONTROLS = {
     TEXT_NOTES = "textNotes",
     TEXT_TOTAL_LABEL = "textTotalLabel",
     TEXT_TOTAL = "textTotal",
+    TEXT_VAT_INFO = "textVatInfo",
     BTN_PAY = "btnPay",
 }
 
@@ -114,6 +115,19 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
 
         if self.textTotal then
             self.textTotal:setText(g_i18n:formatMoney(invoice.totalAmount or 0))
+        end
+
+        if self.textVatInfo then
+            local vatAmount = invoice.vatAmount or 0
+            if vatAmount > 0 then
+                local totalHT = invoice.totalHT or invoice.totalAmount
+                local htStr = g_i18n:formatMoney(totalHT, 0, true, false)
+                local vatStr = g_i18n:formatMoney(vatAmount, 0, true, false)
+                self.textVatInfo:setText(string.format("HT: %s — TVA: %s", htStr, vatStr))
+                self.textVatInfo:setVisible(true)
+            else
+                self.textVatInfo:setVisible(false)
+            end
         end
 
         if self.textNotes then

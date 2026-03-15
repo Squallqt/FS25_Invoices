@@ -30,20 +30,28 @@ Invoices.modDirectory = modDirectory
 Invoices.modName = modName
 Invoices.manager = nil
 
-local statName = "invoicePayment"
-if FinanceStats.statNameToIndex[statName] == nil then
-    table.insert(FinanceStats.statNames, statName)
-    FinanceStats.statNameToIndex[statName] = #FinanceStats.statNames
+local function registerFinanceStat(statName)
+    if FinanceStats.statNameToIndex[statName] == nil then
+        table.insert(FinanceStats.statNames, statName)
+        FinanceStats.statNameToIndex[statName] = #FinanceStats.statNames
+    end
 end
+
+registerFinanceStat("invoiceIncome")
+registerFinanceStat("invoiceExpense")
 
 local function loadedMission()
     Logging.devInfo("[Invoices] loadedMission() called")
     
-    MoneyType.INVOICE_PAYMENT = MoneyType.register("invoicePayment", "invoice_moneyType")
+    MoneyType.INVOICE_INCOME = MoneyType.register("invoiceIncome", "invoice_moneyType_income")
+    MoneyType.INVOICE_EXPENSE = MoneyType.register("invoiceExpense", "invoice_moneyType_expense")
 
     Invoices.manager = InvoicesManager.new()
     Invoices.manager:initialize()
-    
+
+    -- Load VAT rates from XML
+    Invoices.manager.service:loadVatRates(Invoices.modDirectory .. "data/vatRates.xml")
+
     local savegameFolderPath = g_currentMission.missionInfo.savegameDirectory
     if savegameFolderPath == nil then
         savegameFolderPath = ('%ssavegame%d'):format(getUserProfileAppPath(), g_currentMission.missionInfo.savegameIndex)
@@ -51,10 +59,10 @@ local function loadedMission()
     savegameFolderPath = savegameFolderPath .. "/"
     Invoices.manager:loadFromXML(savegameFolderPath)
     Logging.devInfo("[Invoices] Invoices loaded from savegame")
-    
+
     g_currentMission.invoicesManager = Invoices.manager
-    
-        Invoices.manager.service:initializeReminderSystem()
+
+    Invoices.manager.service:initializeReminderSystem()
     
     Logging.devInfo("[Invoices] Loading GUI profiles")
     g_gui:loadProfiles(Invoices.modDirectory .. "gui/guiProfiles.xml")
@@ -220,8 +228,10 @@ initInvoices()
 
 -- I18N extension: resolve mod keys without modEnv for Finance tab
 local InvoicesI18NTexts = {
-    ["finance_invoicePayment"] = true,
-    ["invoice_moneyType"] = true,
+    ["finance_invoiceIncome"] = true,
+    ["finance_invoiceExpense"] = true,
+    ["invoice_moneyType_income"] = true,
+    ["invoice_moneyType_expense"] = true,
     ["invoice_notification_new"] = true,
     ["invoice_reminder_single"] = true,
     ["invoice_reminder_multiple"] = true

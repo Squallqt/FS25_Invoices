@@ -16,7 +16,10 @@ InvoicesWizardStep4.CONTROLS = {
     INPUT_NOTE   = "inputNote",
     INPUT_PRICE  = "inputPrice",
     INPUT_QTY    = "inputQty",
+    INPUT_VAT    = "inputVat",
     TEXT_TOTAL   = "textTotal",
+    TEXT_VAT_INFO_LABEL = "textVatInfoLabel",
+    TEXT_VAT_INFO_VALUE = "textVatInfoValue",
     BTN_SEND     = "btnSend",
 }
 
@@ -159,6 +162,16 @@ function InvoicesWizardStep4:populateCellForItemInSection(list, section, index, 
         cellPrice:setText(g_i18n:formatMoney(item.price or 0, 0, true, false))
     end
 
+    local cellVat = cell:getDescendantByName("cellVat")
+    if cellVat ~= nil then
+        local vatRate = item.vatRate or 0
+        if vatRate > 0 then
+            cellVat:setText(string.format("%.1f%%", vatRate * 100))
+        else
+            cellVat:setText("—")
+        end
+    end
+
     local cellAmount = cell:getDescendantByName("cellAmount")
     if cellAmount ~= nil then
         cellAmount:setText(g_i18n:formatMoney(item.amount or 0, 0, true, false))
@@ -216,14 +229,54 @@ function InvoicesWizardStep4:updateEditFields()
             self.inputQty:setDisabled(true)
         end
     end
+
+    if self.inputVat ~= nil then
+        local manager = g_currentMission.invoicesManager
+        local vatEnabled = manager and manager.service:isVatEnabled() or false
+        if item ~= nil and vatEnabled then
+            self.inputVat:setText(string.format("%.1f", (item.vatRate or 0) * 100))
+            self.inputVat:setDisabled(false)
+        else
+            self.inputVat:setText(vatEnabled and "0" or "")
+            self.inputVat:setDisabled(true)
+        end
+    end
 end
 
 function InvoicesWizardStep4:updateTotal()
     local state = InvoicesWizardState.getInstance()
     local total = state:getTotal()
 
+    -- Compute HT/TVA breakdown from line items
+    local totalHT = 0
+    local totalVAT = 0
+    for _, item in ipairs(state.lineItems) do
+        local lineAmount = item.amount or 0
+        local lineVatRate = item.vatRate or 0
+        local lineHT = lineAmount
+        if lineVatRate > 0 then
+            lineHT = math.floor(lineAmount / (1 + lineVatRate))
+        end
+        totalHT = totalHT + lineHT
+        totalVAT = totalVAT + (lineAmount - lineHT)
+    end
+
     if self.textTotal ~= nil then
         self.textTotal:setText(g_i18n:formatMoney(total, 0, true, true))
+    end
+
+    if self.textVatInfoLabel ~= nil and self.textVatInfoValue ~= nil then
+        if totalVAT > 0 then
+            local htStr = g_i18n:formatMoney(totalHT, 0, true, false)
+            local vatStr = g_i18n:formatMoney(totalVAT, 0, true, false)
+            self.textVatInfoLabel:setText(string.format("HT: %s  —", htStr))
+            self.textVatInfoValue:setText(string.format("TVA: %s", vatStr))
+            self.textVatInfoLabel:setVisible(true)
+            self.textVatInfoValue:setVisible(true)
+        else
+            self.textVatInfoLabel:setVisible(false)
+            self.textVatInfoValue:setVisible(false)
+        end
     end
 
     if self.btnSend ~= nil then
@@ -291,6 +344,30 @@ function InvoicesWizardStep4:onQtyTextChanged(element, text)
         item.quantity = value
     end
     item.amount = item.price * item.quantity
+
+    self:refreshListKeepSelection()
+    self:updateTotal()
+end
+
+function InvoicesWizardStep4:onVatRateTextChanged(element, text)
+    if self.selectedIndex < 1 or self.selectedIndex > #self.lineItems then return end
+
+    local filtered = string.gsub(text or "", "[^0-9.]", "")
+    local _, dotCount = string.gsub(filtered, "%.", "")
+    if dotCount > 1 then
+        filtered = string.gsub(filtered, "%.", "", dotCount - 1)
+    end
+    if filtered ~= text then
+        element:setText(filtered)
+        return
+    end
+
+    local value = tonumber(filtered or "") or 0
+    if value < 0 then value = 0 end
+    if value > 100 then value = 100 end
+
+    local item = self.lineItems[self.selectedIndex]
+    item.vatRate = value / 100
 
     self:refreshListKeepSelection()
     self:updateTotal()

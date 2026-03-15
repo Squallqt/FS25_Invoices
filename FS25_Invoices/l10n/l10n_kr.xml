@@ -134,8 +134,11 @@
         <e k="invoice_work_treeRemoval" v="목재 운송" />
         <e k="invoice_work_goods" v="물품" />
         <e k="invoice_work_miscellaneous" v="기타" />
-        <e k="finance_invoicePayment" v="청구서 지불" />
-        <e k="invoice_moneyType" v="청구" />
+        <e k="invoice_step4_col_vat" v="VAT %" />
+        <e k="finance_invoiceIncome" v="Invoice Income" />
+        <e k="finance_invoiceExpense" v="Invoice Expense" />
+        <e k="invoice_moneyType_income" v="Invoice (Income)" />
+        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
         <e k="invoice_error_permission_required" v="농장 관리자 전용 작업입니다." />
         <e k="invoice_error_insufficient_funds" v="이 청구서를 지불하기에 잔액이 부족합니다." />    </elements>
 </l10n>

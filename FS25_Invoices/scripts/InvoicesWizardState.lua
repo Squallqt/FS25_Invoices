@@ -100,6 +100,11 @@ function InvoicesWizardState:addLineItem()
         end
     end
     
+    local vatRate = 0
+    if manager then
+        vatRate = manager.service:getVatRateForWorkType(workType.id)
+    end
+
     local item = {
         workTypeId = workType.id,
         name = displayName,
@@ -109,7 +114,8 @@ function InvoicesWizardState:addLineItem()
         fieldId = self.currentFieldId,
         fieldArea = self.currentFieldArea,
         amount = amount,
-        note = self.currentNote
+        note = self.currentNote,
+        vatRate = vatRate
     }
     
     table.insert(self.lineItems, item)
@@ -141,6 +147,7 @@ function InvoicesWizardState:buildAllLineItems()
         local displayName = g_i18n:getText(workType.nameKey)
         local unitKey = manager:getUnitKey(unit)
         local unitStr = g_i18n:getText(unitKey)
+        local vatRate = manager.service:getVatRateForWorkType(workType.id)
 
         if unit == Invoice.UNIT_HECTARE then
             for _, field in ipairs(fields) do
@@ -156,7 +163,8 @@ function InvoicesWizardState:buildAllLineItems()
                     fieldId = field.id,
                     fieldArea = field.area,
                     amount = amount,
-                    note = ""
+                    note = "",
+                    vatRate = vatRate
                 })
             end
         else
@@ -171,7 +179,8 @@ function InvoicesWizardState:buildAllLineItems()
                 fieldId = nil,
                 fieldArea = 0,
                 amount = amount,
-                note = ""
+                note = "",
+                vatRate = vatRate
             })
         end
     end
@@ -236,7 +245,8 @@ function InvoicesWizardState:createInvoice()
             unitType = item.unit or Invoice.UNIT_PIECE,
             fieldArea = item.fieldArea or 0,
             fieldId = item.fieldId or 0,
-            note = item.note or ""
+            note = item.note or "",
+            vatRate = item.vatRate or 0
         })
     end
 
