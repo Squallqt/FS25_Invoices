@@ -272,18 +272,7 @@ function InvoicesWizardStep4:updateTotal()
             self.textVatTva:setText(tvaText)
             self.textVatHt:setVisible(true)
             self.textVatTva:setVisible(true)
-            -- Dynamic separator: align width to the longest text line
             if self.totalSep ~= nil then
-                local htWidth = getTextWidth(self.textVatHt.textSize, htText)
-                local tvaWidth = getTextWidth(self.textVatTva.textSize, tvaText)
-                local totalWidth = getTextWidth(self.textTotal.textSize, self.textTotal.text or "")
-                local maxWidth = math.max(htWidth, tvaWidth, totalWidth)
-                local padding = self.textVatHt.textSize * 0.5
-                local sepWidth = maxWidth + padding
-                local containerRight = self.textVatHt.absPosition[1] + self.textVatHt.absSize[1]
-                local sepX = containerRight - sepWidth
-                self.totalSep:setPosition(sepX, self.totalSep.absPosition[2])
-                self.totalSep:setSize(sepWidth, self.totalSep.absSize[2])
                 self.totalSep:setVisible(true)
             end
         else
@@ -419,6 +408,12 @@ function InvoicesWizardStep4:onClickBack()
     else
         g_gui:showDialog("InvoicesWizardStep3")
     end
+end
+
+function InvoicesWizardStep4:onClickCancel()
+    local state = InvoicesWizardState.getInstance()
+    state:reset()
+    self:close()
 end
 
 function InvoicesWizardStep4:delete()

@@ -268,6 +268,12 @@ function InvoicesWizardStep2:onClickBack()
     g_gui:showDialog("InvoicesWizardStep1")
 end
 
+function InvoicesWizardStep2:onClickCancel()
+    local state = InvoicesWizardState.getInstance()
+    state:reset()
+    self:close()
+end
+
 function InvoicesWizardStep2:delete()
     self.workTypes = nil
     self.selectedItems = nil

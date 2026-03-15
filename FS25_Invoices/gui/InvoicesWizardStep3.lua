@@ -308,6 +308,12 @@ function InvoicesWizardStep3:onClickBack()
     g_gui:showDialog("InvoicesWizardStep2")
 end
 
+function InvoicesWizardStep3:onClickCancel()
+    local state = InvoicesWizardState.getInstance()
+    state:reset()
+    self:close()
+end
+
 function InvoicesWizardStep3:delete()
     self.clientFields = nil
     self.otherFields = nil

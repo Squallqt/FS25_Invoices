@@ -63,6 +63,8 @@
         <Button profile="wizStep2ButtonBack" text="$l10n_invoice_btn_back" onClick="onClickBack"/>
         <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
         <Button profile="wizStep2ButtonNext" id="btnNext" text="$l10n_invoice_btn_next" onClick="onClickNext"/>
+        <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+        <Button profile="wizStep2ButtonCancel" text="$l10n_invoice_btn_cancel" onClick="onClickCancel"/>
     </BoxLayout>
     
     <GUIProfiles>
@@ -260,6 +262,10 @@
         
         <Profile name="wizStep2ButtonNext" extends="buttonOK">
             <inputAction value="MENU_PAGE_NEXT"/>
+        </Profile>
+
+        <Profile name="wizStep2ButtonCancel" extends="buttonBack">
+            <inputAction value="MENU_BACK"/>
         </Profile>
     </GUIProfiles>
 </GUI>

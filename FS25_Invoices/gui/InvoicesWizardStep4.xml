@@ -97,6 +97,8 @@
         <Button profile="buttonOK" id="btnSend" text="$l10n_invoice_btn_sendInvoice" onClick="onClickSend"/>
         <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
         <Button profile="wizStep4ButtonBack" text="$l10n_invoice_btn_back" onClick="onClickBack"/>
+        <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+        <Button profile="wizStep4ButtonCancel" text="$l10n_invoice_btn_cancel" onClick="onClickCancel"/>
     </BoxLayout>
 
     <GUIProfiles>
@@ -415,15 +417,15 @@
             <textOffset value="0px 3px"/>
         </Profile>
 
-        <!-- Total bar (64px — HT line + TVA line + separator + TTC)       -->
+        <!-- Total bar (64px — centered in gap between footer and bottom)  -->
         <Profile name="wizStep4TotalBarBg" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -376px"/>
+            <position value="0px -370px"/>
             <size value="740px 64px"/>
             <color value="0 0 0 1"/>
             <cornerSize value="0.3"/>
         </Profile>
         <Profile name="wizStep4TotalLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="20px -376px"/>
+            <position value="20px -370px"/>
             <size value="200px 64px"/>
             <textSize value="22px"/>
             <textBold value="true"/>
@@ -433,7 +435,7 @@
         </Profile>
         <!-- HT line (right side, top)                                     -->
         <Profile name="wizStep4VatHtText" extends="baseReference" with="anchorTopLeft">
-            <position value="350px -378px"/>
+            <position value="350px -372px"/>
             <size value="370px 16px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -442,7 +444,7 @@
         </Profile>
         <!-- TVA line (right side, below HT)                               -->
         <Profile name="wizStep4VatTvaText" extends="baseReference" with="anchorTopLeft">
-            <position value="350px -394px"/>
+            <position value="350px -388px"/>
             <size value="370px 16px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -451,13 +453,13 @@
         </Profile>
         <!-- Thin separator between VAT info and TTC                       -->
         <Profile name="wizStep4TotalSep" extends="baseReference" with="anchorTopLeft">
-            <position value="500px -411px"/>
+            <position value="500px -405px"/>
             <size value="220px 1px"/>
             <imageColor value="0.3 0.3 0.3 0.8"/>
         </Profile>
         <!-- TTC amount (right side, bottom)                               -->
         <Profile name="wizStep4TotalValue" extends="baseReference" with="anchorTopLeft">
-            <position value="350px -412px"/>
+            <position value="350px -406px"/>
             <size value="370px 26px"/>
             <textSize value="24px"/>
             <textBold value="true"/>
@@ -481,6 +483,10 @@
         </Profile>
         <Profile name="wizStep4ButtonBack" extends="buttonOK">
             <inputAction value="MENU_PAGE_PREV"/>
+        </Profile>
+
+        <Profile name="wizStep4ButtonCancel" extends="buttonBack">
+            <inputAction value="MENU_BACK"/>
         </Profile>
     </GUIProfiles>
 </GUI>
