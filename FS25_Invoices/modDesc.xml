@@ -36,48 +36,90 @@ Ideal for agricultural contractor gameplay. Bill other farms for services perfor
 
 Features:
 - Full invoice wizard: select recipient farm, work types, fields, quantities and prices
+- Realistic VAT system based on French fiscal law (4 rate groups, editable per line item)
+- HT / VAT / TTC breakdown displayed on each invoice
+- Optional RedTape integration: VAT is deducted from the economy when the tax mod is active
+- Separate Income and Expense entries in the Finance tab
 - Incoming and outgoing invoice tabs with status tracking
 - Pay or delete invoices with automatic financial integration
-- Finance tab entry for invoice payments
 - Automatic payment reminders
 - Savegame persistent, fully synchronized in multiplayer
 - 25 languages supported
 
 GitHub repository: https://github.com/Squallqt/FS25_Invoices
 
-Access via the dedicated tab in the InGame Menu (ESC).]]></en>
+Access via the dedicated tab in the InGame Menu (ESC).
+
+Changelog:
+
+1.1.0.0:
+- Added realistic VAT system with 4 rate groups (service 20%, fieldwork 5.5%, forestry 10%, product 5.5%)
+- Added per-lineItem editable VAT rate in invoice wizard
+- Added HT / VAT / TTC breakdown on invoices
+- Added optional RedTape mod integration for fiscal tax deduction
+- Split Finance tab entry into separate Income and Expense lines
+1.0.0.0:
+- Initial ModHub release]]></en>
         <fr><![CDATA[Créez, envoyez et gérez des factures entre fermes en multijoueur.
 
 Idéal pour le gameplay de type ETA (Entreprise de Travaux Agricoles). Facturez les autres fermes pour les prestations réalisées : labour, récolte, transport, soins aux animaux, location de matériel, et plus de 50 types de travaux prédéfinis. Les prix de base s'ajustent automatiquement selon le niveau de difficulté économique, et l'utilisateur peut modifier librement chaque prix lors de la création d'une facture.
 
 Fonctionnalités :
 - Assistant de création complet : choix du destinataire, des travaux, des champs, quantités et prix
+- Système de TVA réaliste basé sur la fiscalité française (4 groupes de taux, modifiable par ligne)
+- Décomposition HT / TVA / TTC affichée sur chaque facture
+- Intégration RedTape optionnelle : la TVA est déduite de l'économie lorsque le mod fiscal est actif
+- Lignes Recettes et Dépenses séparées dans l'onglet Finance
 - Onglets factures reçues et émises avec suivi des statuts
 - Règlement ou suppression des factures avec intégration financière automatique
-- Ligne dédiée dans l'onglet Finance pour les règlements
 - Rappels de paiement automatiques
 - Sauvegarde persistante, synchronisation complète en multijoueur
 - 25 langues supportées
 
 Dépôt GitHub : https://github.com/Squallqt/FS25_Invoices
 
-Accès via l'onglet dédié dans le menu en jeu (ECHAP).]]></fr>
+Accès via l'onglet dédié dans le menu en jeu (ECHAP).
+
+Changelog :
+
+1.1.0.0 :
+- Ajout d'un système de TVA réaliste avec 4 groupes de taux (service 20%, travaux agricoles 5.5%, forestier 10%, produit 5.5%)
+- Taux de TVA modifiable par ligne dans l'assistant de facturation
+- Décomposition HT / TVA / TTC affichée sur les factures
+- Intégration optionnelle du mod RedTape pour la déduction fiscale
+- Séparation Recettes / Dépenses dans l'onglet Finance
+1.0.0.0 :
+- Publication initiale sur ModHub]]></fr>
         <de><![CDATA[Erstellen, senden und verwalten Sie Rechnungen zwischen Betrieben im Mehrspielermodus.
 
 Ideal für Lohnunternehmer-Gameplay. Stellen Sie anderen Betrieben Rechnungen für erbrachte Leistungen: Pflügen, Ernten, Transport, Tierpflege, Maschinenverleih und über 50 vordefinierte Arbeitstypen. Die Grundpreise werden automatisch an den wirtschaftlichen Schwierigkeitsgrad angepasst, und der Benutzer kann jeden Preis bei der Rechnungserstellung frei ändern.
 
 Funktionen:
 - Vollständiger Rechnungsassistent: Empfänger, Arbeitstypen, Felder, Mengen und Preise wählen
+- Realistisches MwSt-System nach französischem Steuerrecht (4 Satzgruppen, pro Zeile bearbeitbar)
+- Netto / MwSt / Brutto-Aufschlüsselung auf jeder Rechnung
+- Optionale RedTape-Integration: MwSt wird aus der Wirtschaft abgezogen, wenn der Steuer-Mod aktiv ist
+- Getrennte Einnahmen- und Ausgabenposten im Finanz-Tab
 - Tabs für eingehende und ausgehende Rechnungen mit Statusverfolgung
 - Rechnungen bezahlen oder löschen mit automatischer Finanzintegration
-- Eintrag im Finanz-Tab für Rechnungszahlungen
 - Automatische Zahlungserinnerungen
 - Spielstand-persistent, vollständig synchronisiert im Multiplayer
 - 25 Sprachen unterstützt
 
 GitHub-Repository: https://github.com/Squallqt/FS25_Invoices
 
-Zugriff über den eigenen Tab im InGame-Menü (ESC).]]></de>
+Zugriff über den eigenen Tab im InGame-Menü (ESC).
+
+Changelog:
+
+1.1.0.0:
+- Realistisches MwSt-System mit 4 Satzgruppen (Dienstleistung 20%, Feldarbeit 5.5%, Forstwirtschaft 10%, Produkt 5.5%)
+- MwSt-Satz pro Zeile im Rechnungsassistenten bearbeitbar
+- Netto / MwSt / Brutto-Aufschlüsselung auf Rechnungen
+- Optionale RedTape-Mod-Integration für steuerliche Abzüge
+- Getrennte Einnahmen- und Ausgabenposten im Finanz-Tab
+1.0.0.0:
+- Erstveröffentlichung auf ModHub]]></de>
         <es><![CDATA[Crea, envía y gestiona facturas entre granjas en multijugador.
 
 Ideal para el estilo de juego de contratista agrícola. Factura a otras granjas por los servicios realizados con más de 50 tipos de trabajo predefinidos. Los precios base se ajustan automáticamente según el nivel de dificultad económica, y el usuario puede modificar cualquier precio al crear una factura.

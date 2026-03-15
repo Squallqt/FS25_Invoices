@@ -131,7 +131,6 @@ function InvoiceService:isVatEnabled()
 end
 
 function InvoiceService:getVatRateForWorkType(workTypeId)
-    if not self:isVatEnabled() then return 0 end
     local group = self.workTypeGroups[workTypeId]
     if group == nil then return 0 end
     return self.vatGroups[group] or 0

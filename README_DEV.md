@@ -72,13 +72,14 @@ Technical documentation for FS25_Invoices development.
 
 `Main.lua` bootstraps the mod:
 1. Load all scripts (services, GUI, events)
-2. Register custom `MoneyType.INVOICE_PAYMENT` and Finance stat
+2. Register custom `MoneyType.INVOICE_INCOME` / `MoneyType.INVOICE_EXPENSE` and Finance stats
 3. Hook into `Mission00.loadMission00Finished` for post-load initialization
 4. Initialize `InvoicesManager` and load savegame data
-5. Load GUI profiles and dialogs
-6. Inject custom InGame Menu page with icon
-7. Register savegame hooks (`FSBaseMission.saveSavegame`)
-8. Register late-join sync hook (`FSBaseMission.sendInitialClientState`)
+5. Load VAT rates from `data/vatRates.xml`
+6. Load GUI profiles and dialogs
+7. Inject custom InGame Menu page with icon
+8. Register savegame hooks (`FSBaseMission.saveSavegame`)
+9. Register late-join sync hook (`FSBaseMission.sendInitialClientState`)
 
 ### Pricing System
 
@@ -97,12 +98,31 @@ User can override prices in wizard step 4.
 
 ### Finance Integration
 
-Custom money type registration:
+Two custom money types:
 ```lua
-MoneyType.INVOICE_PAYMENT = MoneyType.register("invoicePayment", "invoice_moneyType")
+MoneyType.INVOICE_INCOME  = MoneyType.register("invoiceIncome", "invoice_moneyType_income")
+MoneyType.INVOICE_EXPENSE = MoneyType.register("invoiceExpense", "invoice_moneyType_expense")
 ```
 
-Transactions appear in Finance tab with dedicated icon and localized label. Server processes payments with anti-cheat validation.
+Income (HT received by provider) and Expense (TTC paid by client) appear separately in Finance tab. When VAT applies, the difference (VAT amount) is removed from the economy. Server processes payments with anti-cheat validation.
+
+### VAT System
+
+Configurable VAT rates loaded from `data/vatRates.xml` with 4 groups based on French fiscal law:
+- **service** (20%): equipment rental, general labor, driving, etc.
+- **fieldwork** (5.5%): plowing, harvesting, seeding, spraying, etc.
+- **forestry** (10%): tree planting, cutting, log transport
+- **product** (5.5%): bales, supplies, goods
+
+Each line item carries its own `vatRate`, editable by the user in wizard step 4. Calculation follows French accounting: `TVA = round(TTC × rate / (1 + rate))`, `HT = TTC - TVA`.
+
+### RedTape Integration
+
+Optional runtime integration with the RedTape mod (by Ozz/sprkem):
+- Detection: `g_currentMission.RedTape.TaxSystem:isEnabled()`
+- RedTape automatically intercepts `addMoney()` calls via its `Farm.changeBalance` hook
+- Two statistics (`invoiceIncome`, `invoiceExpense`) registered for RedTape's tax categorization
+- Without RedTape: VAT is still displayed but has no fiscal impact beyond the HT/TTC split
 
 ### Reminder System
 
@@ -122,7 +142,8 @@ I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)
 ## Development Workflow
 
 ### Branch Strategy
-- `main`: Production releases (v1.0.0, v1.1.0)
+
+- `main`: Production releases (v1.0.0.0, v1.1.0.0)
 - `dev`: Active development
 
 ### Testing Checklist
@@ -145,25 +166,23 @@ I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)
 - Renderer updates on state changes
 - No console errors (F5 in-game)
 
-## Roadmap v1.1.0.0
+## Roadmap
 
-### VAT Integration
-**Scope**: Add `vatRate` field to Invoice model, update wizard step 4 UI to display subtotal/VAT/total, integrate with Finance tracking.
+### v1.1.0.0 (current)
 
-**Files**: `Invoice.lua`, `InvoiceService.lua`, `InvoicesWizardStep4.{lua,xml}`
+- [x] VAT system with 4 rate groups based on French fiscal law
+- [x] Per-lineItem editable vatRate in wizard step 4
+- [x] HT / TVA / TTC breakdown in WizardStep4 and DetailDialog
+- [x] Dual MoneyType (INVOICE_INCOME / INVOICE_EXPENSE)
+- [x] RedTape collaboration (runtime detection, 2 statistics)
+- [x] Savegame v2 → v3 migration with retrocompat
+- [x] vatRates.xml externalized configuration
 
-### Late Payment Penalties
-**Scope**: Add `dueDate` and `penaltyRate` to Invoice, implement daily background check for overdue invoices, auto-calculate surcharges, send notifications.
+### v1.2.0.0 (planned)
 
-**Files**: `Invoice.lua`, `InvoiceService.lua`, new `InvoiceReminderSystem.lua`
-
-### Manual Work Entry
-**Scope**: New dialog for user-defined work types, savegame persistence for custom entries, integration with work type picker.
-
-**Files**: New `CustomWorkDialog.{lua,xml}`, `WorkTypesRenderer.lua`, `InvoiceService.lua`
-
-### RedTape Integration
-**Status**: Research phase. Evaluate RedTape API for government form generation from invoice data.
+- Late payment penalties with automatic surcharge
+- Manual work entry for custom service types
+- Admin settings UI for VAT rate configuration in-game
 
 ## Code Style
 
@@ -175,7 +194,7 @@ I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)
 ## Dependencies
 
 - Farming Simulator 25 (descVersion 106)
-- No external mod dependencies
+- Optional: RedTape mod (by Ozz/sprkem) for fiscal tax integration
 
 ## Contact
 
@@ -184,4 +203,4 @@ GitHub: [@Squallqt](https://github.com/Squallqt)
 
 ---
 
-*Version 1.0.0.0 - 2026-02-18*
+*Version 1.1.0.0 - 2026-03-15*

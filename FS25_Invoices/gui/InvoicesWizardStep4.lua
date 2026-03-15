@@ -232,13 +232,11 @@ function InvoicesWizardStep4:updateEditFields()
     end
 
     if self.inputVat ~= nil then
-        local manager = g_currentMission.invoicesManager
-        local vatEnabled = manager and manager.service:isVatEnabled() or false
-        if item ~= nil and vatEnabled then
+        if item ~= nil then
             self.inputVat:setText(string.format("%.1f", (item.vatRate or 0) * 100))
             self.inputVat:setDisabled(false)
         else
-            self.inputVat:setText(vatEnabled and "0" or "")
+            self.inputVat:setText("")
             self.inputVat:setDisabled(true)
         end
     end
