@@ -59,29 +59,6 @@ function InvoicesDetailDialog:resizeTitleBadge()
     end
 end
 
-function InvoicesDetailDialog:resizeTotalSep(htText, tvaText)
-    if self.totalSep == nil or self.textVatHt == nil then return end
-
-    local textSize = self.textVatHt.textSize
-    local htWidth = getTextWidth(textSize, htText)
-    local tvaWidth = getTextWidth(textSize, tvaText)
-    local maxWidth = math.max(htWidth, tvaWidth)
-    local padding = textSize * 0.8
-    local sepWidth = maxWidth + padding
-    local sepHeight = self.totalSep.absSize[2]
-
-    local rightEdge = self.textVatHt.absPosition[1] + self.textVatHt.absSize[1]
-    local newAbsX = rightEdge - sepWidth
-
-    local parentAbsX = self.totalSep.parent.absPosition[1]
-    local parentAbsY = self.totalSep.parent.absPosition[2]
-    local localX = newAbsX - parentAbsX
-    local localY = self.totalSep.absPosition[2] - parentAbsY
-
-    self.totalSep:setPosition(localX, localY)
-    self.totalSep:setSize(sepWidth, sepHeight)
-end
-
 function InvoicesDetailDialog:onOpen()
     InvoicesDetailDialog:superClass().onOpen(self)
     self:resizeTitleBadge()
@@ -154,7 +131,6 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
                 self.textVatTva:setVisible(true)
                 if self.totalSep ~= nil then
                     self.totalSep:setVisible(true)
-                    self:resizeTotalSep(htText, tvaText)
                 end
             else
                 self.textVatHt:setVisible(false)
@@ -268,11 +244,18 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
 
     local amountStr = g_i18n:formatMoney(amount)
 
+    local vatRate = item.vatRate or 0
+    local vatStr = "—"
+    if vatRate > 0 then
+        vatStr = string.format("%.1f%%", vatRate * 100)
+    end
+
     local cellDesignation = cell:getDescendantByName("cellDesignation")
     local cellField       = cell:getDescendantByName("cellField")
     local cellQty         = cell:getDescendantByName("cellQty")
     local cellUnit        = cell:getDescendantByName("cellUnit")
     local cellUnitPrice   = cell:getDescendantByName("cellUnitPrice")
+    local cellVat         = cell:getDescendantByName("cellVat")
     local cellAmount      = cell:getDescendantByName("cellAmount")
 
     if cellDesignation then cellDesignation:setText(designation) end
@@ -280,6 +263,7 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
     if cellQty         then cellQty:setText(qtyStr) end
     if cellUnit        then cellUnit:setText(unitStr) end
     if cellUnitPrice   then cellUnitPrice:setText(unitPriceStr) end
+    if cellVat         then cellVat:setText(vatStr) end
     if cellAmount      then cellAmount:setText(amountStr) end
 end
 

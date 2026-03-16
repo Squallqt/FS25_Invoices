@@ -42,6 +42,7 @@
                 <Text profile="invDetColQty"         text="$l10n_invoice_detail_col_qty"/>
                 <Text profile="invDetColUnit"        text="$l10n_invoice_detail_col_unit"/>
                 <Text profile="invDetColUnitPrice"   text="$l10n_invoice_detail_col_unitprice"/>
+                <Text profile="invDetColVat"         text="$l10n_invoice_step4_col_vat"/>
                 <Text profile="invDetColAmount"      text="$l10n_invoice_detail_col_amount"/>
 
                 <!-- Accent separator (green) below headers -->
@@ -55,6 +56,7 @@
                         <Text profile="invDetCellQty"         name="cellQty"/>
                         <Text profile="invDetCellUnit"        name="cellUnit"/>
                         <Text profile="invDetCellUnitPrice"   name="cellUnitPrice"/>
+                        <Text profile="invDetCellVat"         name="cellVat"/>
                         <Text profile="invDetCellAmount"      name="cellAmount"/>
                     </ListItem>
                 </SmoothList>
@@ -269,9 +271,20 @@
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="invDetColAmount" extends="baseReference" with="anchorTopLeft">
+        <!-- TVA column -->
+        <Profile name="invDetColVat" extends="baseReference" with="anchorTopLeft">
             <position value="530px -104px"/>
-            <size value="200px 22px"/>
+            <size value="55px 22px"/>
+            <textSize value="12px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="invDetColAmount" extends="baseReference" with="anchorTopLeft">
+            <position value="590px -104px"/>
+            <size value="140px 22px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -350,9 +363,19 @@
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="invDetCellAmount" extends="baseReference">
+        <!-- TVA cell -->
+        <Profile name="invDetCellVat" extends="baseReference">
             <position value="530px 0px"/>
-            <size value="200px 32px"/>
+            <size value="55px 32px"/>
+            <textSize value="13px"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="invDetCellAmount" extends="baseReference">
+            <position value="590px 0px"/>
+            <size value="140px 32px"/>
             <textSize value="14px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
@@ -426,8 +449,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetTotalSep" extends="baseReference" with="anchorTopLeft">
-            <position value="500px -419px"/>
-            <size value="220px 1px"/>
+            <position value="350px -419px"/>
+            <size value="370px 1px"/>
             <imageColor value="0.3 0.3 0.3 0.8"/>
         </Profile>
         <Profile name="invDetTotalValue" extends="baseReference" with="anchorTopLeft">

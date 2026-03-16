@@ -453,8 +453,8 @@
         </Profile>
         <!-- Thin separator between VAT info and TTC                       -->
         <Profile name="wizStep4TotalSep" extends="baseReference" with="anchorTopLeft">
-            <position value="500px -405px"/>
-            <size value="220px 1px"/>
+            <position value="350px -405px"/>
+            <size value="370px 1px"/>
             <imageColor value="0.3 0.3 0.3 0.8"/>
         </Profile>
         <!-- TTC amount (right side, bottom)                               -->

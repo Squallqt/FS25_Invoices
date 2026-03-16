@@ -236,13 +236,13 @@
         
         <Profile name="wizStep2ButtonBarBg" extends="baseReference" with="anchorMiddleCenter">
             <position value="0px -270px"/>
-            <size value="800px 40px"/>
+            <size value="806px 40px"/>
             <color value="0 0 0 1"/>
             <cornerSize value="0.5"/>
         </Profile>
         <Profile name="wizStep2ButtonBox" extends="fs25_dialogButtonBox" with="anchorMiddleCenter">
             <position value="0px -270px"/>
-            <size value="800px 40px"/>
+            <size value="806px 40px"/>
             <imageColor value="0 0 0 0"/>
             <alignmentX value="right"/>
             <alignmentY value="middle"/>

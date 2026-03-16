@@ -55,31 +55,6 @@ function InvoicesWizardStep4:resizeTitleBadge()
     end
 end
 
-function InvoicesWizardStep4:resizeTotalSep(htText, tvaText)
-    if self.totalSep == nil or self.textVatHt == nil then return end
-
-    local textSize = self.textVatHt.textSize
-    local htWidth = getTextWidth(textSize, htText)
-    local tvaWidth = getTextWidth(textSize, tvaText)
-    local maxWidth = math.max(htWidth, tvaWidth)
-    local padding = textSize * 0.8
-    local sepWidth = maxWidth + padding
-    local sepHeight = self.totalSep.absSize[2]
-
-    -- Right edge = text element absPosition.x + absSize.x
-    local rightEdge = self.textVatHt.absPosition[1] + self.textVatHt.absSize[1]
-    local newAbsX = rightEdge - sepWidth
-
-    -- Convert absolute to local by subtracting parent offset
-    local parentAbsX = self.totalSep.parent.absPosition[1]
-    local parentAbsY = self.totalSep.parent.absPosition[2]
-    local localX = newAbsX - parentAbsX
-    local localY = self.totalSep.absPosition[2] - parentAbsY
-
-    self.totalSep:setPosition(localX, localY)
-    self.totalSep:setSize(sepWidth, sepHeight)
-end
-
 function InvoicesWizardStep4:onOpen()
     InvoicesWizardStep4:superClass().onOpen(self)
     self:resizeTitleBadge()
@@ -299,7 +274,6 @@ function InvoicesWizardStep4:updateTotal()
             self.textVatTva:setVisible(true)
             if self.totalSep ~= nil then
                 self.totalSep:setVisible(true)
-                self:resizeTotalSep(htText, tvaText)
             end
         else
             self.textVatHt:setVisible(false)
