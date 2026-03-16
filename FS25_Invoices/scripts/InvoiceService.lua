@@ -263,7 +263,7 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
                 true,
                 true
             )
-            Logging.devInfo("[InvoiceService] Payer %s debited %d (TTC)", recipientFarm.name, invoice.totalAmount)
+            Logging.devInfo("[InvoiceService] Client %s debited %d (TTC)", recipientFarm.name, invoice.totalAmount)
 
             g_currentMission:addMoney(
                 creditAmount,
@@ -273,11 +273,6 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
                 true
             )
             Logging.devInfo("[InvoiceService] Provider %s credited %d (HT)", senderFarm.name, creditAmount)
-
-            local vatLost = invoice.totalAmount - creditAmount
-            if vatLost > 0 then
-                Logging.devInfo("[InvoiceService] VAT %d removed from economy", vatLost)
-            end
         else
             Logging.warning("[InvoiceService] executePayment: cannot transfer money for invoice %d (missing farm or zero amount)", invoiceId)
         end
