@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="Feladó:" />
         <e k="invoice_label_to" v="Címzett:" />
         <e k="invoice_label_note" v="Megjegyzések:" />
+        <e k="invoice_placeholder_note" v="Megjegyzés vagy hivatkozás hozzáadása" />
         <e k="invoice_label_total" v="Összesen:" />
         <e k="invoice_dialog_details" v="Számla részletei" />
         <e k="invoice_dialog_selectField" v="Föld kiválasztása" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="Állapot" />
         <e k="invoice_popup_added" v="Hozzáadva: %s" />
         <e k="invoice_popup_removed" v="Eltávolítva: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="Már kiválasztva: %s" />
         <e k="invoice_empty_list" v="Nincsenek számlák" />
         <e k="invoice_format_inv_number" v="SZLA-%03d" />
         <e k="invoice_format_services_count" v="%d sor" />
@@ -134,13 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Rönkszállítás" />
         <e k="invoice_work_goods" v="Készletek" />
         <e k="invoice_work_miscellaneous" v="Egyéb" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="ÁFA %" />
+        <e k="invoice_label_subtotal_ht" v="Részösszeg ÁFA nélkül" />
+        <e k="invoice_label_vat" v="ÁFA" />
+        <e k="finance_invoiceIncome" v="Számla bevétel" />
+        <e k="finance_invoiceExpense" v="Számla kiadás" />
+        <e k="invoice_moneyType_income" v="Számla (Bevétel)" />
+        <e k="invoice_moneyType_expense" v="Számla (Kiadás)" />
         <e k="invoice_error_permission_required" v="Művelet farm vezetők számára fenntartva." />
-        <e k="invoice_error_insufficient_funds" v="Nem elegendő egyenleg a számla kifizetéséhez." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="Nem elegendő egyenleg a számla kifizetéséhez." />
+        <e k="invoice_error_select_farm" v="Válasszon gazdaságot." />
+        <e k="invoice_settings_section_title" v="Számlák" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Szimulált ÁFA" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Ha engedélyezve van, a számlák tartalmazzák az ÁFÁ-t. Az ügyfél a bruttó összeget fizeti (adóval), a szolgáltató a nettó összeget kapja (adó nélkül). Ha le van tiltva, az ÁFA 0%-ra van állítva és mindkét fél ugyanazt az összeget cseréli." />
+        <e k="invoice_setting_invoiceReminders" v="Fizetési emlékeztetők" />
+        <e k="invoice_toolTip_invoiceReminders" v="Ha engedélyezve van, 5 percenként emlékeztető értesítés jelenik meg a kifizetetlen számlákról." />
+        <e k="invoice_notification_vat_incl" v="ebből %s %s" />
+        <e k="invoice_notification_vat_excl" v="nélkül %s %s" />
+    </elements>
 </l10n>

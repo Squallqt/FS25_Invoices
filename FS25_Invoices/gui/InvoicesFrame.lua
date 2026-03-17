@@ -298,6 +298,7 @@ function InvoicesFrame:onClickNewInvoice()
         InfoDialog.show(g_i18n:getText("invoice_error_permission_required"))
         return
     end
+    g_gui:changeScreen(nil)
     g_gui:showDialog("InvoicesWizardStep1")
 end
 

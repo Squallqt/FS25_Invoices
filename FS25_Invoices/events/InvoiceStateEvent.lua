@@ -65,7 +65,7 @@ function InvoiceStateEvent:run(connection)
             end
             
             local farm = g_farmManager:getFarmById(invoice.recipientFarmId)
-            if farm == nil or farm.money < invoice.totalAmount then
+            if farm == nil or math.floor(farm.money) < math.floor(invoice.totalAmount) then
                 Logging.warning("[InvoiceStateEvent] Server rejected PAY: insufficient balance (%.2f < %.2f)", farm and farm.money or 0, invoice.totalAmount)
                 return
             end

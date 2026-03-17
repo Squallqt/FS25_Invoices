@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="From:" />
         <e k="invoice_label_to" v="To:" />
         <e k="invoice_label_note" v="Notes:" />
+        <e k="invoice_placeholder_note" v="Add a note or reference" />
         <e k="invoice_label_total" v="Total:" />
         <e k="invoice_dialog_details" v="Invoice Details" />
         <e k="invoice_dialog_selectField" v="Field Selection" />
@@ -143,5 +144,13 @@
         <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
         <e k="invoice_error_permission_required" v="Action reserved for farm managers." />
         <e k="invoice_error_insufficient_funds" v="Insufficient balance to pay this invoice." />
+        <e k="invoice_error_select_farm" v="Please select a farm." />
+        <e k="invoice_settings_section_title" v="Invoices" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Simulated VAT" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="When enabled, invoices include VAT. The client pays the gross amount (incl. tax), the provider receives the net amount (excl. tax). When disabled, VAT is set to 0% and both parties exchange the same amount." />
+        <e k="invoice_setting_invoiceReminders" v="Payment Reminders" />
+        <e k="invoice_toolTip_invoiceReminders" v="When enabled, a reminder notification is shown every 5 minutes for unpaid invoices." />
+        <e k="invoice_notification_vat_incl" v="incl. %s %s" />
+        <e k="invoice_notification_vat_excl" v="excl. %s %s" />
     </elements>
 </l10n>

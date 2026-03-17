@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="来自:" />
         <e k="invoice_label_to" v="致:" />
         <e k="invoice_label_note" v="备注:" />
+        <e k="invoice_placeholder_note" v="添加备注或参考" />
         <e k="invoice_label_total" v="总计:" />
         <e k="invoice_dialog_details" v="发票详情" />
         <e k="invoice_dialog_selectField" v="田地选择" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="状态" />
         <e k="invoice_popup_added" v="已添加: %s" />
         <e k="invoice_popup_removed" v="已移除: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="已选择：%s" />
         <e k="invoice_empty_list" v="无发票" />
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d 行" />
@@ -134,13 +135,22 @@
         <e k="invoice_work_treeRemoval" v="木材运输" />
         <e k="invoice_work_goods" v="物资" />
         <e k="invoice_work_miscellaneous" v="杂项" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="增值税 %" />
+        <e k="invoice_label_subtotal_ht" v="不含税小计" />
+        <e k="invoice_label_vat" v="增值税" />
+        <e k="finance_invoiceIncome" v="发票收入" />
+        <e k="finance_invoiceExpense" v="发票支出" />
+        <e k="invoice_moneyType_income" v="发票（收入）" />
+        <e k="invoice_moneyType_expense" v="发票（支出）" />
         <e k="invoice_error_permission_required" v="仅农场经理可执行此操作。" />
-        <e k="invoice_error_insufficient_funds" v="余额不足，无法支付此发票。" />    </elements>
+        <e k="invoice_error_insufficient_funds" v="余额不足，无法支付此发票。" />
+        <e k="invoice_error_select_farm" v="请选择一个农场。" />
+        <e k="invoice_settings_section_title" v="发票" />
+        <e k="invoice_setting_invoiceVatSimulated" v="模拟增值税" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="启用后，发票包含增值税。客户支付含税总额，服务商收到不含税净额。禁用后，增值税设为0%，双方交换相同金额。" />
+        <e k="invoice_setting_invoiceReminders" v="付款提醒" />
+        <e k="invoice_toolTip_invoiceReminders" v="启用后，每5分钟显示一次未付发票的提醒通知。" />
+        <e k="invoice_notification_vat_incl" v="含 %s %s" />
+        <e k="invoice_notification_vat_excl" v="不含 %s %s" />
+    </elements>
 </l10n>

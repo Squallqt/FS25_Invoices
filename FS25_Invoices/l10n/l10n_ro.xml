@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="De la:" />
         <e k="invoice_label_to" v="Către:" />
         <e k="invoice_label_note" v="Observații:" />
+        <e k="invoice_placeholder_note" v="Adăugați o observație sau referință" />
         <e k="invoice_label_total" v="Total:" />
         <e k="invoice_dialog_details" v="Detalii factură" />
         <e k="invoice_dialog_selectField" v="Selecție teren" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="Stare" />
         <e k="invoice_popup_added" v="Adăugat: %s" />
         <e k="invoice_popup_removed" v="Eliminat: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="Deja selectat: %s" />
         <e k="invoice_empty_list" v="Fără facturi" />
         <e k="invoice_format_inv_number" v="FAC-%03d" />
         <e k="invoice_format_services_count" v="%d rând(uri)" />
@@ -134,13 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Transport Bușteni" />
         <e k="invoice_work_goods" v="Provizii" />
         <e k="invoice_work_miscellaneous" v="Diverse" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="TVA %" />
+        <e k="invoice_label_subtotal_ht" v="Subtotal fără TVA" />
+        <e k="invoice_label_vat" v="TVA" />
+        <e k="finance_invoiceIncome" v="Venit din facturi" />
+        <e k="finance_invoiceExpense" v="Cheltuială din facturi" />
+        <e k="invoice_moneyType_income" v="Factură (Venit)" />
+        <e k="invoice_moneyType_expense" v="Factură (Cheltuială)" />
         <e k="invoice_error_permission_required" v="Acțiune rezervată managerilor de fermă." />
-        <e k="invoice_error_insufficient_funds" v="Sold insuficient pentru plata acestei facturi." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="Sold insuficient pentru plata acestei facturi." />
+        <e k="invoice_error_select_farm" v="Selectați o fermă." />
+        <e k="invoice_settings_section_title" v="Facturi" />
+        <e k="invoice_setting_invoiceVatSimulated" v="TVA simulat" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Când este activat, facturile includ TVA. Clientul plătește suma brută (cu taxă), furnizorul primește suma netă (fără taxă). Când este dezactivat, TVA este setat la 0% și ambele părți schimbă aceeași sumă." />
+        <e k="invoice_setting_invoiceReminders" v="Memento de plată" />
+        <e k="invoice_toolTip_invoiceReminders" v="Când este activat, o notificare de memento este afișată la fiecare 5 minute pentru facturile neplătite." />
+        <e k="invoice_notification_vat_incl" v="cu %s %s" />
+        <e k="invoice_notification_vat_excl" v="fără %s %s" />
+    </elements>
 </l10n>

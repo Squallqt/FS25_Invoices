@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="Från:" />
         <e k="invoice_label_to" v="Till:" />
         <e k="invoice_label_note" v="Anteckningar:" />
+        <e k="invoice_placeholder_note" v="Lägg till anteckning eller referens" />
         <e k="invoice_label_total" v="Totalt:" />
         <e k="invoice_dialog_details" v="Fakturadetaljer" />
         <e k="invoice_dialog_selectField" v="Fältval" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="Status" />
         <e k="invoice_popup_added" v="Tillagt: %s" />
         <e k="invoice_popup_removed" v="Borttaget: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="Redan vald: %s" />
         <e k="invoice_empty_list" v="Inga fakturor" />
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d rad(er)" />
@@ -83,7 +84,7 @@
         <e k="invoice_work_stoneCollection" v="Stenplockning" />
         <e k="invoice_work_plowing" v="Plogning" />
         <e k="invoice_work_cultivating" v="Kultivering" />
-        <e k="invoice_work_mulching" v="Mulching" />
+        <e k="invoice_work_mulching" v="Marktäckning" />
         <e k="invoice_work_rolling" v="Vältning" />
         <e k="invoice_work_harrowing" v="Harvning" />
         <e k="invoice_work_seeding" v="Sådd" />
@@ -134,14 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Timmer transport" />
         <e k="invoice_work_goods" v="Varor" />
         <e k="invoice_work_miscellaneous" v="Övrigt" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="Moms %" />
+        <e k="invoice_label_subtotal_ht" v="Delsumma exkl. moms" />
+        <e k="invoice_label_vat" v="Moms" />
+        <e k="finance_invoiceIncome" v="Fakturaintäkt" />
+        <e k="finance_invoiceExpense" v="Fakturautgift" />
+        <e k="invoice_moneyType_income" v="Faktura (Intäkt)" />
+        <e k="invoice_moneyType_expense" v="Faktura (Utgift)" />
         <e k="invoice_error_permission_required" v="Åtgärd reserverad för gårdschefer." />
         <e k="invoice_error_insufficient_funds" v="Otillräckligt saldo för att betala denna faktura." />
+        <e k="invoice_error_select_farm" v="Välj en gård." />
+        <e k="invoice_settings_section_title" v="Fakturor" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Simulerad moms" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="När aktiverat inkluderar fakturor moms. Kunden betalar bruttobeloppet (inkl. skatt), leverantören erhåller nettobeloppet (exkl. skatt). När inaktiverat sätts momsen till 0% och båda parter utbyter samma belopp." />
+        <e k="invoice_setting_invoiceReminders" v="Betalningspåminnelser" />
+        <e k="invoice_toolTip_invoiceReminders" v="När aktiverat visas en påminnelse var 5:e minut för obetalda fakturor." />
+        <e k="invoice_notification_vat_incl" v="inkl. %s %s" />
+        <e k="invoice_notification_vat_excl" v="exkl. %s %s" />
     </elements>
 </l10n>

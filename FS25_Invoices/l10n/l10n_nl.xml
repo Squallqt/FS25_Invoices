@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="Van:" />
         <e k="invoice_label_to" v="Aan:" />
         <e k="invoice_label_note" v="Opmerkingen:" />
+        <e k="invoice_placeholder_note" v="Opmerking of referentie toevoegen" />
         <e k="invoice_label_total" v="Totaal:" />
         <e k="invoice_dialog_details" v="Factuurdetails" />
         <e k="invoice_dialog_selectField" v="Veldkeuze" />
@@ -134,13 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Houttransport" />
         <e k="invoice_work_goods" v="Goederen" />
         <e k="invoice_work_miscellaneous" v="Diversen" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="BTW %" />
+        <e k="invoice_label_subtotal_ht" v="Subtotaal excl. BTW" />
+        <e k="invoice_label_vat" v="BTW" />
+        <e k="finance_invoiceIncome" v="Factuurinkomsten" />
+        <e k="finance_invoiceExpense" v="Factuuruitgaven" />
+        <e k="invoice_moneyType_income" v="Factuur (Inkomst)" />
+        <e k="invoice_moneyType_expense" v="Factuur (Uitgave)" />
         <e k="invoice_error_permission_required" v="Actie voorbehouden aan bedrijfsleiders." />
-        <e k="invoice_error_insufficient_funds" v="Onvoldoende saldo om deze factuur te betalen." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="Onvoldoende saldo om deze factuur te betalen." />
+        <e k="invoice_error_select_farm" v="Selecteer een boerderij." />
+        <e k="invoice_settings_section_title" v="Facturen" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Gesimuleerde BTW" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Indien ingeschakeld, bevatten facturen BTW. De klant betaalt het brutobedrag (incl. belasting), de aanbieder ontvangt het nettobedrag (excl. belasting). Indien uitgeschakeld, wordt de BTW op 0% gezet en wisselen beide partijen hetzelfde bedrag uit." />
+        <e k="invoice_setting_invoiceReminders" v="Betalingsherinneringen" />
+        <e k="invoice_toolTip_invoiceReminders" v="Indien ingeschakeld, wordt elke 5 minuten een herinneringsmelding getoond voor onbetaalde facturen." />
+        <e k="invoice_notification_vat_incl" v="incl. %s %s" />
+        <e k="invoice_notification_vat_excl" v="excl. %s %s" />
+    </elements>
 </l10n>

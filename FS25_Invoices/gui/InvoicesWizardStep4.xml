@@ -59,24 +59,37 @@
                 <Bitmap profile="wizStep4SepList"/>
 
                 <!-- Footer: Note | P.U. | Qty | TVA % -->
-                <Text      profile="wizStep4FooterNoteLabel"  text="$l10n_invoice_label_note"/>
-                <TextInput profile="wizStep4FooterNoteInput" id="inputNote" textAlignment="center">
-                    <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                <Text               profile="wizStep4FooterNoteLabel"  text="$l10n_invoice_label_note"/>
+                <TextInput  profile="wizStep4FooterNoteInput" id="inputNote" enterWhenClickOutside="false">
+                    <ThreePartBitmap profile="wizStep4OutlineBg" absoluteSizeOffset="0px 0px"/>
+                    <ThreePartBitmap profile="wizStep4InputIconBox">
+                        <Bitmap profile="wizStep4InputIcon"/>
+                    </ThreePartBitmap>
+                    <Text profile="wizStep4NotePlaceholder" name="notePlaceholder" text="$l10n_invoice_placeholder_note"/>
                 </TextInput>
 
-                <Text      profile="wizStep4FooterPriceLabel" text="$l10n_invoice_step4_col_unitprice"/>
-                <TextInput profile="wizStep4FooterPriceInput" id="inputPrice" onTextChanged="onPriceTextChanged" textAlignment="center">
-                    <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                <Text               profile="wizStep4FooterPriceLabel" text="$l10n_invoice_step4_col_unitprice"/>
+                <TextInput  profile="wizStep4FooterPriceInput" id="inputPrice" onTextChanged="onPriceTextChanged" enterWhenClickOutside="false">
+                    <ThreePartBitmap profile="wizStep4OutlineBg" absoluteSizeOffset="0px 0px"/>
+                    <ThreePartBitmap profile="wizStep4InputIconBox">
+                        <Bitmap profile="wizStep4InputIcon"/>
+                    </ThreePartBitmap>
                 </TextInput>
 
-                <Text      profile="wizStep4FooterQtyLabel"   text="$l10n_invoice_step4_col_qty"/>
-                <TextInput profile="wizStep4FooterQtyInput"   id="inputQty" onTextChanged="onQtyTextChanged" textAlignment="center">
-                    <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                <Text               profile="wizStep4FooterQtyLabel"   text="$l10n_invoice_step4_col_qty"/>
+                <TextInput  profile="wizStep4FooterQtyInput"   id="inputQty" onTextChanged="onQtyTextChanged" enterWhenClickOutside="false">
+                    <ThreePartBitmap profile="wizStep4OutlineBg" absoluteSizeOffset="0px 0px"/>
+                    <ThreePartBitmap profile="wizStep4InputIconBox">
+                        <Bitmap profile="wizStep4InputIcon"/>
+                    </ThreePartBitmap>
                 </TextInput>
 
-                <Text      profile="wizStep4FooterVatLabel"  text="$l10n_invoice_step4_col_vat"/>
-                <TextInput profile="wizStep4FooterVatInput"  id="inputVat" onTextChanged="onVatRateTextChanged" textAlignment="center">
-                    <ThreePartBitmap profile="fs25_textInputBg" absoluteSizeOffset="0px 0px"/>
+                <Text               profile="wizStep4FooterVatLabel"  text="$l10n_invoice_step4_col_vat"/>
+                <TextInput  profile="wizStep4FooterVatInput"  id="inputVat" onTextChanged="onVatRateTextChanged" enterWhenClickOutside="false">
+                    <ThreePartBitmap profile="wizStep4OutlineBg" absoluteSizeOffset="0px 0px"/>
+                    <ThreePartBitmap profile="wizStep4InputIconBox">
+                        <Bitmap profile="wizStep4InputIcon"/>
+                    </ThreePartBitmap>
                 </TextInput>
 
                 <!-- TOTAL section -->
@@ -84,7 +97,9 @@
                 <Text   profile="wizStep4TotalLabel"  text="$l10n_invoice_step4_total"/>
                 <Text   profile="wizStep4VatHtText"   id="textVatHt"/>
                 <Text   profile="wizStep4VatTvaText"  id="textVatTva"/>
-                <Bitmap profile="wizStep4TotalSep"    id="totalSep"/>
+                <BoxLayout profile="wizStep4TotalSepBox">
+                    <Bitmap profile="wizStep4TotalSepLine" id="totalSep"/>
+                </BoxLayout>
                 <Text   profile="wizStep4TotalValue"  id="textTotal"/>
 
             </GuiElement>
@@ -104,34 +119,34 @@
     <GUIProfiles>
         <!-- Root / backdrop                                               -->
         <Profile name="wizStep4Root" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -20px"/>
-            <size value="800px 500px"/>
+            <position value="0px -22px"/>
+            <size value="900px 562px"/>
         </Profile>
         <Profile name="wizStep4RoundBgBorder" extends="baseReference" with="anchorMiddleCenter">
             <position value="0px 3px"/>
-            <size value="806px 592px"/>
+            <size value="906px 666px"/>
             <color value="$preset_fs25_colorGreyDark"/>
             <cornerSize value="0.5"/>
         </Profile>
         <Profile name="wizStep4RoundBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -20px"/>
-            <size value="800px 540px"/>
+            <position value="0px -22px"/>
+            <size value="900px 608px"/>
             <color value="0.01 0.01 0.01 1.00"/>
             <cornerSize value="0.5"/>
         </Profile>
         <Profile name="wizStep4TitleBadgeBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 272px"/>
-            <size value="1px 45px"/>
+            <position value="0px 306px"/>
+            <size value="1px 51px"/>
             <color value="$preset_fs25_colorMainHighlight"/>
             <cornerSize value="0.5"/>
         </Profile>
         <Profile name="wizStep4TitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorMiddleCenter">
-            <position value="0px 250px"/>
-            <size value="740px 1px"/>
+            <position value="0px 281px"/>
+            <size value="832px 1px"/>
         </Profile>
         <Profile name="wizStep4MainTitle" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 272px"/>
-            <size value="716px 45px"/>
+            <position value="0px 306px"/>
+            <size value="806px 51px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -140,17 +155,17 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4MainBox" extends="emptyPanel" with="anchorTopCenter">
-            <size value="740px 500px"/>
+            <size value="832px 562px"/>
             <flowDirection value="vertical"/>
             <alignmentX value="left"/>
             <alignmentY value="top"/>
-            <elementSpacing value="10px"/>
-            <margin value="15px 0px 0px 0px"/>
+            <elementSpacing value="11px"/>
+            <margin value="17px 0px 0px 0px"/>
         </Profile>
         <!-- Subtitle                                                      -->
         <Profile name="wizStep4SubTitle" extends="baseReference">
-            <size value="740px 28px"/>
-            <margin value="0px 0px 10px 0px"/>
+            <size value="832px 32px"/>
+            <margin value="0px 0px 11px 0px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -159,13 +174,13 @@
         </Profile>
         <!-- Content area (single column, absolute children)               -->
         <Profile name="wizStep4ContentArea" extends="emptyPanel">
-            <size value="740px 440px"/>
+            <size value="832px 495px"/>
         </Profile>
 
         <!-- Header: From / To -->
         <Profile name="wizStep4HeaderFrom" extends="baseReference" with="anchorTopLeft">
-            <position value="10px 0px"/>
-            <size value="350px 26px"/>
+            <position value="11px 0px"/>
+            <size value="394px 29px"/>
             <textSize value="14px"/>
             <textBold value="true"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -173,8 +188,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4HeaderTo" extends="baseReference" with="anchorTopLeft">
-            <position value="380px 0px"/>
-            <size value="350px 26px"/>
+            <position value="428px 0px"/>
+            <size value="394px 29px"/>
             <textSize value="14px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
@@ -184,15 +199,15 @@
 
         <!-- Separator -->
         <Profile name="wizStep4SepTop" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -34px"/>
-            <size value="740px 1px"/>
+            <position value="0px -38px"/>
+            <size value="832px 1px"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
 
         <!-- Column headers — 5 first columns IDENTICAL to v1.0           -->
         <Profile name="wizStep4ColDesignation" extends="baseReference" with="anchorTopLeft">
-            <position value="10px -44px"/>
-            <size value="190px 24px"/>
+            <position value="11px -50px"/>
+            <size value="214px 27px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -201,8 +216,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4ColField" extends="baseReference" with="anchorTopLeft">
-            <position value="210px -44px"/>
-            <size value="78px 24px"/>
+            <position value="236px -50px"/>
+            <size value="88px 27px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -211,8 +226,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4ColQty" extends="baseReference" with="anchorTopLeft">
-            <position value="293px -44px"/>
-            <size value="52px 24px"/>
+            <position value="330px -50px"/>
+            <size value="59px 27px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -221,8 +236,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4ColUnit" extends="baseReference" with="anchorTopLeft">
-            <position value="350px -44px"/>
-            <size value="52px 24px"/>
+            <position value="394px -50px"/>
+            <size value="59px 27px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -231,8 +246,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4ColPrice" extends="baseReference" with="anchorTopLeft">
-            <position value="409px -44px"/>
-            <size value="113px 24px"/>
+            <position value="460px -50px"/>
+            <size value="127px 27px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -242,8 +257,8 @@
         </Profile>
         <!-- TVA column — inserted in the space taken from Amount          -->
         <Profile name="wizStep4ColVat" extends="baseReference" with="anchorTopLeft">
-            <position value="530px -44px"/>
-            <size value="55px 24px"/>
+            <position value="596px -50px"/>
+            <size value="62px 27px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -252,8 +267,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4ColAmount" extends="baseReference" with="anchorTopLeft">
-            <position value="590px -44px"/>
-            <size value="140px 24px"/>
+            <position value="664px -50px"/>
+            <size value="158px 27px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -264,22 +279,23 @@
 
         <!-- Accent separator (green) -->
         <Profile name="wizStep4SepHeaders" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -74px"/>
-            <size value="740px 1px"/>
+            <position value="0px -83px"/>
+            <size value="832px 1px"/>
             <imageColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
 
         <!-- Line items SmoothList  -->
         <Profile name="wizStep4List" extends="emptyPanel" with="anchorTopLeft">
-            <position value="0px -82px"/>
-            <size value="740px 220px"/>
+            <position value="0px -92px"/>
+            <size value="832px 248px"/>
+            <listItemSpacing value="-1px"/>
         </Profile>
         <Profile name="wizStep4SliderBox" extends="fs25_listSliderBox" with="anchorTopLeft">
-            <position value="751px -82px"/>
-            <size value="6px 220px"/>
+            <position value="845px -92px"/>
+            <size value="6px 248px"/>
         </Profile>
 
-        <!-- List row — 5 first cells IDENTICAL to v1.0                   -->
+        <!-- List row                                                      -->
         <Profile name="wizStep4ListItem" extends="baseReference" with="anchorTopStretchingX alternating">
             <height value="32px"/>
             <imageColor value="$preset_fs25_colorGrey"/>
@@ -287,8 +303,8 @@
             <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
         <Profile name="wizStep4CellDesignation" extends="baseReference">
-            <position value="10px 0px"/>
-            <size value="190px 32px"/>
+            <position value="11px 0px"/>
+            <size value="214px 32px"/>
             <textSize value="14px"/>
             <textColor value="1 1 1 1"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -296,8 +312,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4CellField" extends="baseReference">
-            <position value="210px 0px"/>
-            <size value="78px 32px"/>
+            <position value="236px 0px"/>
+            <size value="88px 32px"/>
             <textSize value="13px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -305,8 +321,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4CellQty" extends="baseReference">
-            <position value="293px 0px"/>
-            <size value="52px 32px"/>
+            <position value="330px 0px"/>
+            <size value="59px 32px"/>
             <textSize value="13px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -314,8 +330,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4CellUnit" extends="baseReference">
-            <position value="350px 0px"/>
-            <size value="52px 32px"/>
+            <position value="394px 0px"/>
+            <size value="59px 32px"/>
             <textSize value="13px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -323,8 +339,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4CellPrice" extends="baseReference">
-            <position value="409px 0px"/>
-            <size value="113px 32px"/>
+            <position value="460px 0px"/>
+            <size value="127px 32px"/>
             <textSize value="13px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -333,8 +349,8 @@
         </Profile>
         <!-- TVA cell -->
         <Profile name="wizStep4CellVat" extends="baseReference">
-            <position value="530px 0px"/>
-            <size value="55px 32px"/>
+            <position value="596px 0px"/>
+            <size value="62px 32px"/>
             <textSize value="13px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -342,8 +358,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4CellAmount" extends="baseReference">
-            <position value="590px 0px"/>
-            <size value="140px 32px"/>
+            <position value="664px 0px"/>
+            <size value="158px 32px"/>
             <textSize value="14px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
@@ -354,79 +370,191 @@
 
         <!-- Separator after list -->
         <Profile name="wizStep4SepList" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -308px"/>
-            <size value="740px 1px"/>
+            <position value="0px -347px"/>
+            <size value="832px 1px"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
 
-        <!-- Footer: Note (0-210) | P.U. (220-430) | Qty (440-620) | TVA (650-740) -->
+        <!-- Footer: Note | P.U. | Qty | TVA %                            -->
         <Profile name="wizStep4FooterNoteLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -316px"/>
-            <size value="210px 18px"/>
+            <position value="0px -356px"/>
+            <size value="310px 20px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4FooterNoteInput" extends="fs25_textInput" with="anchorTopLeft">
-            <position value="0px -336px"/>
-            <size value="210px 28px"/>
+            <position value="0px -378px"/>
+            <size value="310px 32px"/>
+            <handleFocus value="true"/>
+            <applyProfanityFilter value="false"/>
+            <imageSliceId value="noSlice"/>
+            <imageColor value="0 0 0 0"/>
+            <imageFocusedColor value="0 0 0 0"/>
+            <imageHighlightedColor value="0 0 0 0"/>
+            <imageSelectedColor value="0 0 0 0"/>
+            <imageDisabledColor value="0 0 0 0"/>
+            <textDisabledColor value="$preset_fs25_colorGreyDark"/>
             <textAlignment value="center"/>
             <textOffset value="0px 3px"/>
+            <cursorSize value="1px 16px"/>
+            <cursorOffset value="1px -2px"/>
         </Profile>
         <Profile name="wizStep4FooterPriceLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="220px -316px"/>
-            <size value="210px 18px"/>
+            <position value="327px -356px"/>
+            <size value="165px 20px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4FooterPriceInput" extends="fs25_textInput" with="anchorTopLeft">
-            <position value="220px -336px"/>
-            <size value="210px 28px"/>
+            <position value="327px -378px"/>
+            <size value="165px 32px"/>
+            <handleFocus value="true"/>
+            <applyProfanityFilter value="false"/>
+            <maxCharacters value="11"/>
+            <imageSliceId value="noSlice"/>
+            <imageColor value="0 0 0 0"/>
+            <imageFocusedColor value="0 0 0 0"/>
+            <imageHighlightedColor value="0 0 0 0"/>
+            <imageSelectedColor value="0 0 0 0"/>
+            <imageDisabledColor value="0 0 0 0"/>
+            <textDisabledColor value="$preset_fs25_colorGreyDark"/>
             <textAlignment value="center"/>
-            <textOffset value="0px 3px"/>
+            <textOffset value="0px 2px"/>
+            <cursorSize value="1px 16px"/>
+            <cursorOffset value="1px -2px"/>
         </Profile>
         <Profile name="wizStep4FooterQtyLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="440px -316px"/>
-            <size value="200px 18px"/>
+            <position value="509px -356px"/>
+            <size value="165px 20px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4FooterQtyInput" extends="fs25_textInput" with="anchorTopLeft">
-            <position value="440px -336px"/>
-            <size value="200px 28px"/>
+            <position value="509px -378px"/>
+            <size value="165px 32px"/>
+            <handleFocus value="true"/>
+            <applyProfanityFilter value="false"/>
+            <maxCharacters value="11"/>
+            <imageSliceId value="noSlice"/>
+            <imageColor value="0 0 0 0"/>
+            <imageFocusedColor value="0 0 0 0"/>
+            <imageHighlightedColor value="0 0 0 0"/>
+            <imageSelectedColor value="0 0 0 0"/>
+            <imageDisabledColor value="0 0 0 0"/>
+            <textDisabledColor value="$preset_fs25_colorGreyDark"/>
             <textAlignment value="center"/>
-            <textOffset value="0px 3px"/>
+            <textOffset value="0px 2px"/>
+            <cursorSize value="1px 16px"/>
+            <cursorOffset value="1px -2px"/>
         </Profile>
         <Profile name="wizStep4FooterVatLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="650px -316px"/>
-            <size value="90px 18px"/>
+            <position value="691px -356px"/>
+            <size value="141px 20px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="wizStep4FooterVatInput" extends="fs25_textInput" with="anchorTopLeft">
-            <position value="650px -336px"/>
-            <size value="90px 28px"/>
+            <position value="691px -378px"/>
+            <size value="141px 32px"/>
+            <handleFocus value="true"/>
+            <applyProfanityFilter value="false"/>
+            <maxCharacters value="5"/>
+            <imageSliceId value="noSlice"/>
+            <imageColor value="0 0 0 0"/>
+            <imageFocusedColor value="0 0 0 0"/>
+            <imageHighlightedColor value="0 0 0 0"/>
+            <imageSelectedColor value="0 0 0 0"/>
+            <imageDisabledColor value="0 0 0 0"/>
+            <textDisabledColor value="$preset_fs25_colorGreyDark"/>
             <textAlignment value="center"/>
-            <textOffset value="0px 3px"/>
+            <textOffset value="0px 2px"/>
+            <cursorSize value="1px 16px"/>
+            <cursorOffset value="1px -2px"/>
         </Profile>
 
-        <!-- Total bar (64px — centered in gap between footer and bottom)  -->
+        <!-- Placeholder text for note input                                -->
+        <Profile name="wizStep4NotePlaceholder" extends="baseReference">
+            <size value="100% 100%"/>
+            <anchors value="0 1 0 1"/>
+            <pivot value="0.5 0.5"/>
+            <textSize value="13px"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+            <textColor value="0.4 0.4 0.4 0.6"/>
+        </Profile>
+
+        <!-- Filled background for text inputs                              -->
+        <Profile name="wizStep4InputIconBox" extends="baseReference" with="anchorMiddleCenter">
+            <size value="100% 99%"/>
+            <imageSliceId value="gui.empty"/>
+            <imageColor value="$preset_fs25_colorGrey"/>
+            <imageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+            <imageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+            <imageDisabledColor value="$preset_fs25_colorGreyDark"/>
+            <startImageSize value="18px 0"/>
+            <startImageSliceId value="gui.empty"/>
+            <startImageColor value="$preset_fs25_colorGrey"/>
+            <startImageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+            <startImageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+            <startImageDisabledColor value="$preset_fs25_colorGreyDark"/>
+            <endImageSize value="18px 0"/>
+            <endImageSliceId value="gui.empty"/>
+            <endImageColor value="$preset_fs25_colorGrey"/>
+            <endImageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+            <endImageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+            <endImageDisabledColor value="$preset_fs25_colorGreyDark"/>
+        </Profile>
+
+        <!-- Pen icon for text inputs                                      -->
+        <Profile name="wizStep4InputIcon" extends="baseReference" with="anchorMiddleRight">
+            <position value="-9px 0px"/>
+            <size value="12px 12px"/>
+            <imageSliceId value="gui.icon_pen"/>
+            <imageColor value="0.35 0.35 0.35 0.7"/>
+            <imageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+            <imageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+            <imageDisabledColor value="$preset_fs25_colorGreyDark"/>
+        </Profile>
+
+        <!-- Outline border for text inputs                                 -->
+        <Profile name="wizStep4OutlineBg" extends="baseReference">
+            <imageSliceId value="gui.3dShop_button_outline_middle"/>
+            <imageColor value="0.35 0.35 0.35 0.7"/>
+            <imageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+            <imageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+            <imageDisabledColor value="$preset_fs25_colorGreyDark"/>
+            <startImageSize value="6px 0"/>
+            <startImageSliceId value="gui.3dShop_button_outline_left"/>
+            <startImageColor value="0.35 0.35 0.35 0.7"/>
+            <startImageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+            <startImageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+            <startImageDisabledColor value="$preset_fs25_colorGreyDark"/>
+            <endImageSize value="6px 0"/>
+            <endImageSliceId value="gui.3dShop_button_outline_right"/>
+            <endImageColor value="0.35 0.35 0.35 0.7"/>
+            <endImageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+            <endImageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+            <endImageDisabledColor value="$preset_fs25_colorGreyDark"/>
+        </Profile>
+
+        <!-- Total bar (72px — centered in gap between footer and bottom)  -->
         <Profile name="wizStep4TotalBarBg" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -370px"/>
-            <size value="740px 64px"/>
+            <position value="0px -416px"/>
+            <size value="832px 72px"/>
             <color value="0 0 0 1"/>
             <cornerSize value="0.3"/>
         </Profile>
         <Profile name="wizStep4TotalLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="20px -370px"/>
-            <size value="200px 64px"/>
+            <position value="22px -416px"/>
+            <size value="225px 72px"/>
             <textSize value="22px"/>
             <textBold value="true"/>
             <textColor value="0.6 0.6 0.6 1"/>
@@ -435,8 +563,8 @@
         </Profile>
         <!-- HT line (right side, top)                                     -->
         <Profile name="wizStep4VatHtText" extends="baseReference" with="anchorTopLeft">
-            <position value="350px -372px"/>
-            <size value="370px 16px"/>
+            <position value="394px -418px"/>
+            <size value="416px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="right"/>
@@ -444,23 +572,29 @@
         </Profile>
         <!-- TVA line (right side, below HT)                               -->
         <Profile name="wizStep4VatTvaText" extends="baseReference" with="anchorTopLeft">
-            <position value="350px -388px"/>
-            <size value="370px 16px"/>
+            <position value="394px -436px"/>
+            <size value="416px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <!-- Thin separator between VAT info and TTC                       -->
-        <Profile name="wizStep4TotalSep" extends="baseReference" with="anchorTopLeft">
-            <position value="350px -405px"/>
-            <size value="370px 1px"/>
+        <!-- BoxLayout wrapper for dynamic right-aligned separator          -->
+        <Profile name="wizStep4TotalSepBox" extends="emptyPanel" with="anchorTopLeft">
+            <position value="394px -454px"/>
+            <size value="416px 1px"/>
+            <flowDirection value="horizontal"/>
+            <alignmentX value="right"/>
+            <alignmentY value="top"/>
+        </Profile>
+        <Profile name="wizStep4TotalSepLine" extends="baseReference">
+            <size value="416px 1px"/>
             <imageColor value="0.3 0.3 0.3 0.8"/>
         </Profile>
         <!-- TTC amount (right side, bottom)                               -->
         <Profile name="wizStep4TotalValue" extends="baseReference" with="anchorTopLeft">
-            <position value="350px -406px"/>
-            <size value="370px 26px"/>
+            <position value="394px -455px"/>
+            <size value="416px 29px"/>
             <textSize value="24px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
@@ -469,15 +603,15 @@
         </Profile>
 
         <Profile name="wizStep4ButtonBarBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -270px"/>
-            <size value="800px 40px"/>
+            <position value="0px -304px"/>
+            <size value="900px 45px"/>
             <color value="0 0 0 1"/>
             <cornerSize value="0.5"/>
         </Profile>
         <Profile name="wizStep4ButtonBox" extends="fs25_dialogButtonBox" with="anchorMiddleCenter">
-            <position value="0px -270px"/>
+            <position value="0px -304px"/>
             <imageColor value="0 0 0 0"/>
-            <size value="800px 40px"/>
+            <size value="900px 45px"/>
             <alignmentX value="right"/>
             <alignmentY value="middle"/>
         </Profile>

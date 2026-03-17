@@ -10,7 +10,8 @@ InvoicesWizardStep3.CONTROLS = {
     TITLE_BADGE_BG = "titleBadgeBg",
     MAIN_TITLE_TEXT = "mainTitleText",
     LIST_FIELDS = "listFields",
-    SUMMARY_TEXT = "summaryText",
+    SUMMARY_LIST = "summaryList",
+    SUMMARY_SLIDER_BOX = "summarySliderBox",
     BTN_NEXT = "btnNext",
     BTN_ADD = "btnAdd",
     BTN_REMOVE = "btnRemove",
@@ -40,6 +41,10 @@ function InvoicesWizardStep3:onGuiSetupFinished()
     if self.listFields ~= nil then
         self.listFields:setDataSource(self)
         self.listFields:setDelegate(self)
+    end
+
+    if self.summaryList ~= nil then
+        self.summaryList:setDataSource(self)
     end
 end
 
@@ -164,31 +169,30 @@ function InvoicesWizardStep3:updateButtonStates()
 end
 
 function InvoicesWizardStep3:updateSummaryText()
-    if self.summaryText == nil then
-        return
+    if self.summaryList ~= nil then
+        self.summaryList:reloadData()
     end
-    
-    if #self.selectedItems == 0 then
-        self.summaryText:setText("")
-        return
-    end
-    
-    local lines = {}
-    
-    for _, fieldData in ipairs(self.selectedItems) do
-        local fieldName = string.format(g_i18n:getText("invoice_format_field_id"), fieldData.id)
-        local areaText = string.format("%.2f ha", fieldData.area)
-        table.insert(lines, string.format("·  %s  —  %s", fieldName, areaText))
-    end
-    
-    self.summaryText:setText(table.concat(lines, "\n"))
+    self:updateSummarySliderVisibility()
 end
 
-function InvoicesWizardStep3:getNumberOfSections()
+function InvoicesWizardStep3:updateSummarySliderVisibility()
+    if self.summarySliderBox ~= nil then
+        local maxVisible = math.floor(362 / 24)
+        self.summarySliderBox:setVisible(#self.selectedItems > maxVisible)
+    end
+end
+
+function InvoicesWizardStep3:getNumberOfSections(list)
+    if list == self.summaryList then
+        return 1
+    end
     return 2
 end
 
 function InvoicesWizardStep3:getNumberOfItemsInSection(list, section)
+    if list == self.summaryList then
+        return #self.selectedItems
+    end
     if section == 1 then
         return #self.clientFields
     elseif section == 2 then
@@ -198,6 +202,9 @@ function InvoicesWizardStep3:getNumberOfItemsInSection(list, section)
 end
 
 function InvoicesWizardStep3:getTitleForSectionHeader(list, section)
+    if list == self.summaryList then
+        return nil
+    end
     if section == 1 then
         return g_i18n:getText("invoice_wizard_client_fields")
     elseif section == 2 then
@@ -207,18 +214,41 @@ function InvoicesWizardStep3:getTitleForSectionHeader(list, section)
 end
 
 function InvoicesWizardStep3:getSectionHeaderHeight(list, section)
+    if list == self.summaryList then
+        return 0
+    end
     return 30
 end
 
 function InvoicesWizardStep3:getCellTypeForSectionHeader(list, section)
+    if list == self.summaryList then
+        return nil
+    end
     return "section"
 end
 
 function InvoicesWizardStep3:getCellTypeForItemInSection(list, section, index)
+    if list == self.summaryList then
+        return "summaryTemplate"
+    end
     return "fieldTemplate"
 end
 
 function InvoicesWizardStep3:populateCellForItemInSection(list, section, index, cell)
+    if list == self.summaryList then
+        local fieldData = self.selectedItems[index]
+        if fieldData == nil then return end
+
+        local fieldName = string.format(g_i18n:getText("invoice_format_field_id"), fieldData.id)
+        local areaText = string.format("%.2f ha", fieldData.area)
+
+        local cellText = cell:getDescendantByName("cellText")
+        if cellText ~= nil then
+            cellText:setText(string.format("·  %s  —  %s", fieldName, areaText))
+        end
+        return
+    end
+
     local fieldData = nil
     
     if section == 1 then
@@ -311,6 +341,7 @@ end
 function InvoicesWizardStep3:onClickCancel()
     local state = InvoicesWizardState.getInstance()
     state:reset()
+    self.selectedItems = {}
     self:close()
 end
 

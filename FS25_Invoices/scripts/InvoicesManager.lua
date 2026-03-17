@@ -94,7 +94,7 @@ function InvoicesManager:farmHasSufficientBalance(farmId, amount)
     if farm == nil then
         return false
     end
-    return (farm.money or 0) >= amount
+    return math.floor(farm.money or 0) >= math.floor(amount)
 end
 
 function InvoicesManager:saveToXML(savegamePath)

@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="Від:" />
         <e k="invoice_label_to" v="Кому:" />
         <e k="invoice_label_note" v="Примітки:" />
+        <e k="invoice_placeholder_note" v="Додати примітку або посилання" />
         <e k="invoice_label_total" v="Всього:" />
         <e k="invoice_dialog_details" v="Деталі рахунку" />
         <e k="invoice_dialog_selectField" v="Вибір поля" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="Статус" />
         <e k="invoice_popup_added" v="Додано: %s" />
         <e k="invoice_popup_removed" v="Видалено: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="Вже обрано: %s" />
         <e k="invoice_empty_list" v="Немає рахунків" />
         <e k="invoice_format_inv_number" v="РАХ-%03d" />
         <e k="invoice_format_services_count" v="%d рядк(ів)" />
@@ -134,13 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Трелювання" />
         <e k="invoice_work_goods" v="Матеріали" />
         <e k="invoice_work_miscellaneous" v="Різне" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="ПДВ %" />
+        <e k="invoice_label_subtotal_ht" v="Проміжний підсумок без ПДВ" />
+        <e k="invoice_label_vat" v="ПДВ" />
+        <e k="finance_invoiceIncome" v="Дохід за рахунками" />
+        <e k="finance_invoiceExpense" v="Витрати за рахунками" />
+        <e k="invoice_moneyType_income" v="Рахунок (Дохід)" />
+        <e k="invoice_moneyType_expense" v="Рахунок (Витрати)" />
         <e k="invoice_error_permission_required" v="Дія доступна лише керівникам ферми." />
-        <e k="invoice_error_insufficient_funds" v="Недостатньо коштів для оплати цього рахунку." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="Недостатньо коштів для оплати цього рахунку." />
+        <e k="invoice_error_select_farm" v="Оберіть ферму." />
+        <e k="invoice_settings_section_title" v="Рахунки" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Симуляція ПДВ" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Коли увімкнено, рахунки включають ПДВ. Клієнт сплачує повну суму (з податком), постачальник отримує чисту суму (без податку). Коли вимкнено, ПДВ встановлюється на 0% і обидві сторони обмінюються однаковою сумою." />
+        <e k="invoice_setting_invoiceReminders" v="Нагадування про оплату" />
+        <e k="invoice_toolTip_invoiceReminders" v="Коли увімкнено, нагадування відображається кожні 5 хвилин для неоплачених рахунків." />
+        <e k="invoice_notification_vat_incl" v="в т.ч. %s %s" />
+        <e k="invoice_notification_vat_excl" v="без %s %s" />
+    </elements>
 </l10n>

@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="Peternakan" />
         <e k="invoice_col_amount" v="Jumlah" />
         <e k="invoice_col_field" v="Ladang" />
-        <e k="invoice_col_area" v="Area" />
+        <e k="invoice_col_area" v="Luas" />
         <e k="invoice_btn_newInvoice" v="Faktur Baru" />
         <e k="invoice_btn_payInvoice" v="Bayar" />
         <e k="invoice_btn_deleteInvoice" v="Hapus" />
@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="Dari:" />
         <e k="invoice_label_to" v="Kepada:" />
         <e k="invoice_label_note" v="Catatan:" />
+        <e k="invoice_placeholder_note" v="Tambahkan catatan atau referensi" />
         <e k="invoice_label_total" v="Total:" />
         <e k="invoice_dialog_details" v="Rincian Faktur" />
         <e k="invoice_dialog_selectField" v="Pilihan Ladang" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="Status" />
         <e k="invoice_popup_added" v="Ditambahkan: %s" />
         <e k="invoice_popup_removed" v="Dihapus: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="Sudah dipilih: %s" />
         <e k="invoice_empty_list" v="Tidak ada faktur" />
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d baris" />
@@ -134,14 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Pengangkutan Kayu" />
         <e k="invoice_work_goods" v="Barang" />
         <e k="invoice_work_miscellaneous" v="Lain-lain" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="PPN %" />
+        <e k="invoice_label_subtotal_ht" v="Subtotal tanpa PPN" />
+        <e k="invoice_label_vat" v="PPN" />
+        <e k="finance_invoiceIncome" v="Pendapatan faktur" />
+        <e k="finance_invoiceExpense" v="Pengeluaran faktur" />
+        <e k="invoice_moneyType_income" v="Faktur (Pendapatan)" />
+        <e k="invoice_moneyType_expense" v="Faktur (Pengeluaran)" />
         <e k="invoice_error_permission_required" v="Tindakan khusus untuk manajer farm." />
         <e k="invoice_error_insufficient_funds" v="Saldo tidak mencukupi untuk membayar faktur ini." />
+        <e k="invoice_error_select_farm" v="Pilih pertanian." />
+        <e k="invoice_settings_section_title" v="Faktur" />
+        <e k="invoice_setting_invoiceVatSimulated" v="PPN simulasi" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Jika diaktifkan, faktur menyertakan PPN. Klien membayar jumlah bruto (termasuk pajak), penyedia menerima jumlah bersih (tidak termasuk pajak). Jika dinonaktifkan, PPN diatur ke 0% dan kedua pihak menukarkan jumlah yang sama." />
+        <e k="invoice_setting_invoiceReminders" v="Pengingat pembayaran" />
+        <e k="invoice_toolTip_invoiceReminders" v="Jika diaktifkan, notifikasi pengingat ditampilkan setiap 5 menit untuk faktur yang belum dibayar." />
+        <e k="invoice_notification_vat_incl" v="termasuk %s %s" />
+        <e k="invoice_notification_vat_excl" v="tidak termasuk %s %s" />
     </elements>
 </l10n>

@@ -26,7 +26,14 @@
                     <Text profile="wizStep2SummaryTitle" text="$l10n_invoice_wizard_selection_summary"/>
                     <GuiElement profile="wizStep2SummaryContentWrapper">
                         <Bitmap profile="wizStep2SummarySeparator"/>
-                        <Text profile="wizStep2SummaryText" id="summaryText"/>
+                        <SmoothList profile="wizStep2SummaryList" id="summaryList">
+                            <ListItem profile="wizStep2SummaryListItem" name="summaryTemplate">
+                                <Text profile="wizStep2SummaryCellText" name="cellText"/>
+                            </ListItem>
+                        </SmoothList>
+                        <ThreePartBitmap profile="wizStep2SummarySliderBox" id="summarySliderBox">
+                            <Slider profile="fs25_listSlider" dataElementId="summaryList"/>
+                        </ThreePartBitmap>
                     </GuiElement>
                 </GuiElement>
                 
@@ -36,8 +43,8 @@
                     <GuiElement profile="wizStep2ListWrapper">
                         <SmoothList profile="wizStep2List" id="listWorkTypes">
                             <ListItem profile="wizStep2ListItem" name="workTypeTemplate">
-                                <Text profile="wizStep2WorkName" position="12px 0px" size="220px 32px" name="cellName"/>
-                                <Text profile="wizStep2WorkPrice" position="235px 0px" size="105px 32px" name="cellPrice"/>
+                                <Text profile="wizStep2WorkName" position="14px 0px" size="248px 32px" name="cellName"/>
+                                <Text profile="wizStep2WorkPrice" position="264px 0px" size="118px 32px" name="cellPrice"/>
                             </ListItem>
                         </SmoothList>
                         <ThreePartBitmap profile="wizStep2SliderBox">
@@ -71,36 +78,36 @@
         
         
         <Profile name="wizStep2Root" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -20px"/>
-            <size value="800px 500px"/>
+            <position value="0px -22px"/>
+            <size value="900px 562px"/>
         </Profile>
-        
+
         <Profile name="wizStep2RoundBgBorder" extends="baseReference" with="anchorMiddleCenter">
             <position value="0px 3px"/>
-            <size value="806px 592px"/>
+            <size value="906px 666px"/>
             <color value="$preset_fs25_colorGreyDark"/>
             <cornerSize value="0.5"/>
         </Profile>
         <Profile name="wizStep2RoundBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -20px"/>
-            <size value="800px 540px"/>
+            <position value="0px -22px"/>
+            <size value="900px 608px"/>
             <color value="0.01 0.01 0.01 1.00"/>
             <cornerSize value="0.5"/>
         </Profile>
         <Profile name="wizStep2TitleBadgeBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 272px"/>
-            <size value="1px 45px"/>
+            <position value="0px 306px"/>
+            <size value="1px 51px"/>
             <color value="$preset_fs25_colorMainHighlight"/>
             <cornerSize value="0.5"/>
         </Profile>
         <Profile name="wizStep2TitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorMiddleCenter">
-            <position value="0px 250px"/>
-            <size value="740px 1px"/>
+            <position value="0px 281px"/>
+            <size value="832px 1px"/>
         </Profile>
-        
+
         <Profile name="wizStep2MainTitle" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 272px"/>
-            <size value="716px 45px"/>
+            <position value="0px 306px"/>
+            <size value="806px 51px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -110,18 +117,18 @@
         </Profile>
         
         <Profile name="wizStep2MainBox" extends="emptyPanel" with="anchorTopCenter">
-            <size value="740px 480px"/>
+            <size value="832px 540px"/>
             <flowDirection value="vertical"/>
             <alignmentX value="left"/>
             <alignmentY value="top"/>
-            <elementSpacing value="10px"/>
-            <margin value="15px 0px 0px 0px"/>
+            <elementSpacing value="11px"/>
+            <margin value="17px 0px 0px 0px"/>
         </Profile>
-        
-        
+
+
         <Profile name="wizStep2SubTitle" extends="baseReference">
-            <size value="740px 28px"/>
-            <margin value="0px 0px 16px 0px"/>
+            <size value="832px 32px"/>
+            <margin value="0px 0px 18px 0px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -131,22 +138,22 @@
         <!-- Two-column layout -->
         
         <Profile name="wizStep2ContentBox" extends="emptyPanel">
-            <size value="740px 398px"/>
+            <size value="832px 448px"/>
             <flowDirection value="horizontal"/>
             <alignmentX value="left"/>
             <alignmentY value="top"/>
-            <elementSpacing value="10px"/>
+            <elementSpacing value="11px"/>
         </Profile>
         <!-- Left column: Summary (read-only) -->
-        
+
         <Profile name="wizStep2SummaryColumn" extends="emptyPanel">
-            <size value="365px 398px"/>
+            <size value="411px 448px"/>
         </Profile>
-        
-        
+
+
         <Profile name="wizStep2SummaryTitle" extends="baseReference" with="anchorTopLeft">
-            <position value="12px -20px"/>
-            <size value="353px 25px"/>
+            <position value="14px -22px"/>
+            <size value="397px 28px"/>
             <textSize value="13px"/>
             <textBold value="true"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -156,37 +163,52 @@
         
         
         <Profile name="wizStep2SummaryContentWrapper" extends="emptyPanel" with="anchorTopLeft">
-            <position value="0px -62px"/>
-            <size value="365px 334px"/>
+            <position value="0px -70px"/>
+            <size value="411px 376px"/>
         </Profile>
-        
-        
+
+
         <Profile name="wizStep2SummarySeparator" extends="baseReference" with="anchorTopLeft">
             <position value="0px 0px"/>
-            <size value="365px 1px"/>
+            <size value="411px 1px"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
-        
-        
-        <Profile name="wizStep2SummaryText" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -12px"/>
-            <size value="365px 322px"/>
+
+
+        <Profile name="wizStep2SummaryList" extends="emptyPanel" with="anchorTopLeft">
+            <position value="0px -14px"/>
+            <size value="394px 362px"/>
+        </Profile>
+
+        <Profile name="wizStep2SummarySliderBox" extends="fs25_listSliderBox" with="anchorTopLeft">
+            <position value="406px -14px"/>
+            <size value="6px 362px"/>
+        </Profile>
+
+        <Profile name="wizStep2SummaryListItem" extends="baseReference" with="anchorTopStretchingX">
+            <height value="24px"/>
+            <imageColor value="0 0 0 0"/>
+        </Profile>
+
+        <Profile name="wizStep2SummaryCellText" extends="baseReference">
+            <position value="0px 0px"/>
+            <size value="394px 24px"/>
+            <imageColor value="0 0 0 0"/>
             <textSize value="15px"/>
-            <textLineHeightScale value="1.5"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="left"/>
-            <textVerticalAlignment value="top"/>
+            <textVerticalAlignment value="middle"/>
         </Profile>
         <!-- Right column: Selection -->
         
         <Profile name="wizStep2SelectionColumn" extends="emptyPanel">
-            <size value="365px 398px"/>
+            <size value="411px 448px"/>
         </Profile>
-        
-        
+
+
         <Profile name="wizStep2SelectionTitle" extends="baseReference" with="anchorTopLeft">
-            <position value="12px -20px"/>
-            <size value="353px 25px"/>
+            <position value="14px -22px"/>
+            <size value="397px 28px"/>
             <textSize value="13px"/>
             <textBold value="true"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -195,19 +217,18 @@
         </Profile>
         
         <Profile name="wizStep2ListWrapper" extends="emptyPanel" with="anchorTopLeft">
-            <position value="0px -62px"/>
-            <size value="365px 334px"/>
+            <position value="0px -70px"/>
+            <size value="411px 376px"/>
         </Profile>
-        
+
         <Profile name="wizStep2List" extends="emptyPanel">
-            <size value="350px 334px"/>
+            <size value="394px 376px"/>
             <position value="0px 0px"/>
-            <listItemSpacing value="-1px"/>
         </Profile>
-        
+
         <Profile name="wizStep2SliderBox" extends="fs25_listSliderBox" with="anchorTopLeft">
-            <size value="6px 334px"/>
-            <position value="361px 0px"/>
+            <size value="6px 376px"/>
+            <position value="406px 0px"/>
         </Profile>
 
         <Profile name="wizStep2ListItem" extends="baseReference" with="anchorTopStretchingX alternating">
@@ -235,14 +256,14 @@
         <!-- Button bar -->
         
         <Profile name="wizStep2ButtonBarBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -270px"/>
-            <size value="806px 40px"/>
+            <position value="0px -304px"/>
+            <size value="900px 45px"/>
             <color value="0 0 0 1"/>
             <cornerSize value="0.5"/>
         </Profile>
         <Profile name="wizStep2ButtonBox" extends="fs25_dialogButtonBox" with="anchorMiddleCenter">
-            <position value="0px -270px"/>
-            <size value="806px 40px"/>
+            <position value="0px -304px"/>
+            <size value="900px 45px"/>
             <imageColor value="0 0 0 0"/>
             <alignmentX value="right"/>
             <alignmentY value="middle"/>

@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="來自:" />
         <e k="invoice_label_to" v="致:" />
         <e k="invoice_label_note" v="備註:" />
+        <e k="invoice_placeholder_note" v="新增備註或參考" />
         <e k="invoice_label_total" v="總計:" />
         <e k="invoice_dialog_details" v="發票詳情" />
         <e k="invoice_dialog_selectField" v="田地選擇" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="狀態" />
         <e k="invoice_popup_added" v="已添加: %s" />
         <e k="invoice_popup_removed" v="已移除: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="已選擇：%s" />
         <e k="invoice_empty_list" v="無發票" />
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d 行" />
@@ -134,13 +135,22 @@
         <e k="invoice_work_treeRemoval" v="木材運輸" />
         <e k="invoice_work_goods" v="物資" />
         <e k="invoice_work_miscellaneous" v="雜項" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="增值稅 %" />
+        <e k="invoice_label_subtotal_ht" v="不含稅小計" />
+        <e k="invoice_label_vat" v="增值稅" />
+        <e k="finance_invoiceIncome" v="發票收入" />
+        <e k="finance_invoiceExpense" v="發票支出" />
+        <e k="invoice_moneyType_income" v="發票（收入）" />
+        <e k="invoice_moneyType_expense" v="發票（支出）" />
         <e k="invoice_error_permission_required" v="僅農場經理可執行此操作。" />
-        <e k="invoice_error_insufficient_funds" v="餘額不足，無法支付此發票。" />    </elements>
+        <e k="invoice_error_insufficient_funds" v="餘額不足，無法支付此發票。" />
+        <e k="invoice_error_select_farm" v="請選擇一個農場。" />
+        <e k="invoice_settings_section_title" v="發票" />
+        <e k="invoice_setting_invoiceVatSimulated" v="模擬增值稅" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="啟用後，發票包含增值稅。客戶支付含稅總額，服務商收到不含稅淨額。停用後，增值稅設為0%，雙方交換相同金額。" />
+        <e k="invoice_setting_invoiceReminders" v="付款提醒" />
+        <e k="invoice_toolTip_invoiceReminders" v="啟用後，每5分鐘顯示一次未付發票的提醒通知。" />
+        <e k="invoice_notification_vat_incl" v="含 %s %s" />
+        <e k="invoice_notification_vat_excl" v="不含 %s %s" />
+    </elements>
 </l10n>

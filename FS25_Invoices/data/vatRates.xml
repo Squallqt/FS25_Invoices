@@ -2,18 +2,18 @@
 <!--
     vatRates.xml
     VAT groups and work type mapping for FS25_Invoices.
-    Only active when RedTape is detected at runtime.
+    Active when the "Simulated VAT" setting is enabled.
 -->
 <vatRates>
     <groups>
         <group name="service"   defaultRate="0.20" />
-        <group name="fieldwork" defaultRate="0.055" />
+        <group name="fieldwork" defaultRate="0.10" />
         <group name="forestry"  defaultRate="0.10" />
         <group name="product"   defaultRate="0.055" />
     </groups>
 
     <workTypes>
-        <workType id="1"  group="service" />
+        <workType id="1"  group="fieldwork" />
         <workType id="2"  group="fieldwork" />
         <workType id="3"  group="fieldwork" />
         <workType id="4"  group="fieldwork" />
@@ -25,10 +25,10 @@
         <workType id="10" group="fieldwork" />
         <workType id="11" group="fieldwork" />
         <workType id="12" group="fieldwork" />
-        <workType id="13" group="service" />
-        <workType id="14" group="service" />
-        <workType id="15" group="service" />
-        <workType id="16" group="service" />
+        <workType id="13" group="fieldwork" />
+        <workType id="14" group="fieldwork" />
+        <workType id="15" group="fieldwork" />
+        <workType id="16" group="fieldwork" />
         <workType id="17" group="fieldwork" />
         <workType id="18" group="fieldwork" />
         <workType id="19" group="fieldwork" />
@@ -57,11 +57,11 @@
         <workType id="42" group="service" />
         <workType id="43" group="service" />
         <workType id="44" group="service" />
-        <workType id="45" group="service" />
+        <workType id="45" group="fieldwork" />
         <workType id="46" group="service" />
         <workType id="47" group="service" />
         <workType id="48" group="service" />
-        <workType id="49" group="service" />
+        <workType id="49" group="fieldwork" />
         <workType id="50" group="forestry" />
         <workType id="51" group="forestry" />
         <workType id="52" group="forestry" />

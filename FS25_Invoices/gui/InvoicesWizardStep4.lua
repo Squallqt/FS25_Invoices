@@ -43,6 +43,24 @@ function InvoicesWizardStep4:onGuiSetupFinished()
         self.listItems:setDataSource(self)
         self.listItems:setDelegate(self)
     end
+    self:setupNotePlaceholder()
+end
+
+function InvoicesWizardStep4:setupNotePlaceholder()
+    if self.inputNote == nil then return end
+    self._notePlaceholder = self.inputNote:getDescendantByName("notePlaceholder")
+    if self._notePlaceholder == nil then return end
+
+    local placeholder = self._notePlaceholder
+    local origSetCaptureInput = self.inputNote.setCaptureInput
+    self.inputNote.setCaptureInput = function(inputSelf, isCapturing)
+        origSetCaptureInput(inputSelf, isCapturing)
+        if isCapturing then
+            placeholder:setVisible(false)
+        else
+            placeholder:setVisible(inputSelf.text == nil or inputSelf.text == "")
+        end
+    end
 end
 
 function InvoicesWizardStep4:resizeTitleBadge()
@@ -73,6 +91,9 @@ function InvoicesWizardStep4:onOpen()
 
     if self.inputNote ~= nil then
         self.inputNote:setText("")
+    end
+    if self._notePlaceholder ~= nil then
+        self._notePlaceholder:setVisible(true)
     end
 
     self:updateEditFields()
@@ -121,6 +142,10 @@ function InvoicesWizardStep4:populateCellForItemInSection(list, section, index, 
     local item = self.lineItems[index]
     if item == nil then return end
 
+    if index == self.selectedIndex then
+        self._selectedCell = cell
+    end
+
     local manager = g_currentMission.invoicesManager
 
     local cellDesignation = cell:getDescendantByName("cellDesignation")
@@ -165,11 +190,16 @@ function InvoicesWizardStep4:populateCellForItemInSection(list, section, index, 
 
     local cellVat = cell:getDescendantByName("cellVat")
     if cellVat ~= nil then
-        local vatRate = item.vatRate or 0
-        if vatRate > 0 then
-            cellVat:setText(string.format("%.1f%%", vatRate * 100))
+        local vatEnabled = manager ~= nil and manager.service:isVatEnabled()
+        if not vatEnabled then
+            cellVat:setText("N/A")
         else
-            cellVat:setText("—")
+            local vatRate = item.vatRate or 0
+            if vatRate > 0 then
+                cellVat:setText(string.format("%.1f%%", vatRate * 100))
+            else
+                cellVat:setText("—")
+            end
         end
     end
 
@@ -180,6 +210,10 @@ function InvoicesWizardStep4:populateCellForItemInSection(list, section, index, 
 end
 
 function InvoicesWizardStep4:onListSelectionChanged(list, section, index)
+    -- Refresh list to reflect any edits from previous selection
+    if not self.suppressEditFieldUpdate and self.selectedIndex >= 1 and self.selectedIndex ~= index then
+        self:refreshListKeepSelection()
+    end
     self.selectedIndex = index
     if not self.suppressEditFieldUpdate then
         self:updateEditFields()
@@ -195,6 +229,49 @@ function InvoicesWizardStep4:refreshListKeepSelection()
         self.listItems:setSelectedIndex(savedIndex)
     end
     self.suppressEditFieldUpdate = false
+end
+
+function InvoicesWizardStep4:updateSelectedCellValues()
+    local cell = self._selectedCell
+    if cell == nil then return end
+    local item = self.lineItems[self.selectedIndex]
+    if item == nil then return end
+
+    local cellPrice = cell:getDescendantByName("cellPrice")
+    if cellPrice ~= nil then
+        cellPrice:setText(g_i18n:formatMoney(item.price or 0, 0, true, false))
+    end
+
+    local cellQty = cell:getDescendantByName("cellQty")
+    if cellQty ~= nil then
+        local qtyText
+        if item.unit == Invoice.UNIT_HECTARE or item.unit == Invoice.UNIT_HOUR or item.unit == Invoice.UNIT_LITER then
+            qtyText = string.format("%.2f", item.quantity or 0)
+        else
+            qtyText = string.format("%.0f", item.quantity or 0)
+        end
+        cellQty:setText(qtyText)
+    end
+
+    local cellAmount = cell:getDescendantByName("cellAmount")
+    if cellAmount ~= nil then
+        cellAmount:setText(g_i18n:formatMoney(item.amount or 0, 0, true, false))
+    end
+
+    local cellVat = cell:getDescendantByName("cellVat")
+    if cellVat ~= nil then
+        local vatEnabled = g_currentMission.invoicesManager ~= nil and g_currentMission.invoicesManager.service:isVatEnabled()
+        if not vatEnabled then
+            cellVat:setText("N/A")
+        else
+            local vatRate = item.vatRate or 0
+            if vatRate > 0 then
+                cellVat:setText(string.format("%.1f%%", vatRate * 100))
+            else
+                cellVat:setText("—")
+            end
+        end
+    end
 end
 
 function InvoicesWizardStep4:updateEditFields()
@@ -232,13 +309,32 @@ function InvoicesWizardStep4:updateEditFields()
     end
 
     if self.inputVat ~= nil then
+        local vatEnabled = g_currentMission.invoicesManager ~= nil and g_currentMission.invoicesManager.service:isVatEnabled()
         if item ~= nil then
             self.inputVat:setText(string.format("%.1f", (item.vatRate or 0) * 100))
-            self.inputVat:setDisabled(false)
+            self.inputVat:setDisabled(not vatEnabled)
         else
             self.inputVat:setText("")
             self.inputVat:setDisabled(true)
         end
+    end
+end
+
+function InvoicesWizardStep4:resizeTotalSep(htText, tvaText)
+    if self.totalSep == nil or self.textVatHt == nil then return end
+
+    if self._sepHeight == nil then
+        self._sepHeight = self.totalSep.absSize[2]
+    end
+
+    local textSize = self.textVatHt.textSize
+    local htWidth = getTextWidth(textSize, htText)
+    local tvaWidth = self.textVatTva ~= nil and getTextWidth(self.textVatTva.textSize, tvaText) or 0
+    local maxTextWidth = math.max(htWidth, tvaWidth)
+
+    self.totalSep:setSize(maxTextWidth, self._sepHeight)
+    if self.totalSep.parent ~= nil and self.totalSep.parent.invalidateLayout ~= nil then
+        self.totalSep.parent:invalidateLayout()
     end
 end
 
@@ -265,7 +361,9 @@ function InvoicesWizardStep4:updateTotal()
     end
 
     if self.textVatHt ~= nil and self.textVatTva ~= nil then
-        if totalVAT > 0 then
+        local vatEnabled = g_currentMission.invoicesManager ~= nil and g_currentMission.invoicesManager.service:isVatEnabled()
+
+        if vatEnabled and totalVAT > 0 then
             local htText = string.format("%s :  %s", g_i18n:getText("invoice_label_subtotal_ht"), g_i18n:formatMoney(totalHT, 0, true, false))
             local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_label_vat"), g_i18n:formatMoney(totalVAT, 0, true, false))
             self.textVatHt:setText(htText)
@@ -274,6 +372,18 @@ function InvoicesWizardStep4:updateTotal()
             self.textVatTva:setVisible(true)
             if self.totalSep ~= nil then
                 self.totalSep:setVisible(true)
+                self:resizeTotalSep(htText, tvaText)
+            end
+        elseif not vatEnabled then
+            local htText = string.format("%s :  —", g_i18n:getText("invoice_label_subtotal_ht"))
+            local tvaText = string.format("%s :  —", g_i18n:getText("invoice_label_vat"))
+            self.textVatHt:setText(htText)
+            self.textVatTva:setText(tvaText)
+            self.textVatHt:setVisible(true)
+            self.textVatTva:setVisible(true)
+            if self.totalSep ~= nil then
+                self.totalSep:setVisible(true)
+                self:resizeTotalSep(htText, tvaText)
             end
         else
             self.textVatHt:setVisible(false)
@@ -292,7 +402,7 @@ end
 function InvoicesWizardStep4:updateSliderVisibility()
     if self.sliderBox and self.listItems then
         local itemCount = #self.lineItems
-        local maxVisibleItems = math.floor(220 / 36)
+        local maxVisibleItems = math.floor(248 / 32)
         local needsScroll = itemCount > maxVisibleItems
         self.sliderBox:setVisible(needsScroll)
     end
@@ -315,7 +425,7 @@ function InvoicesWizardStep4:onPriceTextChanged(element, text)
     end
     item.amount = item.price * item.quantity
 
-    self:refreshListKeepSelection()
+    self:updateSelectedCellValues()
     self:updateTotal()
 end
 
@@ -350,7 +460,7 @@ function InvoicesWizardStep4:onQtyTextChanged(element, text)
     end
     item.amount = item.price * item.quantity
 
-    self:refreshListKeepSelection()
+    self:updateSelectedCellValues()
     self:updateTotal()
 end
 
@@ -374,7 +484,7 @@ function InvoicesWizardStep4:onVatRateTextChanged(element, text)
     local item = self.lineItems[self.selectedIndex]
     item.vatRate = value / 100
 
-    self:refreshListKeepSelection()
+    self:updateSelectedCellValues()
     self:updateTotal()
 end
 

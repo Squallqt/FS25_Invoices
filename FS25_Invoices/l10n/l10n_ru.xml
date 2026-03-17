@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="От:" />
         <e k="invoice_label_to" v="Кому:" />
         <e k="invoice_label_note" v="Примечания:" />
+        <e k="invoice_placeholder_note" v="Добавить примечание или ссылку" />
         <e k="invoice_label_total" v="Итого:" />
         <e k="invoice_dialog_details" v="Детали счета" />
         <e k="invoice_dialog_selectField" v="Выбор поля" />
@@ -134,14 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Трелевка" />
         <e k="invoice_work_goods" v="Расходники" />
         <e k="invoice_work_miscellaneous" v="Разное" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="НДС %" />
+        <e k="invoice_label_subtotal_ht" v="Итого без НДС" />
+        <e k="invoice_label_vat" v="НДС" />
+        <e k="finance_invoiceIncome" v="Доход по счетам" />
+        <e k="finance_invoiceExpense" v="Расход по счетам" />
+        <e k="invoice_moneyType_income" v="Счёт (Доход)" />
+        <e k="invoice_moneyType_expense" v="Счёт (Расход)" />
         <e k="invoice_error_permission_required" v="Действие доступно только управляющим фермой." />
         <e k="invoice_error_insufficient_funds" v="Недостаточно средств для оплаты этого счета." />
+        <e k="invoice_error_select_farm" v="Выберите ферму." />
+        <e k="invoice_settings_section_title" v="Счета" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Симуляция НДС" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="При включении счета включают НДС. Клиент платит полную сумму (с налогом), поставщик получает чистую сумму (без налога). При отключении НДС устанавливается на 0% и обе стороны обмениваются одинаковой суммой." />
+        <e k="invoice_setting_invoiceReminders" v="Напоминания об оплате" />
+        <e k="invoice_toolTip_invoiceReminders" v="При включении каждые 5 минут отображается напоминание о неоплаченных счетах." />
+        <e k="invoice_notification_vat_incl" v="в т.ч. %s %s" />
+        <e k="invoice_notification_vat_excl" v="без %s %s" />
     </elements>
 </l10n>

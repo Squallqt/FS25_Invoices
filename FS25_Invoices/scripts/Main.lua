@@ -10,9 +10,11 @@ source(modDirectory .. "scripts/InvoiceRepository.lua")
 source(modDirectory .. "scripts/InvoiceService.lua")
 source(modDirectory .. "scripts/InvoicesManager.lua")
 source(modDirectory .. "scripts/InvoicesWizardState.lua")
+source(modDirectory .. "scripts/InvoiceSettings.lua")
 source(modDirectory .. "events/InvoiceCreateEvent.lua")
 source(modDirectory .. "events/InvoiceStateEvent.lua")
 source(modDirectory .. "events/InvoiceSyncEvent.lua")
+source(modDirectory .. "events/InvoiceSettingsEvent.lua")
 source(modDirectory .. "gui/InvoicesListRenderer.lua")
 source(modDirectory .. "gui/WorkTypesRenderer.lua")
 source(modDirectory .. "gui/LineItemsRenderer.lua")
@@ -29,6 +31,7 @@ Invoices = {}
 Invoices.modDirectory = modDirectory
 Invoices.modName = modName
 Invoices.manager = nil
+Invoices.i18nOverrides = {}
 
 local function registerFinanceStat(statName)
     if FinanceStats.statNameToIndex[statName] == nil then
@@ -61,6 +64,9 @@ local function loadedMission()
     Logging.devInfo("[Invoices] Invoices loaded from savegame")
 
     g_currentMission.invoicesManager = Invoices.manager
+
+    InvoiceSettings:loadDefaultsIfMissing()
+    InvoiceSettings:loadFromXMLFile()
 
     Invoices.manager.service:initializeReminderSystem()
     
@@ -107,6 +113,8 @@ local function loadedMission()
     Logging.devInfo("[Invoices] Menu registration complete")
     
     Invoices.frame = frame
+
+    InvoiceSettings:injectMenu()
 end
 
 function Invoices.addInGameMenuPage(frame, pageName, uvs, predicateFunc, insertPosition)
@@ -187,6 +195,7 @@ local function sendInitialClientState(self, connection, user, farm)
     local invoices = Invoices.manager.repository:getAll()
     Logging.devInfo("[Invoices] sendInitialClientState() - Syncing %d invoices to new client", #invoices)
     connection:sendEvent(InvoiceSyncEvent.new())
+    connection:sendEvent(InvoiceSettingsEvent.new(g_currentMission.invoiceSettings))
 end
 
 local function onSaveToXMLFile()
@@ -207,6 +216,9 @@ local function initInvoices()
     Mission00.loadMission00Finished = Utils.appendedFunction(Mission00.loadMission00Finished, loadedMission)
     
     FSBaseMission.saveSavegame = Utils.appendedFunction(FSBaseMission.saveSavegame, onSaveToXMLFile)
+    FSBaseMission.saveSavegame = Utils.appendedFunction(FSBaseMission.saveSavegame, function()
+        InvoiceSettings:saveToXMLFile()
+    end)
     
     FSBaseMission.sendInitialClientState = Utils.appendedFunction(FSBaseMission.sendInitialClientState, sendInitialClientState)
     
@@ -221,6 +233,8 @@ local function initInvoices()
         InvoicesWizardState.instance = nil
         g_currentMission.invoicesFrame = nil
         g_currentMission.invoicesManager = nil
+        g_currentMission.invoiceSettings = nil
+        InvoiceSettings.CONTROLS = {}
     end)
 end
 
@@ -234,10 +248,20 @@ local InvoicesI18NTexts = {
     ["invoice_moneyType_expense"] = true,
     ["invoice_notification_new"] = true,
     ["invoice_reminder_single"] = true,
-    ["invoice_reminder_multiple"] = true
+    ["invoice_reminder_multiple"] = true,
+    ["invoice_settings_section_title"] = true,
+    ["invoice_setting_invoiceVatSimulated"] = true,
+    ["invoice_toolTip_invoiceVatSimulated"] = true,
+    ["invoice_setting_invoiceReminders"] = true,
+    ["invoice_toolTip_invoiceReminders"] = true,
+    ["invoice_notification_vat_incl"] = true,
+    ["invoice_notification_vat_excl"] = true
 }
 
 local function invoicesGetText(self, superFunc, text, modEnv)
+    if Invoices.i18nOverrides[text] ~= nil then
+        return Invoices.i18nOverrides[text]
+    end
     if modEnv == nil and InvoicesI18NTexts[text] then
         return superFunc(self, text, modName)
     end

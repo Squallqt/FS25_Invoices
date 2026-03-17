@@ -102,7 +102,9 @@ function InvoicesWizardState:addLineItem()
     
     local vatRate = 0
     if manager then
-        vatRate = manager.service:getVatRateForWorkType(workType.id)
+        if manager.service:isVatEnabled() then
+            vatRate = manager.service:getVatRateForWorkType(workType.id)
+        end
     end
 
     local item = {
@@ -147,7 +149,10 @@ function InvoicesWizardState:buildAllLineItems()
         local displayName = g_i18n:getText(workType.nameKey)
         local unitKey = manager:getUnitKey(unit)
         local unitStr = g_i18n:getText(unitKey)
-        local vatRate = manager.service:getVatRateForWorkType(workType.id)
+        local vatRate = 0
+        if manager.service:isVatEnabled() then
+            vatRate = manager.service:getVatRateForWorkType(workType.id)
+        end
 
         if unit == Invoice.UNIT_HECTARE then
             for _, field in ipairs(fields) do

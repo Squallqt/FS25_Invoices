@@ -70,7 +70,7 @@
 
     <!-- Menu frame profiles (InvoicesFrame) -->
 
-    <!-- Column header button (RedTape rtTableHeader pattern) -->
+    <!-- Column header button -->
     <Profile name="invColumnHeaderBtn" extends="baseReference" with="anchorTopLeft">
         <imageColor value="0 0 0 0"/>
         <textFocusedColor value="$preset_fs25_colorMainHighlight"/>

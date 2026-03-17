@@ -125,9 +125,10 @@ function InvoiceService:loadVatRates(xmlPath)
 end
 
 function InvoiceService:isVatEnabled()
-    return g_currentMission.RedTape ~= nil
-       and g_currentMission.RedTape.TaxSystem ~= nil
-       and g_currentMission.RedTape.TaxSystem:isEnabled()
+    if g_currentMission == nil or g_currentMission.invoiceSettings == nil then
+        return true
+    end
+    return g_currentMission.invoiceSettings.invoiceVatSimulated ~= false
 end
 
 function InvoiceService:getVatRateForWorkType(workTypeId)
@@ -241,7 +242,7 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
 
     if isAuthoritative and g_server ~= nil then
         local recipientFarm = g_farmManager:getFarmById(invoice.recipientFarmId)
-        if recipientFarm == nil or recipientFarm.money < invoice.totalAmount then
+        if recipientFarm == nil or math.floor(recipientFarm.money) < math.floor(invoice.totalAmount) then
             Logging.warning("[InvoiceService] executePayment: insufficient balance (%.2f < %.2f)", recipientFarm and recipientFarm.money or 0, invoice.totalAmount)
             return false
         end
@@ -255,6 +256,22 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
 
         if senderFarm and recipientFarm and invoice.totalAmount > 0 then
             local creditAmount = invoice.totalHT or invoice.totalAmount
+            local vatAmount = invoice.vatAmount or 0
+
+            -- Strip "(Dépense)"/"(Recette)" — the +/- already indicates direction
+            local baseText = string.gsub(g_i18n:getText("invoice_moneyType_expense"), "%s*%(.*%)%s*$", "")
+
+            if vatAmount > 0 then
+                local vatStr = g_i18n:formatMoney(vatAmount, 0, true, false)
+                local vatLabel = g_i18n:getText("invoice_label_vat")
+                local inclDetail = string.format(g_i18n:getText("invoice_notification_vat_incl"), vatLabel, vatStr)
+                local exclDetail = string.format(g_i18n:getText("invoice_notification_vat_excl"), vatLabel, vatStr)
+                Invoices.i18nOverrides["invoice_moneyType_expense"] = baseText .. ", " .. inclDetail
+                Invoices.i18nOverrides["invoice_moneyType_income"] = baseText .. ", " .. exclDetail
+            else
+                Invoices.i18nOverrides["invoice_moneyType_expense"] = baseText
+                Invoices.i18nOverrides["invoice_moneyType_income"] = baseText
+            end
 
             g_currentMission:addMoney(
                 -invoice.totalAmount,
@@ -273,6 +290,9 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
                 true
             )
             Logging.devInfo("[InvoiceService] Provider %s credited %d (HT)", senderFarm.name, creditAmount)
+
+            Invoices.i18nOverrides["invoice_moneyType_expense"] = nil
+            Invoices.i18nOverrides["invoice_moneyType_income"] = nil
         else
             Logging.warning("[InvoiceService] executePayment: cannot transfer money for invoice %d (missing farm or zero amount)", invoiceId)
         end
@@ -322,6 +342,13 @@ function InvoiceService:notifyNewInvoice(invoice)
     local amountStr = g_i18n:formatMoney(invoice.totalAmount or 0)
     local text = string.format(g_i18n:getText("invoice_notification_new"), senderName, amountStr)
 
+    if invoice.vatAmount ~= nil and invoice.vatAmount > 0 then
+        local vatStr = g_i18n:formatMoney(invoice.vatAmount, 0, true, false)
+        local vatLabel = g_i18n:getText("invoice_label_vat")
+        local vatDetail = string.format(g_i18n:getText("invoice_notification_vat_incl"), vatLabel, vatStr)
+        text = text .. " (" .. vatDetail .. ")"
+    end
+
     g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_CRITICAL, text)
     
     self:activateReminder()
@@ -335,8 +362,16 @@ function InvoiceService:initializeReminderSystem()
     self.initialCheckDone = false
 end
 
+function InvoiceService:isRemindersEnabled()
+    if g_currentMission == nil or g_currentMission.invoiceSettings == nil then
+        return true
+    end
+    return g_currentMission.invoiceSettings.invoiceReminders ~= false
+end
+
 function InvoiceService:activateReminder(farmId)
     if g_localPlayer == nil then return end
+    if not self:isRemindersEnabled() then return end
     
     local targetFarmId = farmId or g_localPlayer.farmId
     
@@ -425,6 +460,7 @@ function InvoiceService:update(dt)
         if g_localPlayer ~= nil and g_localPlayer.farmId ~= FarmManager.SPECTATOR_FARM_ID then
             self.initialCheckDone = true
             local currentFarmId = g_localPlayer.farmId
+            self.lastNotifiedFarmId = currentFarmId
             Logging.devInfo("[InvoiceService] Initial connection check for farm %d", currentFarmId)
             
             local unpaidInvoices = self:getUnpaidInvoicesForFarm(currentFarmId)
@@ -455,6 +491,10 @@ function InvoiceService:update(dt)
     
     if not self.reminderActive then return end
     if g_localPlayer == nil then return end
+    if not self:isRemindersEnabled() then
+        self:deactivateReminder()
+        return
+    end
     
     if self.reminderFarmId ~= g_localPlayer.farmId then
         self:deactivateReminder()

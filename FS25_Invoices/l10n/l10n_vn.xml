@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="Từ:" />
         <e k="invoice_label_to" v="Đến:" />
         <e k="invoice_label_note" v="Ghi chú:" />
+        <e k="invoice_placeholder_note" v="Thêm ghi chú hoặc tham chiếu" />
         <e k="invoice_label_total" v="Tổng:" />
         <e k="invoice_dialog_details" v="Chi tiết hóa đơn" />
         <e k="invoice_dialog_selectField" v="Chọn cánh đồng" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="Trạng thái" />
         <e k="invoice_popup_added" v="Đã thêm: %s" />
         <e k="invoice_popup_removed" v="Đã xóa: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="Đã chọn: %s" />
         <e k="invoice_empty_list" v="Không có hóa đơn" />
         <e k="invoice_format_inv_number" v="HD-%03d" />
         <e k="invoice_format_services_count" v="%d dòng" />
@@ -134,14 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Vận chuyển gỗ" />
         <e k="invoice_work_goods" v="Vật tư" />
         <e k="invoice_work_miscellaneous" v="Khác" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="GTGT %" />
+        <e k="invoice_label_subtotal_ht" v="Tổng phụ chưa thuế" />
+        <e k="invoice_label_vat" v="GTGT" />
+        <e k="finance_invoiceIncome" v="Thu nhập hóa đơn" />
+        <e k="finance_invoiceExpense" v="Chi phí hóa đơn" />
+        <e k="invoice_moneyType_income" v="Hóa đơn (Thu nhập)" />
+        <e k="invoice_moneyType_expense" v="Hóa đơn (Chi phí)" />
         <e k="invoice_error_permission_required" v="Hành động dành riêng cho người quản lý trang trại." />
         <e k="invoice_error_insufficient_funds" v="Số dư không đủ để thanh toán hóa đơn này." />
+        <e k="invoice_error_select_farm" v="Vui lòng chọn trang trại." />
+        <e k="invoice_settings_section_title" v="Hóa đơn" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Thuế GTGT mô phỏng" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Khi bật, hóa đơn bao gồm thuế GTGT. Khách hàng trả tổng số tiền (bao gồm thuế), nhà cung cấp nhận số tiền ròng (không bao gồm thuế). Khi tắt, thuế GTGT được đặt thành 0% và cả hai bên trao đổi cùng một số tiền." />
+        <e k="invoice_setting_invoiceReminders" v="Nhắc nhở thanh toán" />
+        <e k="invoice_toolTip_invoiceReminders" v="Khi bật, thông báo nhắc nhở được hiển thị mỗi 5 phút cho các hóa đơn chưa thanh toán." />
+        <e k="invoice_notification_vat_incl" v="gồm %s %s" />
+        <e k="invoice_notification_vat_excl" v="không gồm %s %s" />
     </elements>
 </l10n>

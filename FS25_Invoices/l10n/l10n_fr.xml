@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="Émetteur :" />
         <e k="invoice_label_to" v="Client :" />
         <e k="invoice_label_note" v="Remarques :" />
+        <e k="invoice_placeholder_note" v="Ajouter une remarque ou référence" />
         <e k="invoice_label_total" v="Total :" />
         <e k="invoice_dialog_details" v="Détail de la facture" />
         <e k="invoice_dialog_selectField" v="Choix de la parcelle" />
@@ -143,5 +144,13 @@
         <e k="invoice_moneyType_expense" v="Facture (Dépense)" />
         <e k="invoice_error_permission_required" v="Action réservée aux gérants de ferme." />
         <e k="invoice_error_insufficient_funds" v="Solde insuffisant pour régler cette facture." />
+        <e k="invoice_error_select_farm" v="Veuillez sélectionner une exploitation." />
+        <e k="invoice_settings_section_title" v="Factures" />
+        <e k="invoice_setting_invoiceVatSimulated" v="TVA simulée" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Lorsque activé, les factures incluent la TVA. Le client paie le montant TTC, le prestataire reçoit le montant HT. Lorsque désactivé, la TVA est fixée à 0% et les deux parties échangent le même montant." />
+        <e k="invoice_setting_invoiceReminders" v="Rappels de paiement" />
+        <e k="invoice_toolTip_invoiceReminders" v="Lorsque activé, une notification de rappel est affichée toutes les 5 minutes pour les factures impayées." />
+        <e k="invoice_notification_vat_incl" v="dont %s %s" />
+        <e k="invoice_notification_vat_excl" v="hors %s %s" />
     </elements>
 </l10n>

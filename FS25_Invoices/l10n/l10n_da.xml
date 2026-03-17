@@ -26,13 +26,14 @@
         <e k="invoice_label_from" v="Fra:" />
         <e k="invoice_label_to" v="Til:" />
         <e k="invoice_label_note" v="Bemærkninger:" />
+        <e k="invoice_placeholder_note" v="Tilføj en bemærkning eller reference" />
         <e k="invoice_label_total" v="Total:" />
         <e k="invoice_dialog_details" v="Fakturadetaljer" />
         <e k="invoice_dialog_selectField" v="Markvalg" />
         <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
         <e k="invoice_wizard_step1_subtitle" v="KUNDE" />
         <e k="invoice_wizard_step1_label" v="Vælg kundegård:" />
-        <e k="invoice_wizard_step2_subtitle" v="SERVICES" />
+        <e k="invoice_wizard_step2_subtitle" v="YDELSER" />
         <e k="invoice_wizard_step2_label" v="Vælg arbejdtype:" />
         <e k="invoice_wizard_step3_subtitle" v="MARKER" />
         <e k="invoice_wizard_step3_label" v="Vælg involverede marker:" />
@@ -44,7 +45,7 @@
         <e k="invoice_wizard_invoice_failed" v="Fejl ved oprettelse." />
         <e k="invoice_wizard_client_fields" v="Kundefelter" />
         <e k="invoice_wizard_other_fields" v="Andre felter" />
-        <e k="invoice_wizard_selection_summary" v="Services:" />
+        <e k="invoice_wizard_selection_summary" v="Ydelser:" />
         <e k="invoice_wizard_field_selection_summary" v="Sted:" />
         <e k="invoice_format_field_id" v="Mark %d" />
         <e k="invoice_step4_col_service" v="Beskrivelse" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="Status" />
         <e k="invoice_popup_added" v="Tilføjet: %s" />
         <e k="invoice_popup_removed" v="Fjernet: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="Allerede valgt: %s" />
         <e k="invoice_empty_list" v="Ingen fakturaer" />
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d linje(r)" />
@@ -134,13 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Trætransport" />
         <e k="invoice_work_goods" v="Varer" />
         <e k="invoice_work_miscellaneous" v="Diverse" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="Moms %" />
+        <e k="invoice_label_subtotal_ht" v="Subtotal ekskl. moms" />
+        <e k="invoice_label_vat" v="Moms" />
+        <e k="finance_invoiceIncome" v="Fakturaindtægt" />
+        <e k="finance_invoiceExpense" v="Fakturaudgift" />
+        <e k="invoice_moneyType_income" v="Faktura (Indtægt)" />
+        <e k="invoice_moneyType_expense" v="Faktura (Udgift)" />
         <e k="invoice_error_permission_required" v="Handling forbeholdt gårdsledere." />
-        <e k="invoice_error_insufficient_funds" v="Utilstrækkelig saldo til at betale denne faktura." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="Utilstrækkelig saldo til at betale denne faktura." />
+        <e k="invoice_error_select_farm" v="Vælg venligst en gård." />
+        <e k="invoice_settings_section_title" v="Fakturaer" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Simuleret moms" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Når aktiveret, inkluderer fakturaer moms. Klienten betaler bruttobeløbet (inkl. skat), udbyderen modtager nettobeløbet (ekskl. skat). Når deaktiveret, sættes momsen til 0% og begge parter udveksler det samme beløb." />
+        <e k="invoice_setting_invoiceReminders" v="Betalingspåmindelser" />
+        <e k="invoice_toolTip_invoiceReminders" v="Når aktiveret, vises en påmindelsesnotifikation hvert 5. minut for ubetalte fakturaer." />
+        <e k="invoice_notification_vat_incl" v="inkl. %s %s" />
+        <e k="invoice_notification_vat_excl" v="ekskl. %s %s" />
+    </elements>
 </l10n>

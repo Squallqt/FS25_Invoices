@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="Lähettäjä:" />
         <e k="invoice_label_to" v="Vastaanottaja:" />
         <e k="invoice_label_note" v="Huomautukset:" />
+        <e k="invoice_placeholder_note" v="Lisää huomautus tai viite" />
         <e k="invoice_label_total" v="Yhteensä:" />
         <e k="invoice_dialog_details" v="Laskun tiedot" />
         <e k="invoice_dialog_selectField" v="Pellon valinta" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="Tila" />
         <e k="invoice_popup_added" v="Lisätty: %s" />
         <e k="invoice_popup_removed" v="Poistettu: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="Jo valittu: %s" />
         <e k="invoice_empty_list" v="Ei laskuja" />
         <e k="invoice_format_inv_number" v="L-%03d" />
         <e k="invoice_format_services_count" v="%d rivi(ä)" />
@@ -134,13 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Puunajo" />
         <e k="invoice_work_goods" v="Tarvikkeet" />
         <e k="invoice_work_miscellaneous" v="Sekalainen" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="ALV %" />
+        <e k="invoice_label_subtotal_ht" v="Välisumma ilman ALV" />
+        <e k="invoice_label_vat" v="ALV" />
+        <e k="finance_invoiceIncome" v="Laskutulot" />
+        <e k="finance_invoiceExpense" v="Laskumenot" />
+        <e k="invoice_moneyType_income" v="Lasku (Tulo)" />
+        <e k="invoice_moneyType_expense" v="Lasku (Meno)" />
         <e k="invoice_error_permission_required" v="Toiminto varattu maatilan johtajille." />
-        <e k="invoice_error_insufficient_funds" v="Riittämätön saldo tämän laskun maksamiseen." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="Riittämätön saldo tämän laskun maksamiseen." />
+        <e k="invoice_error_select_farm" v="Valitse maatila." />
+        <e k="invoice_settings_section_title" v="Laskut" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Simuloitu ALV" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Kun käytössä, laskut sisältävät ALV:n. Asiakas maksaa bruttosumman (vero mukaan lukien), palveluntarjoaja saa nettosumman (vero pois lukien). Kun pois käytöstä, ALV on 0% ja molemmat osapuolet vaihtavat saman summan." />
+        <e k="invoice_setting_invoiceReminders" v="Maksumuistutukset" />
+        <e k="invoice_toolTip_invoiceReminders" v="Kun käytössä, muistutus näytetään 5 minuutin välein maksamattomista laskuista." />
+        <e k="invoice_notification_vat_incl" v="sis. %s %s" />
+        <e k="invoice_notification_vat_excl" v="pois lukien %s %s" />
+    </elements>
 </l10n>

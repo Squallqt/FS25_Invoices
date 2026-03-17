@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="Da:" />
         <e k="invoice_label_to" v="A:" />
         <e k="invoice_label_note" v="Note:" />
+        <e k="invoice_placeholder_note" v="Aggiungere nota o riferimento" />
         <e k="invoice_label_total" v="Totale:" />
         <e k="invoice_dialog_details" v="Dettagli fattura" />
         <e k="invoice_dialog_selectField" v="Scelta campo" />
@@ -134,14 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Disboscamento" />
         <e k="invoice_work_goods" v="Forniture" />
         <e k="invoice_work_miscellaneous" v="Varie" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="IVA %" />
+        <e k="invoice_label_subtotal_ht" v="Subtotale esclusa IVA" />
+        <e k="invoice_label_vat" v="IVA" />
+        <e k="finance_invoiceIncome" v="Ricavo fatture" />
+        <e k="finance_invoiceExpense" v="Spesa fatture" />
+        <e k="invoice_moneyType_income" v="Fattura (Ricavo)" />
+        <e k="invoice_moneyType_expense" v="Fattura (Spesa)" />
         <e k="invoice_error_permission_required" v="Azione riservata ai gestori dell'azienda agricola." />
         <e k="invoice_error_insufficient_funds" v="Saldo insufficiente per pagare questa fattura." />
+        <e k="invoice_error_select_farm" v="Seleziona un'azienda agricola." />
+        <e k="invoice_settings_section_title" v="Fatture" />
+        <e k="invoice_setting_invoiceVatSimulated" v="IVA simulata" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Se attivato, le fatture includono l'IVA. Il cliente paga l'importo lordo (tasse incluse), il fornitore riceve l'importo netto (tasse escluse). Se disattivato, l'IVA è fissata allo 0% ed entrambe le parti scambiano lo stesso importo." />
+        <e k="invoice_setting_invoiceReminders" v="Promemoria pagamento" />
+        <e k="invoice_toolTip_invoiceReminders" v="Se attivato, viene mostrata una notifica di promemoria ogni 5 minuti per le fatture non pagate." />
+        <e k="invoice_notification_vat_incl" v="incl. %s %s" />
+        <e k="invoice_notification_vat_excl" v="escl. %s %s" />
     </elements>
 </l10n>

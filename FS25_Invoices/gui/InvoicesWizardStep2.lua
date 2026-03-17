@@ -10,7 +10,8 @@ InvoicesWizardStep2.CONTROLS = {
     TITLE_BADGE_BG = "titleBadgeBg",
     MAIN_TITLE_TEXT = "mainTitleText",
     LIST_WORK_TYPES = "listWorkTypes",
-    SUMMARY_TEXT = "summaryText",
+    SUMMARY_LIST = "summaryList",
+    SUMMARY_SLIDER_BOX = "summarySliderBox",
     BTN_NEXT = "btnNext",
     BTN_ADD = "btnAdd",
     BTN_REMOVE = "btnRemove",
@@ -38,6 +39,10 @@ function InvoicesWizardStep2:onGuiSetupFinished()
     if self.listWorkTypes ~= nil then
         self.listWorkTypes:setDataSource(self)
         self.listWorkTypes:setDelegate(self)
+    end
+
+    if self.summaryList ~= nil then
+        self.summaryList:setDataSource(self)
     end
 end
 
@@ -119,35 +124,17 @@ function InvoicesWizardStep2:updateButtonStates()
 end
 
 function InvoicesWizardStep2:updateSummaryText()
-    if self.summaryText == nil then
-        return
+    if self.summaryList ~= nil then
+        self.summaryList:reloadData()
     end
-    
-    if #self.selectedItems == 0 then
-        self.summaryText:setText("")
-        return
+    self:updateSummarySliderVisibility()
+end
+
+function InvoicesWizardStep2:updateSummarySliderVisibility()
+    if self.summarySliderBox ~= nil then
+        local maxVisible = math.floor(362 / 24)
+        self.summarySliderBox:setVisible(#self.selectedItems > maxVisible)
     end
-    
-    local lines = {}
-    local manager = g_currentMission.invoicesManager
-    
-    for _, workType in ipairs(self.selectedItems) do
-        local name = g_i18n:getText(workType.nameKey)
-        local unitKey = manager and manager:getUnitKey(workType.unit) or "invoices_unit_piece"
-        local unitStr = g_i18n:getText(unitKey)
-        local price = manager and manager:getAdjustedPrice(workType.id) or workType.basePrice or 0
-        
-        local priceStr
-        if workType.unit == Invoice.UNIT_LITER then
-            priceStr = string.format("%s / %s", g_i18n:formatMoney(price, 1), unitStr)
-        else
-            priceStr = string.format("%s / %s", g_i18n:formatMoney(price), unitStr)
-        end
-        
-        table.insert(lines, string.format("·  %s  —  %s", name, priceStr))
-    end
-    
-    self.summaryText:setText(table.concat(lines, "\n"))
 end
 
 function InvoicesWizardStep2:getNumberOfSections()
@@ -155,6 +142,9 @@ function InvoicesWizardStep2:getNumberOfSections()
 end
 
 function InvoicesWizardStep2:getNumberOfItemsInSection(list, section)
+    if list == self.summaryList then
+        return #self.selectedItems
+    end
     return #self.workTypes
 end
 
@@ -167,6 +157,30 @@ function InvoicesWizardStep2:getSectionHeaderHeight(list, section)
 end
 
 function InvoicesWizardStep2:populateCellForItemInSection(list, section, index, cell)
+    if list == self.summaryList then
+        local workType = self.selectedItems[index]
+        if workType == nil then return end
+
+        local name = g_i18n:getText(workType.nameKey)
+        local manager = g_currentMission.invoicesManager
+        local unitKey = manager and manager:getUnitKey(workType.unit) or "invoices_unit_piece"
+        local unitStr = g_i18n:getText(unitKey)
+        local price = manager and manager:getAdjustedPrice(workType.id) or workType.basePrice or 0
+
+        local priceStr
+        if workType.unit == Invoice.UNIT_LITER then
+            priceStr = string.format("%s / %s", g_i18n:formatMoney(price, 1), unitStr)
+        else
+            priceStr = string.format("%s / %s", g_i18n:formatMoney(price), unitStr)
+        end
+
+        local cellText = cell:getDescendantByName("cellText")
+        if cellText ~= nil then
+            cellText:setText(string.format("·  %s  —  %s", name, priceStr))
+        end
+        return
+    end
+
     local workType = self.workTypes[index]
     if workType == nil then
         return
@@ -271,6 +285,7 @@ end
 function InvoicesWizardStep2:onClickCancel()
     local state = InvoicesWizardState.getInstance()
     state:reset()
+    self.selectedItems = {}
     self:close()
 end
 

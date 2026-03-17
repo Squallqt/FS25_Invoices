@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="보내는 사람:" />
         <e k="invoice_label_to" v="받는 사람:" />
         <e k="invoice_label_note" v="비고:" />
+        <e k="invoice_placeholder_note" v="메모 또는 참조 추가" />
         <e k="invoice_label_total" v="합계:" />
         <e k="invoice_dialog_details" v="청구서 상세" />
         <e k="invoice_dialog_selectField" v="밭 선택" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="상태" />
         <e k="invoice_popup_added" v="추가됨: %s" />
         <e k="invoice_popup_removed" v="제거됨: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="이미 선택됨: %s" />
         <e k="invoice_empty_list" v="청구서 없음" />
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d 줄" />
@@ -134,13 +135,22 @@
         <e k="invoice_work_treeRemoval" v="목재 운송" />
         <e k="invoice_work_goods" v="물품" />
         <e k="invoice_work_miscellaneous" v="기타" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="부가세 %" />
+        <e k="invoice_label_subtotal_ht" v="세금 제외 소계" />
+        <e k="invoice_label_vat" v="부가세" />
+        <e k="finance_invoiceIncome" v="청구서 수입" />
+        <e k="finance_invoiceExpense" v="청구서 지출" />
+        <e k="invoice_moneyType_income" v="청구서 (수입)" />
+        <e k="invoice_moneyType_expense" v="청구서 (지출)" />
         <e k="invoice_error_permission_required" v="농장 관리자 전용 작업입니다." />
-        <e k="invoice_error_insufficient_funds" v="이 청구서를 지불하기에 잔액이 부족합니다." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="이 청구서를 지불하기에 잔액이 부족합니다." />
+        <e k="invoice_error_select_farm" v="농장을 선택하세요." />
+        <e k="invoice_settings_section_title" v="청구서" />
+        <e k="invoice_setting_invoiceVatSimulated" v="시뮬레이션 부가세" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="활성화하면 청구서에 부가세가 포함됩니다. 고객은 세금 포함 총액을 지불하고, 서비스 제공자는 세금 제외 순액을 받습니다. 비활성화하면 부가세가 0%로 설정되어 양측이 동일한 금액을 교환합니다." />
+        <e k="invoice_setting_invoiceReminders" v="결제 알림" />
+        <e k="invoice_toolTip_invoiceReminders" v="활성화하면 미결제 청구서에 대해 5분마다 알림이 표시됩니다." />
+        <e k="invoice_notification_vat_incl" v="%s %s 포함" />
+        <e k="invoice_notification_vat_excl" v="%s %s 제외" />
+    </elements>
 </l10n>

@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="De:" />
         <e k="invoice_label_to" v="Para:" />
         <e k="invoice_label_note" v="Observações:" />
+        <e k="invoice_placeholder_note" v="Adicionar nota ou referência" />
         <e k="invoice_label_total" v="Total:" />
         <e k="invoice_dialog_details" v="Detalhes da Nota" />
         <e k="invoice_dialog_selectField" v="Seleção de Campo" />
@@ -60,7 +61,7 @@
         <e k="invoice_detail_col_unitprice" v="Preço" />
         <e k="invoice_detail_col_amount" v="Valor" />
         <e k="invoice_col_number" v="Nº Fatura" />
-        <e k="invoice_col_status" v="Status" />
+        <e k="invoice_col_status" v="Estado" />
         <e k="invoice_popup_added" v="Adicionado: %s" />
         <e k="invoice_popup_removed" v="Removido: %s" />
         <e k="invoice_popup_already_selected" v="Já selecionado: %s" />
@@ -134,13 +135,22 @@
         <e k="invoice_work_treeRemoval" v="Transporte de Madeira" />
         <e k="invoice_work_goods" v="Suprimentos" />
         <e k="invoice_work_miscellaneous" v="Diversos" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="ICMS/ISS %" />
+        <e k="invoice_label_subtotal_ht" v="Subtotal s/ imposto" />
+        <e k="invoice_label_vat" v="ICMS/ISS" />
+        <e k="finance_invoiceIncome" v="Receita de faturas" />
+        <e k="finance_invoiceExpense" v="Despesa de faturas" />
+        <e k="invoice_moneyType_income" v="Fatura (Receita)" />
+        <e k="invoice_moneyType_expense" v="Fatura (Despesa)" />
         <e k="invoice_error_permission_required" v="Ação reservada para gerentes da fazenda." />
-        <e k="invoice_error_insufficient_funds" v="Saldo insuficiente para pagar esta fatura." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="Saldo insuficiente para pagar esta fatura." />
+        <e k="invoice_error_select_farm" v="Selecione uma fazenda." />
+        <e k="invoice_settings_section_title" v="Faturas" />
+        <e k="invoice_setting_invoiceVatSimulated" v="ICMS/ISS simulado" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Quando ativado, as faturas incluem ICMS/ISS. O cliente paga o valor bruto (com imposto), o prestador recebe o valor líquido (sem imposto). Quando desativado, o ICMS/ISS é fixado em 0% e ambas as partes trocam o mesmo valor." />
+        <e k="invoice_setting_invoiceReminders" v="Lembretes de pagamento" />
+        <e k="invoice_toolTip_invoiceReminders" v="Quando ativado, uma notificação de lembrete é exibida a cada 5 minutos para faturas não pagas." />
+        <e k="invoice_notification_vat_incl" v="inc. %s %s" />
+        <e k="invoice_notification_vat_excl" v="exc. %s %s" />
+    </elements>
 </l10n>

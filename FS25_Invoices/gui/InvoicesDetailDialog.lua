@@ -59,6 +59,24 @@ function InvoicesDetailDialog:resizeTitleBadge()
     end
 end
 
+function InvoicesDetailDialog:resizeTotalSep(htText, tvaText)
+    if self.totalSep == nil or self.textVatHt == nil then return end
+
+    if self._sepHeight == nil then
+        self._sepHeight = self.totalSep.absSize[2]
+    end
+
+    local textSize = self.textVatHt.textSize
+    local htWidth = getTextWidth(textSize, htText)
+    local tvaWidth = self.textVatTva ~= nil and getTextWidth(self.textVatTva.textSize, tvaText) or 0
+    local maxTextWidth = math.max(htWidth, tvaWidth)
+
+    self.totalSep:setSize(maxTextWidth, self._sepHeight)
+    if self.totalSep.parent ~= nil and self.totalSep.parent.invalidateLayout ~= nil then
+        self.totalSep.parent:invalidateLayout()
+    end
+end
+
 function InvoicesDetailDialog:onOpen()
     InvoicesDetailDialog:superClass().onOpen(self)
     self:resizeTitleBadge()
@@ -131,6 +149,7 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
                 self.textVatTva:setVisible(true)
                 if self.totalSep ~= nil then
                     self.totalSep:setVisible(true)
+                    self:resizeTotalSep(htText, tvaText)
                 end
             else
                 self.textVatHt:setVisible(false)
@@ -169,7 +188,7 @@ end
 function InvoicesDetailDialog:updateSliderVisibility()
     if self.sliderBox and self.listItems then
         local itemCount = #self.items
-        local maxVisibleItems = math.floor(200 / 36)
+        local maxVisibleItems = math.floor(225 / 36)
         local needsScroll = itemCount > maxVisibleItems
         self.sliderBox:setVisible(needsScroll)
     end
@@ -246,7 +265,10 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
 
     local vatRate = item.vatRate or 0
     local vatStr = "—"
-    if vatRate > 0 then
+    local vatEnabled = manager ~= nil and manager.service:isVatEnabled()
+    if not vatEnabled then
+        vatStr = "N/A"
+    elseif vatRate > 0 then
         vatStr = string.format("%.1f%%", vatRate * 100)
     end
 

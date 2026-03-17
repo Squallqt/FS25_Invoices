@@ -106,6 +106,8 @@ MoneyType.INVOICE_EXPENSE = MoneyType.register("invoiceExpense", "invoice_moneyT
 
 Income (HT received by provider) and Expense (TTC paid by client) appear separately in Finance tab. When VAT applies, the difference (VAT amount) is removed from the economy. Server processes payments with anti-cheat validation.
 
+> **Note for third-party mods:** The `invoiceIncome` and `invoiceExpense` finance stats are public FS25 `FinanceStat` entries. They will be used by the creator of the **RedTape** mod to calculate taxes within his mod.
+
 ### VAT System
 
 Configurable VAT rates loaded from `data/vatRates.xml` with 4 groups based on French fiscal law:
@@ -116,13 +118,13 @@ Configurable VAT rates loaded from `data/vatRates.xml` with 4 groups based on Fr
 
 Each line item carries its own `vatRate`, editable by the user in wizard step 4. Calculation follows French accounting: `TVA = round(TTC × rate / (1 + rate))`, `HT = TTC - TVA`.
 
-### RedTape Integration
+### VAT Settings
 
-Optional runtime integration with the RedTape mod (by Ozz/sprkem):
-- Detection: `g_currentMission.RedTape.TaxSystem:isEnabled()`
-- RedTape automatically intercepts `addMoney()` calls via its `Farm.changeBalance` hook
-- Two statistics (`invoiceIncome`, `invoiceExpense`) registered for RedTape's tax categorization
-- Without RedTape: VAT is still displayed but has no fiscal impact beyond the HT/TTC split
+The mod includes a "Simulated VAT" setting accessible in the General Settings menu:
+- **ON** (default): invoices include VAT. The client pays the gross amount (TTC), the provider receives the net amount (HT). VAT is displayed per line and in the total breakdown.
+- **OFF**: VAT is set to 0%. Both parties exchange the same amount. VAT inputs are disabled and display "N/A".
+
+Two statistics (`invoiceIncome`, `invoiceExpense`) are registered in the Finance tab for clear income/expense tracking.
 
 ### Reminder System
 
@@ -174,7 +176,8 @@ I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)
 - [x] Per-lineItem editable vatRate in wizard step 4
 - [x] HT / TVA / TTC breakdown in WizardStep4 and DetailDialog
 - [x] Dual MoneyType (INVOICE_INCOME / INVOICE_EXPENSE)
-- [x] RedTape collaboration (runtime detection, 2 statistics)
+- [x] Simulated VAT setting with server-authoritative sync
+- [x] Payment reminders toggle setting
 - [x] Savegame v2 → v3 migration with retrocompat
 - [x] vatRates.xml externalized configuration
 
@@ -194,7 +197,6 @@ I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)
 ## Dependencies
 
 - Farming Simulator 25 (descVersion 106)
-- Optional: RedTape mod (by Ozz/sprkem) for fiscal tax integration
 
 ## Contact
 

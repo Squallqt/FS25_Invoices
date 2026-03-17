@@ -26,6 +26,7 @@
         <e k="invoice_label_from" v="請求元:" />
         <e k="invoice_label_to" v="請求先:" />
         <e k="invoice_label_note" v="備考:" />
+        <e k="invoice_placeholder_note" v="備考または参照を追加" />
         <e k="invoice_label_total" v="合計:" />
         <e k="invoice_dialog_details" v="請求書詳細" />
         <e k="invoice_dialog_selectField" v="畑の選択" />
@@ -63,7 +64,7 @@
         <e k="invoice_col_status" v="状態" />
         <e k="invoice_popup_added" v="追加: %s" />
         <e k="invoice_popup_removed" v="削除: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
+        <e k="invoice_popup_already_selected" v="既に選択済み：%s" />
         <e k="invoice_empty_list" v="請求書なし" />
         <e k="invoice_format_inv_number" v="請求-%03d" />
         <e k="invoice_format_services_count" v="%d 件" />
@@ -134,13 +135,22 @@
         <e k="invoice_work_treeRemoval" v="木材搬出" />
         <e k="invoice_work_goods" v="消耗品" />
         <e k="invoice_work_miscellaneous" v="その他" />
-        <e k="invoice_step4_col_vat" v="VAT %" />
-        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
-        <e k="invoice_label_vat" v="VAT" />
-        <e k="finance_invoiceIncome" v="Invoice Income" />
-        <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_step4_col_vat" v="消費税 %" />
+        <e k="invoice_label_subtotal_ht" v="税抜小計" />
+        <e k="invoice_label_vat" v="消費税" />
+        <e k="finance_invoiceIncome" v="請求書収入" />
+        <e k="finance_invoiceExpense" v="請求書支出" />
+        <e k="invoice_moneyType_income" v="請求書（収入）" />
+        <e k="invoice_moneyType_expense" v="請求書（支出）" />
         <e k="invoice_error_permission_required" v="ファームマネージャー専用の操作です。" />
-        <e k="invoice_error_insufficient_funds" v="この請求書を支払うには残高が不足しています。" />    </elements>
+        <e k="invoice_error_insufficient_funds" v="この請求書を支払うには残高が不足しています。" />
+        <e k="invoice_error_select_farm" v="農場を選択してください。" />
+        <e k="invoice_settings_section_title" v="請求書" />
+        <e k="invoice_setting_invoiceVatSimulated" v="シミュレート消費税" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="有効にすると、請求書に消費税が含まれます。クライアントは税込総額を支払い、サービス提供者は税抜純額を受け取ります。無効にすると、消費税は0%に設定され、両者は同額を交換します。" />
+        <e k="invoice_setting_invoiceReminders" v="支払いリマインダー" />
+        <e k="invoice_toolTip_invoiceReminders" v="有効にすると、未払い請求書について5分ごとにリマインダー通知が表示されます。" />
+        <e k="invoice_notification_vat_incl" v="%s %s 込み" />
+        <e k="invoice_notification_vat_excl" v="%s %s 抜き" />
+    </elements>
 </l10n>

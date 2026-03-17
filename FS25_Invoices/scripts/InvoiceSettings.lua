@@ -1,0 +1,254 @@
+--[[
+    InvoiceSettings.lua
+    Settings menu injection.
+    Author: Squallqt
+]]
+
+InvoiceSettings = {}
+
+InvoiceSettings.SETTINGS = {}
+InvoiceSettings.CONTROLS = {}
+
+InvoiceSettings.menuItems = {
+    'invoiceVatSimulated',
+    'invoiceReminders'
+}
+
+InvoiceSettings.SETTINGS.invoiceVatSimulated = {
+    ['default'] = 2,
+    ['serverOnly'] = true,
+    ['values'] = { false, true },
+    ['strings'] = { "ui_off", "ui_on" }
+}
+
+InvoiceSettings.SETTINGS.invoiceReminders = {
+    ['default'] = 2,
+    ['serverOnly'] = true,
+    ['values'] = { false, true },
+    ['strings'] = { "ui_off", "ui_on" }
+}
+
+function InvoiceSettings.getStateIndex(id, value)
+    local current = value
+    if current == nil and g_currentMission ~= nil and g_currentMission.invoiceSettings ~= nil then
+        current = g_currentMission.invoiceSettings[id]
+    end
+
+    local values = InvoiceSettings.SETTINGS[id].values
+
+    for i, v in ipairs(values) do
+        if current == v then
+            return i
+        end
+    end
+
+    return InvoiceSettings.SETTINGS[id].default
+end
+
+InvoiceSettingsControls = {}
+
+function InvoiceSettingsControls.onMenuOptionChanged(self, state, menuOption)
+    local id = menuOption.id
+    local value = InvoiceSettings.SETTINGS[id].values[state]
+
+    if value ~= nil and g_currentMission ~= nil and g_currentMission.invoiceSettings ~= nil then
+        g_currentMission.invoiceSettings[id] = value
+    end
+
+    if g_client ~= nil and g_client.getServerConnection ~= nil then
+        g_client:getServerConnection():sendEvent(InvoiceSettingsEvent.new(g_currentMission.invoiceSettings))
+    end
+end
+
+local function updateFocusIds(element)
+    if not element then return end
+    element.focusId = FocusManager:serveAutoFocusId()
+    for _, child in pairs(element.elements) do
+        updateFocusIds(child)
+    end
+end
+
+function InvoiceSettings:applySettings(newSettings, isAuthoritative)
+    if g_currentMission == nil then return end
+
+    g_currentMission.invoiceSettings = g_currentMission.invoiceSettings or {}
+    local s = g_currentMission.invoiceSettings
+
+    for _, id in ipairs(self.menuItems) do
+        local def = self.SETTINGS[id]
+        local candidate = nil
+        if newSettings ~= nil then
+            candidate = newSettings[id]
+        end
+
+        local ok = false
+        for _, v in ipairs(def.values) do
+            if candidate == v then
+                ok = true
+                break
+            end
+        end
+
+        if ok then
+            s[id] = candidate
+        elseif s[id] == nil then
+            s[id] = def.values[def.default]
+        end
+    end
+
+    for _, id in ipairs(self.menuItems) do
+        local ctrl = self.CONTROLS[id]
+        if ctrl ~= nil then
+            ctrl:setState(self.getStateIndex(id, s[id]))
+        end
+    end
+
+    if isAuthoritative and g_currentMission:getIsServer() then
+        self:saveToXMLFile()
+
+        if g_server ~= nil then
+            g_server:broadcastEvent(InvoiceSettingsEvent.new(s), false)
+        end
+    end
+end
+
+function InvoiceSettings:loadDefaultsIfMissing()
+    if g_currentMission == nil then return end
+
+    g_currentMission.invoiceSettings = g_currentMission.invoiceSettings or {}
+    for _, id in ipairs(self.menuItems) do
+        if g_currentMission.invoiceSettings[id] == nil then
+            local def = self.SETTINGS[id]
+            g_currentMission.invoiceSettings[id] = def.values[def.default]
+        end
+    end
+end
+
+function InvoiceSettings:saveToXMLFile()
+    if g_currentMission == nil or not g_currentMission:getIsServer() then return end
+
+    local savegameDirectory = g_currentMission.missionInfo ~= nil and g_currentMission.missionInfo.savegameDirectory or nil
+    if savegameDirectory == nil then return end
+
+    local filename = savegameDirectory .. "/invoiceSettings.xml"
+    local key = "invoiceSettings"
+    local xmlFile = XMLFile.create("invoiceSettings", filename, key)
+    if xmlFile == nil then return end
+
+    local s = g_currentMission.invoiceSettings or {}
+    xmlFile:setBool(key .. "#vatSimulated", s.invoiceVatSimulated ~= false)
+    xmlFile:setBool(key .. "#reminders", s.invoiceReminders ~= false)
+
+    xmlFile:save()
+    xmlFile:delete()
+end
+
+function InvoiceSettings:loadFromXMLFile()
+    if g_currentMission == nil or not g_currentMission:getIsServer() then return end
+
+    local savegameDirectory = g_currentMission.missionInfo ~= nil and g_currentMission.missionInfo.savegameDirectory or nil
+    if savegameDirectory == nil then return end
+
+    local filename = savegameDirectory .. "/invoiceSettings.xml"
+    local key = "invoiceSettings"
+    local xmlFile = XMLFile.loadIfExists("invoiceSettings", filename, key)
+    if xmlFile == nil then return end
+
+    local s = {}
+    s.invoiceVatSimulated = xmlFile:getBool(key .. "#vatSimulated", true)
+    s.invoiceReminders = xmlFile:getBool(key .. "#reminders", true)
+    xmlFile:delete()
+
+    self:applySettings(s, true)
+end
+
+function InvoiceSettings:injectMenu()
+    local inGameMenu = g_gui.screenControllers[InGameMenu]
+    if inGameMenu == nil then return end
+
+    local settingsPage = inGameMenu.pageSettings
+    if settingsPage == nil then return end
+
+    InvoiceSettingsControls.name = settingsPage.name
+
+    local function addBinaryMenuOption(id)
+        local i18n_title = "invoice_setting_" .. id
+        local i18n_tooltip = "invoice_toolTip_" .. id
+        local options = self.SETTINGS[id].strings
+
+        local originalBox = settingsPage.checkWoodHarvesterAutoCutBox
+        local menuOptionBox = originalBox:clone(settingsPage.gameSettingsLayout)
+        menuOptionBox.id = id .. "box"
+
+        local menuBinaryOption = menuOptionBox.elements[1]
+        menuBinaryOption.id = id
+        menuBinaryOption.target = InvoiceSettingsControls
+        menuBinaryOption:setCallback("onClickCallback", "onMenuOptionChanged")
+        menuBinaryOption:setDisabled(false)
+
+        local toolTip = menuBinaryOption.elements[1]
+        toolTip:setText(g_i18n:getText(i18n_tooltip))
+
+        local setting = menuOptionBox.elements[2]
+        setting:setText(g_i18n:getText(i18n_title))
+
+        local resolved = {}
+        for _, key in ipairs(options) do
+            table.insert(resolved, g_i18n:getText(key))
+        end
+        menuBinaryOption:setTexts(resolved)
+        menuBinaryOption:setState(self.getStateIndex(id))
+
+        self.CONTROLS[id] = menuBinaryOption
+
+        updateFocusIds(menuOptionBox)
+        table.insert(settingsPage.controlsList, menuOptionBox)
+        return menuOptionBox
+    end
+
+    -- Section header
+    local sectionTitle = nil
+    for _, elem in ipairs(settingsPage.gameSettingsLayout.elements) do
+        if elem.name == "sectionHeader" then
+            sectionTitle = elem:clone(settingsPage.gameSettingsLayout)
+            break
+        end
+    end
+
+    if sectionTitle then
+        sectionTitle:setText(g_i18n:getText("invoice_settings_section_title"))
+    else
+        sectionTitle = TextElement.new()
+        sectionTitle:applyProfile("fs25_settingsSectionHeader", true)
+        sectionTitle:setText(g_i18n:getText("invoice_settings_section_title"))
+        sectionTitle.name = "sectionHeader"
+        settingsPage.gameSettingsLayout:addElement(sectionTitle)
+    end
+
+    sectionTitle.focusId = FocusManager:serveAutoFocusId()
+    table.insert(settingsPage.controlsList, sectionTitle)
+    self.CONTROLS[sectionTitle.name] = sectionTitle
+
+    local ourElements = {sectionTitle}
+    for _, id in ipairs(self.menuItems) do
+        local box = addBinaryMenuOption(id)
+        table.insert(ourElements, box)
+    end
+
+    settingsPage.gameSettingsLayout:invalidateLayout()
+
+    InGameMenuSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuSettingsFrame.onFrameOpen, function()
+        local isAdmin = g_currentMission:getIsServer() or g_currentMission.isMasterUser
+        for _, id in ipairs(InvoiceSettings.menuItems) do
+            local menuOption = InvoiceSettings.CONTROLS[id]
+            if menuOption ~= nil then
+                menuOption:setState(InvoiceSettings.getStateIndex(id))
+                if InvoiceSettings.SETTINGS[id].serverOnly and g_server == nil then
+                    menuOption:setDisabled(not isAdmin)
+                else
+                    menuOption:setDisabled(false)
+                end
+            end
+        end
+    end)
+end
