@@ -423,7 +423,7 @@ function InvoicesWizardStep4:onPriceTextChanged(element, text)
     if value >= 0 then
         item.price = value
     end
-    item.amount = item.price * item.quantity
+    item.amount = MathUtil.round(item.price * item.quantity)
 
     self:updateSelectedCellValues()
     self:updateTotal()
@@ -458,7 +458,7 @@ function InvoicesWizardStep4:onQtyTextChanged(element, text)
     if value >= 0 then
         item.quantity = value
     end
-    item.amount = item.price * item.quantity
+    item.amount = MathUtil.round(item.price * item.quantity)
 
     self:updateSelectedCellValues()
     self:updateTotal()

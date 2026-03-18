@@ -156,17 +156,18 @@ function InvoicesWizardState:buildAllLineItems()
 
         if unit == Invoice.UNIT_HECTARE then
             for _, field in ipairs(fields) do
-                local amount = adjustedPrice * field.area
+                local roundedArea = MathUtil.round(field.area, 2)
+                local amount = MathUtil.round(adjustedPrice * roundedArea)
                 local fieldName = string.format(g_i18n:getText("invoice_format_field_id"), field.id)
 
                 table.insert(self.lineItems, {
                     workTypeId = workType.id,
-                    name = string.format("%s (%s, %.2f ha)", displayName, fieldName, field.area),
-                    quantity = field.area,
+                    name = string.format("%s (%s, %.2f ha)", displayName, fieldName, roundedArea),
+                    quantity = roundedArea,
                     price = adjustedPrice,
                     unit = unit,
                     fieldId = field.id,
-                    fieldArea = field.area,
+                    fieldArea = roundedArea,
                     amount = amount,
                     note = "",
                     vatRate = vatRate

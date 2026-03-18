@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="107">
     <author>Squallqt</author>
-    <version>1.1.0.0</version>
+    <version>1.2.0.0</version>
     <title>
         <en>Invoices</en>
         <fr>Factures</fr>
@@ -32,7 +32,7 @@
     <description>
         <en><![CDATA[Create, send and manage invoices between farms in multiplayer.
 
-Ideal for agricultural contractor gameplay. Bill other farms for services performed: plowing, harvesting, transport, animal care, equipment rental, and 50+ predefined work types. Base prices are automatically adjusted based on your economic difficulty setting, and the user can modify any price directly when creating an invoice.
+Ideal for agricultural contractor gameplay. Bill other farms for services performed: plowing, harvesting, transport, animal care, equipment rental, and 50+ predefined work types. Base prices are aligned with the game's contract economy and automatically adjusted based on your economic difficulty setting. The user can modify any price directly when creating an invoice.
 
 Features:
 - Full invoice wizard: select recipient farm, work types, fields, quantities and prices
@@ -52,6 +52,13 @@ Access via the dedicated tab in the InGame Menu (ESC).
 
 Changelog:
 
+1.2.0.0:
+- Rebalance all base prices to match FS25 contract economy (verified in-game)
+- Fix rounding errors in price calculations (field area precision)
+- Fix hourly rate hierarchy (driving < transport < delivery)
+- Fix wizard state persistence after cancel
+- Fix payment float comparison for exact amounts
+- Fix farm selection cursor persistence in wizard step 1
 1.1.0.0:
 - Add VAT system with 4 rate groups based on French fiscal law
 - Add adjustable VAT rate per invoice line
@@ -65,7 +72,7 @@ Changelog:
 - Initial release]]></en>
         <fr><![CDATA[Créez, envoyez et gérez des factures entre fermes en multijoueur.
 
-Idéal pour le gameplay de type ETA (Entreprise de Travaux Agricoles). Facturez les autres fermes pour les prestations réalisées : labour, récolte, transport, soins aux animaux, location de matériel, et plus de 50 types de travaux prédéfinis. Les prix de base s'ajustent automatiquement selon le niveau de difficulté économique, et l'utilisateur peut modifier librement chaque prix lors de la création d'une facture.
+Idéal pour le gameplay de type ETA (Entreprise de Travaux Agricoles). Facturez les autres fermes pour les prestations réalisées : labour, récolte, transport, soins aux animaux, location de matériel, et plus de 50 types de travaux prédéfinis. Les prix de base sont alignés sur l'économie des contrats du jeu et s'ajustent automatiquement selon le niveau de difficulté économique. L'utilisateur peut modifier librement chaque prix lors de la création d'une facture.
 
 Fonctionnalités :
 - Assistant de création complet : choix du destinataire, des travaux, des champs, quantités et prix
@@ -85,6 +92,13 @@ Accès via l'onglet dédié dans le menu en jeu (ECHAP).
 
 Changelog :
 
+1.2.0.0 :
+- Rééquilibrage de tous les prix de base pour correspondre à l'économie des contrats FS25 (vérifié en jeu)
+- Correction des erreurs d'arrondi dans les calculs de prix (précision de la surface)
+- Correction de la hiérarchie des tarifs horaires (conduite < transport < livraison)
+- Correction de la persistance de l'état du wizard après annulation
+- Correction de la comparaison des montants de paiement pour les montants exacts
+- Correction de la persistance du curseur de sélection ferme dans l'étape 1
 1.1.0.0 :
 - Ajout du système de TVA avec 4 groupes de taux selon la fiscalité française
 - Ajout du taux de TVA modifiable par ligne de facture
@@ -98,7 +112,7 @@ Changelog :
 - Publication initiale]]></fr>
         <de><![CDATA[Erstellen, senden und verwalten Sie Rechnungen zwischen Betrieben im Mehrspielermodus.
 
-Ideal für Lohnunternehmer-Gameplay. Stellen Sie anderen Betrieben Rechnungen für erbrachte Leistungen: Pflügen, Ernten, Transport, Tierpflege, Maschinenverleih und über 50 vordefinierte Arbeitstypen. Die Grundpreise werden automatisch an den wirtschaftlichen Schwierigkeitsgrad angepasst, und der Benutzer kann jeden Preis bei der Rechnungserstellung frei ändern.
+Ideal für Lohnunternehmer-Gameplay. Stellen Sie anderen Betrieben Rechnungen für erbrachte Leistungen: Pflügen, Ernten, Transport, Tierpflege, Maschinenverleih und über 50 vordefinierte Arbeitstypen. Die Grundpreise sind an die Vertragswirtschaft des Spiels angepasst und werden automatisch nach wirtschaftlichem Schwierigkeitsgrad skaliert. Der Benutzer kann jeden Preis bei der Rechnungserstellung frei ändern.
 
 Funktionen:
 - Vollständiger Rechnungsassistent: Empfänger, Arbeitstypen, Felder, Mengen und Preise wählen
@@ -118,6 +132,13 @@ Zugriff über den eigenen Tab im InGame-Menü (ESC).
 
 Changelog:
 
+1.2.0.0:
+- Alle Grundpreise an die FS25-Vertragswirtschaft angepasst (im Spiel verifiziert)
+- Rundungsfehler bei Preisberechnungen behoben (Feldflächenpräzision)
+- Stundensatz-Hierarchie korrigiert (Fahren < Transport < Lieferung)
+- Wizard-Zustand nach Abbruch korrigiert
+- Zahlungsvergleich bei exakten Beträgen behoben
+- Cursor-Persistenz bei Farmauswahl in Schritt 1 behoben
 1.1.0.0:
 - MwSt-System mit 4 Satzgruppen nach französischem Steuerrecht hinzugefügt
 - MwSt-Satz pro Rechnungszeile anpassbar

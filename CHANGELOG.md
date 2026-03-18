@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0.0] - 2026-03-18
+
+### Changed
+- Rebalance all 54 base prices to match FS25 contract economy (verified in-game on Hard difficulty)
+- Align per-hectare rates with game rewardPerHa values (plow=2800, cultivate=2300, sow=2000, harvest=2500, mow=2500, etc.)
+- Align hourly rates with AI worker cost reference (1440-1800 EUR/h base)
+
+### Fixed
+- Rounding errors in price calculations: field area now rounded to 2 decimals before multiplication, amounts rounded to integer
+- Hourly rate hierarchy incoherence: driving (1200) < transport (1600) < delivery (1800)
+- Wizard state persistence after cancel (Step 1/2/3 cleanup)
+- Payment float comparison failing on exact amounts (e.g. 131€ balance vs 131€ invoice)
+- Farm selection cursor persisting after cancel in wizard step 1
+
 ## [1.1.0.0] - 2026-03-15
 
 ### Added
