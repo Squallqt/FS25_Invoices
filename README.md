@@ -202,7 +202,7 @@ I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)
 
 ## Dependencies
 
-- Farming Simulator 25 (descVersion 106)
+- Farming Simulator 25 (descVersion 107)
 
 ## Contact
 
