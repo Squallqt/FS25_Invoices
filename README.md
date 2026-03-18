@@ -181,9 +181,15 @@ I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)
 - [x] Input focus fix (enterWhenClickOutside)
 - [x] Step4 input visual overhaul (outline, filled background, pen icon)
 - [x] Step1 back button returns to InvoicesFrame
+- [x] Rebalance all 54 base prices to match FS25 contract economy
+- [x] Fix rounding errors in price calculations
+- [x] Fix hourly rate hierarchy incoherences
+- [x] Fix wizard state persistence after cancel
+- [x] Fix payment float comparison for exact amounts
+- [x] Fix farm selection cursor persistence
 - [ ] Late payment penalties with automatic surcharge
 
-### v1.1.1.0 (planned)
+### v1.2.0.0 (planned)
 
 - Custom work type creation for specialized services
 
