@@ -143,8 +143,8 @@ I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)
 
 ### Branch Strategy
 
-- `main`: Production releases (v1.0.0.0, v1.1.0.0)
-- `dev`: Active development
+- `main`: Production releases (v1.0.0.0)
+- `dev`: Active development (v1.1.0.0)
 
 ### Testing Checklist
 
@@ -164,7 +164,6 @@ I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)
 - All wizard steps functional
 - Dialog navigation (back/forward)
 - Renderer updates on state changes
-- No console errors (F5 in-game)
 
 ## Roadmap
 
@@ -187,7 +186,7 @@ I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)
 - [x] Fix wizard state persistence after cancel
 - [x] Fix payment float comparison for exact amounts
 - [x] Fix farm selection cursor persistence
-- [ ] Late payment penalties with automatic surcharge
+- [x] Late payment penalties with automatic surcharge
 
 ### v1.2.0.0 (planned)
 
