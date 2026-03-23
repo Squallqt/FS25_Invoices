@@ -151,7 +151,7 @@
 
     <!-- Slider -->
     <Profile name="invSliderBox" extends="fs25_listSliderBox" with="anchorTopRight">
-        <size value="670px"/>
+        <height value="670px"/>
     </Profile>
 
     <!-- Empty state text -->
