@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="When enabled, a reminder notification is shown every 5 minutes for unpaid invoices." />
         <e k="invoice_notification_vat_incl" v="incl. %s %s" />
         <e k="invoice_notification_vat_excl" v="excl. %s %s" />
+        <e k="invoice_notification_penalty_incl" v="incl. %s penalty" />
+        <e k="invoice_status_overdue" v="Overdue" />
+        <e k="invoice_label_total_due" v="Total Due:" />
+        <e k="invoice_label_penalty" v="Late Penalty" />
+        <e k="invoice_label_subtotal" v="Subtotal" />
+        <e k="invoice_setting_invoicePenalties" v="Late Penalties" />
+        <e k="invoice_toolTip_invoicePenalties" v="Enables late penalties on unpaid invoices. After 1 month overdue, a fixed rate of 5% per month is applied automatically. Capped at 25% of the total amount." />
+        <e k="invoice_notification_overdue" v="Invoice %s is overdue: %s" />
+        <e k="invoice_notification_overdue_warning" v="Late penalties will be applied." />
     </elements>
 </l10n>

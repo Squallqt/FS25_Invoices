@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="啟用後，每5分鐘顯示一次未付發票的提醒通知。" />
         <e k="invoice_notification_vat_incl" v="含 %s %s" />
         <e k="invoice_notification_vat_excl" v="不含 %s %s" />
+        <e k="invoice_notification_penalty_incl" v="含 %s 罰款" />
+        <e k="invoice_status_overdue" v="逾期" />
+        <e k="invoice_label_total_due" v="應付總額：" />
+        <e k="invoice_label_penalty" v="逾期罰款" />
+        <e k="invoice_label_subtotal" v="小計" />
+        <e k="invoice_setting_invoicePenalties" v="Penalitzacions per retard" />
+        <e k="invoice_toolTip_invoicePenalties" v="Activa les penalitzacions per retard en factures impagades. Després d'1 mes de venciment, s'aplica automàticament una taxa fixa del 5% mensual. Limitades al 25% de l'import total." />
+        <e k="invoice_notification_overdue" v="Factura %s vençuda: %s" />
+        <e k="invoice_notification_overdue_warning" v="S'aplicaran penalitzacions per retard." />
     </elements>
 </l10n>

@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="Po włączeniu co 5 minut wyświetlane jest przypomnienie o niezapłaconych fakturach." />
         <e k="invoice_notification_vat_incl" v="w tym %s %s" />
         <e k="invoice_notification_vat_excl" v="bez %s %s" />
+        <e k="invoice_notification_penalty_incl" v="w tym %s kary" />
+        <e k="invoice_status_overdue" v="Zaległa" />
+        <e k="invoice_label_total_due" v="Do zapłaty:" />
+        <e k="invoice_label_penalty" v="Kara za zwłokę" />
+        <e k="invoice_label_subtotal" v="Suma częściowa" />
+        <e k="invoice_setting_invoicePenalties" v="Kary za zwłokę" />
+        <e k="invoice_toolTip_invoicePenalties" v="Włącza kary za zwłokę na nieopłaconych fakturach. Po 1 miesiącu przeterminowania automatycznie naliczana jest stała stawka 5% miesięcznie. Ograniczone do 25% kwoty całkowitej." />
+        <e k="invoice_notification_overdue" v="Faktura %s jest zaległa: %s" />
+        <e k="invoice_notification_overdue_warning" v="Zostaną naliczone kary za zwłokę." />
     </elements>
 </l10n>

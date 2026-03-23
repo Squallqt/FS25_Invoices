@@ -7,7 +7,7 @@
 InvoiceRepository = {}
 local InvoiceRepository_mt = Class(InvoiceRepository)
 
-InvoiceRepository.SAVE_VERSION = 3
+InvoiceRepository.SAVE_VERSION = 4
 
 function InvoiceRepository.new()
     local self = setmetatable({}, InvoiceRepository_mt)

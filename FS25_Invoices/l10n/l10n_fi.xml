@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="Kun käytössä, muistutus näytetään 5 minuutin välein maksamattomista laskuista." />
         <e k="invoice_notification_vat_incl" v="sis. %s %s" />
         <e k="invoice_notification_vat_excl" v="pois lukien %s %s" />
+        <e k="invoice_notification_penalty_incl" v="sis. %s sakkoa" />
+        <e k="invoice_status_overdue" v="Myöhässä" />
+        <e k="invoice_label_total_due" v="Maksettava yhteensä:" />
+        <e k="invoice_label_penalty" v="Viivästysmaksu" />
+        <e k="invoice_label_subtotal" v="Välisumma" />
+        <e k="invoice_setting_invoicePenalties" v="Viivästyskorot" />
+        <e k="invoice_toolTip_invoicePenalties" v="Ottaa käyttöön viivästyskoron maksamattomille laskuille. 1 kuukauden erääntymisen jälkeen sovelletaan automaattisesti kiinteää 5% kuukausikorkoa. Enintään 25% kokonaissummasta." />
+        <e k="invoice_notification_overdue" v="Lasku %s on erääntynyt: %s" />
+        <e k="invoice_notification_overdue_warning" v="Viivästyskorkoa tullaan perimään." />
     </elements>
 </l10n>

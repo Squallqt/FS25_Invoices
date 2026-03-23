@@ -121,6 +121,8 @@ function InvoicesFrame:onFrameOpen()
     InvoicesFrame:superClass().onFrameOpen(self)
     g_currentMission.invoicesFrame = self
 
+    self.currentTab = InvoicesFrame.TAB.INCOMING
+
     if self.categoryHeaderIcon then
         local iconPath = Utils.getFilename('images/Icon_black.dds', Invoices.modDirectory)
         self.categoryHeaderIcon:setImageFilename(iconPath)
@@ -298,6 +300,8 @@ function InvoicesFrame:onClickNewInvoice()
         InfoDialog.show(g_i18n:getText("invoice_error_permission_required"))
         return
     end
+    local state = InvoicesWizardState.getInstance()
+    state:reset()
     g_gui:changeScreen(nil)
     g_gui:showDialog("InvoicesWizardStep1")
 end
@@ -316,15 +320,31 @@ function InvoicesFrame:onClickPay()
     end
     local invoice = self.selectedInvoice
     local currentFarmId = self:getCurrentFarmId()
-    if not manager:farmHasSufficientBalance(currentFarmId, invoice.totalAmount) then
+    local totalDue = invoice.totalAmount + (invoice.penaltyAmount or 0)
+    if not manager:farmHasSufficientBalance(currentFarmId, totalDue) then
         InfoDialog.show(g_i18n:getText("invoice_error_insufficient_funds"))
         return
     end
     local senderFarm = g_farmManager:getFarmById(invoice.senderFarmId)
     local farmName = senderFarm and senderFarm.name or ""
-    local text = string.format(self.i18n:getText("invoice_confirm_pay"), 
-                               g_i18n:formatMoney(invoice.totalAmount), 
+    local text = string.format(self.i18n:getText("invoice_confirm_pay"),
+                               g_i18n:formatMoney(totalDue),
                                farmName)
+
+    local details = {}
+    if (invoice.vatAmount or 0) > 0 then
+        local vatStr = g_i18n:formatMoney(invoice.vatAmount, 0, true, false)
+        local vatLabel = g_i18n:getText("invoice_label_vat")
+        table.insert(details, string.format(g_i18n:getText("invoice_notification_vat_incl"), vatLabel, vatStr))
+    end
+    if (invoice.penaltyAmount or 0) > 0 then
+        local penStr = g_i18n:formatMoney(invoice.penaltyAmount, 0, true, false)
+        table.insert(details, string.format(g_i18n:getText("invoice_notification_penalty_incl"), penStr))
+    end
+    if #details > 0 then
+        text = text .. "\n(" .. table.concat(details, ", ") .. ")"
+    end
+
     YesNoDialog.show(self.onPayConfirmed, self, text)
 end
 
@@ -366,11 +386,13 @@ function InvoicesFrame:onClickDetails()
     if self.selectedInvoice == nil then
         return
     end
-    
+
+    local invoice = self.selectedInvoice
+    local isIncoming = (self.currentTab == InvoicesFrame.TAB.INCOMING)
+
     local dialog = g_gui:showDialog("InvoicesDetailDialog")
     if dialog and dialog.target then
-        local isIncoming = (self.currentTab == InvoicesFrame.TAB.INCOMING)
-        dialog.target:setInvoice(self.selectedInvoice, isIncoming)
+        dialog.target:setInvoice(invoice, isIncoming)
     end
 end
 

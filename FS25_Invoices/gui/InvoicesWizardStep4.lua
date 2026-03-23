@@ -4,11 +4,11 @@
 ]]
 
 InvoicesWizardStep4 = {}
-local InvoicesWizardStep4_mt = Class(InvoicesWizardStep4, DialogElement)
+local InvoicesWizardStep4_mt = Class(InvoicesWizardStep4, MessageDialog)
 
 InvoicesWizardStep4.CONTROLS = {
-    TITLE_BADGE_BG = "titleBadgeBg",
     MAIN_TITLE_TEXT = "mainTitleText",
+    TITLE_SEP    = "titleSep",
     LIST_ITEMS   = "listItems",
     SLIDER_BOX   = "sliderBox",
     TEXT_FROM    = "textFrom",
@@ -25,7 +25,7 @@ InvoicesWizardStep4.CONTROLS = {
 }
 
 function InvoicesWizardStep4.new(target, customMt)
-    local self = DialogElement.new(target, customMt or InvoicesWizardStep4_mt)
+    local self = MessageDialog.new(target, customMt or InvoicesWizardStep4_mt)
     self.lineItems = {}
     self.selectedIndex = -1
     self.suppressEditFieldUpdate = false
@@ -44,6 +44,7 @@ function InvoicesWizardStep4:onGuiSetupFinished()
         self.listItems:setDelegate(self)
     end
     self:setupNotePlaceholder()
+    self:hookInputCapture()
 end
 
 function InvoicesWizardStep4:setupNotePlaceholder()
@@ -63,19 +64,55 @@ function InvoicesWizardStep4:setupNotePlaceholder()
     end
 end
 
-function InvoicesWizardStep4:resizeTitleBadge()
-    if self.mainTitleText ~= nil and self.titleBadgeBg ~= nil then
-        local textWidth = getTextWidth(self.mainTitleText.textSize, self.mainTitleText.text)
-        local paddingX = self.mainTitleText.textSize * 0.8
-        local badgeWidth = textWidth + paddingX * 2
-        local badgeHeight = self.titleBadgeBg.absSize[2]
-        self.titleBadgeBg:setSize(badgeWidth, badgeHeight)
+function InvoicesWizardStep4:hookInputCapture()
+    self._activeInput = nil
+    local inputs = {self.inputPrice, self.inputQty, self.inputVat, self.inputNote}
+    for _, input in ipairs(inputs) do
+        if input ~= nil then
+            local origFn = input.setCaptureInput
+            local selfRef = self
+            local inputRef = input
+            input.setCaptureInput = function(inputSelf, isCapturing)
+                origFn(inputSelf, isCapturing)
+                if isCapturing then
+                    selfRef._activeInput = inputRef
+                elseif selfRef._activeInput == inputRef then
+                    selfRef._activeInput = nil
+                end
+            end
+        end
+    end
+end
+
+function InvoicesWizardStep4:inputEvent(action, value, direction, isAnalog, isMouse, deviceCategory, bindingName)
+    if action == InputAction.MENU_CANCEL and self._activeInput ~= nil then
+        return true
+    end
+    return InvoicesWizardStep4:superClass().inputEvent(self, action, value, direction, isAnalog, isMouse, deviceCategory, bindingName)
+end
+
+function InvoicesWizardStep4:resizeTitleSep()
+    if self.titleSep == nil or self.mainTitleText == nil then return end
+
+    if self._titleSepHeight == nil then
+        self._titleSepHeight = self.titleSep.absSize[2]
+    end
+
+    local text = self.mainTitleText.text or ""
+    local textWidth = getTextWidth(self.mainTitleText.textSize, text)
+    local padding = 10 * 2 * g_pixelSizeScaledX
+    local newWidth = textWidth + padding
+
+    self.titleSep:setSize(newWidth, self._titleSepHeight)
+    if self.titleSep.parent ~= nil and self.titleSep.parent.invalidateLayout ~= nil then
+        self.titleSep.parent:invalidateLayout()
     end
 end
 
 function InvoicesWizardStep4:onOpen()
     InvoicesWizardStep4:superClass().onOpen(self)
-    self:resizeTitleBadge()
+
+    self:resizeTitleSep()
 
     local state = InvoicesWizardState.getInstance()
     self.lineItems = state.lineItems or {}

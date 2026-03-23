@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="Wenn aktiviert, wird alle 5 Minuten eine Erinnerung für unbezahlte Rechnungen angezeigt." />
         <e k="invoice_notification_vat_incl" v="inkl. %s %s" />
         <e k="invoice_notification_vat_excl" v="exkl. %s %s" />
+        <e k="invoice_notification_penalty_incl" v="inkl. %s Verzugsgebühr" />
+        <e k="invoice_status_overdue" v="Überfällig" />
+        <e k="invoice_label_total_due" v="Fälliger Betrag:" />
+        <e k="invoice_label_penalty" v="Verzugsgebühr" />
+        <e k="invoice_label_subtotal" v="Zwischensumme" />
+        <e k="invoice_setting_invoicePenalties" v="Verzugszinsen" />
+        <e k="invoice_toolTip_invoicePenalties" v="Aktiviert Verzugszinsen auf unbezahlte Rechnungen. Nach 1 Monat Überfälligkeit wird ein fester Satz von 5% pro Monat automatisch berechnet. Begrenzt auf 25% des Gesamtbetrags." />
+        <e k="invoice_notification_overdue" v="Rechnung %s ist überfällig: %s" />
+        <e k="invoice_notification_overdue_warning" v="Es werden Verzugszinsen berechnet." />
     </elements>
 </l10n>

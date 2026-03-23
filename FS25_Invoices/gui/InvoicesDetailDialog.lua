@@ -4,12 +4,11 @@
 ]]
 
 InvoicesDetailDialog = {}
-local InvoicesDetailDialog_mt = Class(InvoicesDetailDialog, DialogElement)
+local InvoicesDetailDialog_mt = Class(InvoicesDetailDialog, MessageDialog)
 
 InvoicesDetailDialog.CONTROLS = {
-    TITLE_BADGE_BG = "titleBadgeBg",
     MAIN_TITLE_TEXT = "mainTitleText",
-    DIALOG_TITLE = "dialogTitle",
+    TITLE_SEP = "titleSep",
     TEXT_TITLE = "textTitle",
     TEXT_STATUS = "textStatus",
     TEXT_FROM = "textFrom",
@@ -23,14 +22,20 @@ InvoicesDetailDialog.CONTROLS = {
     TEXT_VAT_HT  = "textVatHt",
     TEXT_VAT_TVA = "textVatTva",
     TOTAL_SEP    = "totalSep",
+    PENALTY_BAR  = "penaltyBar",
+    TEXT_PENALTY_BAR = "textPenaltyBar",
     BTN_PAY = "btnPay",
 }
 
-InvoicesDetailDialog.COLOR_UNPAID = {1.00, 0.66, 0.00, 1}
-InvoicesDetailDialog.COLOR_PAID   = {0.40, 0.85, 0.40, 1}
+InvoicesDetailDialog.PENALTY_BAR_OFFSET = 28
+
+InvoicesDetailDialog.COLOR_UNPAID  = {1.00, 0.66, 0.00, 1}
+InvoicesDetailDialog.COLOR_PAID    = {0.40, 0.85, 0.40, 1}
+InvoicesDetailDialog.COLOR_OVERDUE = {1.00, 0.30, 0.30, 1}
+InvoicesDetailDialog.COLOR_PENALTY = {1.00, 0.40, 0.35, 1}
 
 function InvoicesDetailDialog.new(target, customMt)
-    local self = DialogElement.new(target, customMt or InvoicesDetailDialog_mt)
+    local self = MessageDialog.new(target, customMt or InvoicesDetailDialog_mt)
     return self
 end
 
@@ -46,16 +51,6 @@ function InvoicesDetailDialog:onGuiSetupFinished()
     if self.listItems ~= nil then
         self.listItems:setDataSource(self)
         self.listItems:setDelegate(self)
-    end
-end
-
-function InvoicesDetailDialog:resizeTitleBadge()
-    if self.mainTitleText ~= nil and self.titleBadgeBg ~= nil then
-        local textWidth = getTextWidth(self.mainTitleText.textSize, self.mainTitleText.text)
-        local paddingX = self.mainTitleText.textSize * 0.8
-        local badgeWidth = textWidth + paddingX * 2
-        local badgeHeight = self.titleBadgeBg.absSize[2]
-        self.titleBadgeBg:setSize(badgeWidth, badgeHeight)
     end
 end
 
@@ -77,11 +72,29 @@ function InvoicesDetailDialog:resizeTotalSep(htText, tvaText)
     end
 end
 
+function InvoicesDetailDialog:resizeTitleSep()
+    if self.titleSep == nil or self.mainTitleText == nil then return end
+
+    if self._titleSepHeight == nil then
+        self._titleSepHeight = self.titleSep.absSize[2]
+    end
+
+    local text = self.mainTitleText.text or ""
+    local textWidth = getTextWidth(self.mainTitleText.textSize, text)
+    local padding = 10 * 2 * g_pixelSizeScaledX
+    local newWidth = textWidth + padding
+
+    self.titleSep:setSize(newWidth, self._titleSepHeight)
+    if self.titleSep.parent ~= nil and self.titleSep.parent.invalidateLayout ~= nil then
+        self.titleSep.parent:invalidateLayout()
+    end
+end
+
 function InvoicesDetailDialog:onOpen()
     InvoicesDetailDialog:superClass().onOpen(self)
-    self:resizeTitleBadge()
     self.invoice = nil
     self.items = {}
+    self:resizeTitleSep()
 end
 
 function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
@@ -96,10 +109,22 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
         end
 
         local isPaid = (invoice.state == Invoice.STATE.PAID)
+        local penaltyAmount = invoice.penaltyAmount or 0
+        local isOverdue = (not isPaid and penaltyAmount > 0)
         if self.textStatus then
-            local statusText = isPaid and g_i18n:getText("invoice_status_paid") or g_i18n:getText("invoice_status_unpaid")
+            local statusText
+            local color
+            if isPaid then
+                statusText = g_i18n:getText("invoice_status_paid")
+                color = InvoicesDetailDialog.COLOR_PAID
+            elseif isOverdue then
+                statusText = g_i18n:getText("invoice_status_overdue")
+                color = InvoicesDetailDialog.COLOR_OVERDUE
+            else
+                statusText = g_i18n:getText("invoice_status_unpaid")
+                color = InvoicesDetailDialog.COLOR_UNPAID
+            end
             self.textStatus:setText(statusText)
-            local color = isPaid and InvoicesDetailDialog.COLOR_PAID or InvoicesDetailDialog.COLOR_UNPAID
             self.textStatus:setTextColor(unpack(color))
         end
 
@@ -133,8 +158,18 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
             self.textDate:setText(dateStr)
         end
 
+        local totalDue = (invoice.totalAmount or 0) + penaltyAmount
+
         if self.textTotal then
-            self.textTotal:setText(g_i18n:formatMoney(invoice.totalAmount or 0))
+            self.textTotal:setText(g_i18n:formatMoney(totalDue))
+        end
+
+        if self.textTotalLabel then
+            if penaltyAmount > 0 then
+                self.textTotalLabel:setText(g_i18n:getText("invoice_label_total_due"))
+            else
+                self.textTotalLabel:setText(g_i18n:getText("invoice_label_total"))
+            end
         end
 
         if self.textVatHt ~= nil and self.textVatTva ~= nil then
@@ -145,6 +180,7 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
                 local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_label_vat"), g_i18n:formatMoney(vatAmount, 0, true, false))
                 self.textVatHt:setText(htText)
                 self.textVatTva:setText(tvaText)
+                self.textVatTva:setTextColor(0.5, 0.5, 0.5, 1)
                 self.textVatHt:setVisible(true)
                 self.textVatTva:setVisible(true)
                 if self.totalSep ~= nil then
@@ -157,6 +193,19 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
                 if self.totalSep ~= nil then
                     self.totalSep:setVisible(false)
                 end
+            end
+        end
+
+        if self.penaltyBar ~= nil and self.textPenaltyBar ~= nil then
+            if penaltyAmount > 0 then
+                local penaltyText = string.format("%s :  %s  (5%%/mois)",
+                    g_i18n:getText("invoice_label_penalty"), g_i18n:formatMoney(penaltyAmount, 0, true, false))
+                self.textPenaltyBar:setText(penaltyText)
+                self.penaltyBar:setVisible(true)
+                self.textPenaltyBar:setVisible(true)
+            else
+                self.penaltyBar:setVisible(false)
+                self.textPenaltyBar:setVisible(false)
             end
         end
 
@@ -188,7 +237,7 @@ end
 function InvoicesDetailDialog:updateSliderVisibility()
     if self.sliderBox and self.listItems then
         local itemCount = #self.items
-        local maxVisibleItems = math.floor(225 / 36)
+        local maxVisibleItems = math.floor(284 / 32)
         local needsScroll = itemCount > maxVisibleItems
         self.sliderBox:setVisible(needsScroll)
     end
@@ -307,15 +356,31 @@ function InvoicesDetailDialog:onClickPay()
         InfoDialog.show(g_i18n:getText("invoice_error_permission_required"))
         return
     end
-    if not manager:farmHasSufficientBalance(self.invoice.recipientFarmId, self.invoice.totalAmount) then
+    local totalDue = self.invoice.totalAmount + (self.invoice.penaltyAmount or 0)
+    if not manager:farmHasSufficientBalance(self.invoice.recipientFarmId, totalDue) then
         InfoDialog.show(g_i18n:getText("invoice_error_insufficient_funds"))
         return
     end
     local senderFarm = g_farmManager:getFarmById(self.invoice.senderFarmId)
     local farmName = senderFarm and senderFarm.name or ""
-    local confirmText = string.format(g_i18n:getText("invoice_confirm_pay"), 
-                                     g_i18n:formatMoney(self.invoice.totalAmount), 
+    local confirmText = string.format(g_i18n:getText("invoice_confirm_pay"),
+                                     g_i18n:formatMoney(totalDue),
                                      farmName)
+
+    local details = {}
+    if (self.invoice.vatAmount or 0) > 0 then
+        local vatStr = g_i18n:formatMoney(self.invoice.vatAmount, 0, true, false)
+        local vatLabel = g_i18n:getText("invoice_label_vat")
+        table.insert(details, string.format(g_i18n:getText("invoice_notification_vat_incl"), vatLabel, vatStr))
+    end
+    if (self.invoice.penaltyAmount or 0) > 0 then
+        local penStr = g_i18n:formatMoney(self.invoice.penaltyAmount, 0, true, false)
+        table.insert(details, string.format(g_i18n:getText("invoice_notification_penalty_incl"), penStr))
+    end
+    if #details > 0 then
+        confirmText = confirmText .. "\n(" .. table.concat(details, ", ") .. ")"
+    end
+
     YesNoDialog.show(self.onPayConfirmed, self, confirmText)
 end
 

@@ -24,12 +24,14 @@ function InvoiceSettingsEvent:readStream(streamId, connection)
     self.settings = {}
     self.settings.invoiceVatSimulated = streamReadBool(streamId)
     self.settings.invoiceReminders = streamReadBool(streamId)
+    self.settings.invoicePenalties = streamReadBool(streamId)
     self:run(connection)
 end
 
 function InvoiceSettingsEvent:writeStream(streamId, connection)
     streamWriteBool(streamId, self.settings.invoiceVatSimulated ~= false)
     streamWriteBool(streamId, self.settings.invoiceReminders ~= false)
+    streamWriteBool(streamId, self.settings.invoicePenalties ~= false)
 end
 
 function InvoiceSettingsEvent:run(connection)

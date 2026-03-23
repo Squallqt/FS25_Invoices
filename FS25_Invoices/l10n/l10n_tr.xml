@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="Etkinleştirildiğinde, ödenmemiş faturalar için her 5 dakikada bir hatırlatma bildirimi gösterilir." />
         <e k="invoice_notification_vat_incl" v="dahil %s %s" />
         <e k="invoice_notification_vat_excl" v="hariç %s %s" />
+        <e k="invoice_notification_penalty_incl" v="%s ceza dahil" />
+        <e k="invoice_status_overdue" v="Gecikmiş" />
+        <e k="invoice_label_total_due" v="Ödenecek toplam:" />
+        <e k="invoice_label_penalty" v="Gecikme cezası" />
+        <e k="invoice_label_subtotal" v="Ara toplam" />
+        <e k="invoice_setting_invoicePenalties" v="Gecikme cezası" />
+        <e k="invoice_toolTip_invoicePenalties" v="Ödenmemiş faturalara gecikme cezası uygular. 1 aylık gecikmenin ardından, aylık %5 sabit oran otomatik olarak uygulanır. Toplam tutarın %25'i ile sınırlıdır." />
+        <e k="invoice_notification_overdue" v="Fatura %s vadesi geçti: %s" />
+        <e k="invoice_notification_overdue_warning" v="Gecikme cezası uygulanacaktır." />
     </elements>
 </l10n>

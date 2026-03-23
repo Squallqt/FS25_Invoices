@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="Cuando está activado, se muestra una notificación de recordatorio cada 5 minutos para facturas impagadas." />
         <e k="invoice_notification_vat_incl" v="con %s %s" />
         <e k="invoice_notification_vat_excl" v="sin %s %s" />
+        <e k="invoice_notification_penalty_incl" v="incl. %s de penalización" />
+        <e k="invoice_status_overdue" v="Vencida" />
+        <e k="invoice_label_total_due" v="Total a pagar:" />
+        <e k="invoice_label_penalty" v="Penalización por demora" />
+        <e k="invoice_label_subtotal" v="Subtotal" />
+        <e k="invoice_setting_invoicePenalties" v="Penalizaciones por retraso" />
+        <e k="invoice_toolTip_invoicePenalties" v="Activa penalizaciones por retraso en facturas impagadas. Después de 1 mes de vencimiento, se aplica automáticamente una tasa fija del 5% mensual. Limitadas al 25% del importe total." />
+        <e k="invoice_notification_overdue" v="Factura %s vencida: %s" />
+        <e k="invoice_notification_overdue_warning" v="Se aplicarán penalizaciones por retraso." />
     </elements>
 </l10n>

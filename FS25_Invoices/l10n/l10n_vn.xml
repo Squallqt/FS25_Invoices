@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="Khi bật, thông báo nhắc nhở được hiển thị mỗi 5 phút cho các hóa đơn chưa thanh toán." />
         <e k="invoice_notification_vat_incl" v="gồm %s %s" />
         <e k="invoice_notification_vat_excl" v="không gồm %s %s" />
+        <e k="invoice_notification_penalty_incl" v="bao gồm %s phạt" />
+        <e k="invoice_status_overdue" v="Quá hạn" />
+        <e k="invoice_label_total_due" v="Tổng phải trả:" />
+        <e k="invoice_label_penalty" v="Phạt trả chậm" />
+        <e k="invoice_label_subtotal" v="Tạm tính" />
+        <e k="invoice_setting_invoicePenalties" v="Phạt trễ hạn" />
+        <e k="invoice_toolTip_invoicePenalties" v="Bật phạt trễ hạn trên các hóa đơn chưa thanh toán. Sau 1 tháng quá hạn, tỷ lệ phạt cố định 5% mỗi tháng được áp dụng tự động. Giới hạn ở mức 25% tổng số tiền." />
+        <e k="invoice_notification_overdue" v="Hóa đơn %s quá hạn: %s" />
+        <e k="invoice_notification_overdue_warning" v="Phạt trễ hạn sẽ được áp dụng." />
     </elements>
 </l10n>

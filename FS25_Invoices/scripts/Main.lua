@@ -255,7 +255,16 @@ local InvoicesI18NTexts = {
     ["invoice_setting_invoiceReminders"] = true,
     ["invoice_toolTip_invoiceReminders"] = true,
     ["invoice_notification_vat_incl"] = true,
-    ["invoice_notification_vat_excl"] = true
+    ["invoice_notification_vat_excl"] = true,
+    ["invoice_notification_penalty_incl"] = true,
+    ["invoice_status_overdue"] = true,
+    ["invoice_label_total_due"] = true,
+    ["invoice_label_penalty"] = true,
+    ["invoice_label_subtotal"] = true,
+    ["invoice_setting_invoicePenalties"] = true,
+    ["invoice_toolTip_invoicePenalties"] = true,
+    ["invoice_notification_overdue"] = true,
+    ["invoice_notification_overdue_warning"] = true
 }
 
 local function invoicesGetText(self, superFunc, text, modEnv)

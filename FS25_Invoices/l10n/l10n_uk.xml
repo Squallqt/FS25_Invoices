@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="Коли увімкнено, нагадування відображається кожні 5 хвилин для неоплачених рахунків." />
         <e k="invoice_notification_vat_incl" v="в т.ч. %s %s" />
         <e k="invoice_notification_vat_excl" v="без %s %s" />
+        <e k="invoice_notification_penalty_incl" v="вкл. %s штрафу" />
+        <e k="invoice_status_overdue" v="Прострочений" />
+        <e k="invoice_label_total_due" v="До сплати:" />
+        <e k="invoice_label_penalty" v="Штраф за прострочення" />
+        <e k="invoice_label_subtotal" v="Проміжний підсумок" />
+        <e k="invoice_setting_invoicePenalties" v="Пені за прострочення" />
+        <e k="invoice_toolTip_invoicePenalties" v="Вмикає пені за прострочення неоплачених рахунків. Після 1 місяця прострочення автоматично нараховується фіксована ставка 5% на місяць. Максимум — 25% від загальної суми рахунку." />
+        <e k="invoice_notification_overdue" v="Рахунок %s прострочений: %s" />
+        <e k="invoice_notification_overdue_warning" v="Будуть нараховані пені за прострочення." />
     </elements>
 </l10n>

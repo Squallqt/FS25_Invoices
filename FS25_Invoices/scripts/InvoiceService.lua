@@ -70,6 +70,7 @@ InvoiceService.WORK_TYPES = {
 
 InvoiceService.REMINDER_INTERVAL = 300000
 InvoiceService.REMINDER_FIRST_DELAY = 60000
+InvoiceService.PENALTY_CHECK_INTERVAL = 10000
 
 function InvoiceService.new(repository)
     local self = setmetatable({}, InvoiceService_mt)
@@ -85,6 +86,10 @@ function InvoiceService.new(repository)
 
     self.vatGroups = {}
     self.workTypeGroups = {}
+
+    self.penaltyTimer = 0
+    self.lastPenaltyDay = -1
+    self.overrideClearTimer = nil
 
     return self
 end
@@ -132,6 +137,110 @@ function InvoiceService:isVatEnabled()
         return true
     end
     return g_currentMission.invoiceSettings.invoiceVatSimulated ~= false
+end
+
+-- Grace period: 1 month (period). Cap: 25% of invoice amount.
+InvoiceService.PENALTY_GRACE_PERIODS = 1
+InvoiceService.PENALTY_CAP_PERCENT = 25
+
+function InvoiceService:isPenaltyEnabled()
+    if g_currentMission == nil or g_currentMission.invoiceSettings == nil then
+        return false
+    end
+    return g_currentMission.invoiceSettings.invoicePenalties ~= false
+end
+
+function InvoiceService:getPenaltyRate()
+    return 5
+end
+
+function InvoiceService:getDaysPerPeriod()
+    if g_currentMission ~= nil and g_currentMission.environment ~= nil then
+        return g_currentMission.environment.plannedDaysPerPeriod or 1
+    end
+    return 1
+end
+
+function InvoiceService:processPenalties()
+    if g_server == nil then return end
+    if not self:isPenaltyEnabled() then return end
+
+    local env = g_currentMission.environment
+    if env == nil then return end
+
+    local currentDay = env.currentDay or 0
+    if currentDay <= 0 then return end
+
+    if currentDay == self.lastPenaltyDay then return end
+    self.lastPenaltyDay = currentDay
+
+    local daysPerPeriod = math.max(1, self:getDaysPerPeriod())
+
+    -- Only process on the last day of a period
+    local dayInPeriod = 0
+    if env.getDayInPeriodFromDay then
+        dayInPeriod = env:getDayInPeriodFromDay(currentDay)
+    end
+    if dayInPeriod ~= daysPerPeriod then return end
+
+    local monthlyRate = self:getPenaltyRate() / 100
+    local maxRate = InvoiceService.PENALTY_CAP_PERCENT / 100
+    local gracePeriods = InvoiceService.PENALTY_GRACE_PERIODS
+
+    local allInvoices = self.repository:getAll()
+    local changed = false
+
+    for _, invoice in ipairs(allInvoices) do
+        if invoice.state ~= Invoice.STATE.PAID and invoice.state ~= Invoice.STATE.CANCELLED then
+            local createdDay = invoice.createdDay or 0
+            if createdDay > 0 then
+                local elapsedMonths = math.floor((currentDay - createdDay) / daysPerPeriod)
+                local penaltyMonths = elapsedMonths - gracePeriods
+                if penaltyMonths > 0 then
+                    local rawRate = monthlyRate * penaltyMonths
+                    local cappedRate = math.min(rawRate, maxRate)
+                    local newPenalty = math.floor(cappedRate * invoice.totalAmount + 0.5)
+                    if newPenalty ~= invoice.penaltyAmount then
+                        local oldPenalty = invoice.penaltyAmount or 0
+                        invoice.penaltyAmount = newPenalty
+                        changed = true
+                        if oldPenalty == 0 and newPenalty > 0 then
+                            local ok, err = pcall(self.notifyOverdue, self, invoice)
+                            if not ok then
+                                Logging.warning("[InvoiceService] notifyOverdue error: %s", tostring(err))
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    if changed then
+        self:notifyUI()
+    end
+end
+
+function InvoiceService:notifyOverdue(invoice)
+    if invoice == nil then return end
+    if g_localPlayer == nil then return end
+    if g_localPlayer.farmId ~= invoice.recipientFarmId then return end
+
+    local senderFarm = g_farmManager:getFarmById(invoice.senderFarmId)
+    local senderName = senderFarm and senderFarm.name or "?"
+    local penaltyAmount = invoice.penaltyAmount or 0
+    local totalDue = (invoice.totalAmount or 0) + penaltyAmount
+    local amountStr = g_i18n:formatMoney(totalDue)
+    local text = string.format(g_i18n:getText("invoice_notification_overdue"), senderName, amountStr)
+
+    if penaltyAmount > 0 then
+        local penStr = g_i18n:formatMoney(penaltyAmount, 0, true, false)
+        local penDetail = string.format(g_i18n:getText("invoice_notification_penalty_incl"), penStr)
+        text = text .. " (" .. penDetail .. ")"
+    end
+
+    local subText = g_i18n:getText("invoice_notification_overdue_warning")
+    g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_CRITICAL, text .. "\n" .. subText)
 end
 
 function InvoiceService:getVatRateForWorkType(workTypeId)
@@ -243,10 +352,13 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
         return false
     end
 
+    local penaltyAmount = invoice.penaltyAmount or 0
+    local totalDue = invoice.totalAmount + penaltyAmount
+
     if isAuthoritative and g_server ~= nil then
         local recipientFarm = g_farmManager:getFarmById(invoice.recipientFarmId)
-        if recipientFarm == nil or math.floor(recipientFarm.money) < math.floor(invoice.totalAmount) then
-            Logging.warning("[InvoiceService] executePayment: insufficient balance (%.2f < %.2f)", recipientFarm and recipientFarm.money or 0, invoice.totalAmount)
+        if recipientFarm == nil or math.floor(recipientFarm.money) < math.floor(totalDue) then
+            Logging.warning("[InvoiceService] executePayment: insufficient balance (%.2f < %.2f)", recipientFarm and recipientFarm.money or 0, totalDue)
             return false
         end
     end
@@ -257,33 +369,51 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
         local senderFarm = g_farmManager:getFarmById(invoice.senderFarmId)
         local recipientFarm = g_farmManager:getFarmById(invoice.recipientFarmId)
 
-        if senderFarm and recipientFarm and invoice.totalAmount > 0 then
-            local creditAmount = invoice.totalHT or invoice.totalAmount
+        if senderFarm and recipientFarm and totalDue > 0 then
+            local creditAmount = (invoice.totalHT or invoice.totalAmount) + penaltyAmount
             local vatAmount = invoice.vatAmount or 0
 
             -- Strip "(Dépense)"/"(Recette)" — the +/- already indicates direction
             local baseText = string.gsub(g_i18n:getText("invoice_moneyType_expense"), "%s*%(.*%)%s*$", "")
 
-            if vatAmount > 0 then
-                local vatStr = g_i18n:formatMoney(vatAmount, 0, true, false)
-                local vatLabel = g_i18n:getText("invoice_label_vat")
-                local inclDetail = string.format(g_i18n:getText("invoice_notification_vat_incl"), vatLabel, vatStr)
-                local exclDetail = string.format(g_i18n:getText("invoice_notification_vat_excl"), vatLabel, vatStr)
-                Invoices.i18nOverrides["invoice_moneyType_expense"] = baseText .. ", " .. inclDetail
-                Invoices.i18nOverrides["invoice_moneyType_income"] = baseText .. ", " .. exclDetail
+            if vatAmount > 0 or penaltyAmount > 0 then
+                local details = {}
+                if vatAmount > 0 then
+                    local vatStr = g_i18n:formatMoney(vatAmount, 0, true, false)
+                    local vatLabel = g_i18n:getText("invoice_label_vat")
+                    table.insert(details, string.format(g_i18n:getText("invoice_notification_vat_incl"), vatLabel, vatStr))
+                end
+                if penaltyAmount > 0 then
+                    local penStr = g_i18n:formatMoney(penaltyAmount, 0, true, false)
+                    table.insert(details, string.format(g_i18n:getText("invoice_notification_penalty_incl"), penStr))
+                end
+                local inclSummary = table.concat(details, ", ")
+                Invoices.i18nOverrides["invoice_moneyType_expense"] = baseText .. ", " .. inclSummary
+
+                local exclDetails = {}
+                if vatAmount > 0 then
+                    local vatStr = g_i18n:formatMoney(vatAmount, 0, true, false)
+                    local vatLabel = g_i18n:getText("invoice_label_vat")
+                    table.insert(exclDetails, string.format(g_i18n:getText("invoice_notification_vat_excl"), vatLabel, vatStr))
+                end
+                if penaltyAmount > 0 then
+                    local penStr = g_i18n:formatMoney(penaltyAmount, 0, true, false)
+                    table.insert(exclDetails, string.format(g_i18n:getText("invoice_notification_penalty_incl"), penStr))
+                end
+                Invoices.i18nOverrides["invoice_moneyType_income"] = baseText .. ", " .. table.concat(exclDetails, ", ")
             else
                 Invoices.i18nOverrides["invoice_moneyType_expense"] = baseText
                 Invoices.i18nOverrides["invoice_moneyType_income"] = baseText
             end
 
             g_currentMission:addMoney(
-                -invoice.totalAmount,
+                -totalDue,
                 invoice.recipientFarmId,
                 MoneyType.INVOICE_EXPENSE,
                 true,
                 true
             )
-            Logging.devInfo("[InvoiceService] Client %s debited %d (TTC)", recipientFarm.name, invoice.totalAmount)
+            Logging.devInfo("[InvoiceService] Client %s debited %d (TTC+penalty)", recipientFarm.name, totalDue)
 
             g_currentMission:addMoney(
                 creditAmount,
@@ -292,10 +422,9 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
                 true,
                 true
             )
-            Logging.devInfo("[InvoiceService] Provider %s credited %d (HT)", senderFarm.name, creditAmount)
+            Logging.devInfo("[InvoiceService] Provider %s credited %d (HT+penalty)", senderFarm.name, creditAmount)
 
-            Invoices.i18nOverrides["invoice_moneyType_expense"] = nil
-            Invoices.i18nOverrides["invoice_moneyType_income"] = nil
+            self.overrideClearTimer = 500
         else
             Logging.warning("[InvoiceService] executePayment: cannot transfer money for invoice %d (missing farm or zero amount)", invoiceId)
         end
@@ -359,8 +488,7 @@ end
 
 function InvoiceService:initializeReminderSystem()
     g_messageCenter:subscribe(MessageType.PLAYER_FARM_CHANGED, self.onPlayerFarmChanged, self)
-    Logging.devInfo("[InvoiceService] Reminder system initialized with PLAYER_FARM_CHANGED subscription")
-    
+
     g_currentMission:addUpdateable(self)
     self.initialCheckDone = false
 end
@@ -389,7 +517,6 @@ function InvoiceService:activateReminder(farmId)
         self.reminderFarmId = targetFarmId
         self.reminderTimer = InvoiceService.REMINDER_FIRST_DELAY
         self.firstReminderSent = false
-        g_currentMission:addUpdateable(self)
         Logging.devInfo("[InvoiceService] Reminder activated for farm %d (%d unpaid invoice(s))", targetFarmId, #unpaidInvoices)
     end
 end
@@ -399,7 +526,6 @@ function InvoiceService:deactivateReminder()
         local wasFarmId = self.reminderFarmId
         self.reminderActive = false
         self.reminderFarmId = nil
-        g_currentMission:removeUpdateable(self)
         Logging.devInfo("[InvoiceService] Reminder deactivated for farm %d", wasFarmId or 0)
     end
 end
@@ -436,9 +562,9 @@ function InvoiceService:onPlayerFarmChanged(player)
     if #unpaidInvoices > 0 then
         local totalAmount = 0
         for _, invoice in ipairs(unpaidInvoices) do
-            totalAmount = totalAmount + (invoice.totalAmount or 0)
+            totalAmount = totalAmount + (invoice.totalAmount or 0) + (invoice.penaltyAmount or 0)
         end
-        
+
         local amountStr = g_i18n:formatMoney(totalAmount)
         local text
         if #unpaidInvoices == 1 then
@@ -448,7 +574,7 @@ function InvoiceService:onPlayerFarmChanged(player)
         end
         g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_CRITICAL, text)
         Logging.devInfo("[InvoiceService] Immediate notification shown: %d invoice(s), total %s", #unpaidInvoices, amountStr)
-        
+
         self:activateReminder(currentFarmId)
     else
         if self.reminderFarmId == currentFarmId then
@@ -459,6 +585,28 @@ end
 
 -- Handles initial connection check (PLAYER_FARM_CHANGED not fired on first join)
 function InvoiceService:update(dt)
+    -- Penalty accrual (server only, throttled)
+    if g_server ~= nil then
+        self.penaltyTimer = self.penaltyTimer - dt
+        if self.penaltyTimer <= 0 then
+            self.penaltyTimer = InvoiceService.PENALTY_CHECK_INTERVAL
+            local ok, err = pcall(self.processPenalties, self)
+            if not ok then
+                Logging.warning("[InvoiceService] processPenalties error: %s", tostring(err))
+            end
+        end
+    end
+
+    -- Delayed clearing of i18n overrides (HUD resolves text on next frame)
+    if self.overrideClearTimer ~= nil then
+        self.overrideClearTimer = self.overrideClearTimer - dt
+        if self.overrideClearTimer <= 0 then
+            Invoices.i18nOverrides["invoice_moneyType_expense"] = nil
+            Invoices.i18nOverrides["invoice_moneyType_income"] = nil
+            self.overrideClearTimer = nil
+        end
+    end
+
     if not self.initialCheckDone then
         if g_localPlayer ~= nil and g_localPlayer.farmId ~= FarmManager.SPECTATOR_FARM_ID then
             self.initialCheckDone = true
@@ -470,9 +618,9 @@ function InvoiceService:update(dt)
             if #unpaidInvoices > 0 then
                 local totalAmount = 0
                 for _, invoice in ipairs(unpaidInvoices) do
-                    totalAmount = totalAmount + (invoice.totalAmount or 0)
+                    totalAmount = totalAmount + (invoice.totalAmount or 0) + (invoice.penaltyAmount or 0)
                 end
-                
+
                 local amountStr = g_i18n:formatMoney(totalAmount)
                 local text
                 if #unpaidInvoices == 1 then
@@ -485,8 +633,7 @@ function InvoiceService:update(dt)
                 
                 self:activateReminder(currentFarmId)
             else
-                g_currentMission:removeUpdateable(self)
-                Logging.devInfo("[InvoiceService] No unpaid invoices on connection, updateable removed")
+                Logging.devInfo("[InvoiceService] No unpaid invoices on connection")
             end
         end
         return
@@ -512,9 +659,9 @@ function InvoiceService:update(dt)
         if #unpaidInvoices > 0 then
             local totalAmount = 0
             for _, invoice in ipairs(unpaidInvoices) do
-                totalAmount = totalAmount + (invoice.totalAmount or 0)
+                totalAmount = totalAmount + (invoice.totalAmount or 0) + (invoice.penaltyAmount or 0)
             end
-            
+
             local amountStr = g_i18n:formatMoney(totalAmount)
             local text
             if #unpaidInvoices == 1 then

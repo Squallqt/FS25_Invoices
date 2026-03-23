@@ -4,120 +4,102 @@
 -->
 <GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
     <GuiElement profile="newLayer"/>
-    <Bitmap profile="dialogFullscreenBg"/>
+    <Bitmap profile="dialogFullscreenBg" id="dialogBg"/>
 
-    <RoundCorner profile="wizStep1RoundBgBorder"/>
-    <RoundCorner profile="wizStep1RoundBg"/>
+    <GuiElement profile="fs25_dialogBg" id="dialogElement" size="900px 700px">
+        <ThreePartBitmap profile="fs25_dialogBgMiddle"/>
+        <ThreePartBitmap profile="fs25_dialogBgTop"/>
+        <ThreePartBitmap profile="fs25_dialogBgBottom"/>
 
-    <RoundCorner profile="wizStep1TitleBadgeBg" id="titleBadgeBg"/>
-    <ThreePartBitmap profile="wizStep1TitleSep"/>
-    <Text profile="wizStep1MainTitle" text="$l10n_invoice_wizard_mainTitle" id="mainTitleText"/>
+        <GuiElement profile="fs25_dialogContentContainer">
 
-    <GuiElement profile="wizStep1Root" id="dialogElement">
+            <BoxLayout profile="wizStep1MainBox">
 
-        <BoxLayout profile="wizStep1MainBox">
+                <!-- Title text (flows in BoxLayout) -->
+                <Text profile="wizStep1MainTitle" text="$l10n_invoice_wizard_mainTitle" id="mainTitleText"/>
 
-            <Text profile="wizStep1SubTitle" text="$l10n_invoice_wizard_step1_subtitle" id="dialogTextElement"/>
-
-            <!-- Farm selection (full width) -->
-            <GuiElement profile="wizStep1SelectionColumn">
-                <Text profile="wizStep1SelectionTitle" text="$l10n_invoice_wizard_step1_label"/>
-                <GuiElement profile="wizStep1ListWrapper">
-                    <SmoothList profile="wizStep1List" id="listFarms">
-                        <ListItem profile="wizStep1ListItem" name="farmTemplate">
-                            <Text profile="wizStep1FarmName" position="17px 0px" size="804px 32px" name="cellName"/>
-                        </ListItem>
-                    </SmoothList>
-                    <ThreePartBitmap profile="wizStep1SliderBox" id="sliderBox">
-                        <Slider profile="fs25_listSlider" dataElementId="listFarms"/>
-                    </ThreePartBitmap>
+                <!-- Green gradient separator (centered dynamically) -->
+                <GuiElement profile="wizStep1TitleSepWrapper">
+                    <ThreePartBitmap profile="wizStep1TitleSep" id="titleSep"/>
                 </GuiElement>
-            </GuiElement>
 
+                <Text profile="wizStep1SubTitle" text="$l10n_invoice_wizard_step1_subtitle" id="dialogTextElement"/>
+
+                <!-- Farm selection (full width) -->
+                <GuiElement profile="wizStep1SelectionColumn">
+                    <Text profile="wizStep1SelectionTitle" text="$l10n_invoice_wizard_step1_label"/>
+                    <GuiElement profile="wizStep1ListWrapper">
+                        <SmoothList profile="wizStep1List" id="listFarms">
+                            <ListItem profile="wizStep1ListItem" name="farmTemplate">
+                                <Text profile="wizStep1FarmName" position="17px 0px" size="815px 32px" name="cellName"/>
+                            </ListItem>
+                        </SmoothList>
+                        <ThreePartBitmap profile="wizStep1SliderBox" id="sliderBox">
+                            <Slider profile="fs25_listSlider" dataElementId="listFarms"/>
+                        </ThreePartBitmap>
+                    </GuiElement>
+                </GuiElement>
+
+            </BoxLayout>
+
+        </GuiElement>
+
+        <!-- Button bar -->
+        <BoxLayout profile="fs25_dialogButtonBox" size="860px 60px">
+            <Button profile="wizStep1ButtonRemove" id="btnRemove" text="$l10n_invoice_btn_remove" onClick="onClickRemove" disabled="true"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="wizStep1ButtonAdd" id="btnAdd" text="$l10n_invoice_btn_add" onClick="onClickAdd" disabled="true"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="wizStep1ButtonBack" text="$l10n_invoice_btn_back" onClick="onClickBack"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="wizStep1ButtonNext" id="btnNext" text="$l10n_invoice_btn_next" onClick="onClickNext"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="wizStep1ButtonCancel" text="$l10n_invoice_btn_cancel" onClick="onClickCancel"/>
         </BoxLayout>
-
-
     </GuiElement>
-
-    <!-- Button bar -->
-    <RoundCorner profile="wizStep1ButtonBarBg"/>
-    <BoxLayout profile="wizStep1ButtonBox" id="buttonsPC">
-        <Button profile="wizStep1ButtonRemove" id="btnRemove" text="$l10n_invoice_btn_remove" onClick="onClickRemove" disabled="true"/>
-        <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
-        <Button profile="wizStep1ButtonAdd" id="btnAdd" text="$l10n_invoice_btn_add" onClick="onClickAdd" disabled="true"/>
-        <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
-        <Button profile="wizStep1ButtonBack" text="$l10n_invoice_btn_back" onClick="onClickBack"/>
-        <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
-        <Button profile="wizStep1ButtonNext" id="btnNext" text="$l10n_invoice_btn_next" onClick="onClickNext"/>
-        <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
-        <Button profile="wizStep1ButtonCancel" text="$l10n_invoice_btn_cancel" onClick="onClickCancel"/>
-    </BoxLayout>
 
     <GUIProfiles>
 
-
-        <Profile name="wizStep1Root" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -22px"/>
-            <size value="900px 562px"/>
-        </Profile>
-
-        <Profile name="wizStep1RoundBgBorder" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 3px"/>
-            <size value="906px 666px"/>
-            <color value="$preset_fs25_colorGreyDark"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="wizStep1RoundBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -22px"/>
-            <size value="900px 608px"/>
-            <color value="0.01 0.01 0.01 1.00"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="wizStep1TitleBadgeBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 306px"/>
-            <size value="1px 51px"/>
-            <color value="$preset_fs25_colorMainHighlight"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="wizStep1TitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorMiddleCenter">
-            <position value="0px 281px"/>
-            <size value="832px 1px"/>
-        </Profile>
-
-        <Profile name="wizStep1MainTitle" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 306px"/>
-            <size value="806px 51px"/>
+        <!-- Title text (BoxLayout child) -->
+        <Profile name="wizStep1MainTitle" extends="baseReference">
+            <size value="832px 40px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
-            <textColor value="$preset_fs25_colorMainDark"/>
+            <textColor value="$preset_fs25_colorMainLight"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
+        <!-- Separator wrapper (BoxLayout child) -->
+        <Profile name="wizStep1TitleSepWrapper" extends="emptyPanel">
+            <size value="832px 1px"/>
+            <margin value="0px 0px 20px 0px"/>
+        </Profile>
+        <!-- Green gradient separator (centered, resized dynamically by Lua) -->
+        <Profile name="wizStep1TitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
+            <size value="200px 1px"/>
+        </Profile>
 
         <Profile name="wizStep1MainBox" extends="emptyPanel" with="anchorTopCenter">
-            <size value="832px 540px"/>
+            <size value="832px 630px"/>
             <flowDirection value="vertical"/>
             <alignmentX value="left"/>
             <alignmentY value="top"/>
-            <elementSpacing value="11px"/>
-            <margin value="17px 0px 0px 0px"/>
+            <elementSpacing value="0px"/>
         </Profile>
-
 
         <Profile name="wizStep1SubTitle" extends="baseReference">
             <size value="832px 32px"/>
-            <margin value="0px 0px 18px 0px"/>
+            <margin value="0px 0px 12px 0px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <!-- Farm selection (full width) -->
 
         <Profile name="wizStep1SelectionColumn" extends="emptyPanel">
-            <size value="832px 448px"/>
+            <size value="832px 525px"/>
         </Profile>
 
         <Profile name="wizStep1SelectionTitle" extends="baseReference" with="anchorTopLeft">
@@ -132,17 +114,17 @@
 
         <Profile name="wizStep1ListWrapper" extends="emptyPanel" with="anchorTopLeft">
             <position value="0px -70px"/>
-            <size value="832px 376px"/>
+            <size value="832px 453px"/>
         </Profile>
 
         <Profile name="wizStep1List" extends="emptyPanel">
-            <size value="815px 376px"/>
+            <size value="832px 453px"/>
             <position value="0px 0px"/>
         </Profile>
 
         <Profile name="wizStep1SliderBox" extends="fs25_listSliderBox" with="anchorTopLeft">
-            <size value="6px 376px"/>
-            <position value="826px 0px"/>
+            <size value="6px 453px"/>
+            <position value="840px 0px"/>
         </Profile>
 
         <Profile name="wizStep1ListItem" extends="baseReference" with="anchorTopStretchingX alternating">
@@ -159,22 +141,8 @@
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <!-- Button bar -->
 
-        <Profile name="wizStep1ButtonBarBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -304px"/>
-            <size value="900px 45px"/>
-            <color value="0 0 0 1"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="wizStep1ButtonBox" extends="fs25_dialogButtonBox" with="anchorMiddleCenter">
-            <position value="0px -304px"/>
-            <size value="900px 45px"/>
-            <imageColor value="0 0 0 0"/>
-            <alignmentX value="right"/>
-            <alignmentY value="middle"/>
-        </Profile>
-
+        <!-- Button profiles -->
         <Profile name="wizStep1ButtonRemove" extends="buttonOK">
             <inputAction value="MENU_CANCEL"/>
         </Profile>

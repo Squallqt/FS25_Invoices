@@ -6,10 +6,12 @@
 InvoicesListRenderer = {}
 InvoicesListRenderer_mt = Class(InvoicesListRenderer)
 
-InvoicesListRenderer.COLOR_UNPAID = {1.00, 0.66, 0.00, 1}
-InvoicesListRenderer.COLOR_PAID   = {0.40, 0.85, 0.40, 1}
-InvoicesListRenderer.COLOR_UNPAID_SELECTED = {0.45, 0.25, 0.00, 1}
-InvoicesListRenderer.COLOR_PAID_SELECTED   = {0.10, 0.30, 0.10, 1}
+InvoicesListRenderer.COLOR_UNPAID  = {1.00, 0.66, 0.00, 1}
+InvoicesListRenderer.COLOR_PAID    = {0.40, 0.85, 0.40, 1}
+InvoicesListRenderer.COLOR_OVERDUE = {1.00, 0.30, 0.30, 1}
+InvoicesListRenderer.COLOR_UNPAID_SELECTED  = {0.45, 0.25, 0.00, 1}
+InvoicesListRenderer.COLOR_PAID_SELECTED    = {0.10, 0.30, 0.10, 1}
+InvoicesListRenderer.COLOR_OVERDUE_SELECTED = {0.45, 0.10, 0.10, 1}
 
 function InvoicesListRenderer.new()
     local self = {}
@@ -120,13 +122,18 @@ function InvoicesListRenderer:populateCellForItemInSection(list, section, index,
 
     local statusStr = ""
     local isPaid = (invoice.state == Invoice.STATE.PAID)
+    local penaltyAmount = invoice.penaltyAmount or 0
+    local isOverdue = (not isPaid and penaltyAmount > 0)
     if isPaid then
         statusStr = g_i18n:getText("invoice_status_paid")
+    elseif isOverdue then
+        statusStr = g_i18n:getText("invoice_status_overdue")
     else
         statusStr = g_i18n:getText("invoice_status_unpaid")
     end
 
-    local amountStr = g_i18n:formatMoney(invoice.totalAmount or 0)
+    local totalDue = (invoice.totalAmount or 0) + penaltyAmount
+    local amountStr = g_i18n:formatMoney(totalDue)
 
     local cellNumber   = cell:getDescendantByName("cellNumber")
     local cellDate     = cell:getDescendantByName("cellDate")
@@ -152,6 +159,9 @@ function InvoicesListRenderer:populateCellForItemInSection(list, section, index,
         if isPaid then
             cellStatus:setTextColor(unpack(InvoicesListRenderer.COLOR_PAID))
             cellStatus.textSelectedColor = InvoicesListRenderer.COLOR_PAID_SELECTED
+        elseif isOverdue then
+            cellStatus:setTextColor(unpack(InvoicesListRenderer.COLOR_OVERDUE))
+            cellStatus.textSelectedColor = InvoicesListRenderer.COLOR_OVERDUE_SELECTED
         else
             cellStatus:setTextColor(unpack(InvoicesListRenderer.COLOR_UNPAID))
             cellStatus.textSelectedColor = InvoicesListRenderer.COLOR_UNPAID_SELECTED

@@ -40,7 +40,9 @@ function Invoice.new(customMt)
         period = 0,
         year = 0
     }
-    
+    self.createdDay = 0
+    self.penaltyAmount = 0
+
     return self
 end
 
@@ -68,10 +70,10 @@ function Invoice:populateFromData(id, items, recipientFarmId, senderFarmId)
     
     if g_currentMission and g_currentMission.environment then
         local env = g_currentMission.environment
-        local monotonicDay = env.currentMonotonicDay or 0
+        local currentDay = env.currentDay or 0
         local dayInPeriod = 0
         if env.getDayInPeriodFromDay then
-            dayInPeriod = env:getDayInPeriodFromDay(monotonicDay)
+            dayInPeriod = env:getDayInPeriodFromDay(currentDay)
         end
 
         -- Convert agricultural period to calendar month
@@ -94,6 +96,7 @@ function Invoice:populateFromData(id, items, recipientFarmId, senderFarmId)
             period = currentMonth,
             year = currentYear
         }
+        self.createdDay = env.currentDay or 0
     end
 end
 
@@ -109,6 +112,8 @@ function Invoice:writeToXML(xmlFile, key)
     setXMLInt(xmlFile, key .. ".createdAt#minute", self.createdAt.minute)
     setXMLInt(xmlFile, key .. ".createdAt#period", self.createdAt.period or 0)
     setXMLInt(xmlFile, key .. ".createdAt#year", self.createdAt.year or 0)
+    setXMLInt(xmlFile, key .. "#createdDay", self.createdDay or 0)
+    setXMLInt(xmlFile, key .. "#penaltyAmount", self.penaltyAmount or 0)
     
     for i, item in ipairs(self.lineItems) do
         local itemKey = string.format("%s.lineItems.item(%d)", key, i - 1)
@@ -173,9 +178,43 @@ function Invoice:readFromXML(xmlFile, key)
         i = i + 1
     end
 
+    self.createdDay = getXMLInt(xmlFile, key .. "#createdDay") or 0
+    self.penaltyAmount = getXMLInt(xmlFile, key .. "#penaltyAmount") or 0
+
     -- Retrocompat v2: recalculate totalHT if missing
     if self.totalHT == 0 and self.totalAmount > 0 then
         self.totalHT = self.totalAmount
+    end
+
+    -- Retrocompat v3: estimate createdDay from createdAt for pre-penalty saves
+    if self.createdDay == 0 and self.createdAt.year > 0 and self.createdAt.period > 0 then
+        if g_currentMission and g_currentMission.environment then
+            local env = g_currentMission.environment
+            local daysPerPeriod = env.plannedDaysPerPeriod or 1
+
+            -- Convert calendar month back to agricultural period
+            local calMonth = self.createdAt.period
+            local agPeriod = calMonth - 2
+            if agPeriod <= 0 then
+                agPeriod = agPeriod + 12
+            end
+
+            -- Convert calendar year back to agricultural year
+            local agYear = self.createdAt.year
+            if calMonth < 3 then
+                agYear = agYear - 1
+            end
+
+            -- Estimate monotonic day from year/period/dayInPeriod
+            local yearDiff = agYear - 1
+            local estimatedDay = (yearDiff * 12 * daysPerPeriod) + ((agPeriod - 1) * daysPerPeriod) + (self.createdAt.day or 1)
+
+            if estimatedDay > 0 then
+                self.createdDay = estimatedDay
+                Logging.devInfo("[Invoice] Retrocompat: estimated createdDay=%d for inv#%d (Y%d P%d D%d)",
+                    estimatedDay, self.id, agYear, agPeriod, self.createdAt.day)
+            end
+        end
     end
 end
 
@@ -191,6 +230,9 @@ function Invoice:writeStream(streamId)
     streamWriteInt8(streamId, self.createdAt.minute)
     streamWriteInt8(streamId, self.createdAt.period or 0)
     streamWriteInt16(streamId, self.createdAt.year or 0)
+
+    streamWriteInt32(streamId, self.createdDay or 0)
+    streamWriteInt32(streamId, self.penaltyAmount or 0)
 
     streamWriteInt16(streamId, #self.lineItems)
     for _, item in ipairs(self.lineItems) do
@@ -220,6 +262,9 @@ function Invoice:readStream(streamId)
         period = streamReadInt8(streamId),
         year = streamReadInt16(streamId)
     }
+
+    self.createdDay = streamReadInt32(streamId)
+    self.penaltyAmount = streamReadInt32(streamId)
 
     self.lineItems = {}
     self.totalAmount = 0

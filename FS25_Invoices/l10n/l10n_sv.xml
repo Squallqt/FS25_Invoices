@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="När aktiverat visas en påminnelse var 5:e minut för obetalda fakturor." />
         <e k="invoice_notification_vat_incl" v="inkl. %s %s" />
         <e k="invoice_notification_vat_excl" v="exkl. %s %s" />
+        <e k="invoice_notification_penalty_incl" v="inkl. %s avgift" />
+        <e k="invoice_status_overdue" v="Förfallen" />
+        <e k="invoice_label_total_due" v="Att betala:" />
+        <e k="invoice_label_penalty" v="Förseningsavgift" />
+        <e k="invoice_label_subtotal" v="Delsumma" />
+        <e k="invoice_setting_invoicePenalties" v="Dröjsmålsränta" />
+        <e k="invoice_toolTip_invoicePenalties" v="Aktiverar dröjsmålsränta på obetalda fakturor. Efter 1 månads förfallotid tillämpas automatiskt en fast sats på 5% per månad. Begränsad till 25% av det totala beloppet." />
+        <e k="invoice_notification_overdue" v="Faktura %s är förfallen: %s" />
+        <e k="invoice_notification_overdue_warning" v="Dröjsmålsränta kommer att debiteras." />
     </elements>
 </l10n>

@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="При включении каждые 5 минут отображается напоминание о неоплаченных счетах." />
         <e k="invoice_notification_vat_incl" v="в т.ч. %s %s" />
         <e k="invoice_notification_vat_excl" v="без %s %s" />
+        <e k="invoice_notification_penalty_incl" v="вкл. %s штрафа" />
+        <e k="invoice_status_overdue" v="Просрочен" />
+        <e k="invoice_label_total_due" v="Итого к оплате:" />
+        <e k="invoice_label_penalty" v="Штраф за просрочку" />
+        <e k="invoice_label_subtotal" v="Подытог" />
+        <e k="invoice_setting_invoicePenalties" v="Пени за просрочку" />
+        <e k="invoice_toolTip_invoicePenalties" v="Включает пени за просрочку неоплаченных счетов. После 1 месяца просрочки автоматически начисляется фиксированная ставка 5% в месяц. Максимум — 25% от общей суммы счёта." />
+        <e k="invoice_notification_overdue" v="Счёт %s просрочен: %s" />
+        <e k="invoice_notification_overdue_warning" v="Будут начислены пени за просрочку." />
     </elements>
 </l10n>

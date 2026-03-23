@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="Ha engedélyezve van, 5 percenként emlékeztető értesítés jelenik meg a kifizetetlen számlákról." />
         <e k="invoice_notification_vat_incl" v="ebből %s %s" />
         <e k="invoice_notification_vat_excl" v="nélkül %s %s" />
+        <e k="invoice_notification_penalty_incl" v="%s bírságot tartalmaz" />
+        <e k="invoice_status_overdue" v="Lejárt" />
+        <e k="invoice_label_total_due" v="Fizetendő összeg:" />
+        <e k="invoice_label_penalty" v="Késedelmi díj" />
+        <e k="invoice_label_subtotal" v="Részösszeg" />
+        <e k="invoice_setting_invoicePenalties" v="Késedelmi pótlék" />
+        <e k="invoice_toolTip_invoicePenalties" v="Engedélyezi a késedelmi pótlékot a kifizetetlen számlákon. 1 hónap lejárat után automatikusan havi 5%-os fix pótlék kerül alkalmazásra. Maximum a teljes összeg 25%-a." />
+        <e k="invoice_notification_overdue" v="A(z) %s számla lejárt: %s" />
+        <e k="invoice_notification_overdue_warning" v="Késedelmi pótlék kerül felszámításra." />
     </elements>
 </l10n>

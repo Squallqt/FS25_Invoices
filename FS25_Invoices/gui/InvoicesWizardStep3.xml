@@ -4,155 +4,137 @@
 -->
 <GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
     <GuiElement profile="newLayer"/>
-    <Bitmap profile="dialogFullscreenBg"/>
+    <Bitmap profile="dialogFullscreenBg" id="dialogBg"/>
 
-    <RoundCorner profile="wizStep3RoundBgBorder"/>
-    <RoundCorner profile="wizStep3RoundBg"/>
+    <GuiElement profile="fs25_dialogBg" id="dialogElement" size="900px 700px">
+        <ThreePartBitmap profile="fs25_dialogBgMiddle"/>
+        <ThreePartBitmap profile="fs25_dialogBgTop"/>
+        <ThreePartBitmap profile="fs25_dialogBgBottom"/>
 
-    <RoundCorner profile="wizStep3TitleBadgeBg" id="titleBadgeBg"/>
-    <ThreePartBitmap profile="wizStep3TitleSep"/>
-    <Text profile="wizStep3MainTitle" text="$l10n_invoice_wizard_mainTitle" id="mainTitleText"/>
+        <GuiElement profile="fs25_dialogContentContainer">
 
-    <GuiElement profile="wizStep3Root" id="dialogElement">
-        
-        <BoxLayout profile="wizStep3MainBox">
-            
-            <Text profile="wizStep3SubTitle" text="$l10n_invoice_wizard_step3_subtitle" id="dialogTextElement"/>
-            
-            <BoxLayout profile="wizStep3ContentBox">
-                
-                <!-- Left column: Summary (read-only) -->
-                <GuiElement profile="wizStep3SummaryColumn">
-                    <Text profile="wizStep3SummaryTitle" text="$l10n_invoice_wizard_field_selection_summary"/>
-                    <GuiElement profile="wizStep3SummaryContentWrapper">
-                        <Bitmap profile="wizStep3SummarySeparator"/>
-                        <SmoothList profile="wizStep3SummaryList" id="summaryList">
-                            <ListItem profile="wizStep3SummaryListItem" name="summaryTemplate">
-                                <Text profile="wizStep3SummaryCellText" name="cellText"/>
-                            </ListItem>
-                        </SmoothList>
-                        <ThreePartBitmap profile="wizStep3SummarySliderBox" id="summarySliderBox">
-                            <Slider profile="fs25_listSlider" dataElementId="summaryList"/>
-                        </ThreePartBitmap>
-                    </GuiElement>
+            <BoxLayout profile="wizStep3MainBox">
+
+                <!-- Title text (flows in BoxLayout) -->
+                <Text profile="wizStep3MainTitle" text="$l10n_invoice_wizard_mainTitle" id="mainTitleText"/>
+
+                <!-- Green gradient separator (centered dynamically) -->
+                <GuiElement profile="wizStep3TitleSepWrapper">
+                    <ThreePartBitmap profile="wizStep3TitleSep" id="titleSep"/>
                 </GuiElement>
-                
-                <!-- Right column: Field selection -->
-                <GuiElement profile="wizStep3SelectionColumn">
-                    <Text profile="wizStep3SelectionTitle" text="$l10n_invoice_wizard_step3_label"/>
-                    <GuiElement profile="wizStep3ListWrapper">
-                        <SmoothList profile="wizStep3List" id="listFields" listSectionHeader="section">
-                            <ListItem profile="wizStep3ListItem" name="fieldTemplate">
-                                <Text profile="wizStep3FieldName" position="14px 0px" size="248px 32px" name="cellName"/>
-                                <Text profile="wizStep3FieldArea" position="264px 0px" size="118px 32px" name="cellArea"/>
-                            </ListItem>
-                            <ListItem profile="wizStep3SectionHeader" name="section">
-                                <Text profile="wizStep3SectionHeaderTitle" name="title"/>
-                            </ListItem>
-                        </SmoothList>
-                        <ThreePartBitmap profile="wizStep3SliderBox">
-                            <Slider profile="fs25_listSlider" dataElementId="listFields"/>
-                        </ThreePartBitmap>
+
+                <Text profile="wizStep3SubTitle" text="$l10n_invoice_wizard_step3_subtitle" id="dialogTextElement"/>
+
+                <BoxLayout profile="wizStep3ContentBox">
+
+                    <!-- Left column: Summary (read-only) -->
+                    <GuiElement profile="wizStep3SummaryColumn">
+                        <Text profile="wizStep3SummaryTitle" text="$l10n_invoice_wizard_field_selection_summary"/>
+                        <GuiElement profile="wizStep3SummaryContentWrapper">
+                            <Bitmap profile="wizStep3SummarySeparator"/>
+                            <SmoothList profile="wizStep3SummaryList" id="summaryList">
+                                <ListItem profile="wizStep3SummaryListItem" name="summaryTemplate">
+                                    <Text profile="wizStep3SummaryCellText" name="cellText"/>
+                                </ListItem>
+                            </SmoothList>
+                            <ThreePartBitmap profile="wizStep3SummarySliderBox" id="summarySliderBox">
+                                <Slider profile="fs25_listSlider" dataElementId="summaryList"/>
+                            </ThreePartBitmap>
+                        </GuiElement>
                     </GuiElement>
-                </GuiElement>
-                
+
+                    <!-- Right column: Field selection -->
+                    <GuiElement profile="wizStep3SelectionColumn">
+                        <Text profile="wizStep3SelectionTitle" text="$l10n_invoice_wizard_step3_label"/>
+                        <GuiElement profile="wizStep3ListWrapper">
+                            <SmoothList profile="wizStep3List" id="listFields" listSectionHeader="section">
+                                <ListItem profile="wizStep3ListItem" name="fieldTemplate">
+                                    <Text profile="wizStep3FieldName" position="14px 0px" size="248px 32px" name="cellName"/>
+                                    <Text profile="wizStep3FieldArea" position="264px 0px" size="118px 32px" name="cellArea"/>
+                                </ListItem>
+                                <ListItem profile="wizStep3SectionHeader" name="section">
+                                    <Text profile="wizStep3SectionHeaderTitle" name="title"/>
+                                </ListItem>
+                            </SmoothList>
+                            <ThreePartBitmap profile="wizStep3SliderBox">
+                                <Slider profile="fs25_listSlider" dataElementId="listFields"/>
+                            </ThreePartBitmap>
+                        </GuiElement>
+                    </GuiElement>
+
+                </BoxLayout>
+
             </BoxLayout>
-            
-        </BoxLayout>
 
-        
+        </GuiElement>
+
+        <!-- Button bar -->
+        <BoxLayout profile="fs25_dialogButtonBox" size="860px 60px">
+            <Button profile="wizStep3ButtonRemove" id="btnRemove" text="$l10n_invoice_btn_remove" onClick="onClickRemove" disabled="true"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="wizStep3ButtonAdd" id="btnAdd" text="$l10n_invoice_btn_add" onClick="onClickAdd" disabled="true"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="wizStep3ButtonBack" text="$l10n_invoice_btn_back" onClick="onClickBack"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="wizStep3ButtonNext" id="btnNext" text="$l10n_invoice_btn_next" onClick="onClickNext"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="wizStep3ButtonCancel" text="$l10n_invoice_btn_cancel" onClick="onClickCancel"/>
+        </BoxLayout>
     </GuiElement>
 
-    <!-- Button bar -->
-    <RoundCorner profile="wizStep3ButtonBarBg"/>
-    <BoxLayout profile="wizStep3ButtonBox" id="buttonsPC">
-        <Button profile="wizStep3ButtonRemove" id="btnRemove" text="$l10n_invoice_btn_remove" onClick="onClickRemove" disabled="true"/>
-        <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
-        <Button profile="wizStep3ButtonAdd" id="btnAdd" text="$l10n_invoice_btn_add" onClick="onClickAdd" disabled="true"/>
-        <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
-        <Button profile="wizStep3ButtonBack" text="$l10n_invoice_btn_back" onClick="onClickBack"/>
-        <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
-        <Button profile="wizStep3ButtonNext" id="btnNext" text="$l10n_invoice_btn_next" onClick="onClickNext"/>
-        <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
-        <Button profile="wizStep3ButtonCancel" text="$l10n_invoice_btn_cancel" onClick="onClickCancel"/>
-    </BoxLayout>
-    
     <GUIProfiles>
-        
-        
-        <Profile name="wizStep3Root" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -22px"/>
-            <size value="900px 562px"/>
-        </Profile>
 
-        <Profile name="wizStep3RoundBgBorder" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 3px"/>
-            <size value="906px 666px"/>
-            <color value="$preset_fs25_colorGreyDark"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="wizStep3RoundBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -22px"/>
-            <size value="900px 608px"/>
-            <color value="0.01 0.01 0.01 1.00"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="wizStep3TitleBadgeBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 306px"/>
-            <size value="1px 51px"/>
-            <color value="$preset_fs25_colorMainHighlight"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="wizStep3TitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorMiddleCenter">
-            <position value="0px 281px"/>
-            <size value="832px 1px"/>
-        </Profile>
-
-        <Profile name="wizStep3MainTitle" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 306px"/>
-            <size value="806px 51px"/>
+        <!-- Title text (BoxLayout child) -->
+        <Profile name="wizStep3MainTitle" extends="baseReference">
+            <size value="832px 40px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
-            <textColor value="$preset_fs25_colorMainDark"/>
+            <textColor value="$preset_fs25_colorMainLight"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        
+        <!-- Separator wrapper (BoxLayout child) -->
+        <Profile name="wizStep3TitleSepWrapper" extends="emptyPanel">
+            <size value="832px 1px"/>
+            <margin value="0px 0px 20px 0px"/>
+        </Profile>
+        <!-- Green gradient separator -->
+        <Profile name="wizStep3TitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
+            <size value="200px 1px"/>
+        </Profile>
+
         <Profile name="wizStep3MainBox" extends="emptyPanel" with="anchorTopCenter">
-            <size value="832px 540px"/>
+            <size value="832px 630px"/>
             <flowDirection value="vertical"/>
             <alignmentX value="left"/>
             <alignmentY value="top"/>
-            <elementSpacing value="11px"/>
-            <margin value="17px 0px 0px 0px"/>
+            <elementSpacing value="0px"/>
         </Profile>
-
 
         <Profile name="wizStep3SubTitle" extends="baseReference">
             <size value="832px 32px"/>
-            <margin value="0px 0px 18px 0px"/>
+            <margin value="0px 0px 12px 0px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
+
         <!-- Two-column layout -->
-        
         <Profile name="wizStep3ContentBox" extends="emptyPanel">
-            <size value="832px 448px"/>
+            <size value="832px 525px"/>
             <flowDirection value="horizontal"/>
             <alignmentX value="left"/>
             <alignmentY value="top"/>
             <elementSpacing value="11px"/>
         </Profile>
-        <!-- Left column: Summary (read-only) -->
 
+        <!-- Left column: Summary -->
         <Profile name="wizStep3SummaryColumn" extends="emptyPanel">
-            <size value="411px 448px"/>
+            <size value="411px 525px"/>
         </Profile>
-
 
         <Profile name="wizStep3SummaryTitle" extends="baseReference" with="anchorTopLeft">
             <position value="14px -22px"/>
@@ -163,13 +145,11 @@
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        
-        
+
         <Profile name="wizStep3SummaryContentWrapper" extends="emptyPanel" with="anchorTopLeft">
             <position value="0px -70px"/>
-            <size value="411px 376px"/>
+            <size value="411px 453px"/>
         </Profile>
-
 
         <Profile name="wizStep3SummarySeparator" extends="baseReference" with="anchorTopLeft">
             <position value="0px 0px"/>
@@ -177,15 +157,14 @@
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
 
-
         <Profile name="wizStep3SummaryList" extends="emptyPanel" with="anchorTopLeft">
             <position value="0px -14px"/>
-            <size value="394px 362px"/>
+            <size value="394px 439px"/>
         </Profile>
 
         <Profile name="wizStep3SummarySliderBox" extends="fs25_listSliderBox" with="anchorTopLeft">
             <position value="406px -14px"/>
-            <size value="6px 362px"/>
+            <size value="6px 439px"/>
         </Profile>
 
         <Profile name="wizStep3SummaryListItem" extends="baseReference" with="anchorTopStretchingX">
@@ -202,12 +181,11 @@
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <!-- Right column: Field selection -->
-        
-        <Profile name="wizStep3SelectionColumn" extends="emptyPanel">
-            <size value="411px 448px"/>
-        </Profile>
 
+        <!-- Right column: Field selection -->
+        <Profile name="wizStep3SelectionColumn" extends="emptyPanel">
+            <size value="411px 525px"/>
+        </Profile>
 
         <Profile name="wizStep3SelectionTitle" extends="baseReference" with="anchorTopLeft">
             <position value="14px -22px"/>
@@ -218,20 +196,20 @@
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        
+
         <Profile name="wizStep3ListWrapper" extends="emptyPanel" with="anchorTopLeft">
             <position value="0px -70px"/>
-            <size value="411px 376px"/>
+            <size value="411px 453px"/>
         </Profile>
 
         <Profile name="wizStep3List" extends="emptyPanel">
-            <size value="394px 376px"/>
+            <size value="411px 453px"/>
             <position value="0px 0px"/>
         </Profile>
 
         <Profile name="wizStep3SliderBox" extends="fs25_listSliderBox" with="anchorTopLeft">
-            <size value="6px 376px"/>
-            <position value="406px 0px"/>
+            <size value="6px 453px"/>
+            <position value="418px 0px"/>
         </Profile>
 
         <Profile name="wizStep3ListItem" extends="baseReference" with="anchorTopStretchingX alternating">
@@ -240,7 +218,7 @@
             <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
             <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
-        
+
         <Profile name="wizStep3FieldName" extends="baseReference" with="anchorStretchingYLeft">
             <textSize value="15px"/>
             <textColor value="1 1 1 1"/>
@@ -248,7 +226,7 @@
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        
+
         <Profile name="wizStep3FieldArea" extends="baseReference" with="anchorStretchingYLeft">
             <textSize value="13px"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
@@ -256,14 +234,14 @@
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        
+
         <!-- Section header -->
         <Profile name="wizStep3SectionHeader" extends="baseReference" with="anchorTopStretchingX">
             <height value="43px"/>
             <margin value="7px 0px 0px 0px"/>
             <imageColor value="0 0 0 0.75"/>
         </Profile>
-        
+
         <Profile name="wizStep3SectionHeaderTitle" extends="baseReference">
             <position value="0px 0px"/>
             <size value="394px 43px"/>
@@ -273,34 +251,20 @@
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <!-- Button bar -->
-        
-        <Profile name="wizStep3ButtonBarBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -304px"/>
-            <size value="900px 45px"/>
-            <color value="0 0 0 1"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="wizStep3ButtonBox" extends="fs25_dialogButtonBox" with="anchorMiddleCenter">
-            <position value="0px -304px"/>
-            <size value="900px 45px"/>
-            <imageColor value="0 0 0 0"/>
-            <alignmentX value="right"/>
-            <alignmentY value="middle"/>
-        </Profile>
-        
+
+        <!-- Button profiles -->
         <Profile name="wizStep3ButtonBack" extends="buttonOK">
             <inputAction value="MENU_PAGE_PREV"/>
         </Profile>
-        
+
         <Profile name="wizStep3ButtonRemove" extends="buttonOK">
             <inputAction value="MENU_CANCEL"/>
         </Profile>
-        
+
         <Profile name="wizStep3ButtonAdd" extends="buttonOK">
             <inputAction value="MENU_ACTIVATE"/>
         </Profile>
-        
+
         <Profile name="wizStep3ButtonNext" extends="buttonOK">
             <inputAction value="MENU_PAGE_NEXT"/>
         </Profile>

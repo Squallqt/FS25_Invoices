@@ -4,11 +4,11 @@
 ]]
 
 InvoicesWizardStep3 = {}
-local InvoicesWizardStep3_mt = Class(InvoicesWizardStep3, DialogElement)
+local InvoicesWizardStep3_mt = Class(InvoicesWizardStep3, MessageDialog)
 
 InvoicesWizardStep3.CONTROLS = {
-    TITLE_BADGE_BG = "titleBadgeBg",
     MAIN_TITLE_TEXT = "mainTitleText",
+    TITLE_SEP = "titleSep",
     LIST_FIELDS = "listFields",
     SUMMARY_LIST = "summaryList",
     SUMMARY_SLIDER_BOX = "summarySliderBox",
@@ -19,7 +19,7 @@ InvoicesWizardStep3.CONTROLS = {
 }
 
 function InvoicesWizardStep3.new(target, customMt)
-    local self = DialogElement.new(target, customMt or InvoicesWizardStep3_mt)
+    local self = MessageDialog.new(target, customMt or InvoicesWizardStep3_mt)
     
     self.clientFields = {}
     self.otherFields = {}
@@ -48,31 +48,50 @@ function InvoicesWizardStep3:onGuiSetupFinished()
     end
 end
 
-function InvoicesWizardStep3:resizeTitleBadge()
-    if self.mainTitleText ~= nil and self.titleBadgeBg ~= nil then
-        local textWidth = getTextWidth(self.mainTitleText.textSize, self.mainTitleText.text)
-        local paddingX = self.mainTitleText.textSize * 0.8
-        local badgeWidth = textWidth + paddingX * 2
-        local badgeHeight = self.titleBadgeBg.absSize[2]
-        self.titleBadgeBg:setSize(badgeWidth, badgeHeight)
+function InvoicesWizardStep3:resizeTitleSep()
+    if self.titleSep == nil or self.mainTitleText == nil then return end
+
+    if self._titleSepHeight == nil then
+        self._titleSepHeight = self.titleSep.absSize[2]
+    end
+
+    local text = self.mainTitleText.text or ""
+    local textWidth = getTextWidth(self.mainTitleText.textSize, text)
+    local padding = 10 * 2 * g_pixelSizeScaledX
+    local newWidth = textWidth + padding
+
+    self.titleSep:setSize(newWidth, self._titleSepHeight)
+    if self.titleSep.parent ~= nil and self.titleSep.parent.invalidateLayout ~= nil then
+        self.titleSep.parent:invalidateLayout()
     end
 end
 
 function InvoicesWizardStep3:onOpen()
     InvoicesWizardStep3:superClass().onOpen(self)
-    self:resizeTitleBadge()
-    
+
+    self:resizeTitleSep()
+
     self.selectedIndex = -1
     self.selectedSection = -1
-    
+    self.selectedItems = {}
+
     local state = InvoicesWizardState.getInstance()
     if state.selectedFields ~= nil and #state.selectedFields > 0 then
-        self.selectedItems = state.selectedFields
-    else
-        self.selectedItems = {}
+        for _, item in ipairs(state.selectedFields) do
+            table.insert(self.selectedItems, item)
+        end
     end
-    
+
     self:loadFields()
+
+    if self.listFields ~= nil then
+        if #self.clientFields > 0 then
+            self.listFields:setSelectedIndex(1, 1, false)
+        elseif #self.otherFields > 0 then
+            self.listFields:setSelectedIndex(1, 2, false)
+        end
+    end
+
     self:updateButtonStates()
     self:updateSummaryText()
 end

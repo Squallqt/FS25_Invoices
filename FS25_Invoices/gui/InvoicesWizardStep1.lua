@@ -4,11 +4,11 @@
 ]]
 
 InvoicesWizardStep1 = {}
-local InvoicesWizardStep1_mt = Class(InvoicesWizardStep1, DialogElement)
+local InvoicesWizardStep1_mt = Class(InvoicesWizardStep1, MessageDialog)
 
 InvoicesWizardStep1.CONTROLS = {
-    TITLE_BADGE_BG = "titleBadgeBg",
     MAIN_TITLE_TEXT = "mainTitleText",
+    TITLE_SEP = "titleSep",
     LIST_FARMS = "listFarms",
     BTN_NEXT = "btnNext",
     BTN_ADD = "btnAdd",
@@ -20,7 +20,7 @@ InvoicesWizardStep1.LIST_HEIGHT = 376
 InvoicesWizardStep1.ITEM_HEIGHT_ACTUAL = 38
 
 function InvoicesWizardStep1.new(target, customMt)
-    local self = DialogElement.new(target, customMt or InvoicesWizardStep1_mt)
+    local self = MessageDialog.new(target, customMt or InvoicesWizardStep1_mt)
 
     self.farms = {}
     self.selectedIndex = -1
@@ -45,19 +45,28 @@ function InvoicesWizardStep1:onGuiSetupFinished()
     end
 end
 
-function InvoicesWizardStep1:resizeTitleBadge()
-    if self.mainTitleText ~= nil and self.titleBadgeBg ~= nil then
-        local textWidth = getTextWidth(self.mainTitleText.textSize, self.mainTitleText.text)
-        local paddingX = self.mainTitleText.textSize * 0.8
-        local badgeWidth = textWidth + paddingX * 2
-        local badgeHeight = self.titleBadgeBg.absSize[2]
-        self.titleBadgeBg:setSize(badgeWidth, badgeHeight)
+function InvoicesWizardStep1:resizeTitleSep()
+    if self.titleSep == nil or self.mainTitleText == nil then return end
+
+    if self._titleSepHeight == nil then
+        self._titleSepHeight = self.titleSep.absSize[2]
+    end
+
+    local text = self.mainTitleText.text or ""
+    local textWidth = getTextWidth(self.mainTitleText.textSize, text)
+    local padding = 10 * 2 * g_pixelSizeScaledX
+    local newWidth = textWidth + padding
+
+    self.titleSep:setSize(newWidth, self._titleSepHeight)
+    if self.titleSep.parent ~= nil and self.titleSep.parent.invalidateLayout ~= nil then
+        self.titleSep.parent:invalidateLayout()
     end
 end
 
 function InvoicesWizardStep1:onOpen()
     InvoicesWizardStep1:superClass().onOpen(self)
-    self:resizeTitleBadge()
+
+    self:resizeTitleSep()
 
     local state = InvoicesWizardState.getInstance()
     state:reset()

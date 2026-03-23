@@ -152,5 +152,14 @@
         <e k="invoice_toolTip_invoiceReminders" v="Jika diaktifkan, notifikasi pengingat ditampilkan setiap 5 menit untuk faktur yang belum dibayar." />
         <e k="invoice_notification_vat_incl" v="termasuk %s %s" />
         <e k="invoice_notification_vat_excl" v="tidak termasuk %s %s" />
+        <e k="invoice_notification_penalty_incl" v="termasuk %s denda" />
+        <e k="invoice_status_overdue" v="Terlambat" />
+        <e k="invoice_label_total_due" v="Total tagihan:" />
+        <e k="invoice_label_penalty" v="Denda keterlambatan" />
+        <e k="invoice_label_subtotal" v="Subtotal" />
+        <e k="invoice_setting_invoicePenalties" v="Denda keterlambatan" />
+        <e k="invoice_toolTip_invoicePenalties" v="Mengaktifkan denda keterlambatan pada faktur yang belum dibayar. Setelah 1 bulan lewat jatuh tempo, tarif tetap 5% per bulan diterapkan secara otomatis. Dibatasi hingga 25% dari jumlah total." />
+        <e k="invoice_notification_overdue" v="Faktur %s lewat jatuh tempo: %s" />
+        <e k="invoice_notification_overdue_warning" v="Denda keterlambatan akan dikenakan." />
     </elements>
 </l10n>

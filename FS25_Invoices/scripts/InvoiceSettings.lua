@@ -11,7 +11,8 @@ InvoiceSettings.CONTROLS = {}
 
 InvoiceSettings.menuItems = {
     'invoiceVatSimulated',
-    'invoiceReminders'
+    'invoiceReminders',
+    'invoicePenalties'
 }
 
 InvoiceSettings.SETTINGS.invoiceVatSimulated = {
@@ -22,6 +23,13 @@ InvoiceSettings.SETTINGS.invoiceVatSimulated = {
 }
 
 InvoiceSettings.SETTINGS.invoiceReminders = {
+    ['default'] = 2,
+    ['serverOnly'] = true,
+    ['values'] = { false, true },
+    ['strings'] = { "ui_off", "ui_on" }
+}
+
+InvoiceSettings.SETTINGS.invoicePenalties = {
     ['default'] = 2,
     ['serverOnly'] = true,
     ['values'] = { false, true },
@@ -138,6 +146,7 @@ function InvoiceSettings:saveToXMLFile()
     local s = g_currentMission.invoiceSettings or {}
     xmlFile:setBool(key .. "#vatSimulated", s.invoiceVatSimulated ~= false)
     xmlFile:setBool(key .. "#reminders", s.invoiceReminders ~= false)
+    xmlFile:setBool(key .. "#penalties", s.invoicePenalties ~= false)
 
     xmlFile:save()
     xmlFile:delete()
@@ -157,6 +166,7 @@ function InvoiceSettings:loadFromXMLFile()
     local s = {}
     s.invoiceVatSimulated = xmlFile:getBool(key .. "#vatSimulated", true)
     s.invoiceReminders = xmlFile:getBool(key .. "#reminders", true)
+    s.invoicePenalties = xmlFile:getBool(key .. "#penalties", true)
     xmlFile:delete()
 
     self:applySettings(s, true)
