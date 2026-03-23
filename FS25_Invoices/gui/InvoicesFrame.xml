@@ -50,6 +50,7 @@
                 <!-- Invoice list -->
                 <SmoothList id="listInvoices" profile="invInvoiceList" position="0px -50px">
                     <ListItem profile="invInvoiceListItem">
+                        <ThreePartBitmap profile="invListItemGradient" name="alternating"/>
                         <Text profile="invRowCellLeft"   position="20px 0px"   size="100px 32px" name="cellNumber"/>
                         <Text profile="invRowCellLeft"   position="130px 0px"  size="170px 32px" name="cellDate"/>
                         <Text profile="invRowCellLeft"   position="310px 0px"  size="390px 32px" name="cellFarm"/>
@@ -91,6 +92,7 @@
                 <!-- Invoice list -->
                 <SmoothList id="listInvoices2" profile="invInvoiceList" position="0px -50px">
                     <ListItem profile="invInvoiceListItem">
+                        <ThreePartBitmap profile="invListItemGradient" name="alternating"/>
                         <Text profile="invRowCellLeft"   position="20px 0px"   size="100px 32px" name="cellNumber"/>
                         <Text profile="invRowCellLeft"   position="130px 0px"  size="170px 32px" name="cellDate"/>
                         <Text profile="invRowCellLeft"   position="310px 0px"  size="390px 32px" name="cellFarm"/>
