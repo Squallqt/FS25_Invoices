@@ -310,8 +310,8 @@
 
         <Profile name="invDetGradient" extends="fs25_calendarListItemBg">
             <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-            <startImageSize value="0px 0"/>
-            <endImageSize value="0px 0"/>
+            <startImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+            <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
 
         <!-- Row cells -->
