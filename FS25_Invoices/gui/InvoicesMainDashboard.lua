@@ -850,7 +850,7 @@ function InvoicesMainDashboard:populateFarmCell(index, cell)
     local cellName = cell:getDescendantByName("cellName")
     if cellName ~= nil then
         local isConfirmed = (self.selectedFarm ~= nil and self.selectedFarm.farmId == farm.farmId)
-        cellName:setText(isConfirmed and ("[ " .. farm.name .. " ]") or farm.name)
+        cellName:setText(isConfirmed and ("- " .. farm.name) or farm.name)
     end
 end
 
@@ -866,7 +866,7 @@ function InvoicesMainDashboard:populateWorkTypeCell(index, cell)
         cellName:setDisabled(locked)
         local isConfirmed = self:isWorkTypeSelected(workType)
         local name = g_i18n:getText(workType.nameKey)
-        cellName:setText(isConfirmed and ("[ " .. name .. " ]") or name)
+        cellName:setText(isConfirmed and ("- " .. name) or name)
     end
 
     local cellPrice = cell:getDescendantByName("cellPrice")
@@ -900,7 +900,7 @@ function InvoicesMainDashboard:populateFieldCell(section, index, cell)
     if cellName ~= nil then
         local isConfirmed = self:isFieldSelected(fieldData)
         local name = string.format(g_i18n:getText("invoice_format_field_id"), fieldData.id)
-        cellName:setText(isConfirmed and ("[ " .. name .. " ]") or name)
+        cellName:setText(isConfirmed and ("- " .. name) or name)
     end
 
     local cellArea = cell:getDescendantByName("cellArea")

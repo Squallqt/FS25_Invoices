@@ -31,6 +31,7 @@
                     <GuiElement profile="dashListWrapper" position="0px -28px" size="411px 150px">
                         <SmoothList profile="dashFarmList" id="listFarms">
                             <ListItem profile="dashSelectListItem" name="farmTemplate">
+
                                 <Text profile="dashFarmCellName" name="cellName"/>
                             </ListItem>
                         </SmoothList>
@@ -45,6 +46,7 @@
                         <GuiElement profile="dashListWrapper" position="0px -28px" size="411px 150px">
                             <SmoothList profile="dashWorkList" id="listWorkTypes">
                                 <ListItem profile="dashSelectListItem" name="workTypeTemplate">
+    
                                     <Text profile="dashWorkCellName" name="cellName"/>
                                     <Text profile="dashWorkCellPrice" name="cellPrice"/>
                                 </ListItem>
@@ -61,6 +63,7 @@
                         <GuiElement profile="dashListWrapper" position="0px -28px" size="832px 150px">
                             <SmoothList profile="dashFieldList" id="listFields" listSectionHeader="section">
                                 <ListItem profile="dashSelectListItem" name="fieldTemplate">
+    
                                     <Text profile="dashFieldCellName" name="cellName"/>
                                     <Text profile="dashFieldCellArea" name="cellArea"/>
                                 </ListItem>
