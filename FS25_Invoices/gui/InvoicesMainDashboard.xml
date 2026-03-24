@@ -229,15 +229,9 @@
 
         <Profile name="dashSelectListItem" extends="fs25_calendarListItem">
             <height value="28px"/>
-            <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-            <imageDisabledColor value="0.1 0.1 0.1 0.3"/>
         </Profile>
 
-        <Profile name="dashSelectBg" extends="fs25_calendarListItemBg">
-            <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-            <startImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-            <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-        </Profile>
+        <Profile name="dashSelectBg" extends="fs25_calendarListItemBg"/>
 
         <Profile name="dashSliderBox" extends="fs25_listSliderBox" with="anchorTopLeft"/>
 
@@ -427,14 +421,9 @@
 
         <Profile name="dashItemListRow" extends="fs25_calendarListItem">
             <height value="32px"/>
-            <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
 
-        <Profile name="dashItemGradient" extends="fs25_calendarListItemBg">
-            <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-            <startImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-            <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-        </Profile>
+        <Profile name="dashItemGradient" extends="fs25_calendarListItemBg"/>
 
         <!-- Line item cells -->
         <Profile name="dashCellDesignation" extends="baseReference" with="anchorStretchingYLeft">

@@ -305,14 +305,9 @@
         <!-- List row -->
         <Profile name="invDetListItem" extends="fs25_calendarListItem">
             <height value="32px"/>
-            <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
 
-        <Profile name="invDetGradient" extends="fs25_calendarListItemBg">
-            <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-            <startImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-            <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-        </Profile>
+        <Profile name="invDetGradient" extends="fs25_calendarListItemBg"/>
 
         <!-- Row cells -->
         <Profile name="invDetCellDesignation" extends="baseReference">

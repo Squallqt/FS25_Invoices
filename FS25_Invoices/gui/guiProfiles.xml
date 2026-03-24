@@ -100,15 +100,10 @@
     <!-- Invoice list item row -->
     <Profile name="invInvoiceListItem" extends="fs25_calendarListItem">
         <height value="32px"/>
-        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
     </Profile>
 
-    <!-- Gradient overlay: green tint when row is selected -->
-    <Profile name="invListItemGradient" extends="fs25_calendarListItemBg">
-        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-        <startImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-        <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-    </Profile>
+    <!-- Gradient overlay for row selection -->
+    <Profile name="invListItemGradient" extends="fs25_calendarListItemBg"/>
 
     <!-- Row cell: center-aligned base -->
     <Profile name="invRowCellLeft" extends="baseReference" with="anchorStretchingYLeft">
