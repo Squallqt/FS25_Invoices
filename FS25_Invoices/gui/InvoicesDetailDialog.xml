@@ -58,7 +58,6 @@
                     <!-- Line items SmoothList -->
                     <SmoothList profile="invDetList" id="listItems">
                         <ListItem profile="invDetListItem" name="templateItem">
-                            <ThreePartBitmap profile="invDetGradient" name="alternating"/>
                             <Text profile="invDetCellDesignation" name="cellDesignation"/>
                             <Text profile="invDetCellField"       name="cellField"/>
                             <Text profile="invDetCellQty"         name="cellQty"/>
@@ -295,7 +294,6 @@
         <Profile name="invDetList" extends="emptyPanel" with="anchorTopLeft">
             <position value="0px -153px"/>
             <size value="832px 284px"/>
-            <listItemSpacing value="-1px"/>
         </Profile>
         <Profile name="invDetSliderBox" extends="fs25_listSliderBox" with="anchorTopLeft">
             <position value="840px -153px"/>
@@ -303,11 +301,12 @@
         </Profile>
 
         <!-- List row -->
-        <Profile name="invDetListItem" extends="fs25_calendarListItem">
+        <Profile name="invDetListItem" extends="baseReference" with="anchorTopStretchingX alternating">
             <height value="32px"/>
+            <imageColor value="$preset_fs25_colorGrey"/>
+            <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+            <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
         </Profile>
-
-        <Profile name="invDetGradient" extends="fs25_calendarListItemBg"/>
 
         <!-- Row cells -->
         <Profile name="invDetCellDesignation" extends="baseReference">
