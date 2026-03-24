@@ -310,7 +310,6 @@
 
         <Profile name="dashSectionHeader" extends="baseReference" with="anchorTopStretchingX">
             <height value="24px"/>
-            <margin value="4px 0px 0px 0px"/>
             <imageColor value="0 0 0 0.75"/>
         </Profile>
 
