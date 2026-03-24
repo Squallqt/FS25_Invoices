@@ -105,7 +105,11 @@
         <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
     </Profile>
 
-    <Profile name="invListItemGradient" extends="fs25_calendarListItemBg"/>
+    <Profile name="invListItemGradient" extends="fs25_calendarListItemBg">
+        <imageSelectedColor value="0 0 0 0"/>
+        <startImageSelectedColor value="0 0 0 0"/>
+        <endImageSelectedColor value="0 0 0 0"/>
+    </Profile>
 
     <!-- Row cell: center-aligned base -->
     <Profile name="invRowCellLeft" extends="baseReference" with="anchorStretchingYLeft">

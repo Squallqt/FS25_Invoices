@@ -307,9 +307,10 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <Profile name="dashSectionHeader" extends="baseReference" with="anchorTopStretchingX">
+        <Profile name="dashSectionHeader" extends="baseReference" with="anchorTopStretchingX alternating">
             <height value="24px"/>
             <imageColor value="0 0 0 0.75"/>
+            <alternateBackgroundColor value="0 0 0 0.75"/>
         </Profile>
 
         <Profile name="dashSectionTitle" extends="baseReference">
