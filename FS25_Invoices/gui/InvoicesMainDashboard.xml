@@ -96,6 +96,7 @@
                     <GuiElement profile="dashListWrapper" position="0px -454px" size="832px 220px">
                         <SmoothList profile="dashItemList" id="listItems">
                             <ListItem profile="dashItemListRow" name="itemTemplate">
+                                <ThreePartBitmap profile="dashItemGradient" name="alternating"/>
                                 <Text profile="dashCellDesignation" name="cellDesignation"/>
                                 <Text profile="dashCellField"       name="cellField"/>
                                 <Text profile="dashCellQty"         name="cellQty"/>
@@ -415,11 +416,17 @@
             <position value="0px 0px"/>
         </Profile>
 
-        <Profile name="dashItemListRow" extends="baseReference" with="anchorTopStretchingX alternating">
+        <Profile name="dashItemListRow" extends="fs25_calendarListItem">
             <height value="32px"/>
             <imageColor value="$preset_fs25_colorGrey"/>
             <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
             <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
+        </Profile>
+
+        <Profile name="dashItemGradient" extends="fs25_calendarListItemBg">
+            <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+            <startImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+            <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
 
         <!-- Line item cells -->

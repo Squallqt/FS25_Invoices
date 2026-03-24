@@ -106,9 +106,9 @@
     </Profile>
 
     <Profile name="invListItemGradient" extends="fs25_calendarListItemBg">
-        <imageSelectedColor value="0 0 0 0"/>
-        <startImageSelectedColor value="0 0 0 0"/>
-        <endImageSelectedColor value="0 0 0 0"/>
+        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+        <startImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+        <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
     </Profile>
 
     <!-- Row cell: center-aligned base -->
