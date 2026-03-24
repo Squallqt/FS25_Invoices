@@ -302,8 +302,7 @@ function InvoicesFrame:onClickNewInvoice()
     end
     local state = InvoicesWizardState.getInstance()
     state:reset()
-    g_gui:changeScreen(nil)
-    g_gui:showDialog("InvoicesWizardStep1")
+    g_gui:showDialog("InvoicesMainDashboard")
 end
 
 function InvoicesFrame:onClickPay()

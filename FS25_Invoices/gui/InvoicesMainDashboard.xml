@@ -234,6 +234,8 @@
         </Profile>
 
         <Profile name="dashSelectBg" extends="fs25_calendarListItemBg">
+            <imageColor value="$preset_fs25_colorGrey"/>
+            <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
             <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
             <startImageSize value="0px 0"/>
             <endImageSize value="0px 0"/>

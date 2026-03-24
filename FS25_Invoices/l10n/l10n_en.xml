@@ -161,5 +161,6 @@
         <e k="invoice_toolTip_invoicePenalties" v="Enables late penalties on unpaid invoices. After 1 month overdue, a fixed rate of 5% per month is applied automatically. Capped at 25% of the total amount." />
         <e k="invoice_notification_overdue" v="Invoice %s is overdue: %s" />
         <e k="invoice_notification_overdue_warning" v="Late penalties will be applied." />
+        <e k="invoice_dash_no_fields" v="No field selection required" />
     </elements>
 </l10n>

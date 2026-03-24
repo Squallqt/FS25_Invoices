@@ -22,10 +22,7 @@ source(modDirectory .. "gui/InvoicesFrame.lua")
 source(modDirectory .. "gui/InvoicesDetailDialog.lua")
 source(modDirectory .. "gui/InvoicesFieldDialog.lua")
 source(modDirectory .. "gui/InvoicesFarmDialog.lua")
-source(modDirectory .. "gui/InvoicesWizardStep1.lua")
-source(modDirectory .. "gui/InvoicesWizardStep2.lua")
-source(modDirectory .. "gui/InvoicesWizardStep3.lua")
-source(modDirectory .. "gui/InvoicesWizardStep4.lua")
+source(modDirectory .. "gui/InvoicesMainDashboard.lua")
 
 Invoices = {}
 Invoices.modDirectory = modDirectory
@@ -91,21 +88,9 @@ local function loadedMission()
     g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesFarmDialog.xml", "InvoicesFarmDialog", farmDialog)
     Logging.devInfo("[Invoices] InvoicesFarmDialog loaded")
     
-    local wizStep1 = InvoicesWizardStep1.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesWizardStep1.xml", "InvoicesWizardStep1", wizStep1)
-    Logging.devInfo("[Invoices] InvoicesWizardStep1 loaded")
-    
-    local wizStep2 = InvoicesWizardStep2.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesWizardStep2.xml", "InvoicesWizardStep2", wizStep2)
-    Logging.devInfo("[Invoices] InvoicesWizardStep2 loaded")
-    
-    local wizStep3 = InvoicesWizardStep3.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesWizardStep3.xml", "InvoicesWizardStep3", wizStep3)
-    Logging.devInfo("[Invoices] InvoicesWizardStep3 loaded")
-    
-    local wizStep4 = InvoicesWizardStep4.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesWizardStep4.xml", "InvoicesWizardStep4", wizStep4)
-    Logging.devInfo("[Invoices] InvoicesWizardStep4 loaded")
+    local dashboard = InvoicesMainDashboard.new(frame)
+    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesMainDashboard.xml", "InvoicesMainDashboard", dashboard)
+    Logging.devInfo("[Invoices] InvoicesMainDashboard loaded")
 
     Logging.devInfo("[Invoices] Registering menu in InGameMenu")
     Invoices.addInGameMenuPage(frame, "InvoicesFrame", {0, 0, 1024, 1024}, function() return true end, 1)
