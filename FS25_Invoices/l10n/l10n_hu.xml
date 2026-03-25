@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Ha engedélyezve van, a számlák tartalmazzák az ÁFÁ-t. Az ügyfél a bruttó összeget fizeti (adóval), a szolgáltató a nettó összeget kapja (adó nélkül). Ha le van tiltva, az ÁFA 0%-ra van állítva és mindkét fél ugyanazt az összeget cseréli." />
         <e k="invoice_setting_invoiceReminders" v="Fizetési emlékeztetők" />
         <e k="invoice_toolTip_invoiceReminders" v="Ha engedélyezve van, 5 percenként emlékeztető értesítés jelenik meg a kifizetetlen számlákról." />
-        <e k="invoice_notification_vat_incl" v="ebből %s %s" />
-        <e k="invoice_notification_vat_excl" v="nélkül %s %s" />
+        <e k="invoice_notification_vat_incl" v="ebből %s : %s" />
+        <e k="invoice_notification_vat_excl" v="nélkül %s : %s" />
         <e k="invoice_notification_penalty_incl" v="%s bírságot tartalmaz" />
         <e k="invoice_status_overdue" v="Lejárt" />
         <e k="invoice_label_total_due" v="Fizetendő összeg:" />

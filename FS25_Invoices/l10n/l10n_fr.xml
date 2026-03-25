@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Lorsque activé, les factures incluent la TVA. Le client paie le montant TTC, le prestataire reçoit le montant HT. Lorsque désactivé, la TVA est fixée à 0% et les deux parties échangent le même montant." />
         <e k="invoice_setting_invoiceReminders" v="Rappels de paiement" />
         <e k="invoice_toolTip_invoiceReminders" v="Lorsque activé, une notification de rappel est affichée toutes les 5 minutes pour les factures impayées." />
-        <e k="invoice_notification_vat_incl" v="dont %s %s" />
-        <e k="invoice_notification_vat_excl" v="hors %s %s" />
+        <e k="invoice_notification_vat_incl" v="dont %s : %s" />
+        <e k="invoice_notification_vat_excl" v="hors %s : %s" />
         <e k="invoice_notification_penalty_incl" v="incl. %s de pénalité" />
         <e k="invoice_status_overdue" v="En retard" />
         <e k="invoice_label_total_due" v="Total dû :" />

@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Når aktiveret, inkluderer fakturaer moms. Klienten betaler bruttobeløbet (inkl. skat), udbyderen modtager nettobeløbet (ekskl. skat). Når deaktiveret, sættes momsen til 0% og begge parter udveksler det samme beløb." />
         <e k="invoice_setting_invoiceReminders" v="Betalingspåmindelser" />
         <e k="invoice_toolTip_invoiceReminders" v="Når aktiveret, vises en påmindelsesnotifikation hvert 5. minut for ubetalte fakturaer." />
-        <e k="invoice_notification_vat_incl" v="inkl. %s %s" />
-        <e k="invoice_notification_vat_excl" v="ekskl. %s %s" />
+        <e k="invoice_notification_vat_incl" v="inkl. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="ekskl. %s : %s" />
         <e k="invoice_notification_penalty_incl" v="inkl. %s bøde" />
         <e k="invoice_status_overdue" v="Forfalden" />
         <e k="invoice_label_total_due" v="Skyldigt beløb:" />

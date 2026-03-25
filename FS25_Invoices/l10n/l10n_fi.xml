@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Kun käytössä, laskut sisältävät ALV:n. Asiakas maksaa bruttosumman (vero mukaan lukien), palveluntarjoaja saa nettosumman (vero pois lukien). Kun pois käytöstä, ALV on 0% ja molemmat osapuolet vaihtavat saman summan." />
         <e k="invoice_setting_invoiceReminders" v="Maksumuistutukset" />
         <e k="invoice_toolTip_invoiceReminders" v="Kun käytössä, muistutus näytetään 5 minuutin välein maksamattomista laskuista." />
-        <e k="invoice_notification_vat_incl" v="sis. %s %s" />
-        <e k="invoice_notification_vat_excl" v="pois lukien %s %s" />
+        <e k="invoice_notification_vat_incl" v="sis. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="pois lukien %s : %s" />
         <e k="invoice_notification_penalty_incl" v="sis. %s sakkoa" />
         <e k="invoice_status_overdue" v="Myöhässä" />
         <e k="invoice_label_total_due" v="Maksettava yhteensä:" />

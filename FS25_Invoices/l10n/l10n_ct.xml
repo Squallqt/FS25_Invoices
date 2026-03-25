@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="啟用後，發票包含增值稅。客戶支付含稅總額，服務商收到不含稅淨額。停用後，增值稅設為0%，雙方交換相同金額。" />
         <e k="invoice_setting_invoiceReminders" v="付款提醒" />
         <e k="invoice_toolTip_invoiceReminders" v="啟用後，每5分鐘顯示一次未付發票的提醒通知。" />
-        <e k="invoice_notification_vat_incl" v="含 %s %s" />
-        <e k="invoice_notification_vat_excl" v="不含 %s %s" />
+        <e k="invoice_notification_vat_incl" v="含 %s : %s" />
+        <e k="invoice_notification_vat_excl" v="不含 %s : %s" />
         <e k="invoice_notification_penalty_incl" v="含 %s 罰款" />
         <e k="invoice_status_overdue" v="逾期" />
         <e k="invoice_label_total_due" v="應付總額：" />

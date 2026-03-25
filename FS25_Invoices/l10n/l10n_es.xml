@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Cuando está activado, las facturas incluyen IVA. El cliente paga el importe bruto (con impuesto), el proveedor recibe el importe neto (sin impuesto). Cuando está desactivado, el IVA se fija en 0% y ambas partes intercambian el mismo importe." />
         <e k="invoice_setting_invoiceReminders" v="Recordatorios de pago" />
         <e k="invoice_toolTip_invoiceReminders" v="Cuando está activado, se muestra una notificación de recordatorio cada 5 minutos para facturas impagadas." />
-        <e k="invoice_notification_vat_incl" v="con %s %s" />
-        <e k="invoice_notification_vat_excl" v="sin %s %s" />
+        <e k="invoice_notification_vat_incl" v="con %s : %s" />
+        <e k="invoice_notification_vat_excl" v="sin %s : %s" />
         <e k="invoice_notification_penalty_incl" v="incl. %s de penalización" />
         <e k="invoice_status_overdue" v="Vencida" />
         <e k="invoice_label_total_due" v="Total a pagar:" />

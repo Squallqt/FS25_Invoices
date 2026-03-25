@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Khi bật, hóa đơn bao gồm thuế GTGT. Khách hàng trả tổng số tiền (bao gồm thuế), nhà cung cấp nhận số tiền ròng (không bao gồm thuế). Khi tắt, thuế GTGT được đặt thành 0% và cả hai bên trao đổi cùng một số tiền." />
         <e k="invoice_setting_invoiceReminders" v="Nhắc nhở thanh toán" />
         <e k="invoice_toolTip_invoiceReminders" v="Khi bật, thông báo nhắc nhở được hiển thị mỗi 5 phút cho các hóa đơn chưa thanh toán." />
-        <e k="invoice_notification_vat_incl" v="gồm %s %s" />
-        <e k="invoice_notification_vat_excl" v="không gồm %s %s" />
+        <e k="invoice_notification_vat_incl" v="gồm %s : %s" />
+        <e k="invoice_notification_vat_excl" v="không gồm %s : %s" />
         <e k="invoice_notification_penalty_incl" v="bao gồm %s phạt" />
         <e k="invoice_status_overdue" v="Quá hạn" />
         <e k="invoice_label_total_due" v="Tổng phải trả:" />

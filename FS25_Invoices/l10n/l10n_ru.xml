@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="При включении счета включают НДС. Клиент платит полную сумму (с налогом), поставщик получает чистую сумму (без налога). При отключении НДС устанавливается на 0% и обе стороны обмениваются одинаковой суммой." />
         <e k="invoice_setting_invoiceReminders" v="Напоминания об оплате" />
         <e k="invoice_toolTip_invoiceReminders" v="При включении каждые 5 минут отображается напоминание о неоплаченных счетах." />
-        <e k="invoice_notification_vat_incl" v="в т.ч. %s %s" />
-        <e k="invoice_notification_vat_excl" v="без %s %s" />
+        <e k="invoice_notification_vat_incl" v="в т.ч. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="без %s : %s" />
         <e k="invoice_notification_penalty_incl" v="вкл. %s штрафа" />
         <e k="invoice_status_overdue" v="Просрочен" />
         <e k="invoice_label_total_due" v="Итого к оплате:" />

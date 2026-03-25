@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Wenn aktiviert, enthalten Rechnungen MwSt. Der Kunde zahlt den Bruttobetrag, der Dienstleister erhält den Nettobetrag. Wenn deaktiviert, wird die MwSt auf 0% gesetzt und beide Parteien tauschen den gleichen Betrag." />
         <e k="invoice_setting_invoiceReminders" v="Zahlungserinnerungen" />
         <e k="invoice_toolTip_invoiceReminders" v="Wenn aktiviert, wird alle 5 Minuten eine Erinnerung für unbezahlte Rechnungen angezeigt." />
-        <e k="invoice_notification_vat_incl" v="inkl. %s %s" />
-        <e k="invoice_notification_vat_excl" v="exkl. %s %s" />
+        <e k="invoice_notification_vat_incl" v="inkl. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="exkl. %s : %s" />
         <e k="invoice_notification_penalty_incl" v="inkl. %s Verzugsgebühr" />
         <e k="invoice_status_overdue" v="Überfällig" />
         <e k="invoice_label_total_due" v="Fälliger Betrag:" />

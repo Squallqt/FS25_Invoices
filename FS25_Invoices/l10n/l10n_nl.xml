@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Indien ingeschakeld, bevatten facturen BTW. De klant betaalt het brutobedrag (incl. belasting), de aanbieder ontvangt het nettobedrag (excl. belasting). Indien uitgeschakeld, wordt de BTW op 0% gezet en wisselen beide partijen hetzelfde bedrag uit." />
         <e k="invoice_setting_invoiceReminders" v="Betalingsherinneringen" />
         <e k="invoice_toolTip_invoiceReminders" v="Indien ingeschakeld, wordt elke 5 minuten een herinneringsmelding getoond voor onbetaalde facturen." />
-        <e k="invoice_notification_vat_incl" v="incl. %s %s" />
-        <e k="invoice_notification_vat_excl" v="excl. %s %s" />
+        <e k="invoice_notification_vat_incl" v="incl. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="excl. %s : %s" />
         <e k="invoice_notification_penalty_incl" v="incl. %s boete" />
         <e k="invoice_status_overdue" v="Achterstallig" />
         <e k="invoice_label_total_due" v="Verschuldigd bedrag:" />

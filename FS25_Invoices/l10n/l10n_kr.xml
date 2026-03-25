@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="활성화하면 청구서에 부가세가 포함됩니다. 고객은 세금 포함 총액을 지불하고, 서비스 제공자는 세금 제외 순액을 받습니다. 비활성화하면 부가세가 0%로 설정되어 양측이 동일한 금액을 교환합니다." />
         <e k="invoice_setting_invoiceReminders" v="결제 알림" />
         <e k="invoice_toolTip_invoiceReminders" v="활성화하면 미결제 청구서에 대해 5분마다 알림이 표시됩니다." />
-        <e k="invoice_notification_vat_incl" v="%s %s 포함" />
-        <e k="invoice_notification_vat_excl" v="%s %s 제외" />
+        <e k="invoice_notification_vat_incl" v="%s : %s 포함" />
+        <e k="invoice_notification_vat_excl" v="%s : %s 제외" />
         <e k="invoice_notification_penalty_incl" v="%s 연체료 포함" />
         <e k="invoice_status_overdue" v="연체" />
         <e k="invoice_label_total_due" v="납부 총액:" />

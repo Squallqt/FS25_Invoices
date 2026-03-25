@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Po włączeniu faktury zawierają VAT. Klient płaci kwotę brutto (z podatkiem), usługodawca otrzymuje kwotę netto (bez podatku). Po wyłączeniu VAT jest ustawiony na 0% i obie strony wymieniają tę samą kwotę." />
         <e k="invoice_setting_invoiceReminders" v="Przypomnienia o płatności" />
         <e k="invoice_toolTip_invoiceReminders" v="Po włączeniu co 5 minut wyświetlane jest przypomnienie o niezapłaconych fakturach." />
-        <e k="invoice_notification_vat_incl" v="w tym %s %s" />
-        <e k="invoice_notification_vat_excl" v="bez %s %s" />
+        <e k="invoice_notification_vat_incl" v="w tym %s : %s" />
+        <e k="invoice_notification_vat_excl" v="bez %s : %s" />
         <e k="invoice_notification_penalty_incl" v="w tym %s kary" />
         <e k="invoice_status_overdue" v="Zaległa" />
         <e k="invoice_label_total_due" v="Do zapłaty:" />

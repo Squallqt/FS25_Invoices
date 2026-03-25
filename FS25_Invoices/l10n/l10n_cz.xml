@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Pokud je povoleno, faktury zahrnují DPH. Klient platí hrubou částku (vč. daně), poskytovatel obdrží čistou částku (bez daně). Pokud je zakázáno, DPH je nastavena na 0% a obě strany si vyměňují stejnou částku." />
         <e k="invoice_setting_invoiceReminders" v="Upomínky plateb" />
         <e k="invoice_toolTip_invoiceReminders" v="Pokud je povoleno, zobrazí se upomínka každých 5 minut pro nezaplacené faktury." />
-        <e k="invoice_notification_vat_incl" v="vč. %s %s" />
-        <e k="invoice_notification_vat_excl" v="bez %s %s" />
+        <e k="invoice_notification_vat_incl" v="vč. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="bez %s : %s" />
         <e k="invoice_notification_penalty_incl" v="vč. %s penále" />
         <e k="invoice_status_overdue" v="Po splatnosti" />
         <e k="invoice_label_total_due" v="Celkem k úhradě:" />

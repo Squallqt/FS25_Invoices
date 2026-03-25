@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="有効にすると、請求書に消費税が含まれます。クライアントは税込総額を支払い、サービス提供者は税抜純額を受け取ります。無効にすると、消費税は0%に設定され、両者は同額を交換します。" />
         <e k="invoice_setting_invoiceReminders" v="支払いリマインダー" />
         <e k="invoice_toolTip_invoiceReminders" v="有効にすると、未払い請求書について5分ごとにリマインダー通知が表示されます。" />
-        <e k="invoice_notification_vat_incl" v="%s %s 込み" />
-        <e k="invoice_notification_vat_excl" v="%s %s 抜き" />
+        <e k="invoice_notification_vat_incl" v="%s : %s 込み" />
+        <e k="invoice_notification_vat_excl" v="%s : %s 抜き" />
         <e k="invoice_notification_penalty_incl" v="%s の延滞金を含む" />
         <e k="invoice_status_overdue" v="延滞" />
         <e k="invoice_label_total_due" v="支払総額：" />

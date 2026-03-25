@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="När aktiverat inkluderar fakturor moms. Kunden betalar bruttobeloppet (inkl. skatt), leverantören erhåller nettobeloppet (exkl. skatt). När inaktiverat sätts momsen till 0% och båda parter utbyter samma belopp." />
         <e k="invoice_setting_invoiceReminders" v="Betalningspåminnelser" />
         <e k="invoice_toolTip_invoiceReminders" v="När aktiverat visas en påminnelse var 5:e minut för obetalda fakturor." />
-        <e k="invoice_notification_vat_incl" v="inkl. %s %s" />
-        <e k="invoice_notification_vat_excl" v="exkl. %s %s" />
+        <e k="invoice_notification_vat_incl" v="inkl. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="exkl. %s : %s" />
         <e k="invoice_notification_penalty_incl" v="inkl. %s avgift" />
         <e k="invoice_status_overdue" v="Förfallen" />
         <e k="invoice_label_total_due" v="Att betala:" />

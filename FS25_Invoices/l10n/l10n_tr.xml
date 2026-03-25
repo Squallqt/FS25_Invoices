@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Etkinleştirildiğinde faturalar KDV içerir. Müşteri brüt tutarı (vergi dahil) öder, sağlayıcı net tutarı (vergi hariç) alır. Devre dışı bırakıldığında KDV 0% olarak ayarlanır ve her iki taraf aynı tutarı değiştirir." />
         <e k="invoice_setting_invoiceReminders" v="Ödeme hatırlatıcıları" />
         <e k="invoice_toolTip_invoiceReminders" v="Etkinleştirildiğinde, ödenmemiş faturalar için her 5 dakikada bir hatırlatma bildirimi gösterilir." />
-        <e k="invoice_notification_vat_incl" v="dahil %s %s" />
-        <e k="invoice_notification_vat_excl" v="hariç %s %s" />
+        <e k="invoice_notification_vat_incl" v="dahil %s : %s" />
+        <e k="invoice_notification_vat_excl" v="hariç %s : %s" />
         <e k="invoice_notification_penalty_incl" v="%s ceza dahil" />
         <e k="invoice_status_overdue" v="Gecikmiş" />
         <e k="invoice_label_total_due" v="Ödenecek toplam:" />

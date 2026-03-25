@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Коли увімкнено, рахунки включають ПДВ. Клієнт сплачує повну суму (з податком), постачальник отримує чисту суму (без податку). Коли вимкнено, ПДВ встановлюється на 0% і обидві сторони обмінюються однаковою сумою." />
         <e k="invoice_setting_invoiceReminders" v="Нагадування про оплату" />
         <e k="invoice_toolTip_invoiceReminders" v="Коли увімкнено, нагадування відображається кожні 5 хвилин для неоплачених рахунків." />
-        <e k="invoice_notification_vat_incl" v="в т.ч. %s %s" />
-        <e k="invoice_notification_vat_excl" v="без %s %s" />
+        <e k="invoice_notification_vat_incl" v="в т.ч. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="без %s : %s" />
         <e k="invoice_notification_penalty_incl" v="вкл. %s штрафу" />
         <e k="invoice_status_overdue" v="Прострочений" />
         <e k="invoice_label_total_due" v="До сплати:" />

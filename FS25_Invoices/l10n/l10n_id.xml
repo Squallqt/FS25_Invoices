@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Jika diaktifkan, faktur menyertakan PPN. Klien membayar jumlah bruto (termasuk pajak), penyedia menerima jumlah bersih (tidak termasuk pajak). Jika dinonaktifkan, PPN diatur ke 0% dan kedua pihak menukarkan jumlah yang sama." />
         <e k="invoice_setting_invoiceReminders" v="Pengingat pembayaran" />
         <e k="invoice_toolTip_invoiceReminders" v="Jika diaktifkan, notifikasi pengingat ditampilkan setiap 5 menit untuk faktur yang belum dibayar." />
-        <e k="invoice_notification_vat_incl" v="termasuk %s %s" />
-        <e k="invoice_notification_vat_excl" v="tidak termasuk %s %s" />
+        <e k="invoice_notification_vat_incl" v="termasuk %s : %s" />
+        <e k="invoice_notification_vat_excl" v="tidak termasuk %s : %s" />
         <e k="invoice_notification_penalty_incl" v="termasuk %s denda" />
         <e k="invoice_status_overdue" v="Terlambat" />
         <e k="invoice_label_total_due" v="Total tagihan:" />

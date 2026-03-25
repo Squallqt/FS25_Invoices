@@ -150,8 +150,8 @@
         <e k="invoice_toolTip_invoiceVatSimulated" v="Când este activat, facturile includ TVA. Clientul plătește suma brută (cu taxă), furnizorul primește suma netă (fără taxă). Când este dezactivat, TVA este setat la 0% și ambele părți schimbă aceeași sumă." />
         <e k="invoice_setting_invoiceReminders" v="Memento de plată" />
         <e k="invoice_toolTip_invoiceReminders" v="Când este activat, o notificare de memento este afișată la fiecare 5 minute pentru facturile neplătite." />
-        <e k="invoice_notification_vat_incl" v="cu %s %s" />
-        <e k="invoice_notification_vat_excl" v="fără %s %s" />
+        <e k="invoice_notification_vat_incl" v="cu %s : %s" />
+        <e k="invoice_notification_vat_excl" v="fără %s : %s" />
         <e k="invoice_notification_penalty_incl" v="incl. %s penalizare" />
         <e k="invoice_status_overdue" v="Restantă" />
         <e k="invoice_label_total_due" v="Total de plată:" />
