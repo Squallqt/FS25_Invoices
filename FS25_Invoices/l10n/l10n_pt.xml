@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Corte de Árvores" />
         <e k="invoice_work_treeRemoval" v="Transporte de Madeira" />
         <e k="invoice_work_goods" v="Fornecimentos" />
+        <e k="invoice_work_products" v="Produtos" />
         <e k="invoice_work_miscellaneous" v="Diversos" />
         <e k="invoice_step4_col_vat" v="IVA %" />
         <e k="invoice_label_subtotal_ht" v="Subtotal s/ imposto" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Lembretes de pagamento" />
         <e k="invoice_toolTip_invoiceReminders" v="Quando ativado, uma notificação de lembrete é exibida a cada 5 minutos para faturas não pagas." />
         <e k="invoice_notification_vat_incl" v="com %s : %s" />
-        <e k="invoice_notification_vat_excl" v="sem %s : %s" />
+        <e k="invoice_notification_vat_excl" v="dos quais %s deduzido : %s" />
         <e k="invoice_notification_penalty_incl" v="incl. %s de multa" />
         <e k="invoice_status_overdue" v="Em atraso" />
         <e k="invoice_label_total_due" v="Total devido:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Ativa penalizações por atraso em faturas não pagas. Após 1 mês de vencimento, uma taxa fixa de 5% ao mês é aplicada automaticamente. Limitadas a 25% do valor total." />
         <e k="invoice_notification_overdue" v="Fatura %s vencida: %s" />
         <e k="invoice_notification_overdue_warning" v="Serão aplicadas penalizações por atraso." />
+        <e k="invoice_dialog_selectFillType" v="Selecionar produto" />
+        <e k="invoice_col_filltype_name" v="Produto" />
+        <e k="invoice_col_filltype_price" v="Preço / 1000 L" />
     </elements>
 </l10n>

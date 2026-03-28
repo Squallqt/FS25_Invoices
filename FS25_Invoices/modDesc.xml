@@ -53,9 +53,9 @@ Access via the dedicated tab in the InGame Menu (ESC).
 Changelog:
 
 1.1.0.0:
-- Add VAT system with configurable rate per line item
-- Add simulated VAT option (can be disabled in Game Settings)
-- Add option to disable payment reminders (Game Settings)
+- Add product selection on the Goods line item with auto-price from in-game market
+- Add VAT system (rate per line item, simulated VAT option can be disabled in Game Settings)
+- Add option to disable payment reminders (can be disabled in Game Settings)
 - Add late fees on unpaid invoices (can be disabled in Game Settings)
 - Add separated Income and Expense in Finance tab
 - Rebalance all prices to match game contract economy
@@ -86,9 +86,9 @@ Accès via l'onglet dédié dans le menu en jeu (ECHAP).
 Changelog :
 
 1.1.0.0 :
-- Ajout du système de TVA avec taux modifiable par ligne
-- Ajout de l'option TVA simulée (désactivable dans les Paramètres du jeu)
-- Ajout de l'option pour désactiver les rappels de paiement (Paramètres du jeu)
+- Ajout de la sélection de produit sur la ligne Fournitures (prix automatique depuis le marché)
+- Ajout du système de TVA (taux par ligne, option simulée désactivable dans les Paramètres du jeu)
+- Ajout de l'option pour désactiver les rappels de paiement (désactivable dans les Paramètres du jeu)
 - Ajout des pénalités de retard sur les factures impayées (désactivable dans les Paramètres du jeu)
 - Ajout des lignes Recettes et Dépenses dans l'onglet Finance
 - Rééquilibrage de tous les prix pour correspondre à l'économie du jeu
@@ -119,9 +119,9 @@ Zugriff über den eigenen Tab im InGame-Menü (ESC).
 Changelog:
 
 1.1.0.0:
-- MwSt-System mit konfigurierbarem Steuersatz pro Zeile
-- Simulierte MwSt-Option (deaktivierbar in den Spieleinstellungen)
-- Option zum Deaktivieren der Zahlungserinnerungen (Spieleinstellungen)
+- Produktauswahl für Waren-Positionen mit automatischem Spielmarktpreis
+- MwSt-System (Steuersatz pro Zeile, simulierte MwSt deaktivierbar in den Spieleinstellungen)
+- Option zum Deaktivieren der Zahlungserinnerungen (deaktivierbar in den Spieleinstellungen)
 - Verzugsgebühren bei unbezahlten Rechnungen (deaktivierbar in den Spieleinstellungen)
 - Einnahmen und Ausgaben getrennt im Finanz-Tab
 - Alle Preise an die Spielvertragswirtschaft angepasst
@@ -136,9 +136,9 @@ Ideal para el estilo de juego de contratista agrícola. Factura a otras granjas 
 Changelog:
 
 1.1.0.0:
-- Sistema de IVA con tipo impositivo configurable por línea
-- Opción de IVA simulado (desactivable en los Ajustes del juego)
-- Opción para desactivar los recordatorios de pago (Ajustes del juego)
+- Selección de producto en líneas de Suministros con precio automático del mercado
+- Sistema de IVA (tipo por línea, IVA simulado desactivable en los Ajustes del juego)
+- Opción para desactivar los recordatorios de pago (desactivable en los Ajustes del juego)
 - Penalizaciones por retraso en facturas impagadas (desactivable en los Ajustes del juego)
 - Ingresos y Gastos separados en la pestaña de finanzas
 - Reequilibrio de todos los precios según la economía del juego
@@ -157,9 +157,9 @@ Ideale per il gameplay da contoterzista. Fattura altre aziende per i servizi svo
 Changelog:
 
 1.1.0.0:
-- Sistema IVA con aliquota configurabile per riga
-- Opzione IVA simulata (disattivabile nelle Impostazioni di gioco)
-- Opzione per disattivare i promemoria di pagamento (Impostazioni di gioco)
+- Selezione prodotto sulla voce Forniture con prezzo automatico dal mercato
+- Sistema IVA (aliquota per riga, IVA simulata disattivabile nelle Impostazioni di gioco)
+- Opzione per disattivare i promemoria di pagamento (disattivabile nelle Impostazioni di gioco)
 - Penali per ritardo sulle fatture non pagate (disattivabile nelle Impostazioni di gioco)
 - Ricavi e Spese separati nella scheda finanze
 - Ribilanciamento di tutti i prezzi secondo l'economia del gioco
@@ -178,9 +178,9 @@ Idealne do rozgrywki w stylu usług rolniczych. Wystawiaj faktury za wykonane pr
 Changelog:
 
 1.1.0.0:
-- System VAT z konfigurowalną stawką na wiersz
-- Opcja symulowanego VAT (możliwość wyłączenia w Ustawieniach gry)
-- Opcja wyłączenia przypomnień o płatności (Ustawienia gry)
+- Wybór produktu dla pozycji Materiały z automatyczną ceną z rynku gry
+- System VAT (stawka na wiersz, symulowany VAT można wyłączyć w Ustawieniach gry)
+- Opcja wyłączenia przypomnień o płatności (można wyłączyć w Ustawieniach gry)
 - Kary za opóźnienie na niezapłaconych fakturach (możliwość wyłączenia w Ustawieniach gry)
 - Przychody i Wydatki osobno w zakładce finanse
 - Zrównoważenie wszystkich cen do ekonomii gry
@@ -199,9 +199,9 @@ Dostęp przez dedykowaną kartę w menu gry (ESC).]]></pl>
 Changelog:
 
 1.1.0.0:
-- Система НДС с настраиваемой ставкой для каждой строки
-- Опция симулированного НДС (отключается в Настройках игры)
-- Опция отключения напоминаний об оплате (Настройки игры)
+- Добавлен выбор продукта для позиции Товары (цена автоматически из рынка игры)
+- Система НДС (ставка на строку, симулированный НДС отключается в Настройках игры)
+- Опция отключения напоминаний об оплате (отключается в Настройках игры)
 - Штрафы за просрочку на неоплаченных счетах (отключается в Настройках игры)
 - Разделение Доходов и Расходов во вкладке финансов
 - Перебалансировка всех цен под экономику игры

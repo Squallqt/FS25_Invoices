@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Ağaç Kesimi" />
         <e k="invoice_work_treeRemoval" v="Tomruk Taşıma" />
         <e k="invoice_work_goods" v="Malzemeler" />
+        <e k="invoice_work_products" v="Ürünler" />
         <e k="invoice_work_miscellaneous" v="Çeşitli" />
         <e k="invoice_step4_col_vat" v="KDV %" />
         <e k="invoice_label_subtotal_ht" v="Ara toplam KDV hariç" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Ödeme hatırlatıcıları" />
         <e k="invoice_toolTip_invoiceReminders" v="Etkinleştirildiğinde, ödenmemiş faturalar için her 5 dakikada bir hatırlatma bildirimi gösterilir." />
         <e k="invoice_notification_vat_incl" v="dahil %s : %s" />
-        <e k="invoice_notification_vat_excl" v="hariç %s : %s" />
+        <e k="invoice_notification_vat_excl" v="kesilen %s : %s" />
         <e k="invoice_notification_penalty_incl" v="%s ceza dahil" />
         <e k="invoice_status_overdue" v="Gecikmiş" />
         <e k="invoice_label_total_due" v="Ödenecek toplam:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Ödenmemiş faturalara gecikme cezası uygular. 1 aylık gecikmenin ardından, aylık %5 sabit oran otomatik olarak uygulanır. Toplam tutarın %25'i ile sınırlıdır." />
         <e k="invoice_notification_overdue" v="Fatura %s vadesi geçti: %s" />
         <e k="invoice_notification_overdue_warning" v="Gecikme cezası uygulanacaktır." />
+        <e k="invoice_dialog_selectFillType" v="Ürün seç" />
+        <e k="invoice_col_filltype_name" v="Ürün" />
+        <e k="invoice_col_filltype_price" v="Fiyat / 1000 L" />
     </elements>
 </l10n>

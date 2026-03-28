@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Fällen" />
         <e k="invoice_work_treeRemoval" v="Holzrücken" />
         <e k="invoice_work_goods" v="Verbrauchsgüter" />
+        <e k="invoice_work_products" v="Produkte" />
         <e k="invoice_work_miscellaneous" v="Sonstiges" />
         <e k="invoice_step4_col_vat" v="MwSt %" />
         <e k="invoice_label_subtotal_ht" v="Zwischensumme netto" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Zahlungserinnerungen" />
         <e k="invoice_toolTip_invoiceReminders" v="Wenn aktiviert, wird alle 5 Minuten eine Erinnerung für unbezahlte Rechnungen angezeigt." />
         <e k="invoice_notification_vat_incl" v="inkl. %s : %s" />
-        <e k="invoice_notification_vat_excl" v="exkl. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="davon %s abgezogen : %s" />
         <e k="invoice_notification_penalty_incl" v="inkl. %s Verzugsgebühr" />
         <e k="invoice_status_overdue" v="Überfällig" />
         <e k="invoice_label_total_due" v="Fälliger Betrag:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Aktiviert Verzugszinsen auf unbezahlte Rechnungen. Nach 1 Monat Überfälligkeit wird ein fester Satz von 5% pro Monat automatisch berechnet. Begrenzt auf 25% des Gesamtbetrags." />
         <e k="invoice_notification_overdue" v="Rechnung %s ist überfällig: %s" />
         <e k="invoice_notification_overdue_warning" v="Es werden Verzugszinsen berechnet." />
+        <e k="invoice_dialog_selectFillType" v="Produkt auswählen" />
+        <e k="invoice_col_filltype_name" v="Produkt" />
+        <e k="invoice_col_filltype_price" v="Preis / 1000 L" />
     </elements>
 </l10n>

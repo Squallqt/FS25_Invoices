@@ -144,9 +144,9 @@ function InvoicesWizardState:buildAllLineItems()
     local fields = self.selectedFields or {}
 
     for _, workType in ipairs(workTypes) do
-        local adjustedPrice = manager:getAdjustedPrice(workType.id)
+        local adjustedPrice = workType.customPrice or manager:getAdjustedPrice(workType.id)
         local unit = workType.unit
-        local displayName = g_i18n:getText(workType.nameKey)
+        local displayName = workType.displayOverride or g_i18n:getText(workType.nameKey)
         local unitKey = manager:getUnitKey(unit)
         local unitStr = g_i18n:getText(unitKey)
         local vatRate = 0

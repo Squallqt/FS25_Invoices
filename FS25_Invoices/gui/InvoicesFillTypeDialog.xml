@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!--
+    InvoicesFillTypeDialog.xml
+-->
+<GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
+    <GuiElement profile="newLayer" />
+    <Bitmap profile="dialogFullscreenBg"/>
+
+    <GuiElement profile="fs25_dialogBg" id="dialogElement" size="560px 780px">
+        <ThreePartBitmap profile="fs25_dialogBgMiddle"/>
+        <ThreePartBitmap profile="fs25_dialogBgTop"/>
+        <ThreePartBitmap profile="fs25_dialogBgBottom"/>
+
+        <GuiElement profile="fs25_dialogContentContainer">
+            <BoxLayout profile="ftdMainBox">
+
+                <!-- Title -->
+                <Text profile="ftdMainTitle" text="$l10n_invoice_dialog_selectFillType"/>
+                <GuiElement profile="ftdTitleSepWrapper">
+                    <ThreePartBitmap profile="ftdTitleSep"/>
+                </GuiElement>
+                <GuiElement profile="ftdTitleSpacer"/>
+
+                <!-- Column headers -->
+                <GuiElement profile="ftdHeaderRow">
+                    <Text profile="ftdColName" text="$l10n_invoice_col_filltype_name"/>
+                    <Text profile="ftdColPrice" text="$l10n_invoice_col_filltype_price"/>
+                </GuiElement>
+                <Bitmap profile="ftdSepHeaders"/>
+
+                <!-- List + slider -->
+                <GuiElement profile="ftdListWrapper">
+                    <SmoothList profile="ftdList" id="listFillTypes">
+                        <ListItem profile="dashSelectListItem" name="fillTypeTemplate">
+                            <Text profile="ftdCellName" name="cellName"/>
+                            <Text profile="ftdCellPrice" name="cellPrice"/>
+                        </ListItem>
+                    </SmoothList>
+                    <ThreePartBitmap profile="dashSliderBox" position="504px 0px" size="6px 600px">
+                        <Slider profile="fs25_listSlider" dataElementId="listFillTypes"/>
+                    </ThreePartBitmap>
+                </GuiElement>
+
+            </BoxLayout>
+        </GuiElement>
+
+        <!-- Button bar -->
+        <BoxLayout profile="fs25_dialogButtonBox" size="520px 60px">
+            <Button profile="dashBtnCancel" text="$l10n_invoice_btn_cancel" onClick="onClickBack"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="dashBtnAdd" id="btnSelect" text="$l10n_invoice_btn_select" onClick="onClickSelect" disabled="true"/>
+        </BoxLayout>
+
+    </GuiElement>
+
+    <GUIProfiles>
+
+        <Profile name="ftdMainBox" extends="emptyPanel" with="anchorTopCenter">
+            <size value="520px 700px"/>
+            <flowDirection value="vertical"/>
+            <alignmentX value="left"/>
+            <alignmentY value="top"/>
+            <elementSpacing value="0px"/>
+        </Profile>
+
+        <Profile name="ftdMainTitle" extends="baseReference">
+            <size value="520px 40px"/>
+            <textSize value="18px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_fs25_colorMainLight"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <Profile name="ftdTitleSepWrapper" extends="emptyPanel">
+            <size value="520px 1px"/>
+        </Profile>
+
+        <Profile name="ftdTitleSpacer" extends="emptyPanel">
+            <size value="520px 16px"/>
+        </Profile>
+
+        <Profile name="ftdTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
+            <size value="160px 1px"/>
+        </Profile>
+
+        <Profile name="ftdHeaderRow" extends="emptyPanel">
+            <size value="520px 24px"/>
+        </Profile>
+
+        <Profile name="ftdColName" extends="baseReference" with="anchorTopLeft">
+            <position value="10px 0px"/>
+            <size value="330px 24px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <Profile name="ftdColPrice" extends="baseReference" with="anchorTopLeft">
+            <position value="350px 0px"/>
+            <size value="160px 24px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <Profile name="ftdSepHeaders" extends="baseReference">
+            <size value="520px 1px"/>
+            <imageColor value="$preset_fs25_colorMainHighlight"/>
+        </Profile>
+
+        <Profile name="ftdListWrapper" extends="emptyPanel">
+            <size value="520px 618px"/>
+        </Profile>
+
+        <Profile name="ftdList" extends="emptyPanel">
+            <size value="504px 618px"/>
+            <position value="0px 0px"/>
+        </Profile>
+
+        <Profile name="ftdCellName" extends="baseReference" with="anchorStretchingYLeft">
+            <position value="10px 0px"/>
+            <size value="330px 28px"/>
+            <textSize value="13px"/>
+            <textColor value="1 1 1 1"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <Profile name="ftdCellPrice" extends="baseReference" with="anchorStretchingYLeft">
+            <position value="350px 0px"/>
+            <size value="160px 28px"/>
+            <textSize value="13px"/>
+            <textColor value="$preset_fs25_colorMainHighlight"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+    </GUIProfiles>
+</GUI>

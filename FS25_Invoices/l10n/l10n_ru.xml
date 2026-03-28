@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Валка деревьев" />
         <e k="invoice_work_treeRemoval" v="Трелевка" />
         <e k="invoice_work_goods" v="Расходники" />
+        <e k="invoice_work_products" v="Продукты" />
         <e k="invoice_work_miscellaneous" v="Разное" />
         <e k="invoice_step4_col_vat" v="НДС %" />
         <e k="invoice_label_subtotal_ht" v="Итого без НДС" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Напоминания об оплате" />
         <e k="invoice_toolTip_invoiceReminders" v="При включении каждые 5 минут отображается напоминание о неоплаченных счетах." />
         <e k="invoice_notification_vat_incl" v="в т.ч. %s : %s" />
-        <e k="invoice_notification_vat_excl" v="без %s : %s" />
+        <e k="invoice_notification_vat_excl" v="из которых %s вычтено : %s" />
         <e k="invoice_notification_penalty_incl" v="вкл. %s штрафа" />
         <e k="invoice_status_overdue" v="Просрочен" />
         <e k="invoice_label_total_due" v="Итого к оплате:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Включает пени за просрочку неоплаченных счетов. После 1 месяца просрочки автоматически начисляется фиксированная ставка 5% в месяц. Максимум — 25% от общей суммы счёта." />
         <e k="invoice_notification_overdue" v="Счёт %s просрочен: %s" />
         <e k="invoice_notification_overdue_warning" v="Будут начислены пени за просрочку." />
+        <e k="invoice_dialog_selectFillType" v="Выбрать продукт" />
+        <e k="invoice_col_filltype_name" v="Продукт" />
+        <e k="invoice_col_filltype_price" v="Цена / 1000 л" />
     </elements>
 </l10n>

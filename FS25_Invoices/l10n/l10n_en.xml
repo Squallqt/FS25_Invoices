@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Tree Cutting" />
         <e k="invoice_work_treeRemoval" v="Log Transport" />
         <e k="invoice_work_goods" v="Supplies" />
+        <e k="invoice_work_products" v="Products" />
         <e k="invoice_work_miscellaneous" v="Miscellaneous" />
         <e k="invoice_step4_col_vat" v="VAT %" />
         <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Payment Reminders" />
         <e k="invoice_toolTip_invoiceReminders" v="When enabled, a reminder notification is shown every 5 minutes for unpaid invoices." />
         <e k="invoice_notification_vat_incl" v="incl. %s : %s" />
-        <e k="invoice_notification_vat_excl" v="excl. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="of which %s deducted : %s" />
         <e k="invoice_notification_penalty_incl" v="incl. %s penalty" />
         <e k="invoice_status_overdue" v="Overdue" />
         <e k="invoice_label_total_due" v="Total Due:" />
@@ -162,5 +163,8 @@
         <e k="invoice_notification_overdue" v="Invoice %s is overdue: %s" />
         <e k="invoice_notification_overdue_warning" v="Late penalties will be applied." />
         <e k="invoice_dash_no_fields" v="No field selection required" />
+        <e k="invoice_dialog_selectFillType" v="Select product" />
+        <e k="invoice_col_filltype_name" v="Product" />
+        <e k="invoice_col_filltype_price" v="Price / 1000 L" />
     </elements>
 </l10n>

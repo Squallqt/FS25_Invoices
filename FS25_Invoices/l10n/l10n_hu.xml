@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Fakitermelés" />
         <e k="invoice_work_treeRemoval" v="Rönkszállítás" />
         <e k="invoice_work_goods" v="Készletek" />
+        <e k="invoice_work_products" v="Termékek" />
         <e k="invoice_work_miscellaneous" v="Egyéb" />
         <e k="invoice_step4_col_vat" v="ÁFA %" />
         <e k="invoice_label_subtotal_ht" v="Részösszeg ÁFA nélkül" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Fizetési emlékeztetők" />
         <e k="invoice_toolTip_invoiceReminders" v="Ha engedélyezve van, 5 percenként emlékeztető értesítés jelenik meg a kifizetetlen számlákról." />
         <e k="invoice_notification_vat_incl" v="ebből %s : %s" />
-        <e k="invoice_notification_vat_excl" v="nélkül %s : %s" />
+        <e k="invoice_notification_vat_excl" v="ebből %s levonva : %s" />
         <e k="invoice_notification_penalty_incl" v="%s bírságot tartalmaz" />
         <e k="invoice_status_overdue" v="Lejárt" />
         <e k="invoice_label_total_due" v="Fizetendő összeg:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Engedélyezi a késedelmi pótlékot a kifizetetlen számlákon. 1 hónap lejárat után automatikusan havi 5%-os fix pótlék kerül alkalmazásra. Maximum a teljes összeg 25%-a." />
         <e k="invoice_notification_overdue" v="A(z) %s számla lejárt: %s" />
         <e k="invoice_notification_overdue_warning" v="Késedelmi pótlék kerül felszámításra." />
+        <e k="invoice_dialog_selectFillType" v="Termék kiválasztása" />
+        <e k="invoice_col_filltype_name" v="Termék" />
+        <e k="invoice_col_filltype_price" v="Ár / 1000 L" />
     </elements>
 </l10n>

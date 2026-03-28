@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Bomen kappen" />
         <e k="invoice_work_treeRemoval" v="Houttransport" />
         <e k="invoice_work_goods" v="Goederen" />
+        <e k="invoice_work_products" v="Producten" />
         <e k="invoice_work_miscellaneous" v="Diversen" />
         <e k="invoice_step4_col_vat" v="BTW %" />
         <e k="invoice_label_subtotal_ht" v="Subtotaal excl. BTW" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Betalingsherinneringen" />
         <e k="invoice_toolTip_invoiceReminders" v="Indien ingeschakeld, wordt elke 5 minuten een herinneringsmelding getoond voor onbetaalde facturen." />
         <e k="invoice_notification_vat_incl" v="incl. %s : %s" />
-        <e k="invoice_notification_vat_excl" v="excl. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="waarvan %s afgetrokken : %s" />
         <e k="invoice_notification_penalty_incl" v="incl. %s boete" />
         <e k="invoice_status_overdue" v="Achterstallig" />
         <e k="invoice_label_total_due" v="Verschuldigd bedrag:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Schakelt boetes in voor onbetaalde facturen. Na 1 maand achterstand wordt automatisch een vast tarief van 5% per maand toegepast. Begrensd op 25% van het totaalbedrag." />
         <e k="invoice_notification_overdue" v="Factuur %s is achterstallig: %s" />
         <e k="invoice_notification_overdue_warning" v="Er worden boetes voor te laat betalen berekend." />
+        <e k="invoice_dialog_selectFillType" v="Product selecteren" />
+        <e k="invoice_col_filltype_name" v="Product" />
+        <e k="invoice_col_filltype_price" v="Prijs / 1000 L" />
     </elements>
 </l10n>

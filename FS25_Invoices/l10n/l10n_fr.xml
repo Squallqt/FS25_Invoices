@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Abattage" />
         <e k="invoice_work_treeRemoval" v="Débardage" />
         <e k="invoice_work_goods" v="Fournitures" />
+        <e k="invoice_work_products" v="Produits" />
         <e k="invoice_work_miscellaneous" v="Frais divers" />
         <e k="invoice_step4_col_vat" v="TVA %" />
         <e k="invoice_label_subtotal_ht" v="Sous-total HT" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Rappels de paiement" />
         <e k="invoice_toolTip_invoiceReminders" v="Lorsque activé, une notification de rappel est affichée toutes les 5 minutes pour les factures impayées." />
         <e k="invoice_notification_vat_incl" v="dont %s : %s" />
-        <e k="invoice_notification_vat_excl" v="hors %s : %s" />
+        <e k="invoice_notification_vat_excl" v="dont %s déduite : %s" />
         <e k="invoice_notification_penalty_incl" v="incl. %s de pénalité" />
         <e k="invoice_status_overdue" v="En retard" />
         <e k="invoice_label_total_due" v="Total dû :" />
@@ -162,5 +163,8 @@
         <e k="invoice_notification_overdue" v="Facture %s en retard : %s" />
         <e k="invoice_notification_overdue_warning" v="Des pénalités de retard seront appliquées." />
         <e k="invoice_dash_no_fields" v="Aucune parcelle requise" />
+        <e k="invoice_dialog_selectFillType" v="Choix du produit" />
+        <e k="invoice_col_filltype_name" v="Produit" />
+        <e k="invoice_col_filltype_price" v="Prix / 1000 L" />
     </elements>
 </l10n>

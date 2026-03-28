@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Tăiere copaci" />
         <e k="invoice_work_treeRemoval" v="Transport Bușteni" />
         <e k="invoice_work_goods" v="Provizii" />
+        <e k="invoice_work_products" v="Produse" />
         <e k="invoice_work_miscellaneous" v="Diverse" />
         <e k="invoice_step4_col_vat" v="TVA %" />
         <e k="invoice_label_subtotal_ht" v="Subtotal fără TVA" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Memento de plată" />
         <e k="invoice_toolTip_invoiceReminders" v="Când este activat, o notificare de memento este afișată la fiecare 5 minute pentru facturile neplătite." />
         <e k="invoice_notification_vat_incl" v="cu %s : %s" />
-        <e k="invoice_notification_vat_excl" v="fără %s : %s" />
+        <e k="invoice_notification_vat_excl" v="din care %s dedus : %s" />
         <e k="invoice_notification_penalty_incl" v="incl. %s penalizare" />
         <e k="invoice_status_overdue" v="Restantă" />
         <e k="invoice_label_total_due" v="Total de plată:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Activează penalitățile de întârziere pe facturile neplătite. După 1 lună de restanță, se aplică automat o rată fixă de 5% pe lună. Limitate la 25% din suma totală." />
         <e k="invoice_notification_overdue" v="Factura %s este restantă: %s" />
         <e k="invoice_notification_overdue_warning" v="Se vor aplica penalități de întârziere." />
+        <e k="invoice_dialog_selectFillType" v="Selectați produsul" />
+        <e k="invoice_col_filltype_name" v="Produs" />
+        <e k="invoice_col_filltype_price" v="Preț / 1000 L" />
     </elements>
 </l10n>

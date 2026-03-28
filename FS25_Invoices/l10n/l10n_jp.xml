@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="伐採" />
         <e k="invoice_work_treeRemoval" v="木材搬出" />
         <e k="invoice_work_goods" v="消耗品" />
+        <e k="invoice_work_products" v="製品" />
         <e k="invoice_work_miscellaneous" v="その他" />
         <e k="invoice_step4_col_vat" v="消費税 %" />
         <e k="invoice_label_subtotal_ht" v="税抜小計" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="支払いリマインダー" />
         <e k="invoice_toolTip_invoiceReminders" v="有効にすると、未払い請求書について5分ごとにリマインダー通知が表示されます。" />
         <e k="invoice_notification_vat_incl" v="%s : %s 込み" />
-        <e k="invoice_notification_vat_excl" v="%s : %s 抜き" />
+        <e k="invoice_notification_vat_excl" v="うち%s控除 : %s" />
         <e k="invoice_notification_penalty_incl" v="%s の延滞金を含む" />
         <e k="invoice_status_overdue" v="延滞" />
         <e k="invoice_label_total_due" v="支払総額：" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="未払い請求書に対する延滞金を有効にします。1ヶ月の延滞後、月5%の固定料率が自動的に適用されます。合計金額の25%が上限です。" />
         <e k="invoice_notification_overdue" v="請求書 %s が期限超過です: %s" />
         <e k="invoice_notification_overdue_warning" v="延滞金が適用されます。" />
+        <e k="invoice_dialog_selectFillType" v="製品を選択" />
+        <e k="invoice_col_filltype_name" v="製品" />
+        <e k="invoice_col_filltype_price" v="価格 / 1000 L" />
     </elements>
 </l10n>

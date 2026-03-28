@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Penebangan Pohon" />
         <e k="invoice_work_treeRemoval" v="Pengangkutan Kayu" />
         <e k="invoice_work_goods" v="Barang" />
+        <e k="invoice_work_products" v="Produk" />
         <e k="invoice_work_miscellaneous" v="Lain-lain" />
         <e k="invoice_step4_col_vat" v="PPN %" />
         <e k="invoice_label_subtotal_ht" v="Subtotal tanpa PPN" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Pengingat pembayaran" />
         <e k="invoice_toolTip_invoiceReminders" v="Jika diaktifkan, notifikasi pengingat ditampilkan setiap 5 menit untuk faktur yang belum dibayar." />
         <e k="invoice_notification_vat_incl" v="termasuk %s : %s" />
-        <e k="invoice_notification_vat_excl" v="tidak termasuk %s : %s" />
+        <e k="invoice_notification_vat_excl" v="dikurangi %s : %s" />
         <e k="invoice_notification_penalty_incl" v="termasuk %s denda" />
         <e k="invoice_status_overdue" v="Terlambat" />
         <e k="invoice_label_total_due" v="Total tagihan:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Mengaktifkan denda keterlambatan pada faktur yang belum dibayar. Setelah 1 bulan lewat jatuh tempo, tarif tetap 5% per bulan diterapkan secara otomatis. Dibatasi hingga 25% dari jumlah total." />
         <e k="invoice_notification_overdue" v="Faktur %s lewat jatuh tempo: %s" />
         <e k="invoice_notification_overdue_warning" v="Denda keterlambatan akan dikenakan." />
+        <e k="invoice_dialog_selectFillType" v="Pilih produk" />
+        <e k="invoice_col_filltype_name" v="Produk" />
+        <e k="invoice_col_filltype_price" v="Harga / 1000 L" />
     </elements>
 </l10n>

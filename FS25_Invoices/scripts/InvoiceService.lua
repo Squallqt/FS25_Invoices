@@ -66,6 +66,7 @@ InvoiceService.WORK_TYPES = {
     {id = 52, nameKey = "invoice_work_treeRemoval",         basePrice = 300,  unit = Invoice.UNIT_PIECE},
     {id = 53, nameKey = "invoice_work_goods",               basePrice = 0.5,  unit = Invoice.UNIT_LITER},
     {id = 54, nameKey = "invoice_work_miscellaneous",       basePrice = 100,  unit = Invoice.UNIT_PIECE},
+    {id = 55, nameKey = "invoice_work_products",            basePrice = 0,    unit = Invoice.UNIT_LITER, fillTypeDialog = true},
 }
 
 InvoiceService.REMINDER_INTERVAL = 300000
@@ -89,7 +90,6 @@ function InvoiceService.new(repository)
 
     self.penaltyTimer = 0
     self.lastPenaltyDay = -1
-    self.overrideClearTimer = nil
 
     return self
 end
@@ -177,11 +177,13 @@ function InvoiceService:processPenalties()
     local daysPerPeriod = math.max(1, self:getDaysPerPeriod())
 
     -- Only process on the last day of a period
-    local dayInPeriod = 0
-    if env.getDayInPeriodFromDay then
-        dayInPeriod = env:getDayInPeriodFromDay(currentDay)
+    if daysPerPeriod > 1 then
+        local dayInPeriod = 0
+        if env.getDayInPeriodFromDay then
+            dayInPeriod = env:getDayInPeriodFromDay(currentDay)
+        end
+        if dayInPeriod ~= daysPerPeriod then return end
     end
-    if dayInPeriod ~= daysPerPeriod then return end
 
     local monthlyRate = self:getPenaltyRate() / 100
     local maxRate = InvoiceService.PENALTY_CAP_PERCENT / 100
@@ -373,45 +375,19 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
             local creditAmount = (invoice.totalHT or invoice.totalAmount) + penaltyAmount
             local vatAmount = invoice.vatAmount or 0
 
-            -- Strip "(Dépense)"/"(Recette)" — the +/- already indicates direction
-            local baseText = string.gsub(g_i18n:getText("invoice_moneyType_expense"), "%s*%(.*%)%s*$", "")
+            local localPlayer = g_localPlayer
+            local localIsRecipient = localPlayer ~= nil and localPlayer.farmId == invoice.recipientFarmId
+            local localIsSender = localPlayer ~= nil and localPlayer.farmId == invoice.senderFarmId
 
-            if vatAmount > 0 or penaltyAmount > 0 then
-                local details = {}
-                if vatAmount > 0 then
-                    local vatStr = g_i18n:formatMoney(vatAmount, 0, true, false)
-                    local vatLabel = g_i18n:getText("invoice_label_vat")
-                    table.insert(details, string.format(g_i18n:getText("invoice_notification_vat_incl"), vatLabel, vatStr))
-                end
-                if penaltyAmount > 0 then
-                    local penStr = g_i18n:formatMoney(penaltyAmount, 0, true, false)
-                    table.insert(details, string.format(g_i18n:getText("invoice_notification_penalty_incl"), penStr))
-                end
-                local inclSummary = table.concat(details, ", ")
-                Invoices.i18nOverrides["invoice_moneyType_expense"] = baseText .. ", " .. inclSummary
-
-                local exclDetails = {}
-                if vatAmount > 0 then
-                    local vatStr = g_i18n:formatMoney(vatAmount, 0, true, false)
-                    local vatLabel = g_i18n:getText("invoice_label_vat")
-                    table.insert(exclDetails, string.format(g_i18n:getText("invoice_notification_vat_excl"), vatLabel, vatStr))
-                end
-                if penaltyAmount > 0 then
-                    local penStr = g_i18n:formatMoney(penaltyAmount, 0, true, false)
-                    table.insert(exclDetails, string.format(g_i18n:getText("invoice_notification_penalty_incl"), penStr))
-                end
-                Invoices.i18nOverrides["invoice_moneyType_income"] = baseText .. ", " .. table.concat(exclDetails, ", ")
-            else
-                Invoices.i18nOverrides["invoice_moneyType_expense"] = baseText
-                Invoices.i18nOverrides["invoice_moneyType_income"] = baseText
-            end
+            local recipientHudNotify = not (localIsRecipient and vatAmount > 0)
+            local senderHudNotify = not (localIsSender and vatAmount > 0)
 
             g_currentMission:addMoney(
                 -totalDue,
                 invoice.recipientFarmId,
                 MoneyType.INVOICE_EXPENSE,
                 true,
-                true
+                recipientHudNotify
             )
             Logging.devInfo("[InvoiceService] Client %s debited %d (TTC+penalty)", recipientFarm.name, totalDue)
 
@@ -420,11 +396,23 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
                 invoice.senderFarmId,
                 MoneyType.INVOICE_INCOME,
                 true,
-                true
+                senderHudNotify
             )
             Logging.devInfo("[InvoiceService] Provider %s credited %d (HT+penalty)", senderFarm.name, creditAmount)
 
-            self.overrideClearTimer = 500
+            if vatAmount > 0 and localPlayer ~= nil then
+                local vatStr = g_i18n:formatMoney(vatAmount, 0, true, false)
+                local vatLabel = g_i18n:getText("invoice_label_vat")
+                if localIsRecipient then
+                    local totalStr = g_i18n:formatMoney(totalDue, 0, true, false)
+                    local detail = string.format(g_i18n:getText("invoice_notification_vat_incl"), vatLabel, vatStr)
+                    g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_CRITICAL, "-" .. totalStr .. " " .. detail)
+                elseif localIsSender then
+                    local creditStr = g_i18n:formatMoney(creditAmount, 0, true, false)
+                    local detail = string.format(g_i18n:getText("invoice_notification_vat_excl"), vatLabel, vatStr)
+                    g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_INFO, "+" .. creditStr .. " " .. detail)
+                end
+            end
         else
             Logging.warning("[InvoiceService] executePayment: cannot transfer money for invoice %d (missing farm or zero amount)", invoiceId)
         end
@@ -594,16 +582,6 @@ function InvoiceService:update(dt)
             if not ok then
                 Logging.warning("[InvoiceService] processPenalties error: %s", tostring(err))
             end
-        end
-    end
-
-    -- Delayed clearing of i18n overrides (HUD resolves text on next frame)
-    if self.overrideClearTimer ~= nil then
-        self.overrideClearTimer = self.overrideClearTimer - dt
-        if self.overrideClearTimer <= 0 then
-            Invoices.i18nOverrides["invoice_moneyType_expense"] = nil
-            Invoices.i18nOverrides["invoice_moneyType_income"] = nil
-            self.overrideClearTimer = nil
         end
     end
 

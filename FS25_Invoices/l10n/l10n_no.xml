@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Hogst" />
         <e k="invoice_work_treeRemoval" v="Tømmertransport" />
         <e k="invoice_work_goods" v="Varer" />
+        <e k="invoice_work_products" v="Produkter" />
         <e k="invoice_work_miscellaneous" v="Diverse" />
         <e k="invoice_step4_col_vat" v="MVA %" />
         <e k="invoice_label_subtotal_ht" v="Delsum ekskl. MVA" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Betalingspåminnelser" />
         <e k="invoice_toolTip_invoiceReminders" v="Når aktivert, vises en påminnelsesmelding hvert 5. minutt for ubetalte fakturaer." />
         <e k="invoice_notification_vat_incl" v="inkl. %s : %s" />
-        <e k="invoice_notification_vat_excl" v="ekskl. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="hvorav %s fratrukket : %s" />
         <e k="invoice_notification_penalty_incl" v="inkl. %s gebyr" />
         <e k="invoice_status_overdue" v="Forfalt" />
         <e k="invoice_label_total_due" v="Skyldig beløp:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Aktiverer forsinkelsesrenter på ubetalte fakturaer. Etter 1 måneds forfall påløper automatisk en fast sats på 5% per måned. Begrenset til 25% av totalbeløpet." />
         <e k="invoice_notification_overdue" v="Faktura %s er forfalt: %s" />
         <e k="invoice_notification_overdue_warning" v="Det vil bli beregnet forsinkelsesrenter." />
+        <e k="invoice_dialog_selectFillType" v="Velg produkt" />
+        <e k="invoice_col_filltype_name" v="Produkt" />
+        <e k="invoice_col_filltype_price" v="Pris / 1000 L" />
     </elements>
 </l10n>

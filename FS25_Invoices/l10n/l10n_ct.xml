@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="伐木" />
         <e k="invoice_work_treeRemoval" v="木材運輸" />
         <e k="invoice_work_goods" v="物資" />
+        <e k="invoice_work_products" v="產品" />
         <e k="invoice_work_miscellaneous" v="雜項" />
         <e k="invoice_step4_col_vat" v="增值稅 %" />
         <e k="invoice_label_subtotal_ht" v="不含稅小計" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="付款提醒" />
         <e k="invoice_toolTip_invoiceReminders" v="啟用後，每5分鐘顯示一次未付發票的提醒通知。" />
         <e k="invoice_notification_vat_incl" v="含 %s : %s" />
-        <e k="invoice_notification_vat_excl" v="不含 %s : %s" />
+        <e k="invoice_notification_vat_excl" v="其中扣除 %s : %s" />
         <e k="invoice_notification_penalty_incl" v="含 %s 罰款" />
         <e k="invoice_status_overdue" v="逾期" />
         <e k="invoice_label_total_due" v="應付總額：" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Activa les penalitzacions per retard en factures impagades. Després d'1 mes de venciment, s'aplica automàticament una taxa fixa del 5% mensual. Limitades al 25% de l'import total." />
         <e k="invoice_notification_overdue" v="Factura %s vençuda: %s" />
         <e k="invoice_notification_overdue_warning" v="S'aplicaran penalitzacions per retard." />
+        <e k="invoice_dialog_selectFillType" v="選擇產品" />
+        <e k="invoice_col_filltype_name" v="產品" />
+        <e k="invoice_col_filltype_price" v="價格 / 1000升" />
     </elements>
 </l10n>

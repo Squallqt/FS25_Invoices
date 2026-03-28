@@ -22,6 +22,7 @@ source(modDirectory .. "gui/InvoicesFrame.lua")
 source(modDirectory .. "gui/InvoicesDetailDialog.lua")
 source(modDirectory .. "gui/InvoicesFieldDialog.lua")
 source(modDirectory .. "gui/InvoicesFarmDialog.lua")
+source(modDirectory .. "gui/InvoicesFillTypeDialog.lua")
 source(modDirectory .. "gui/InvoicesMainDashboard.lua")
 
 Invoices = {}
@@ -87,6 +88,10 @@ local function loadedMission()
     local farmDialog = InvoicesFarmDialog.new(frame)
     g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesFarmDialog.xml", "InvoicesFarmDialog", farmDialog)
     Logging.devInfo("[Invoices] InvoicesFarmDialog loaded")
+
+    local fillTypeDialog = InvoicesFillTypeDialog.new(frame)
+    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesFillTypeDialog.xml", "InvoicesFillTypeDialog", fillTypeDialog)
+    Logging.devInfo("[Invoices] InvoicesFillTypeDialog loaded")
     
     local dashboard = InvoicesMainDashboard.new(frame)
     g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesMainDashboard.xml", "InvoicesMainDashboard", dashboard)
@@ -239,6 +244,7 @@ local InvoicesI18NTexts = {
     ["invoice_toolTip_invoiceVatSimulated"] = true,
     ["invoice_setting_invoiceReminders"] = true,
     ["invoice_toolTip_invoiceReminders"] = true,
+    ["invoice_label_vat"] = true,
     ["invoice_notification_vat_incl"] = true,
     ["invoice_notification_vat_excl"] = true,
     ["invoice_notification_penalty_incl"] = true,

@@ -134,9 +134,12 @@ end
 
 function InvoiceSettings:saveToXMLFile()
     if g_currentMission == nil or not g_currentMission:getIsServer() then return end
+    if g_currentMission.missionInfo == nil then return end
 
-    local savegameDirectory = g_currentMission.missionInfo ~= nil and g_currentMission.missionInfo.savegameDirectory or nil
-    if savegameDirectory == nil then return end
+    local savegameDirectory = g_currentMission.missionInfo.savegameDirectory
+    if savegameDirectory == nil then
+        savegameDirectory = ('%ssavegame%d'):format(getUserProfileAppPath(), g_currentMission.missionInfo.savegameIndex)
+    end
 
     local filename = savegameDirectory .. "/invoiceSettings.xml"
     local key = "invoiceSettings"
@@ -154,9 +157,12 @@ end
 
 function InvoiceSettings:loadFromXMLFile()
     if g_currentMission == nil or not g_currentMission:getIsServer() then return end
+    if g_currentMission.missionInfo == nil then return end
 
-    local savegameDirectory = g_currentMission.missionInfo ~= nil and g_currentMission.missionInfo.savegameDirectory or nil
-    if savegameDirectory == nil then return end
+    local savegameDirectory = g_currentMission.missionInfo.savegameDirectory
+    if savegameDirectory == nil then
+        savegameDirectory = ('%ssavegame%d'):format(getUserProfileAppPath(), g_currentMission.missionInfo.savegameIndex)
+    end
 
     local filename = savegameDirectory .. "/invoiceSettings.xml"
     local key = "invoiceSettings"

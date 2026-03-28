@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Kácení" />
         <e k="invoice_work_treeRemoval" v="Svoz dřeva" />
         <e k="invoice_work_goods" v="Zásoby" />
+        <e k="invoice_work_products" v="Produkty" />
         <e k="invoice_work_miscellaneous" v="Různé" />
         <e k="invoice_step4_col_vat" v="DPH %" />
         <e k="invoice_label_subtotal_ht" v="Mezisoučet bez DPH" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Upomínky plateb" />
         <e k="invoice_toolTip_invoiceReminders" v="Pokud je povoleno, zobrazí se upomínka každých 5 minut pro nezaplacené faktury." />
         <e k="invoice_notification_vat_incl" v="vč. %s : %s" />
-        <e k="invoice_notification_vat_excl" v="bez %s : %s" />
+        <e k="invoice_notification_vat_excl" v="z toho %s odečteno : %s" />
         <e k="invoice_notification_penalty_incl" v="vč. %s penále" />
         <e k="invoice_status_overdue" v="Po splatnosti" />
         <e k="invoice_label_total_due" v="Celkem k úhradě:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Aktivuje penále za prodlení u nezaplacených faktur. Po 1 měsíci po splatnosti je automaticky účtována pevná sazba 5% měsíčně. Omezeno na 25% celkové částky." />
         <e k="invoice_notification_overdue" v="Faktura %s je po splatnosti: %s" />
         <e k="invoice_notification_overdue_warning" v="Budou účtovány penále za prodlení." />
+        <e k="invoice_dialog_selectFillType" v="Vybrat produkt" />
+        <e k="invoice_col_filltype_name" v="Produkt" />
+        <e k="invoice_col_filltype_price" v="Cena / 1000 L" />
     </elements>
 </l10n>

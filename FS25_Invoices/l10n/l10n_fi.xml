@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Hakkuu" />
         <e k="invoice_work_treeRemoval" v="Puunajo" />
         <e k="invoice_work_goods" v="Tarvikkeet" />
+        <e k="invoice_work_products" v="Tuotteet" />
         <e k="invoice_work_miscellaneous" v="Sekalainen" />
         <e k="invoice_step4_col_vat" v="ALV %" />
         <e k="invoice_label_subtotal_ht" v="Välisumma ilman ALV" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Maksumuistutukset" />
         <e k="invoice_toolTip_invoiceReminders" v="Kun käytössä, muistutus näytetään 5 minuutin välein maksamattomista laskuista." />
         <e k="invoice_notification_vat_incl" v="sis. %s : %s" />
-        <e k="invoice_notification_vat_excl" v="pois lukien %s : %s" />
+        <e k="invoice_notification_vat_excl" v="josta %s vähennetty : %s" />
         <e k="invoice_notification_penalty_incl" v="sis. %s sakkoa" />
         <e k="invoice_status_overdue" v="Myöhässä" />
         <e k="invoice_label_total_due" v="Maksettava yhteensä:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Ottaa käyttöön viivästyskoron maksamattomille laskuille. 1 kuukauden erääntymisen jälkeen sovelletaan automaattisesti kiinteää 5% kuukausikorkoa. Enintään 25% kokonaissummasta." />
         <e k="invoice_notification_overdue" v="Lasku %s on erääntynyt: %s" />
         <e k="invoice_notification_overdue_warning" v="Viivästyskorkoa tullaan perimään." />
+        <e k="invoice_dialog_selectFillType" v="Valitse tuote" />
+        <e k="invoice_col_filltype_name" v="Tuote" />
+        <e k="invoice_col_filltype_price" v="Hinta / 1000 L" />
     </elements>
 </l10n>

@@ -155,6 +155,25 @@
         <height value="670px"/>
     </Profile>
 
+    <!-- Shared dashboard profiles (used by InvoicesMainDashboard + InvoicesFillTypeDialog) -->
+
+    <Profile name="dashSelectListItem" extends="baseReference" with="anchorTopStretchingX alternating">
+        <height value="28px"/>
+        <imageColor value="$preset_fs25_colorGrey"/>
+        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+        <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
+    </Profile>
+
+    <Profile name="dashSliderBox" extends="fs25_listSliderBox" with="anchorTopLeft"/>
+
+    <Profile name="dashBtnAdd" extends="buttonOK">
+        <inputAction value="MENU_ACTIVATE"/>
+    </Profile>
+
+    <Profile name="dashBtnCancel" extends="buttonBack">
+        <inputAction value="MENU_BACK"/>
+    </Profile>
+
     <!-- Empty state text -->
     <Profile name="invEmptyStateText" extends="baseReference" with="anchorTopLeft">
         <size value="400px 40px"/>

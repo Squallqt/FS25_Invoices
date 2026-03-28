@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="나무 자르기" />
         <e k="invoice_work_treeRemoval" v="목재 운송" />
         <e k="invoice_work_goods" v="물품" />
+        <e k="invoice_work_products" v="제품" />
         <e k="invoice_work_miscellaneous" v="기타" />
         <e k="invoice_step4_col_vat" v="부가세 %" />
         <e k="invoice_label_subtotal_ht" v="세금 제외 소계" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="결제 알림" />
         <e k="invoice_toolTip_invoiceReminders" v="활성화하면 미결제 청구서에 대해 5분마다 알림이 표시됩니다." />
         <e k="invoice_notification_vat_incl" v="%s : %s 포함" />
-        <e k="invoice_notification_vat_excl" v="%s : %s 제외" />
+        <e k="invoice_notification_vat_excl" v="공제된 %s : %s" />
         <e k="invoice_notification_penalty_incl" v="%s 연체료 포함" />
         <e k="invoice_status_overdue" v="연체" />
         <e k="invoice_label_total_due" v="납부 총액:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="미결제 청구서에 연체 벌금을 활성화합니다. 1개월 연체 후 월 5%의 고정 요율이 자동으로 적용됩니다. 총액의 25%로 제한됩니다." />
         <e k="invoice_notification_overdue" v="청구서 %s 연체: %s" />
         <e k="invoice_notification_overdue_warning" v="연체 벌금이 부과됩니다." />
+        <e k="invoice_dialog_selectFillType" v="제품 선택" />
+        <e k="invoice_col_filltype_name" v="제품" />
+        <e k="invoice_col_filltype_price" v="가격 / 1000 L" />
     </elements>
 </l10n>

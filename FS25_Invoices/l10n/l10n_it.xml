@@ -134,6 +134,7 @@
         <e k="invoice_work_treeCutting" v="Abbattimento" />
         <e k="invoice_work_treeRemoval" v="Disboscamento" />
         <e k="invoice_work_goods" v="Forniture" />
+        <e k="invoice_work_products" v="Prodotti" />
         <e k="invoice_work_miscellaneous" v="Varie" />
         <e k="invoice_step4_col_vat" v="IVA %" />
         <e k="invoice_label_subtotal_ht" v="Subtotale esclusa IVA" />
@@ -151,7 +152,7 @@
         <e k="invoice_setting_invoiceReminders" v="Promemoria pagamento" />
         <e k="invoice_toolTip_invoiceReminders" v="Se attivato, viene mostrata una notifica di promemoria ogni 5 minuti per le fatture non pagate." />
         <e k="invoice_notification_vat_incl" v="incl. %s : %s" />
-        <e k="invoice_notification_vat_excl" v="escl. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="di cui %s dedotto : %s" />
         <e k="invoice_notification_penalty_incl" v="incl. %s di penale" />
         <e k="invoice_status_overdue" v="Scaduta" />
         <e k="invoice_label_total_due" v="Totale dovuto:" />
@@ -161,5 +162,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Attiva le penali per ritardo sulle fatture non pagate. Dopo 1 mese dalla scadenza, viene applicato automaticamente un tasso fisso del 5% al mese. Limitate al 25% dell'importo totale." />
         <e k="invoice_notification_overdue" v="Fattura %s scaduta: %s" />
         <e k="invoice_notification_overdue_warning" v="Verranno applicate penali per ritardo." />
+        <e k="invoice_dialog_selectFillType" v="Seleziona prodotto" />
+        <e k="invoice_col_filltype_name" v="Prodotto" />
+        <e k="invoice_col_filltype_price" v="Prezzo / 1000 L" />
     </elements>
 </l10n>
