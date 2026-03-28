@@ -579,6 +579,12 @@ function InvoicesMainDashboard:inputEvent(action, value, direction, isAnalog, is
     if action == InputAction.MENU_CANCEL and self._activeInput ~= nil then
         return true
     end
+    if action == InputAction.MENU_DELETE and self._activeInput == nil then
+        if self.btnRemove ~= nil and not self.btnRemove.disabled then
+            self:onClickRemove()
+            return true
+        end
+    end
     return InvoicesMainDashboard:superClass().inputEvent(self, action, value, direction, isAnalog, isMouse, deviceCategory, bindingName)
 end
 

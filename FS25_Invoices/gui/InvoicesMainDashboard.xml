@@ -159,11 +159,11 @@
             </BoxLayout>
         </GuiElement>
 
-        <!-- Button bar -->
+        <!-- Button bar: [Retirer][Ajouter][Envoyer][Annuler] -->
         <BoxLayout profile="fs25_dialogButtonBox" size="860px 60px">
-            <Button profile="dashBtnAdd" id="btnAdd" text="$l10n_invoice_btn_add" onClick="onClickAdd" disabled="true"/>
-            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
             <Button profile="dashBtnRemove" id="btnRemove" text="$l10n_invoice_btn_remove" onClick="onClickRemove" disabled="true"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="dashBtnAdd" id="btnAdd" text="$l10n_invoice_btn_add" onClick="onClickAdd" disabled="true"/>
             <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
             <Button profile="buttonOK" id="btnSend" text="$l10n_invoice_btn_sendInvoice" onClick="onClickSend" disabled="true"/>
             <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
@@ -669,7 +669,7 @@
         <!-- ==================== BUTTONS ==================== -->
 
         <Profile name="dashBtnRemove" extends="buttonOK">
-            <inputAction value="MENU_ACTIVATE"/>
+            <inputAction value="MENU_DELETE"/>
         </Profile>
 
     </GUIProfiles>
