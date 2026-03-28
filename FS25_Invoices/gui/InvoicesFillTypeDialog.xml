@@ -36,7 +36,7 @@
                             <Text profile="ftdCellPrice" name="cellPrice"/>
                         </ListItem>
                     </SmoothList>
-                    <ThreePartBitmap profile="dashSliderBox" position="504px 0px" size="6px 600px">
+                    <ThreePartBitmap profile="dashSliderBox" position="504px 0px" size="6px 618px">
                         <Slider profile="fs25_listSlider" dataElementId="listFillTypes"/>
                     </ThreePartBitmap>
                 </GuiElement>
@@ -44,11 +44,11 @@
             </BoxLayout>
         </GuiElement>
 
-        <!-- Button bar -->
-        <BoxLayout profile="fs25_dialogButtonBox" size="520px 60px">
-            <Button profile="dashBtnCancel" text="$l10n_invoice_btn_cancel" onClick="onClickBack"/>
+        <!-- Button bar: [Ajouter][Annuler] — Cancel last, consistent with dashboard order -->
+        <BoxLayout profile="fs25_dialogButtonBox">
+            <Button profile="dashBtnAdd" id="btnSelect" text="$l10n_invoice_btn_add" onClick="onClickSelect" disabled="true"/>
             <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
-            <Button profile="dashBtnAdd" id="btnSelect" text="$l10n_invoice_btn_select" onClick="onClickSelect" disabled="true"/>
+            <Button profile="dashBtnCancel" text="$l10n_invoice_btn_cancel" onClick="onClickBack"/>
         </BoxLayout>
 
     </GuiElement>
@@ -102,7 +102,7 @@
 
         <Profile name="ftdColPrice" extends="baseReference" with="anchorTopLeft">
             <position value="350px 0px"/>
-            <size value="160px 24px"/>
+            <size value="148px 24px"/>
             <textSize value="11px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -137,7 +137,7 @@
 
         <Profile name="ftdCellPrice" extends="baseReference" with="anchorStretchingYLeft">
             <position value="350px 0px"/>
-            <size value="160px 28px"/>
+            <size value="148px 28px"/>
             <textSize value="13px"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>

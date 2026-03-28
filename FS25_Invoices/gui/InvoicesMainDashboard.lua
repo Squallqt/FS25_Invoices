@@ -957,8 +957,11 @@ function InvoicesMainDashboard:populateLineItemCell(index, cell)
 
     local cellDesignation = cell:getDescendantByName("cellDesignation")
     if cellDesignation ~= nil then
-        local workType = manager and manager:getWorkTypeById(item.workTypeId) or nil
-        local name = workType and g_i18n:getText(workType.nameKey) or "?"
+        local name = item.name
+        if name == nil or name == "" then
+            local workType = manager and manager:getWorkTypeById(item.workTypeId) or nil
+            name = workType and g_i18n:getText(workType.nameKey) or "?"
+        end
         cellDesignation:setText(name)
     end
 
