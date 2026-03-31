@@ -15,14 +15,10 @@
         <e k="invoice_btn_payInvoice" v="Thanh toán" />
         <e k="invoice_btn_deleteInvoice" v="Xóa" />
         <e k="invoice_btn_showDetails" v="Chi tiết" />
-        <e k="invoice_btn_add" v="Thêm" />
-        <e k="invoice_btn_remove" v="Xóa bỏ" />
         <e k="invoice_btn_cancel" v="Hủy" />
         <e k="invoice_btn_close" v="Đóng" />
         <e k="invoice_btn_select" v="Chọn" />
         <e k="invoice_btn_selectFarm" v="Chọn khách" />
-        <e k="invoice_btn_next" v="Tiếp" />
-        <e k="invoice_btn_back" v="Quay lại" />
         <e k="invoice_label_from" v="Từ:" />
         <e k="invoice_label_to" v="Đến:" />
         <e k="invoice_label_note" v="Ghi chú:" />
@@ -31,22 +27,14 @@
         <e k="invoice_dialog_details" v="Chi tiết hóa đơn" />
         <e k="invoice_dialog_selectField" v="Chọn cánh đồng" />
         <e k="invoice_wizard_mainTitle" v="HÓA ĐƠN MỚI" />
-        <e k="invoice_wizard_step1_subtitle" v="KHÁCH HÀNG" />
         <e k="invoice_wizard_step1_label" v="Chọn trang trại khách:" />
-        <e k="invoice_wizard_step2_subtitle" v="DỊCH VỤ" />
         <e k="invoice_wizard_step2_label" v="Chọn loại công việc:" />
-        <e k="invoice_wizard_step3_subtitle" v="CÁNH ĐỒNG" />
         <e k="invoice_wizard_step3_label" v="Chọn các cánh đồng:" />
-        <e k="invoice_wizard_step4_subtitle" v="TÓM TẮT" />
         <e k="invoice_btn_sendInvoice" v="Gửi hóa đơn" />
-        <e k="invoice_wizard_no_items" v="Chưa chọn dịch vụ." />
-        <e k="invoice_error_select_work" v="Vui lòng chọn dịch vụ." />
         <e k="invoice_wizard_invoice_created" v="Đã tạo hóa đơn!" />
         <e k="invoice_wizard_invoice_failed" v="Lỗi khi tạo." />
         <e k="invoice_wizard_client_fields" v="Trường khách hàng" />
         <e k="invoice_wizard_other_fields" v="Trường khác" />
-        <e k="invoice_wizard_selection_summary" v="Dịch vụ:" />
-        <e k="invoice_wizard_field_selection_summary" v="Vị trí:" />
         <e k="invoice_format_field_id" v="Đồng %d" />
         <e k="invoice_step4_col_service" v="Mô tả" />
         <e k="invoice_step4_col_qty" v="SL" />
@@ -62,14 +50,11 @@
         <e k="invoice_detail_col_amount" v="Thành tiền" />
         <e k="invoice_col_number" v="Số Hóa Đơn" />
         <e k="invoice_col_status" v="Trạng thái" />
-        <e k="invoice_popup_added" v="Đã thêm: %s" />
-        <e k="invoice_popup_removed" v="Đã xóa: %s" />
-        <e k="invoice_popup_already_selected" v="Đã chọn: %s" />
         <e k="invoice_empty_list" v="Không có hóa đơn" />
         <e k="invoice_format_inv_number" v="HD-%03d" />
         <e k="invoice_format_services_count" v="%d dòng" />
         <e k="invoice_confirm_pay" v="Xác nhận thanh toán cho '%s'?" />
-        <e k="invoice_confirm_delete" v="Xóa vĩnh viễn?" />
+        <e k="invoice_confirm_delete" v="Xóa vĩnh viễn?" />        <e k="invoice_confirm_send" v="Gửi hóa đơn %s cho %s?" />
         <e k="invoice_notification_new" v="Hóa đơn từ %s: %s" />
         <e k="invoice_reminder_single" v="Hóa đơn chưa thanh toán: %s" />
         <e k="invoice_reminder_multiple" v="%d hóa đơn chưa thanh toán tổng cộng %s" />
@@ -80,7 +65,7 @@
         <e k="invoice_invoices_unit_piece" v="cái" />
         <e k="invoice_invoices_unit_hour" v="h" />
         <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_invoices_unit_liter" v="l" />
         <e k="invoice_work_stoneCollection" v="Nhặt đá" />
         <e k="invoice_work_plowing" v="Cày" />
         <e k="invoice_work_cultivating" v="Xới đất" />
@@ -116,8 +101,8 @@
         <e k="invoice_work_windrowing" v="Gom cỏ" />
         <e k="invoice_work_baling" v="Đóng kiện" />
         <e k="invoice_work_wrapping" v="Bọc kiện" />
-        <e k="invoice_work_buyBales" v="Mua bán (Mua)" />
-        <e k="invoice_work_sellBales" v="Bán (Kiện)" />
+        <e k="invoice_work_buyBales" v="Mua (Nguyên liệu)" />
+        <e k="invoice_work_sellBales" v="Bán (Thức ăn / Rơm)" />
         <e k="invoice_work_animalFeeding" v="Cho ăn" />
         <e k="invoice_work_barnCleaning" v="Dọn chuồng" />
         <e k="invoice_work_animalTransport" v="Vận chuyển thú" />
@@ -145,7 +130,6 @@
         <e k="invoice_moneyType_expense" v="Hóa đơn (Chi phí)" />
         <e k="invoice_error_permission_required" v="Hành động dành riêng cho người quản lý trang trại." />
         <e k="invoice_error_insufficient_funds" v="Số dư không đủ để thanh toán hóa đơn này." />
-        <e k="invoice_error_select_farm" v="Vui lòng chọn trang trại." />
         <e k="invoice_settings_section_title" v="Hóa đơn" />
         <e k="invoice_setting_invoiceVatSimulated" v="Thuế GTGT mô phỏng" />
         <e k="invoice_toolTip_invoiceVatSimulated" v="Khi bật, hóa đơn bao gồm thuế GTGT. Khách hàng trả tổng số tiền (bao gồm thuế), nhà cung cấp nhận số tiền ròng (không bao gồm thuế). Khi tắt, thuế GTGT được đặt thành 0% và cả hai bên trao đổi cùng một số tiền." />
@@ -162,8 +146,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Bật phạt trễ hạn trên các hóa đơn chưa thanh toán. Sau 1 tháng quá hạn, tỷ lệ phạt cố định 5% mỗi tháng được áp dụng tự động. Giới hạn ở mức 25% tổng số tiền." />
         <e k="invoice_notification_overdue" v="Hóa đơn %s quá hạn: %s" />
         <e k="invoice_notification_overdue_warning" v="Phạt trễ hạn sẽ được áp dụng." />
+        <e k="invoice_dash_no_fields" v="Không cần thửa đất" />
         <e k="invoice_dialog_selectFillType" v="Chọn sản phẩm" />
         <e k="invoice_col_filltype_name" v="Sản phẩm" />
-        <e k="invoice_col_filltype_price" v="Giá / 1000 L" />
     </elements>
 </l10n>

@@ -15,14 +15,10 @@
         <e k="invoice_btn_payInvoice" v="Betalen" />
         <e k="invoice_btn_deleteInvoice" v="Verwijderen" />
         <e k="invoice_btn_showDetails" v="Details" />
-        <e k="invoice_btn_add" v="Toevoegen" />
-        <e k="invoice_btn_remove" v="Verwijderen" />
         <e k="invoice_btn_cancel" v="Annuleren" />
         <e k="invoice_btn_close" v="Sluiten" />
         <e k="invoice_btn_select" v="Selecteren" />
         <e k="invoice_btn_selectFarm" v="Klant selecteren" />
-        <e k="invoice_btn_next" v="Volgende" />
-        <e k="invoice_btn_back" v="Terug" />
         <e k="invoice_label_from" v="Van:" />
         <e k="invoice_label_to" v="Aan:" />
         <e k="invoice_label_note" v="Opmerkingen:" />
@@ -31,22 +27,14 @@
         <e k="invoice_dialog_details" v="Factuurdetails" />
         <e k="invoice_dialog_selectField" v="Veldkeuze" />
         <e k="invoice_wizard_mainTitle" v="NIEUWE FACTUUR" />
-        <e k="invoice_wizard_step1_subtitle" v="KLANT" />
         <e k="invoice_wizard_step1_label" v="Selecteer de klant:" />
-        <e k="invoice_wizard_step2_subtitle" v="DIENSTEN" />
         <e k="invoice_wizard_step2_label" v="Selecteer type werk:" />
-        <e k="invoice_wizard_step3_subtitle" v="VELDEN" />
         <e k="invoice_wizard_step3_label" v="Selecteer betrokken velden:" />
-        <e k="invoice_wizard_step4_subtitle" v="OVERZICHT" />
         <e k="invoice_btn_sendInvoice" v="Verstuur factuur" />
-        <e k="invoice_wizard_no_items" v="Geen dienst geselecteerd." />
-        <e k="invoice_error_select_work" v="Selecteer a.u.b. een dienst." />
         <e k="invoice_wizard_invoice_created" v="Factuur succesvol aangemaakt!" />
         <e k="invoice_wizard_invoice_failed" v="Fout bij aanmaken." />
         <e k="invoice_wizard_client_fields" v="Klantvelden" />
         <e k="invoice_wizard_other_fields" v="Andere velden" />
-        <e k="invoice_wizard_selection_summary" v="Diensten:" />
-        <e k="invoice_wizard_field_selection_summary" v="Locatie:" />
         <e k="invoice_format_field_id" v="Veld %d" />
         <e k="invoice_step4_col_service" v="Beschrijving" />
         <e k="invoice_step4_col_qty" v="Aantal" />
@@ -62,14 +50,11 @@
         <e k="invoice_detail_col_amount" v="Bedrag" />
         <e k="invoice_col_number" v="Factuurnr." />
         <e k="invoice_col_status" v="Status" />
-        <e k="invoice_popup_added" v="Toegevoegd: %s" />
-        <e k="invoice_popup_removed" v="Verwijderd: %s" />
-        <e k="invoice_popup_already_selected" v="Reeds geselecteerd: %s" />
         <e k="invoice_empty_list" v="Geen facturen" />
         <e k="invoice_format_inv_number" v="FAC-%03d" />
         <e k="invoice_format_services_count" v="%d regel(s)" />
         <e k="invoice_confirm_pay" v="Betaling aan '%s' bevestigen?" />
-        <e k="invoice_confirm_delete" v="Definitief verwijderen?" />
+        <e k="invoice_confirm_delete" v="Definitief verwijderen?" />        <e k="invoice_confirm_send" v="Factuur van %s naar %s verzenden?" />
         <e k="invoice_notification_new" v="Factuur ontvangen van %s: %s" />
         <e k="invoice_reminder_single" v="Onbetaalde factuur: %s" />
         <e k="invoice_reminder_multiple" v="%d onbetaalde facturen voor een totaal van %s" />
@@ -80,7 +65,7 @@
         <e k="invoice_invoices_unit_piece" v="st." />
         <e k="invoice_invoices_unit_hour" v="u" />
         <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_invoices_unit_liter" v="l" />
         <e k="invoice_work_stoneCollection" v="Stenen rapen" />
         <e k="invoice_work_plowing" v="Ploegen" />
         <e k="invoice_work_cultivating" v="Cultiveren" />
@@ -116,8 +101,8 @@
         <e k="invoice_work_windrowing" v="Harken" />
         <e k="invoice_work_baling" v="Persen" />
         <e k="invoice_work_wrapping" v="Wikkelen" />
-        <e k="invoice_work_buyBales" v="Handel (Inkoop)" />
-        <e k="invoice_work_sellBales" v="Verkoop (Balen)" />
+        <e k="invoice_work_buyBales" v="Inkoop (Grondstof)" />
+        <e k="invoice_work_sellBales" v="Verkoop (Voer / Stro)" />
         <e k="invoice_work_animalFeeding" v="Voeren" />
         <e k="invoice_work_barnCleaning" v="Stal uitmesten" />
         <e k="invoice_work_animalTransport" v="Veetransport" />
@@ -145,7 +130,6 @@
         <e k="invoice_moneyType_expense" v="Factuur (Uitgave)" />
         <e k="invoice_error_permission_required" v="Actie voorbehouden aan bedrijfsleiders." />
         <e k="invoice_error_insufficient_funds" v="Onvoldoende saldo om deze factuur te betalen." />
-        <e k="invoice_error_select_farm" v="Selecteer een boerderij." />
         <e k="invoice_settings_section_title" v="Facturen" />
         <e k="invoice_setting_invoiceVatSimulated" v="Gesimuleerde BTW" />
         <e k="invoice_toolTip_invoiceVatSimulated" v="Indien ingeschakeld, bevatten facturen BTW. De klant betaalt het brutobedrag (incl. belasting), de aanbieder ontvangt het nettobedrag (excl. belasting). Indien uitgeschakeld, wordt de BTW op 0% gezet en wisselen beide partijen hetzelfde bedrag uit." />
@@ -162,8 +146,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Schakelt boetes in voor onbetaalde facturen. Na 1 maand achterstand wordt automatisch een vast tarief van 5% per maand toegepast. Begrensd op 25% van het totaalbedrag." />
         <e k="invoice_notification_overdue" v="Factuur %s is achterstallig: %s" />
         <e k="invoice_notification_overdue_warning" v="Er worden boetes voor te laat betalen berekend." />
+        <e k="invoice_dash_no_fields" v="Geen perceel vereist" />
         <e k="invoice_dialog_selectFillType" v="Product selecteren" />
         <e k="invoice_col_filltype_name" v="Product" />
-        <e k="invoice_col_filltype_price" v="Prijs / 1000 L" />
     </elements>
 </l10n>

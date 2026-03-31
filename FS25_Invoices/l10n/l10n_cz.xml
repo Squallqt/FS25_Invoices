@@ -15,14 +15,10 @@
         <e k="invoice_btn_payInvoice" v="Zaplatit" />
         <e k="invoice_btn_deleteInvoice" v="Smazat" />
         <e k="invoice_btn_showDetails" v="Podrobnosti" />
-        <e k="invoice_btn_add" v="Přidat" />
-        <e k="invoice_btn_remove" v="Odebrat" />
         <e k="invoice_btn_cancel" v="Zrušit" />
         <e k="invoice_btn_close" v="Zavřít" />
         <e k="invoice_btn_select" v="Vybrat" />
         <e k="invoice_btn_selectFarm" v="Vybrat klienta" />
-        <e k="invoice_btn_next" v="Další" />
-        <e k="invoice_btn_back" v="Zpět" />
         <e k="invoice_label_from" v="Od:" />
         <e k="invoice_label_to" v="Pro:" />
         <e k="invoice_label_note" v="Poznámky:" />
@@ -31,22 +27,14 @@
         <e k="invoice_dialog_details" v="Detaily faktury" />
         <e k="invoice_dialog_selectField" v="Výběr pole" />
         <e k="invoice_wizard_mainTitle" v="NOVÁ FAKTURA" />
-        <e k="invoice_wizard_step1_subtitle" v="KLIENT" />
         <e k="invoice_wizard_step1_label" v="Vyberte farmu klienta:" />
-        <e k="invoice_wizard_step2_subtitle" v="SLUŽBY" />
         <e k="invoice_wizard_step2_label" v="Vyberte typ práce:" />
-        <e k="invoice_wizard_step3_subtitle" v="POLE" />
         <e k="invoice_wizard_step3_label" v="Vyberte dotčená pole:" />
-        <e k="invoice_wizard_step4_subtitle" v="SOUHRN" />
         <e k="invoice_btn_sendInvoice" v="Odeslat fakturu" />
-        <e k="invoice_wizard_no_items" v="Žádná služba nevybrána." />
-        <e k="invoice_error_select_work" v="Prosím vyberte službu." />
         <e k="invoice_wizard_invoice_created" v="Faktura úspěšně vytvořena!" />
         <e k="invoice_wizard_invoice_failed" v="Chyba při vytváření." />
         <e k="invoice_wizard_client_fields" v="Pole klienta" />
         <e k="invoice_wizard_other_fields" v="Ostatní pole" />
-        <e k="invoice_wizard_selection_summary" v="Služby:" />
-        <e k="invoice_wizard_field_selection_summary" v="Lokace:" />
         <e k="invoice_format_field_id" v="Pole %d" />
         <e k="invoice_step4_col_service" v="Popis" />
         <e k="invoice_step4_col_qty" v="Množ." />
@@ -62,14 +50,11 @@
         <e k="invoice_detail_col_amount" v="Částka" />
         <e k="invoice_col_number" v="Č. faktury" />
         <e k="invoice_col_status" v="Stav" />
-        <e k="invoice_popup_added" v="Přidáno: %s" />
-        <e k="invoice_popup_removed" v="Odstraněno: %s" />
-        <e k="invoice_popup_already_selected" v="Již vybráno: %s" />
         <e k="invoice_empty_list" v="Žádné faktury" />
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d řádek/ky" />
         <e k="invoice_confirm_pay" v="Potvrdit platbu pro '%s'?" />
-        <e k="invoice_confirm_delete" v="Trvale smazat?" />
+        <e k="invoice_confirm_delete" v="Trvale smazat?" />        <e k="invoice_confirm_send" v="Odeslat fakturu ve výši %s na %s?" />
         <e k="invoice_notification_new" v="Faktura od %s: %s" />
         <e k="invoice_reminder_single" v="Nezaplacená faktura: %s" />
         <e k="invoice_reminder_multiple" v="%d nezaplacených faktur celkem %s" />
@@ -80,7 +65,7 @@
         <e k="invoice_invoices_unit_piece" v="ks" />
         <e k="invoice_invoices_unit_hour" v="h" />
         <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_invoices_unit_liter" v="l" />
         <e k="invoice_work_stoneCollection" v="Sbírání kamenů" />
         <e k="invoice_work_plowing" v="Orba" />
         <e k="invoice_work_cultivating" v="Kultivace" />
@@ -116,8 +101,8 @@
         <e k="invoice_work_windrowing" v="Shrnování" />
         <e k="invoice_work_baling" v="Lisování" />
         <e k="invoice_work_wrapping" v="Balení" />
-        <e k="invoice_work_buyBales" v="Obchod (Nákup)" />
-        <e k="invoice_work_sellBales" v="Prodej (Balíky)" />
+        <e k="invoice_work_buyBales" v="Nákup (Surovina)" />
+        <e k="invoice_work_sellBales" v="Prodej (Krmivo / Sláma)" />
         <e k="invoice_work_animalFeeding" v="Krmení" />
         <e k="invoice_work_barnCleaning" v="Čištění stájí" />
         <e k="invoice_work_animalTransport" v="Přeprava dobytka" />
@@ -145,7 +130,6 @@
         <e k="invoice_moneyType_expense" v="Faktura (Výdaj)" />
         <e k="invoice_error_permission_required" v="Akce vyhrazená pro vedoucí farmy." />
         <e k="invoice_error_insufficient_funds" v="Nedostatečný zůstatek pro zaplací této faktury." />
-        <e k="invoice_error_select_farm" v="Vyberte prosím farmu." />
         <e k="invoice_settings_section_title" v="Faktury" />
         <e k="invoice_setting_invoiceVatSimulated" v="Simulovaná DPH" />
         <e k="invoice_toolTip_invoiceVatSimulated" v="Pokud je povoleno, faktury zahrnují DPH. Klient platí hrubou částku (vč. daně), poskytovatel obdrží čistou částku (bez daně). Pokud je zakázáno, DPH je nastavena na 0% a obě strany si vyměňují stejnou částku." />
@@ -162,8 +146,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Aktivuje penále za prodlení u nezaplacených faktur. Po 1 měsíci po splatnosti je automaticky účtována pevná sazba 5% měsíčně. Omezeno na 25% celkové částky." />
         <e k="invoice_notification_overdue" v="Faktura %s je po splatnosti: %s" />
         <e k="invoice_notification_overdue_warning" v="Budou účtovány penále za prodlení." />
+        <e k="invoice_dash_no_fields" v="Žádná parcela není vyžadována" />
         <e k="invoice_dialog_selectFillType" v="Vybrat produkt" />
         <e k="invoice_col_filltype_name" v="Produkt" />
-        <e k="invoice_col_filltype_price" v="Cena / 1000 L" />
     </elements>
 </l10n>

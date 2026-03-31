@@ -267,7 +267,20 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
     local workType = manager and manager:getWorkTypeById(item.workTypeId)
     local amount = item.amount or 0
 
-    local designation = workType and g_i18n:getText(workType.nameKey) or "—"
+    -- Use persisted name (with product in parentheses), fallback to workType nameKey
+    local designation
+    if item.name ~= nil and item.name ~= "" then
+        designation = item.name
+    else
+        designation = workType and g_i18n:getText(workType.nameKey) or "—"
+    end
+
+    -- Icon handling
+    local cellIcon = cell:getDescendantByName("cellIcon")
+    local hasIcon = item.iconFilename ~= nil and item.iconFilename ~= ""
+    if cellIcon ~= nil then
+        cellIcon:setVisible(false)
+    end
 
     local fieldStr = ""
     if item.fieldId and item.fieldId > 0 then
@@ -284,28 +297,36 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
         local area = item.fieldArea or 0
         qtyStr = string.format("%.2f", area)
         unitStr = g_i18n:getText("invoice_invoices_unit_hectare")
-        if area > 0 then
+        if item.price ~= nil and item.price > 0 then
+            unitPriceStr = g_i18n:formatMoney(item.price)
+        elseif area > 0 then
             unitPriceStr = g_i18n:formatMoney(amount / area)
         end
     elseif item.unitType == Invoice.UNIT_LITER then
         local qty = item.quantity or 0
         qtyStr = string.format("%.0f", qty)
         unitStr = g_i18n:getText("invoice_invoices_unit_liter")
-        if qty > 0 then
-            unitPriceStr = g_i18n:formatMoney(amount / qty)
+        if item.price ~= nil and item.price > 0 then
+            unitPriceStr = g_i18n:formatMoney(item.price)
+        elseif qty > 0 then
+            unitPriceStr = g_i18n:formatMoney(amount * 1000 / qty)
         end
     elseif item.unitType == Invoice.UNIT_HOUR then
         local qty = item.quantity or 0
-        qtyStr = string.format("%.1f", qty)
+        qtyStr = string.format("%.2f", qty)
         unitStr = g_i18n:getText("invoice_invoices_unit_hour")
-        if qty > 0 then
+        if item.price ~= nil and item.price > 0 then
+            unitPriceStr = g_i18n:formatMoney(item.price)
+        elseif qty > 0 then
             unitPriceStr = g_i18n:formatMoney(amount / qty)
         end
     else
         local qty = math.max(1, item.quantity or 1)
         qtyStr = string.format("%d", qty)
         unitStr = g_i18n:getText("invoice_invoices_unit_piece")
-        if qty > 0 then
+        if item.price ~= nil and item.price > 0 then
+            unitPriceStr = g_i18n:formatMoney(item.price)
+        elseif qty > 0 then
             unitPriceStr = g_i18n:formatMoney(amount / qty)
         end
     end
@@ -322,6 +343,28 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
     end
 
     local cellDesignation = cell:getDescendantByName("cellDesignation")
+    if cellDesignation ~= nil then
+        if hasIcon and cellIcon ~= nil then
+            local parenPos = string.find(designation, "%(")
+            if parenPos ~= nil then
+                local prefix = string.sub(designation, 1, parenPos)
+                local suffix = string.sub(designation, parenPos + 1)
+                local textSize = 14 * g_pixelSizeScaledY
+                setTextBold(false)
+                local prefixWidth = getTextWidth(textSize, prefix)
+                local spaceWidth = getTextWidth(textSize, " ")
+                local baseX = 11 * g_pixelSizeScaledX
+                local iconPadding = 22 * g_pixelSizeScaledX
+                local numSpaces = math.ceil(iconPadding / spaceWidth)
+                cellIcon:setPosition(baseX + prefixWidth, -6 * g_pixelSizeScaledY)
+                cellIcon:setImageFilename(item.iconFilename)
+                cellIcon:setVisible(true)
+                designation = prefix .. string.rep(" ", numSpaces) .. suffix
+            end
+        end
+        cellDesignation:setText(designation)
+    end
+
     local cellField       = cell:getDescendantByName("cellField")
     local cellQty         = cell:getDescendantByName("cellQty")
     local cellUnit        = cell:getDescendantByName("cellUnit")
@@ -329,7 +372,6 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
     local cellVat         = cell:getDescendantByName("cellVat")
     local cellAmount      = cell:getDescendantByName("cellAmount")
 
-    if cellDesignation then cellDesignation:setText(designation) end
     if cellField       then cellField:setText(fieldStr) end
     if cellQty         then cellQty:setText(qtyStr) end
     if cellUnit        then cellUnit:setText(unitStr) end

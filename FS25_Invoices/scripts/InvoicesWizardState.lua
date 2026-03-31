@@ -143,7 +143,7 @@ function InvoicesWizardState:buildAllLineItems()
     local workTypes = self.selectedWorkTypes or {}
     local fields = self.selectedFields or {}
 
-    for _, workType in ipairs(workTypes) do
+    for i, workType in ipairs(workTypes) do
         local adjustedPrice = workType.customPrice or manager:getAdjustedPrice(workType.id)
         local unit = workType.unit
         local displayName = workType.displayOverride or g_i18n:getText(workType.nameKey)
@@ -158,11 +158,11 @@ function InvoicesWizardState:buildAllLineItems()
             for _, field in ipairs(fields) do
                 local roundedArea = MathUtil.round(field.area, 2)
                 local amount = MathUtil.round(adjustedPrice * roundedArea)
-                local fieldName = string.format(g_i18n:getText("invoice_format_field_id"), field.id)
 
                 table.insert(self.lineItems, {
                     workTypeId = workType.id,
-                    name = string.format("%s (%s, %.2f ha)", displayName, fieldName, roundedArea),
+                    sourceIndex = i,
+                    name = displayName,
                     quantity = roundedArea,
                     price = adjustedPrice,
                     unit = unit,
@@ -170,23 +170,33 @@ function InvoicesWizardState:buildAllLineItems()
                     fieldArea = roundedArea,
                     amount = amount,
                     note = "",
-                    vatRate = vatRate
+                    vatRate = vatRate,
+                    iconFilename = workType.iconFilename
                 })
             end
         else
-            local amount = adjustedPrice
+            local defaultQty = (unit == Invoice.UNIT_LITER) and 1000 or 1
+            local customQty = workType.customQuantity or defaultQty
+            local amount
+            if unit == Invoice.UNIT_LITER then
+                amount = MathUtil.round(adjustedPrice * customQty / 1000)
+            else
+                amount = MathUtil.round(adjustedPrice * customQty)
+            end
 
             table.insert(self.lineItems, {
                 workTypeId = workType.id,
-                name = string.format("%s (1 %s)", displayName, unitStr),
-                quantity = 1,
+                sourceIndex = i,
+                name = displayName,
+                quantity = customQty,
                 price = adjustedPrice,
                 unit = unit,
                 fieldId = nil,
                 fieldArea = 0,
                 amount = amount,
                 note = "",
-                vatRate = vatRate
+                vatRate = vatRate,
+                iconFilename = workType.iconFilename
             })
         end
     end
@@ -252,7 +262,10 @@ function InvoicesWizardState:createInvoice()
             fieldArea = item.fieldArea or 0,
             fieldId = item.fieldId or 0,
             note = item.note or "",
-            vatRate = item.vatRate or 0
+            vatRate = item.vatRate or 0,
+            name = item.name or "",
+            iconFilename = item.iconFilename or "",
+            price = item.price or 0
         })
     end
 

@@ -37,8 +37,6 @@ InvoicesMainDashboard.CONTROLS = {
     TEXT_VAT_TVA     = "textVatTva",
     TOTAL_SEP        = "totalSep",
     -- Buttons
-    BTN_ADD          = "btnAdd",
-    BTN_REMOVE       = "btnRemove",
     BTN_SEND         = "btnSend",
 }
 
@@ -154,6 +152,8 @@ function InvoicesMainDashboard:onOpen()
         self.listItems:setSelectedIndex(0)
     end
 
+    self:updateRecapSliderVisibility()
+
     if self.farmSliderBox ~= nil then
         self.farmSliderBox:setVisible(#self.farms > 12)
     end
@@ -174,6 +174,9 @@ end
 
 function InvoicesMainDashboard:onClose()
     InvoicesMainDashboard:superClass().onClose(self)
+    self._pendingSubdialog = false
+    local state = InvoicesWizardState.getInstance()
+    state:reset()
 end
 
 function InvoicesMainDashboard:delete()
@@ -392,8 +395,12 @@ function InvoicesMainDashboard:rebuildLineItems()
         self.listItems:reloadData()
     end
 
+    self:updateRecapSliderVisibility()
+
     if #self.lineItems > 0 then
-        self.selectedItemIndex = #self.lineItems
+        if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.lineItems then
+            self.selectedItemIndex = #self.lineItems
+        end
         if self.listItems ~= nil then
             self.suppressEditFieldUpdate = true
             self.listItems:setSelectedIndex(self.selectedItemIndex)
@@ -409,8 +416,17 @@ function InvoicesMainDashboard:rebuildLineItems()
     self:updateButtonStates()
 end
 
+function InvoicesMainDashboard:updateRecapSliderVisibility()
+    if self.itemSliderBox ~= nil and self.listItems ~= nil then
+        local itemCount = #self.lineItems
+        local maxVisibleItems = math.floor(282 / 32)
+        self.itemSliderBox:setVisible(itemCount > maxVisibleItems)
+    end
+end
+
 function InvoicesMainDashboard:updateSequentialLock()
     local locked = (self.selectedFarm == nil)
+    local savedContext = self.activeContext
     if self.workTypesZone ~= nil then
         self.workTypesZone:setDisabled(locked)
     end
@@ -423,6 +439,8 @@ function InvoicesMainDashboard:updateSequentialLock()
     if self.listWorkTypes ~= nil then
         self.listWorkTypes:reloadData()
     end
+    self.activeContext = savedContext
+    self:updateButtonStates()
 end
 
 -- ===================== HEADER =====================
@@ -579,12 +597,6 @@ function InvoicesMainDashboard:inputEvent(action, value, direction, isAnalog, is
     if action == InputAction.MENU_CANCEL and self._activeInput ~= nil then
         return true
     end
-    if action == InputAction.MENU_DELETE and self._activeInput == nil then
-        if self.btnRemove ~= nil and not self.btnRemove.disabled then
-            self:onClickRemove()
-            return true
-        end
-    end
     return InvoicesMainDashboard:superClass().inputEvent(self, action, value, direction, isAnalog, isMouse, deviceCategory, bindingName)
 end
 
@@ -630,7 +642,7 @@ function InvoicesMainDashboard:updateEditFields()
             if item.unit == Invoice.UNIT_HECTARE then
                 self.inputQty:setText(string.format("%.2f", item.quantity or 0))
                 self.inputQty:setDisabled(true)
-            elseif item.unit == Invoice.UNIT_HOUR or item.unit == Invoice.UNIT_LITER then
+            elseif item.unit == Invoice.UNIT_HOUR then
                 self.inputQty:setText(string.format("%.2f", item.quantity or 0))
                 self.inputQty:setDisabled(false)
             else
@@ -669,7 +681,7 @@ function InvoicesMainDashboard:updateSelectedCellValues()
     local cellQty = cell:getDescendantByName("cellQty")
     if cellQty ~= nil then
         local qtyText
-        if item.unit == Invoice.UNIT_HECTARE or item.unit == Invoice.UNIT_HOUR or item.unit == Invoice.UNIT_LITER then
+        if item.unit == Invoice.UNIT_HECTARE or item.unit == Invoice.UNIT_HOUR then
             qtyText = string.format("%.2f", item.quantity or 0)
         else
             qtyText = string.format("%.0f", item.quantity or 0)
@@ -715,7 +727,15 @@ function InvoicesMainDashboard:onPriceTextChanged(element, text)
     if value >= 0 then
         item.price = value
     end
-    item.amount = MathUtil.round(item.price * item.quantity)
+    if item.unit == Invoice.UNIT_LITER then
+        item.amount = MathUtil.round(item.price * item.quantity / 1000)
+    else
+        item.amount = MathUtil.round(item.price * item.quantity)
+    end
+
+    if item.sourceIndex ~= nil and self.selectedWorkItems[item.sourceIndex] ~= nil then
+        self.selectedWorkItems[item.sourceIndex].customPrice = item.price
+    end
 
     self:updateSelectedCellValues()
     self:updateTotal()
@@ -727,7 +747,7 @@ function InvoicesMainDashboard:onQtyTextChanged(element, text)
     local item = self.lineItems[self.selectedItemIndex]
     if item.unit == Invoice.UNIT_HECTARE then return end
 
-    local allowDecimal = (item.unit == Invoice.UNIT_HOUR or item.unit == Invoice.UNIT_LITER)
+    local allowDecimal = (item.unit == Invoice.UNIT_HOUR)
     local filtered
     if allowDecimal then
         filtered = string.gsub(text or "", "[^0-9.]", "")
@@ -749,7 +769,15 @@ function InvoicesMainDashboard:onQtyTextChanged(element, text)
     if value >= 0 then
         item.quantity = value
     end
-    item.amount = MathUtil.round(item.price * item.quantity)
+    if item.unit == Invoice.UNIT_LITER then
+        item.amount = MathUtil.round(item.price * item.quantity / 1000)
+    else
+        item.amount = MathUtil.round(item.price * item.quantity)
+    end
+
+    if item.sourceIndex ~= nil and self.selectedWorkItems[item.sourceIndex] ~= nil then
+        self.selectedWorkItems[item.sourceIndex].customQuantity = item.quantity
+    end
 
     self:updateSelectedCellValues()
     self:updateTotal()
@@ -907,9 +935,11 @@ function InvoicesMainDashboard:populateWorkTypeCell(index, cell)
 
         local priceStr
         if workType.unit == Invoice.UNIT_LITER then
-            priceStr = string.format("%s / %s", g_i18n:formatMoney(price, 2), unitStr)
+            local isCustom = selectedEntry and selectedEntry.customPrice
+            local displayPrice = isCustom and price or (price * 1000)
+            priceStr = string.format("%s /1000%s", g_i18n:formatMoney(displayPrice, 0), unitStr)
         else
-            priceStr = string.format("%s / %s", g_i18n:formatMoney(price), unitStr)
+            priceStr = string.format("%s /%s", g_i18n:formatMoney(price, 0), unitStr)
         end
         cellPrice:setText(priceStr)
     end
@@ -961,12 +991,37 @@ function InvoicesMainDashboard:populateLineItemCell(index, cell)
 
     local manager = g_currentMission.invoicesManager
 
+    local cellIcon = cell:getDescendantByName("cellIcon")
+    local hasIcon = item.iconFilename ~= nil and item.iconFilename ~= ""
+    if cellIcon ~= nil then
+        cellIcon:setVisible(false)
+    end
+
     local cellDesignation = cell:getDescendantByName("cellDesignation")
     if cellDesignation ~= nil then
         local name = item.name
         if name == nil or name == "" then
             local workType = manager and manager:getWorkTypeById(item.workTypeId) or nil
             name = workType and g_i18n:getText(workType.nameKey) or "?"
+        end
+        if hasIcon and cellIcon ~= nil then
+            local parenPos = string.find(name, "%(")
+            if parenPos ~= nil then
+                local prefix = string.sub(name, 1, parenPos)
+                local suffix = string.sub(name, parenPos + 1)
+                local textSize = 13 * g_pixelSizeScaledY
+                setTextBold(true)
+                local prefixWidth = getTextWidth(textSize, prefix)
+                local spaceWidth = getTextWidth(textSize, " ")
+                setTextBold(false)
+                local baseX = 10 * g_pixelSizeScaledX
+                local iconPadding = 22 * g_pixelSizeScaledX
+                local numSpaces = math.ceil(iconPadding / spaceWidth)
+                cellIcon:setPosition(baseX + prefixWidth, -6 * g_pixelSizeScaledY)
+                cellIcon:setImageFilename(item.iconFilename)
+                cellIcon:setVisible(true)
+                name = prefix .. string.rep(" ", numSpaces) .. suffix
+            end
         end
         cellDesignation:setText(name)
     end
@@ -983,7 +1038,7 @@ function InvoicesMainDashboard:populateLineItemCell(index, cell)
     local cellQty = cell:getDescendantByName("cellQty")
     if cellQty ~= nil then
         local qtyText
-        if item.unit == Invoice.UNIT_HECTARE or item.unit == Invoice.UNIT_HOUR or item.unit == Invoice.UNIT_LITER then
+        if item.unit == Invoice.UNIT_HECTARE or item.unit == Invoice.UNIT_HOUR then
             qtyText = string.format("%.2f", item.quantity or 0)
         else
             qtyText = string.format("%.0f", item.quantity or 0)
@@ -1091,90 +1146,58 @@ end
 -- ===================== BUTTON STATES =====================
 
 function InvoicesMainDashboard:updateButtonStates()
-    local canAdd = false
-
-    if self.activeContext == InvoicesMainDashboard.CONTEXT_FARMS then
-        local validIndex = (self.selectedFarmIndex >= 1 and self.selectedFarmIndex <= #self.farms)
-        local farm = validIndex and self.farms[self.selectedFarmIndex] or nil
-        local alreadySelected = farm ~= nil and self.selectedFarm ~= nil and self.selectedFarm.farmId == farm.farmId
-        canAdd = validIndex and not alreadySelected
-    elseif self.activeContext == InvoicesMainDashboard.CONTEXT_WORK_TYPES then
-        local validIndex = (self.selectedFarm ~= nil and self.selectedWorkIndex >= 1 and self.selectedWorkIndex <= #self.workTypes)
-        local wt = validIndex and self.workTypes[self.selectedWorkIndex] or nil
-        local alreadySelected = wt ~= nil and self:isWorkTypeSelected(wt)
-        canAdd = validIndex and not alreadySelected
-    elseif self.activeContext == InvoicesMainDashboard.CONTEXT_FIELDS then
-        local validIndex = (self.selectedFieldSection > 0 and self.selectedFieldIndex > 0)
-        local fieldData = validIndex and self:getSelectedFieldData() or nil
-        local alreadySelected = fieldData ~= nil and self:isFieldSelected(fieldData)
-        canAdd = validIndex and not alreadySelected
-    end
-
-    if self.btnAdd ~= nil then
-        self.btnAdd:setDisabled(not canAdd)
-    end
-    if self.btnRemove ~= nil then
-        local canRemove = (self.selectedItemIndex >= 1 and self.selectedItemIndex <= #self.lineItems)
-        self.btnRemove:setDisabled(not canRemove)
-    end
     if self.btnSend ~= nil then
         local state = InvoicesWizardState.getInstance()
         self.btnSend:setDisabled(not state:canCreateInvoice())
     end
 end
 
--- ===================== BUTTON ACTIONS =====================
+-- ===================== LIST CLICK HANDLERS =====================
 
-function InvoicesMainDashboard:onClickAdd()
-    if self.activeContext == InvoicesMainDashboard.CONTEXT_FARMS then
-        self:toggleFarm()
-    elseif self.activeContext == InvoicesMainDashboard.CONTEXT_WORK_TYPES then
-        self:toggleWorkType()
-    elseif self.activeContext == InvoicesMainDashboard.CONTEXT_FIELDS then
-        self:toggleField()
+function InvoicesMainDashboard:onFarmListClicked(list, section, index)
+    if list ~= self.listFarms or index == nil or index < 1 or index > #self.farms then return end
+    self.activeContext = InvoicesMainDashboard.CONTEXT_FARMS
+    self.selectedFarmIndex = index
+    local farm = self.farms[index]
+    if self.selectedFarm ~= nil and self.selectedFarm.farmId == farm.farmId then
+        self:removeFarm()
+    else
+        self:addFarm()
     end
 end
 
-function InvoicesMainDashboard:onClickRemove()
-    if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.lineItems then return end
-
-    local item = self.lineItems[self.selectedItemIndex]
-    if item == nil then return end
-
-    if item.unit == Invoice.UNIT_HECTARE and item.fieldId ~= nil and item.fieldId ~= 0 then
-        -- Remove the field that generated this line item
-        for i, f in ipairs(self.selectedFieldItems) do
-            if f.id == item.fieldId then
-                table.remove(self.selectedFieldItems, i)
-                break
-            end
-        end
+function InvoicesMainDashboard:onWorkTypeListClicked(list, section, index)
+    if list ~= self.listWorkTypes or index == nil or index < 1 or index > #self.workTypes then return end
+    self.activeContext = InvoicesMainDashboard.CONTEXT_WORK_TYPES
+    self.selectedWorkIndex = index
+    local wt = self.workTypes[index]
+    if wt.fillTypeDialog then
+        self:openFillTypeDialog(wt)
+    elseif self:isWorkTypeSelected(wt) then
+        self:removeWorkType()
     else
-        -- Remove the work type that generated this line item
-        for i, wt in ipairs(self.selectedWorkItems) do
-            if wt.id == item.workTypeId then
-                table.remove(self.selectedWorkItems, i)
-                break
-            end
-        end
+        self:addWorkType()
     end
+end
 
-    self:rebuildLineItems()
-
-    if self.listWorkTypes ~= nil then
-        self.listWorkTypes:reloadData()
-    end
-    if self.listFields ~= nil then
-        self.listFields:reloadData()
+function InvoicesMainDashboard:onFieldListClicked(list, section, index)
+    if list ~= self.listFields or index == nil or index < 1 then return end
+    self.activeContext = InvoicesMainDashboard.CONTEXT_FIELDS
+    self.selectedFieldSection = section
+    self.selectedFieldIndex = index
+    local fieldData = self:getSelectedFieldData()
+    if fieldData == nil then return end
+    if self:isFieldSelected(fieldData) then
+        self:removeField()
+    else
+        self:addField()
     end
 end
 
 -- Farm toggle
-function InvoicesMainDashboard:toggleFarm()
+function InvoicesMainDashboard:addFarm()
     if self.selectedFarmIndex < 1 or self.selectedFarmIndex > #self.farms then return end
-
     local farm = self.farms[self.selectedFarmIndex]
-    -- Add-only: if already selected, do nothing
     if self.selectedFarm ~= nil and self.selectedFarm.farmId == farm.farmId then return end
 
     local state = InvoicesWizardState.getInstance()
@@ -1188,27 +1211,51 @@ function InvoicesMainDashboard:toggleFarm()
     self:rebuildLineItems()
 
     if self.listFarms ~= nil then
+        local savedIdx = self.selectedFarmIndex
         self.listFarms:reloadData()
-        self.listFarms:setSelectedIndex(self.selectedFarmIndex)
+        self.listFarms:setSelectedIndex(savedIdx)
     end
 
     self:updateButtonStates()
     self:updateSequentialLock()
 end
 
--- Work type toggle
-function InvoicesMainDashboard:toggleWorkType()
+function InvoicesMainDashboard:removeFarm()
+    if self.selectedFarm == nil then return end
+    local farm = self.farms[self.selectedFarmIndex]
+    if farm == nil or self.selectedFarm.farmId ~= farm.farmId then return end
+
+    local state = InvoicesWizardState.getInstance()
+    self.selectedFarm = nil
+    state:setRecipient(0, "")
+    self.selectedWorkItems = {}
+    self.selectedFieldItems = {}
+
+    self:loadFields()
+    self:updateFieldsPanel()
+    self:updateHeader()
+    self:rebuildLineItems()
+
+    if self.listFarms ~= nil then
+        local savedIdx = self.selectedFarmIndex
+        self.listFarms:reloadData()
+        self.listFarms:setSelectedIndex(savedIdx)
+    end
+
+    self:updateButtonStates()
+    self:updateSequentialLock()
+end
+
+function InvoicesMainDashboard:addWorkType()
     if self.selectedFarm == nil then return end
     if self.selectedWorkIndex < 1 or self.selectedWorkIndex > #self.workTypes then return end
 
     local workType = self.workTypes[self.selectedWorkIndex]
 
-    -- Add-only: skip if already selected
-    if self:isWorkTypeSelected(workType) then return end
-
     if workType.fillTypeDialog then
         self:openFillTypeDialog(workType)
     else
+        if self:isWorkTypeSelected(workType) then return end
         table.insert(self.selectedWorkItems, workType)
         self:updateFieldsPanel()
         self:rebuildLineItems()
@@ -1222,16 +1269,47 @@ end
 function InvoicesMainDashboard:openFillTypeDialog(workType)
     self._pendingSubdialog = true
     local savedWorkIndex = self.selectedWorkIndex
+
+    -- Collect previously selected fill type names for this workType
+    local previousNames = {}
+    for _, item in ipairs(self.selectedWorkItems) do
+        if item.nameKey == workType.nameKey and item.displayOverride ~= nil then
+            local ftName = item.displayOverride:match("%((.+)%)$")
+            if ftName then
+                previousNames[ftName] = true
+            end
+        end
+    end
+
     local dialog = g_gui:showDialog("InvoicesFillTypeDialog")
     if dialog ~= nil and dialog.target ~= nil then
-        dialog.target:setCallback(self, function(dashSelf, fillType)
+        dialog.target:setInitialSelection(previousNames)
+        dialog.target:setCallback(self, function(dashSelf, selectedItems)
             dashSelf._pendingSubdialog = false
-            if fillType == nil then return end
-            local wt = {}
-            for k, v in pairs(workType) do wt[k] = v end
-            wt.customPrice = fillType.pricePerLiter
-            wt.displayOverride = g_i18n:getText(workType.nameKey) .. " (" .. fillType.name .. ")"
-            table.insert(dashSelf.selectedWorkItems, wt)
+            if selectedItems == nil then return end
+
+            -- Remove all previous fillType entries for this workType
+            for i = #dashSelf.selectedWorkItems, 1, -1 do
+                if dashSelf.selectedWorkItems[i].nameKey == workType.nameKey and dashSelf.selectedWorkItems[i].displayOverride ~= nil then
+                    table.remove(dashSelf.selectedWorkItems, i)
+                end
+            end
+
+            -- Add new selections
+            for _, fillType in ipairs(selectedItems) do
+                local wt = {}
+                for k, v in pairs(workType) do wt[k] = v end
+                wt.customPrice = MathUtil.round(fillType.pricePerLiter * 1000)
+                if fillType.isBulkType then
+                    wt.unit = Invoice.UNIT_LITER
+                else
+                    wt.unit = Invoice.UNIT_PIECE
+                end
+                wt.displayOverride = g_i18n:getText(workType.nameKey) .. " (" .. fillType.name .. ")"
+                wt.iconFilename = fillType.iconFilename
+                table.insert(dashSelf.selectedWorkItems, wt)
+            end
+
             dashSelf:updateFieldsPanel()
             dashSelf:rebuildLineItems()
             if dashSelf.listWorkTypes ~= nil then
@@ -1244,12 +1322,28 @@ function InvoicesMainDashboard:openFillTypeDialog(workType)
     end
 end
 
--- Field toggle
-function InvoicesMainDashboard:toggleField()
+function InvoicesMainDashboard:removeWorkType()
+    if self.selectedWorkIndex < 1 or self.selectedWorkIndex > #self.workTypes then return end
+    local workType = self.workTypes[self.selectedWorkIndex]
+    if not self:isWorkTypeSelected(workType) then return end
+
+    for i, item in ipairs(self.selectedWorkItems) do
+        if item.nameKey == workType.nameKey then
+            table.remove(self.selectedWorkItems, i)
+            break
+        end
+    end
+    self:updateFieldsPanel()
+    self:rebuildLineItems()
+    if self.listWorkTypes ~= nil then
+        self.listWorkTypes:reloadData()
+        self.listWorkTypes:setSelectedIndex(self.selectedWorkIndex)
+    end
+end
+
+function InvoicesMainDashboard:addField()
     local fieldData = self:getSelectedFieldData()
     if fieldData == nil then return end
-
-    -- Add-only: skip if already selected
     if self:isFieldSelected(fieldData) then return end
 
     table.insert(self.selectedFieldItems, fieldData)
@@ -1257,13 +1351,80 @@ function InvoicesMainDashboard:toggleField()
 
     if self.listFields ~= nil then
         self.listFields:reloadData()
-        self.listFields:setSelectedIndex(self.selectedFieldIndex, self.selectedFieldSection)
+        self.listFields:setSelectedItem(self.selectedFieldSection, self.selectedFieldIndex)
+    end
+end
+
+function InvoicesMainDashboard:removeField()
+    local fieldData = self:getSelectedFieldData()
+    if fieldData == nil then return end
+    if not self:isFieldSelected(fieldData) then return end
+
+    for i, item in ipairs(self.selectedFieldItems) do
+        if item.id == fieldData.id then
+            table.remove(self.selectedFieldItems, i)
+            break
+        end
+    end
+    self:rebuildLineItems()
+    if self.listFields ~= nil then
+        self.listFields:reloadData()
+        self.listFields:setSelectedItem(self.selectedFieldSection, self.selectedFieldIndex)
+    end
+end
+
+function InvoicesMainDashboard:removeLineItem()
+    if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.lineItems then return end
+    local item = self.lineItems[self.selectedItemIndex]
+    if item == nil then return end
+
+    if item.unit == Invoice.UNIT_HECTARE and item.fieldId ~= nil and item.fieldId ~= 0 then
+        for i, f in ipairs(self.selectedFieldItems) do
+            if f.id == item.fieldId then
+                table.remove(self.selectedFieldItems, i)
+                break
+            end
+        end
+    else
+        if item.sourceIndex ~= nil and self.selectedWorkItems[item.sourceIndex] ~= nil then
+            table.remove(self.selectedWorkItems, item.sourceIndex)
+        else
+            for i, wt in ipairs(self.selectedWorkItems) do
+                if wt.id == item.workTypeId then
+                    table.remove(self.selectedWorkItems, i)
+                    break
+                end
+            end
+        end
+    end
+
+    self:rebuildLineItems()
+    if self.listWorkTypes ~= nil then
+        self.listWorkTypes:reloadData()
+    end
+    if self.listFields ~= nil then
+        self.listFields:reloadData()
     end
 end
 
 -- ===================== SEND / CANCEL =====================
 
 function InvoicesMainDashboard:onClickSend()
+    local state = InvoicesWizardState.getInstance()
+    if not state:canCreateInvoice() then return end
+
+    local manager = g_currentMission.invoicesManager
+    local recipientFarm = g_farmManager:getFarmById(state.recipientFarmId)
+    local farmName = recipientFarm and recipientFarm.name or "?"
+    local total = state:getTotal()
+    local confirmText = string.format(g_i18n:getText("invoice_confirm_send"), g_i18n:formatMoney(total, 0, true, false), farmName)
+
+    YesNoDialog.show(self.onSendConfirmed, self, confirmText)
+end
+
+function InvoicesMainDashboard:onSendConfirmed(confirmed)
+    if not confirmed then return end
+
     local state = InvoicesWizardState.getInstance()
 
     local note = ""

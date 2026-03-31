@@ -125,6 +125,9 @@ function Invoice:writeToXML(xmlFile, key)
         setXMLFloat(xmlFile, itemKey .. "#fieldArea", item.fieldArea or 0)
         setXMLString(xmlFile, itemKey .. "#note", item.note or "")
         setXMLFloat(xmlFile, itemKey .. "#vatRate", item.vatRate or 0)
+        setXMLString(xmlFile, itemKey .. "#name", item.name or "")
+        setXMLString(xmlFile, itemKey .. "#iconFilename", item.iconFilename or "")
+        setXMLFloat(xmlFile, itemKey .. "#price", item.price or 0)
     end
 end
 
@@ -170,7 +173,10 @@ function Invoice:readFromXML(xmlFile, key)
             fieldId = getXMLInt(xmlFile, itemKey .. "#fieldId") or 0,
             fieldArea = getXMLFloat(xmlFile, itemKey .. "#fieldArea") or 0,
             note = getXMLString(xmlFile, itemKey .. "#note") or "",
-            vatRate = getXMLFloat(xmlFile, itemKey .. "#vatRate") or 0
+            vatRate = getXMLFloat(xmlFile, itemKey .. "#vatRate") or 0,
+            name = getXMLString(xmlFile, itemKey .. "#name") or "",
+            iconFilename = getXMLString(xmlFile, itemKey .. "#iconFilename") or "",
+            price = getXMLFloat(xmlFile, itemKey .. "#price") or 0
         }
 
         table.insert(self.lineItems, item)
@@ -244,6 +250,9 @@ function Invoice:writeStream(streamId)
         streamWriteFloat32(streamId, item.fieldArea or 0)
         streamWriteString(streamId, item.note or "")
         streamWriteFloat32(streamId, item.vatRate or 0)
+        streamWriteString(streamId, item.name or "")
+        streamWriteString(streamId, item.iconFilename or "")
+        streamWriteFloat32(streamId, item.price or 0)
     end
 end
 
@@ -281,7 +290,10 @@ function Invoice:readStream(streamId)
             fieldId = streamReadInt16(streamId),
             fieldArea = streamReadFloat32(streamId),
             note = streamReadString(streamId),
-            vatRate = streamReadFloat32(streamId)
+            vatRate = streamReadFloat32(streamId),
+            name = streamReadString(streamId),
+            iconFilename = streamReadString(streamId),
+            price = streamReadFloat32(streamId)
         }
 
         table.insert(self.lineItems, item)

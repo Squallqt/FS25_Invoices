@@ -15,14 +15,10 @@
         <e k="invoice_btn_payInvoice" v="支付" />
         <e k="invoice_btn_deleteInvoice" v="刪除" />
         <e k="invoice_btn_showDetails" v="詳情" />
-        <e k="invoice_btn_add" v="新增" />
-        <e k="invoice_btn_remove" v="移除" />
         <e k="invoice_btn_cancel" v="取消" />
         <e k="invoice_btn_close" v="關閉" />
         <e k="invoice_btn_select" v="選擇" />
         <e k="invoice_btn_selectFarm" v="選擇客戶" />
-        <e k="invoice_btn_next" v="下一步" />
-        <e k="invoice_btn_back" v="返回" />
         <e k="invoice_label_from" v="來自:" />
         <e k="invoice_label_to" v="致:" />
         <e k="invoice_label_note" v="備註:" />
@@ -31,22 +27,14 @@
         <e k="invoice_dialog_details" v="發票詳情" />
         <e k="invoice_dialog_selectField" v="田地選擇" />
         <e k="invoice_wizard_mainTitle" v="新發票" />
-        <e k="invoice_wizard_step1_subtitle" v="客戶" />
         <e k="invoice_wizard_step1_label" v="選擇客戶農場:" />
-        <e k="invoice_wizard_step2_subtitle" v="服務" />
         <e k="invoice_wizard_step2_label" v="選擇工作類型:" />
-        <e k="invoice_wizard_step3_subtitle" v="田地" />
         <e k="invoice_wizard_step3_label" v="選擇相關田地:" />
-        <e k="invoice_wizard_step4_subtitle" v="摘要" />
         <e k="invoice_btn_sendInvoice" v="發送發票" />
-        <e k="invoice_wizard_no_items" v="未選擇服務。" />
-        <e k="invoice_error_select_work" v="請選擇一項服務。" />
         <e k="invoice_wizard_invoice_created" v="發票建立成功！" />
         <e k="invoice_wizard_invoice_failed" v="建立失敗。" />
         <e k="invoice_wizard_client_fields" v="客戶田地" />
         <e k="invoice_wizard_other_fields" v="其他田地" />
-        <e k="invoice_wizard_selection_summary" v="服務:" />
-        <e k="invoice_wizard_field_selection_summary" v="位置:" />
         <e k="invoice_format_field_id" v="田地 %d" />
         <e k="invoice_step4_col_service" v="描述" />
         <e k="invoice_step4_col_qty" v="數量" />
@@ -62,14 +50,11 @@
         <e k="invoice_detail_col_amount" v="金額" />
         <e k="invoice_col_number" v="發票編號" />
         <e k="invoice_col_status" v="狀態" />
-        <e k="invoice_popup_added" v="已添加: %s" />
-        <e k="invoice_popup_removed" v="已移除: %s" />
-        <e k="invoice_popup_already_selected" v="已選擇：%s" />
         <e k="invoice_empty_list" v="無發票" />
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d 行" />
         <e k="invoice_confirm_pay" v="確認支付給 '%s'？" />
-        <e k="invoice_confirm_delete" v="永久刪除？" />
+        <e k="invoice_confirm_delete" v="永久刪除？" />        <e k="invoice_confirm_send" v="發送 %s 的發票給 %s？" />
         <e k="invoice_notification_new" v="收到來自 %s 的發票: %s" />
         <e k="invoice_reminder_single" v="未付款發票: %s" />
         <e k="invoice_reminder_multiple" v="%d 張未付款發票，總計 %s" />
@@ -116,8 +101,8 @@
         <e k="invoice_work_windrowing" v="堆行" />
         <e k="invoice_work_baling" v="打包" />
         <e k="invoice_work_wrapping" v="裹包" />
-        <e k="invoice_work_buyBales" v="交易 (購買)" />
-        <e k="invoice_work_sellBales" v="銷售 (草捆)" />
+        <e k="invoice_work_buyBales" v="購買 (原材料)" />
+        <e k="invoice_work_sellBales" v="銷售 (飼料 / 稻草)" />
         <e k="invoice_work_animalFeeding" v="餵養" />
         <e k="invoice_work_barnCleaning" v="清潔畜舍" />
         <e k="invoice_work_animalTransport" v="牲畜運輸" />
@@ -145,7 +130,6 @@
         <e k="invoice_moneyType_expense" v="發票（支出）" />
         <e k="invoice_error_permission_required" v="僅農場經理可執行此操作。" />
         <e k="invoice_error_insufficient_funds" v="餘額不足，無法支付此發票。" />
-        <e k="invoice_error_select_farm" v="請選擇一個農場。" />
         <e k="invoice_settings_section_title" v="發票" />
         <e k="invoice_setting_invoiceVatSimulated" v="模擬增值稅" />
         <e k="invoice_toolTip_invoiceVatSimulated" v="啟用後，發票包含增值稅。客戶支付含稅總額，服務商收到不含稅淨額。停用後，增值稅設為0%，雙方交換相同金額。" />
@@ -162,8 +146,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Activa les penalitzacions per retard en factures impagades. Després d'1 mes de venciment, s'aplica automàticament una taxa fixa del 5% mensual. Limitades al 25% de l'import total." />
         <e k="invoice_notification_overdue" v="Factura %s vençuda: %s" />
         <e k="invoice_notification_overdue_warning" v="S'aplicaran penalitzacions per retard." />
+        <e k="invoice_dash_no_fields" v="Sense parcel·la requerida" />
         <e k="invoice_dialog_selectFillType" v="選擇產品" />
         <e k="invoice_col_filltype_name" v="產品" />
-        <e k="invoice_col_filltype_price" v="價格 / 1000升" />
     </elements>
 </l10n>

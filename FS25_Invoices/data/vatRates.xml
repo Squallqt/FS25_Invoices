@@ -50,9 +50,9 @@
         <workType id="35" group="fieldwork" />
         <workType id="36" group="product" />
         <workType id="37" group="product" />
-        <workType id="38" group="service" />
-        <workType id="39" group="service" />
-        <workType id="40" group="service" />
+        <workType id="38" group="fieldwork" />
+        <workType id="39" group="fieldwork" />
+        <workType id="40" group="fieldwork" />
         <workType id="41" group="service" />
         <workType id="42" group="service" />
         <workType id="43" group="service" />
@@ -67,5 +67,6 @@
         <workType id="52" group="forestry" />
         <workType id="53" group="product" />
         <workType id="54" group="service" />
+        <workType id="55" group="product" />
     </workTypes>
 </vatRates>

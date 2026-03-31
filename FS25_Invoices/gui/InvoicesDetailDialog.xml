@@ -58,6 +58,8 @@
                     <!-- Line items SmoothList -->
                     <SmoothList profile="invDetList" id="listItems">
                         <ListItem profile="invDetListItem" name="templateItem">
+                            <ThreePartBitmap profile="invDetItemGradient" name="alternating"/>
+                            <Bitmap profile="invDetCellIcon" name="cellIcon"/>
                             <Text profile="invDetCellDesignation" name="cellDesignation"/>
                             <Text profile="invDetCellField"       name="cellField"/>
                             <Text profile="invDetCellQty"         name="cellQty"/>
@@ -301,19 +303,32 @@
         </Profile>
 
         <!-- List row -->
-        <Profile name="invDetListItem" extends="baseReference" with="anchorTopStretchingX alternating">
+        <Profile name="invDetListItem" extends="fs25_calendarListItem">
             <height value="32px"/>
             <imageColor value="$preset_fs25_colorGrey"/>
             <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
             <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
         </Profile>
 
+        <Profile name="invDetItemGradient" extends="fs25_calendarListItemBg">
+            <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+            <startImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+            <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+        </Profile>
+
         <!-- Row cells -->
+        <Profile name="invDetCellIcon" extends="emptyPanel" with="anchorTopLeft">
+            <position value="11px -6px"/>
+            <size value="20px 20px"/>
+            <imageColor value="1 1 1 1"/>
+            <imageSelectedColor value="1 1 1 1"/>
+        </Profile>
         <Profile name="invDetCellDesignation" extends="baseReference">
             <position value="11px 0px"/>
             <size value="214px 32px"/>
             <textSize value="14px"/>
-            <textColor value="1 1 1 1"/>
+            <textBold value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>

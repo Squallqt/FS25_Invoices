@@ -15,14 +15,10 @@
         <e k="invoice_btn_payInvoice" v="Оплатить" />
         <e k="invoice_btn_deleteInvoice" v="Удалить" />
         <e k="invoice_btn_showDetails" v="Детали" />
-        <e k="invoice_btn_add" v="Добавить" />
-        <e k="invoice_btn_remove" v="Убрать" />
         <e k="invoice_btn_cancel" v="Отмена" />
         <e k="invoice_btn_close" v="Закрыть" />
         <e k="invoice_btn_select" v="Выбрать" />
         <e k="invoice_btn_selectFarm" v="Выбор клиента" />
-        <e k="invoice_btn_next" v="Далее" />
-        <e k="invoice_btn_back" v="Назад" />
         <e k="invoice_label_from" v="От:" />
         <e k="invoice_label_to" v="Кому:" />
         <e k="invoice_label_note" v="Примечания:" />
@@ -31,22 +27,14 @@
         <e k="invoice_dialog_details" v="Детали счета" />
         <e k="invoice_dialog_selectField" v="Выбор поля" />
         <e k="invoice_wizard_mainTitle" v="НОВЫЙ СЧЕТ" />
-        <e k="invoice_wizard_step1_subtitle" v="КЛИЕНТ" />
         <e k="invoice_wizard_step1_label" v="Выберите ферму клиента:" />
-        <e k="invoice_wizard_step2_subtitle" v="УСЛУГИ" />
         <e k="invoice_wizard_step2_label" v="Выберите тип работ:" />
-        <e k="invoice_wizard_step3_subtitle" v="ПОЛЯ" />
         <e k="invoice_wizard_step3_label" v="Выберите поля:" />
-        <e k="invoice_wizard_step4_subtitle" v="ИТОГ" />
         <e k="invoice_btn_sendInvoice" v="Отправить счет" />
-        <e k="invoice_wizard_no_items" v="Услуга не выбрана." />
-        <e k="invoice_error_select_work" v="Пожалуйста, выберите услугу." />
         <e k="invoice_wizard_invoice_created" v="Счет создан!" />
         <e k="invoice_wizard_invoice_failed" v="Ошибка создания." />
         <e k="invoice_wizard_client_fields" v="Поля клиента" />
         <e k="invoice_wizard_other_fields" v="Другие поля" />
-        <e k="invoice_wizard_selection_summary" v="Услуги:" />
-        <e k="invoice_wizard_field_selection_summary" v="Место:" />
         <e k="invoice_format_field_id" v="Поле %d" />
         <e k="invoice_step4_col_service" v="Описание" />
         <e k="invoice_step4_col_qty" v="Кол-во" />
@@ -62,14 +50,11 @@
         <e k="invoice_detail_col_amount" v="Сумма" />
         <e k="invoice_col_number" v="№ Счета" />
         <e k="invoice_col_status" v="Статус" />
-        <e k="invoice_popup_added" v="Добавлено: %s" />
-        <e k="invoice_popup_removed" v="Удалено: %s" />
-        <e k="invoice_popup_already_selected" v="Уже выбрано: %s" />
         <e k="invoice_empty_list" v="Нет счетов" />
         <e k="invoice_format_inv_number" v="СЧ-%03d" />
         <e k="invoice_format_services_count" v="%d строк(и)" />
         <e k="invoice_confirm_pay" v="Подтвердить оплату '%s'?" />
-        <e k="invoice_confirm_delete" v="Удалить безвозвратно?" />
+        <e k="invoice_confirm_delete" v="Удалить безвозвратно?" />        <e k="invoice_confirm_send" v="Отправить счёт на %s для %s?" />
         <e k="invoice_notification_new" v="Счет получен от %s: %s" />
         <e k="invoice_reminder_single" v="Неоплаченный счет: %s" />
         <e k="invoice_reminder_multiple" v="%d неоплаченных счетов на сумму %s" />
@@ -80,7 +65,7 @@
         <e k="invoice_invoices_unit_piece" v="шт" />
         <e k="invoice_invoices_unit_hour" v="ч" />
         <e k="invoice_invoices_unit_hectare" v="га" />
-        <e k="invoice_invoices_unit_liter" v="Л" />
+        <e k="invoice_invoices_unit_liter" v="л" />
         <e k="invoice_work_stoneCollection" v="Сбор камней" />
         <e k="invoice_work_plowing" v="Вспашка" />
         <e k="invoice_work_cultivating" v="Культивация" />
@@ -116,8 +101,8 @@
         <e k="invoice_work_windrowing" v="Валокование" />
         <e k="invoice_work_baling" v="Прессование" />
         <e k="invoice_work_wrapping" v="Обмотка" />
-        <e k="invoice_work_buyBales" v="Торговля (Покупка)" />
-        <e k="invoice_work_sellBales" v="Продажа (Тюки)" />
+        <e k="invoice_work_buyBales" v="Покупка (Сырьё)" />
+        <e k="invoice_work_sellBales" v="Продажа (Корм / Солома)" />
         <e k="invoice_work_animalFeeding" v="Кормление" />
         <e k="invoice_work_barnCleaning" v="Чистка стойл" />
         <e k="invoice_work_animalTransport" v="Перевозка скота" />
@@ -145,7 +130,6 @@
         <e k="invoice_moneyType_expense" v="Счёт (Расход)" />
         <e k="invoice_error_permission_required" v="Действие доступно только управляющим фермой." />
         <e k="invoice_error_insufficient_funds" v="Недостаточно средств для оплаты этого счета." />
-        <e k="invoice_error_select_farm" v="Выберите ферму." />
         <e k="invoice_settings_section_title" v="Счета" />
         <e k="invoice_setting_invoiceVatSimulated" v="Симуляция НДС" />
         <e k="invoice_toolTip_invoiceVatSimulated" v="При включении счета включают НДС. Клиент платит полную сумму (с налогом), поставщик получает чистую сумму (без налога). При отключении НДС устанавливается на 0% и обе стороны обмениваются одинаковой суммой." />
@@ -162,8 +146,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Включает пени за просрочку неоплаченных счетов. После 1 месяца просрочки автоматически начисляется фиксированная ставка 5% в месяц. Максимум — 25% от общей суммы счёта." />
         <e k="invoice_notification_overdue" v="Счёт %s просрочен: %s" />
         <e k="invoice_notification_overdue_warning" v="Будут начислены пени за просрочку." />
+        <e k="invoice_dash_no_fields" v="Поле не требуется" />
         <e k="invoice_dialog_selectFillType" v="Выбрать продукт" />
         <e k="invoice_col_filltype_name" v="Продукт" />
-        <e k="invoice_col_filltype_price" v="Цена / 1000 л" />
     </elements>
 </l10n>

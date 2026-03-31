@@ -15,14 +15,10 @@
         <e k="invoice_btn_payInvoice" v="支払う" />
         <e k="invoice_btn_deleteInvoice" v="削除" />
         <e k="invoice_btn_showDetails" v="詳細" />
-        <e k="invoice_btn_add" v="追加" />
-        <e k="invoice_btn_remove" v="削除" />
         <e k="invoice_btn_cancel" v="キャンセル" />
         <e k="invoice_btn_close" v="閉じる" />
         <e k="invoice_btn_select" v="選択" />
         <e k="invoice_btn_selectFarm" v="顧客を選択" />
-        <e k="invoice_btn_next" v="次へ" />
-        <e k="invoice_btn_back" v="戻る" />
         <e k="invoice_label_from" v="請求元:" />
         <e k="invoice_label_to" v="請求先:" />
         <e k="invoice_label_note" v="備考:" />
@@ -31,22 +27,14 @@
         <e k="invoice_dialog_details" v="請求書詳細" />
         <e k="invoice_dialog_selectField" v="畑の選択" />
         <e k="invoice_wizard_mainTitle" v="新しい請求書" />
-        <e k="invoice_wizard_step1_subtitle" v="顧客" />
         <e k="invoice_wizard_step1_label" v="顧客の農場を選択:" />
-        <e k="invoice_wizard_step2_subtitle" v="サービス" />
         <e k="invoice_wizard_step2_label" v="作業の種類を選択:" />
-        <e k="invoice_wizard_step3_subtitle" v="畑" />
         <e k="invoice_wizard_step3_label" v="対象の畑を選択:" />
-        <e k="invoice_wizard_step4_subtitle" v="概要" />
         <e k="invoice_btn_sendInvoice" v="送信" />
-        <e k="invoice_wizard_no_items" v="サービスが選択されていません。" />
-        <e k="invoice_error_select_work" v="サービスを選択してください。" />
         <e k="invoice_wizard_invoice_created" v="請求書を作成しました！" />
         <e k="invoice_wizard_invoice_failed" v="作成エラー。" />
         <e k="invoice_wizard_client_fields" v="顧客フィールド" />
         <e k="invoice_wizard_other_fields" v="その他のフィールド" />
-        <e k="invoice_wizard_selection_summary" v="サービス:" />
-        <e k="invoice_wizard_field_selection_summary" v="場所:" />
         <e k="invoice_format_field_id" v="畑 %d" />
         <e k="invoice_step4_col_service" v="説明" />
         <e k="invoice_step4_col_qty" v="数量" />
@@ -62,14 +50,11 @@
         <e k="invoice_detail_col_amount" v="金額" />
         <e k="invoice_col_number" v="請求書番号" />
         <e k="invoice_col_status" v="状態" />
-        <e k="invoice_popup_added" v="追加: %s" />
-        <e k="invoice_popup_removed" v="削除: %s" />
-        <e k="invoice_popup_already_selected" v="既に選択済み：%s" />
         <e k="invoice_empty_list" v="請求書なし" />
         <e k="invoice_format_inv_number" v="請求-%03d" />
         <e k="invoice_format_services_count" v="%d 件" />
         <e k="invoice_confirm_pay" v="'%s' への支払いを確定しますか？" />
-        <e k="invoice_confirm_delete" v="完全に削除しますか？" />
+        <e k="invoice_confirm_delete" v="完全に削除しますか？" />        <e k="invoice_confirm_send" v="%s の請求書を %s に送信しますか？" />
         <e k="invoice_notification_new" v="%s から請求書を受信: %s" />
         <e k="invoice_reminder_single" v="未払い請求書: %s" />
         <e k="invoice_reminder_multiple" v="%d件の未払い請求書（合計 %s）" />
@@ -80,7 +65,7 @@
         <e k="invoice_invoices_unit_piece" v="個" />
         <e k="invoice_invoices_unit_hour" v="時間" />
         <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_invoices_unit_liter" v="l" />
         <e k="invoice_work_stoneCollection" v="石拾い" />
         <e k="invoice_work_plowing" v="耕起 (プラウ)" />
         <e k="invoice_work_cultivating" v="整地 (カルティベーター)" />
@@ -116,8 +101,8 @@
         <e k="invoice_work_windrowing" v="集草 (ウインドロウ)" />
         <e k="invoice_work_baling" v="梱包 (ベール)" />
         <e k="invoice_work_wrapping" v="ラッピング" />
-        <e k="invoice_work_buyBales" v="取引 (購入)" />
-        <e k="invoice_work_sellBales" v="販売 (ベール)" />
+        <e k="invoice_work_buyBales" v="購入 (原材料)" />
+        <e k="invoice_work_sellBales" v="販売 (飼料 / わら)" />
         <e k="invoice_work_animalFeeding" v="給餌" />
         <e k="invoice_work_barnCleaning" v="畜舎清掃" />
         <e k="invoice_work_animalTransport" v="家畜輸送" />
@@ -145,7 +130,6 @@
         <e k="invoice_moneyType_expense" v="請求書（支出）" />
         <e k="invoice_error_permission_required" v="ファームマネージャー専用の操作です。" />
         <e k="invoice_error_insufficient_funds" v="この請求書を支払うには残高が不足しています。" />
-        <e k="invoice_error_select_farm" v="農場を選択してください。" />
         <e k="invoice_settings_section_title" v="請求書" />
         <e k="invoice_setting_invoiceVatSimulated" v="シミュレート消費税" />
         <e k="invoice_toolTip_invoiceVatSimulated" v="有効にすると、請求書に消費税が含まれます。クライアントは税込総額を支払い、サービス提供者は税抜純額を受け取ります。無効にすると、消費税は0%に設定され、両者は同額を交換します。" />
@@ -162,8 +146,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="未払い請求書に対する延滞金を有効にします。1ヶ月の延滞後、月5%の固定料率が自動的に適用されます。合計金額の25%が上限です。" />
         <e k="invoice_notification_overdue" v="請求書 %s が期限超過です: %s" />
         <e k="invoice_notification_overdue_warning" v="延滞金が適用されます。" />
+        <e k="invoice_dash_no_fields" v="圃場不要" />
         <e k="invoice_dialog_selectFillType" v="製品を選択" />
         <e k="invoice_col_filltype_name" v="製品" />
-        <e k="invoice_col_filltype_price" v="価格 / 1000 L" />
     </elements>
 </l10n>

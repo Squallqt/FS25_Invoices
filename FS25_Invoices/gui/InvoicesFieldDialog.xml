@@ -23,7 +23,7 @@
                             <Text profile="invTableCellCenter" position="300px 0px" size="200px 40px" name="cellArea" />
                         </ListItem>
                     </SmoothList>
-                    <ThreePartBitmap profile="fs25_listSliderBox" size="12px 600px" position="510px 45px">
+                    <ThreePartBitmap profile="fs25_listSliderBox" size="6px 600px" position="510px 45px">
                         <Slider profile="fs25_listSlider" size="6px 590px" dataElementId="listFields" />
                     </ThreePartBitmap>
                 </GuiElement>

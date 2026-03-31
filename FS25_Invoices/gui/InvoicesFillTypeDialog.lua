@@ -13,10 +13,10 @@ InvoicesFillTypeDialog.CONTROLS = {
 
 function InvoicesFillTypeDialog.new(target, customMt)
     local self = DialogElement.new(target, customMt or InvoicesFillTypeDialog_mt)
-    self.fillTypes      = {}
-    self.selectedIndex  = -1
-    self.callbackTarget = nil
-    self.callbackFunc   = nil
+    self.fillTypes       = {}
+    self.selectedMap     = {}
+    self.callbackTarget  = nil
+    self.callbackFunc    = nil
     return self
 end
 
@@ -35,14 +35,37 @@ end
 
 function InvoicesFillTypeDialog:onOpen()
     InvoicesFillTypeDialog:superClass().onOpen(self)
-    self.selectedIndex = -1
+    self.selectedMap = {}
+    self._isEditMode = false
     self:loadFillTypes()
+    if self.listFillTypes ~= nil then
+        self.listFillTypes:setSelectedIndex(1)
+    end
     self:updateButtonStates()
 end
 
 function InvoicesFillTypeDialog:setCallback(target, func)
     self.callbackTarget = target
     self.callbackFunc   = func
+end
+
+function InvoicesFillTypeDialog:setInitialSelection(nameMap)
+    self._isEditMode = false
+    if nameMap ~= nil then
+        for _ in pairs(nameMap) do
+            self._isEditMode = true
+            break
+        end
+        for idx, ft in ipairs(self.fillTypes) do
+            if nameMap[ft.name] then
+                self.selectedMap[idx] = true
+            end
+        end
+    end
+    if self.listFillTypes ~= nil then
+        self.listFillTypes:reloadData()
+    end
+    self:updateButtonStates()
 end
 
 function InvoicesFillTypeDialog:loadFillTypes()
@@ -60,10 +83,13 @@ function InvoicesFillTypeDialog:loadFillTypes()
             if pricePerLiter <= 0 and g_priceManager ~= nil then
                 pricePerLiter = g_priceManager:getPricePerLiter(fillType.index) or 0
             end
+            local isBulk = fillType.isBulkType or false
             table.insert(self.fillTypes, {
-                index         = fillType.index,
-                name          = fillType.title or fillType.name or "?",
-                pricePerLiter = pricePerLiter,
+                index            = fillType.index,
+                name             = fillType.title or fillType.name or "?",
+                pricePerLiter    = pricePerLiter,
+                isBulkType       = isBulk,
+                iconFilename     = fillType.hudOverlayFilename,
             })
         end
     end
@@ -77,7 +103,16 @@ end
 
 function InvoicesFillTypeDialog:updateButtonStates()
     if self.btnSelect ~= nil then
-        self.btnSelect:setDisabled(self.selectedIndex < 1 or self.selectedIndex > #self.fillTypes)
+        if self._isEditMode then
+            self.btnSelect:setDisabled(false)
+        else
+            local hasSelection = false
+            for _ in pairs(self.selectedMap) do
+                hasSelection = true
+                break
+            end
+            self.btnSelect:setDisabled(not hasSelection)
+        end
     end
 end
 
@@ -97,6 +132,23 @@ function InvoicesFillTypeDialog:populateCellForItemInSection(list, section, inde
     local ft = self.fillTypes[index]
     if ft == nil then return end
 
+    local isSelected = self.selectedMap[index] == true
+
+    local cellTick = cell:getDescendantByName("cellTick")
+    if cellTick ~= nil then
+        cellTick:setVisible(isSelected)
+    end
+
+    local cellIcon = cell:getDescendantByName("cellIcon")
+    if cellIcon ~= nil then
+        if ft.iconFilename ~= nil and ft.iconFilename ~= "" then
+            cellIcon:setImageFilename(ft.iconFilename)
+            cellIcon:setVisible(true)
+        else
+            cellIcon:setVisible(false)
+        end
+    end
+
     local cellName = cell:getDescendantByName("cellName")
     if cellName ~= nil then
         cellName:setText(ft.name)
@@ -104,21 +156,43 @@ function InvoicesFillTypeDialog:populateCellForItemInSection(list, section, inde
 
     local cellPrice = cell:getDescendantByName("cellPrice")
     if cellPrice ~= nil then
-        cellPrice:setText(g_i18n:formatMoney(ft.pricePerLiter * 1000, 2, true, false))
+        cellPrice:setText(g_i18n:formatMoney(ft.pricePerLiter * 1000, 0, true, false))
     end
 end
 
 function InvoicesFillTypeDialog:onListSelectionChanged(list, section, index)
-    self.selectedIndex = index
     self:updateButtonStates()
 end
 
+function InvoicesFillTypeDialog:toggleItemAtIndex(index)
+    if index < 1 or index > #self.fillTypes then return end
+    if self.selectedMap[index] then
+        self.selectedMap[index] = nil
+    else
+        self.selectedMap[index] = true
+    end
+    local section = self.listFillTypes.selectedSectionIndex or 1
+    self.listFillTypes:reloadData()
+    self.listFillTypes:setSelectedItem(section, index, true)
+    self:updateButtonStates()
+end
+
+function InvoicesFillTypeDialog:onFillTypeListClicked(list, section, index)
+    if list ~= self.listFillTypes or index == nil or index < 1 or index > #self.fillTypes then return end
+    self:toggleItemAtIndex(index)
+end
+
 function InvoicesFillTypeDialog:onClickSelect()
-    if self.selectedIndex < 1 or self.selectedIndex > #self.fillTypes then return end
-    local selected = self.fillTypes[self.selectedIndex]
+    local selectedItems = {}
+    for idx, _ in pairs(self.selectedMap) do
+        local ft = self.fillTypes[idx]
+        if ft ~= nil then
+            table.insert(selectedItems, ft)
+        end
+    end
     self:close()
     if self.callbackTarget ~= nil and self.callbackFunc ~= nil then
-        self.callbackFunc(self.callbackTarget, selected)
+        self.callbackFunc(self.callbackTarget, selectedItems)
     end
 end
 

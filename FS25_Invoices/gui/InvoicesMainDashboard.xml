@@ -6,7 +6,7 @@
     <GuiElement profile="newLayer"/>
     <Bitmap profile="dialogFullscreenBg" id="dialogBg"/>
 
-    <GuiElement profile="fs25_dialogBg" id="dialogElement" size="900px 982px">
+    <GuiElement profile="fs25_dialogBg" id="dialogElement" size="910px 1040px">
         <ThreePartBitmap profile="fs25_dialogBgMiddle"/>
         <ThreePartBitmap profile="fs25_dialogBgTop"/>
         <ThreePartBitmap profile="fs25_dialogBgBottom"/>
@@ -26,52 +26,58 @@
 
                     <!-- ==================== SELECTION ZONE ==================== -->
 
-                    <!-- Column 1: Client -->
-                    <Text profile="dashColLabel" position="14px 0px" text="$l10n_invoice_wizard_step1_label"/>
-                    <GuiElement profile="dashColWrapper" position="0px -28px" size="264px 336px">
-                        <SmoothList profile="dashColList" id="listFarms">
-                            <ListItem profile="dashSelectListItem" name="farmTemplate">
-                                <Bitmap profile="dashCellTick" name="cellTick" imageFilename="checkmark.dds"/>
-                                <Text profile="dashFarmCellName" name="cellName"/>
-                            </ListItem>
-                        </SmoothList>
-                        <ThreePartBitmap profile="dashSliderBox" position="258px 0px" size="6px 336px" id="farmSliderBox">
-                            <Slider profile="fs25_listSlider" dataElementId="listFarms"/>
-                        </ThreePartBitmap>
-                    </GuiElement>
+                    <GuiElement profile="dashSelectionZone">
 
-                    <!-- Column 2: Prestations (locked until client selected) -->
-                    <Text profile="dashColLabel" position="298px 0px" text="$l10n_invoice_wizard_step2_label"/>
-                    <GuiElement profile="dashColWrapper" position="284px -28px" size="264px 336px" id="workTypesZone">
-                        <SmoothList profile="dashColList" id="listWorkTypes">
-                            <ListItem profile="dashSelectListItem" name="workTypeTemplate">
-                                <Bitmap profile="dashCellTick" name="cellTick" imageFilename="checkmark.dds"/>
-                                <Text profile="dashWorkCellName" name="cellName"/>
-                                <Text profile="dashWorkCellPrice" name="cellPrice"/>
-                            </ListItem>
-                        </SmoothList>
-                        <ThreePartBitmap profile="dashSliderBox" position="258px 0px" size="6px 336px" id="workSliderBox">
-                            <Slider profile="fs25_listSlider" dataElementId="listWorkTypes"/>
-                        </ThreePartBitmap>
-                    </GuiElement>
+                        <!-- Column 1: Client -->
+                        <Text profile="dashColLabel" position="10px -8px" text="$l10n_invoice_wizard_step1_label"/>
+                        <GuiElement profile="dashColWrapper" position="8px -36px" size="268px 336px">
+                            <SmoothList profile="dashColList" id="listFarms" onClick="onFarmListClicked">
+                                <ListItem profile="dashSelectListItemFlat" name="farmTemplate">
+                                    <Text profile="dashCellBrackets" text="[   ]"/>
+                                    <Text profile="dashCellCheck" name="cellTick" text=" X "/>
+                                    <Text profile="dashFarmCellName" name="cellName"/>
+                                </ListItem>
+                            </SmoothList>
+                            <ThreePartBitmap profile="dashSliderBox" position="262px 0px" size="6px 336px" id="farmSliderBox">
+                                <Slider profile="fs25_listSlider" size="6px 336px" dataElementId="listFarms"/>
+                            </ThreePartBitmap>
+                        </GuiElement>
 
-                    <!-- Column 3: Parcelles (toujours visible) -->
-                    <Text profile="dashColLabel" position="582px 0px" text="$l10n_invoice_wizard_step3_label"/>
-                    <GuiElement profile="dashColWrapper" position="568px -28px" size="264px 336px" id="fieldsPanel">
-                        <SmoothList profile="dashColList" id="listFields" listSectionHeader="section">
-                            <ListItem profile="dashSelectListItem" name="fieldTemplate">
-                                <Bitmap profile="dashCellTick" name="cellTick" imageFilename="checkmark.dds"/>
-                                <Text profile="dashColFieldCellName" name="cellName"/>
-                                <Text profile="dashColFieldCellArea" name="cellArea"/>
-                            </ListItem>
-                            <ListItem profile="dashSectionHeader" name="section">
-                                <Text profile="dashSectionTitle" name="title"/>
-                            </ListItem>
-                        </SmoothList>
-                        <ThreePartBitmap profile="dashSliderBox" position="258px 0px" size="6px 336px" id="fieldSliderBox">
-                            <Slider profile="fs25_listSlider" dataElementId="listFields"/>
-                        </ThreePartBitmap>
-                        <Text profile="dashFieldsEmptyText" id="fieldsEmptyText" text="$l10n_invoice_dash_no_fields"/>
+                        <!-- Column 2: Work types (locked until client selected) -->
+                        <Text profile="dashColLabel" position="288px -8px" text="$l10n_invoice_wizard_step2_label"/>
+                        <GuiElement profile="dashColWrapper" position="286px -36px" size="268px 336px" id="workTypesZone">
+                            <SmoothList profile="dashColList" id="listWorkTypes" onClick="onWorkTypeListClicked">
+                                <ListItem profile="dashSelectListItemFlat" name="workTypeTemplate">
+                                    <Text profile="dashCellBrackets" text="[   ]"/>
+                                    <Text profile="dashCellCheck" name="cellTick" text=" X "/>
+                                    <Text profile="dashWorkCellName" name="cellName"/>
+                                    <Text profile="dashWorkCellPrice" name="cellPrice"/>
+                                </ListItem>
+                            </SmoothList>
+                            <ThreePartBitmap profile="dashSliderBox" position="262px 0px" size="6px 336px" id="workSliderBox">
+                                <Slider profile="fs25_listSlider" size="6px 336px" dataElementId="listWorkTypes"/>
+                            </ThreePartBitmap>
+                        </GuiElement>
+
+                        <!-- Column 3: Fields (always visible) -->
+                        <Text profile="dashColLabel" position="566px -8px" text="$l10n_invoice_wizard_step3_label"/>
+                        <GuiElement profile="dashColWrapper" position="564px -36px" size="268px 336px" id="fieldsPanel">
+                            <SmoothList profile="dashColList" id="listFields" listSectionHeader="section" onClick="onFieldListClicked">
+                                <ListItem profile="dashSelectListItemFlat" name="fieldTemplate">
+                                    <Text profile="dashCellBrackets" text="[   ]"/>
+                                    <Text profile="dashCellCheck" name="cellTick" text=" X "/>
+                                    <Text profile="dashColFieldCellName" name="cellName"/>
+                                    <Text profile="dashColFieldCellArea" name="cellArea"/>
+                                </ListItem>
+                                <ListItem profile="dashSectionHeader" name="section">
+                                    <Text profile="dashSectionTitle" name="title"/>
+                                </ListItem>
+                            </SmoothList>
+                            <ThreePartBitmap profile="dashSliderBox" position="262px 0px" size="6px 336px" id="fieldSliderBox">
+                                <Slider profile="fs25_listSlider" size="6px 336px" dataElementId="listFields"/>
+                            </ThreePartBitmap>
+                            <Text profile="dashFieldsEmptyText" id="fieldsEmptyText" text="$l10n_invoice_dash_no_fields"/>
+                        </GuiElement>
                     </GuiElement>
 
                     <!-- ==================== RECAP ZONE ==================== -->
@@ -91,24 +97,23 @@
                     <Text profile="dashColAmount"      text="$l10n_invoice_step4_col_amount"/>
                     <Bitmap profile="dashSepHeaders"/>
 
-                    <!-- Line items list + slider (inside wrapper for alignment) -->
-                    <GuiElement profile="dashListWrapper" position="0px -454px" size="832px 220px">
-                        <SmoothList profile="dashItemList" id="listItems">
-                            <ListItem profile="dashItemListRow" name="itemTemplate">
-                                <ThreePartBitmap profile="dashItemGradient" name="alternating"/>
-                                <Text profile="dashCellDesignation" name="cellDesignation"/>
-                                <Text profile="dashCellField"       name="cellField"/>
-                                <Text profile="dashCellQty"         name="cellQty"/>
-                                <Text profile="dashCellUnit"        name="cellUnit"/>
-                                <Text profile="dashCellPrice"       name="cellPrice"/>
-                                <Text profile="dashCellVat"         name="cellVat"/>
-                                <Text profile="dashCellAmount"      name="cellAmount"/>
-                            </ListItem>
-                        </SmoothList>
-                        <ThreePartBitmap profile="dashSliderBox" position="821px 0px" size="6px 220px" id="itemSliderBox">
-                            <Slider profile="fs25_listSlider" dataElementId="listItems"/>
-                        </ThreePartBitmap>
-                    </GuiElement>
+                    <!-- Line items list (full width, slider outside like Detail dialog) -->
+                    <SmoothList profile="dashItemList" id="listItems">
+                        <ListItem profile="dashItemListRow" name="itemTemplate">
+                            <ThreePartBitmap profile="dashItemGradient" name="alternating"/>
+                            <Bitmap profile="dashCellItemIcon" name="cellIcon"/>
+                            <Text profile="dashCellDesignation" name="cellDesignation"/>
+                            <Text profile="dashCellField"       name="cellField"/>
+                            <Text profile="dashCellQty"         name="cellQty"/>
+                            <Text profile="dashCellUnit"        name="cellUnit"/>
+                            <Text profile="dashCellPrice"       name="cellPrice"/>
+                            <Text profile="dashCellVat"         name="cellVat"/>
+                            <Text profile="dashCellAmount"      name="cellAmount"/>
+                        </ListItem>
+                    </SmoothList>
+                    <ThreePartBitmap profile="dashRecapSliderBox" id="itemSliderBox">
+                        <Slider profile="fs25_listSlider" dataElementId="listItems"/>
+                    </ThreePartBitmap>
 
                     <!-- Footer: Note | P.U. | Qty | TVA % -->
                     <Text      profile="dashFooterNoteLabel"  text="$l10n_invoice_label_note"/>
@@ -159,12 +164,8 @@
             </BoxLayout>
         </GuiElement>
 
-        <!-- Button bar: [Retirer][Ajouter][Envoyer][Annuler] -->
-        <BoxLayout profile="fs25_dialogButtonBox" size="860px 60px">
-            <Button profile="dashBtnRemove" id="btnRemove" text="$l10n_invoice_btn_remove" onClick="onClickRemove" disabled="true"/>
-            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
-            <Button profile="dashBtnAdd" id="btnAdd" text="$l10n_invoice_btn_add" onClick="onClickAdd" disabled="true"/>
-            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+        <!-- Button bar -->
+        <BoxLayout profile="fs25_dialogButtonBox" size="870px 60px">
             <Button profile="buttonOK" id="btnSend" text="$l10n_invoice_btn_sendInvoice" onClick="onClickSend" disabled="true"/>
             <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
             <Button profile="dashBtnCancel" text="$l10n_invoice_btn_cancel" onClick="onClickCancel"/>
@@ -176,7 +177,7 @@
         <!-- ==================== LAYOUT ==================== -->
 
         <Profile name="dashMainBox" extends="emptyPanel" with="anchorTopCenter">
-            <size value="832px 871px"/>
+            <size value="832px 953px"/>
             <flowDirection value="vertical"/>
             <alignmentX value="left"/>
             <alignmentY value="top"/>
@@ -206,20 +207,10 @@
         </Profile>
 
         <Profile name="dashContentArea" extends="emptyPanel">
-            <size value="832px 810px"/>
+            <size value="832px 892px"/>
         </Profile>
 
         <!-- ==================== SELECTION ZONE ==================== -->
-
-        <Profile name="dashSelectLabel" extends="baseReference" with="anchorTopLeft">
-            <size value="397px 24px"/>
-            <textSize value="15px"/>
-            <textBold value="true"/>
-            <textColor value="$preset_colorWhite_50"/>
-            <textDisabledColor value="0.3 0.3 0.3 0.5"/>
-            <textAlignment value="left"/>
-            <textVerticalAlignment value="middle"/>
-        </Profile>
 
         <Profile name="dashListWrapper" extends="emptyPanel" with="anchorTopLeft"/>
 
@@ -236,22 +227,46 @@
 
         <Profile name="dashColWrapper" extends="emptyPanel" with="anchorTopLeft"/>
 
-        <Profile name="dashColList" extends="emptyPanel">
-            <size value="252px 336px"/>
+        <Profile name="dashSelectionZone" extends="emptyPanel" with="anchorTopLeft">
             <position value="0px 0px"/>
+            <size value="832px 384px"/>
         </Profile>
 
-        <Profile name="dashCellTick" extends="baseReference" with="anchorStretchingYLeft">
-            <position value="2px 2px"/>
-            <size value="24px 24px"/>
-            <imageColor value="$preset_fs25_colorMainHighlight"/>
-            <imageSelectedColor value="$preset_fs25_colorMainDark"/>
+        <Profile name="dashColList" extends="emptyPanel">
+            <size value="256px 336px"/>
+        </Profile>
+
+        <!-- Selection indicator: brackets (always visible) -->
+        <Profile name="dashCellBrackets" extends="baseReference" with="anchorStretchingYLeft">
+            <position value="2px 0px"/>
+            <size value="32px 32px"/>
+            <textSize value="16px"/>
+            <textBold value="true"/>
+            <textColor value="1 1 1 1"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textDisabledColor value="0.3 0.3 0.3 0.5"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+            <textOffset value="0px 2px"/>
+        </Profile>
+
+        <!-- Selection indicator: check mark (visible when selected) -->
+        <Profile name="dashCellCheck" extends="baseReference" with="anchorStretchingYLeft">
+            <position value="2px 0px"/>
+            <size value="32px 32px"/>
+            <textSize value="16px"/>
+            <textBold value="true"/>
+            <textColor value="$preset_fs25_colorMainHighlight"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textDisabledColor value="0.3 0.3 0.3 0.5"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
         </Profile>
 
         <!-- Farm list cells -->
         <Profile name="dashFarmCellName" extends="baseReference" with="anchorStretchingYLeft">
-            <position value="32px 0px"/>
-            <size value="218px 28px"/>
+            <position value="36px 0px"/>
+            <size value="214px 32px"/>
             <textSize value="14px"/>
             <textColor value="1 1 1 1"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -261,20 +276,22 @@
 
         <!-- Work type list cells -->
         <Profile name="dashWorkCellName" extends="baseReference" with="anchorStretchingYLeft">
-            <position value="32px 0px"/>
-            <size value="132px 28px"/>
+            <position value="36px 0px"/>
+            <size value="128px 32px"/>
             <textSize value="13px"/>
             <textColor value="1 1 1 1"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
             <textDisabledColor value="0.3 0.3 0.3 0.5"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
+            <textClipArea value="true"/>
         </Profile>
 
         <Profile name="dashWorkCellPrice" extends="baseReference" with="anchorStretchingYLeft">
             <position value="166px 0px"/>
-            <size value="82px 28px"/>
+            <size value="82px 32px"/>
             <textSize value="11px"/>
+            <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
             <textDisabledColor value="0.3 0.3 0.3 0.5"/>
@@ -284,8 +301,8 @@
 
         <!-- Field list cells (column) -->
         <Profile name="dashColFieldCellName" extends="baseReference" with="anchorStretchingYLeft">
-            <position value="32px 0px"/>
-            <size value="148px 28px"/>
+            <position value="36px 0px"/>
+            <size value="144px 32px"/>
             <textSize value="13px"/>
             <textColor value="1 1 1 1"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -295,8 +312,9 @@
 
         <Profile name="dashColFieldCellArea" extends="baseReference" with="anchorStretchingYLeft">
             <position value="182px 0px"/>
-            <size value="66px 28px"/>
+            <size value="66px 32px"/>
             <textSize value="11px"/>
+            <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
             <textAlignment value="right"/>
@@ -311,7 +329,7 @@
 
         <Profile name="dashSectionTitle" extends="baseReference">
             <position value="0px 0px"/>
-            <size value="252px 24px"/>
+            <size value="256px 24px"/>
             <textSize value="13px"/>
             <textBold value="true"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -321,7 +339,7 @@
 
         <Profile name="dashFieldsEmptyText" extends="baseReference" with="anchorTopLeft">
             <position value="0px 0px"/>
-            <size value="252px 336px"/>
+            <size value="256px 336px"/>
             <textSize value="12px"/>
             <textColor value="0.4 0.4 0.4 0.6"/>
             <textAlignment value="center"/>
@@ -330,9 +348,9 @@
 
         <!-- ==================== RECAP ZONE ==================== -->
 
-        <!-- From / To: Y = -(194 + 180 + 16) = -390 -->
+        <!-- From / To: Y = -(384 + 22) = -406 -->
         <Profile name="dashHeaderFrom" extends="baseReference" with="anchorTopLeft">
-            <position value="10px -390px"/>
+            <position value="10px -406px"/>
             <size value="394px 25px"/>
             <textSize value="14px"/>
             <textBold value="true"/>
@@ -342,7 +360,7 @@
         </Profile>
 
         <Profile name="dashHeaderTo" extends="baseReference" with="anchorTopLeft">
-            <position value="428px -390px"/>
+            <position value="428px -406px"/>
             <size value="394px 25px"/>
             <textSize value="14px"/>
             <textBold value="true"/>
@@ -351,14 +369,14 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Y = -(390 + 25) = -415 -->
+        <!-- Y = -(406 + 25) = -431 -->
         <Profile name="dashSepTop" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -415px"/>
+            <position value="0px -431px"/>
             <size value="832px 1px"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
 
-        <!-- Column headers: Y = -(415 + 1 + 6) = -422 -->
+        <!-- Column headers: Y = -(431 + 1 + 6) = -438 -->
         <Profile name="dashColBase" extends="baseReference" with="anchorTopLeft">
             <textSize value="11px"/>
             <textBold value="true"/>
@@ -368,47 +386,53 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="dashColDesignation" extends="dashColBase">
-            <position value="10px -422px"/>
+            <position value="10px -438px"/>
             <size value="214px 25px"/>
             <textAlignment value="left"/>
         </Profile>
         <Profile name="dashColField" extends="dashColBase">
-            <position value="236px -422px"/>
+            <position value="236px -438px"/>
             <size value="88px 25px"/>
         </Profile>
         <Profile name="dashColQty" extends="dashColBase">
-            <position value="330px -422px"/>
+            <position value="330px -438px"/>
             <size value="59px 25px"/>
         </Profile>
         <Profile name="dashColUnit" extends="dashColBase">
-            <position value="394px -422px"/>
+            <position value="394px -438px"/>
             <size value="59px 25px"/>
         </Profile>
         <Profile name="dashColPrice" extends="dashColBase">
-            <position value="460px -422px"/>
+            <position value="460px -438px"/>
             <size value="127px 25px"/>
         </Profile>
         <Profile name="dashColVat" extends="dashColBase">
-            <position value="596px -422px"/>
+            <position value="596px -438px"/>
             <size value="62px 25px"/>
         </Profile>
         <Profile name="dashColAmount" extends="dashColBase">
-            <position value="664px -422px"/>
+            <position value="664px -438px"/>
             <size value="148px 25px"/>
             <textAlignment value="right"/>
         </Profile>
 
-        <!-- Y = -(422 + 25) = -447 -->
+        <!-- Y = -(438 + 25) = -463 -->
         <Profile name="dashSepHeaders" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -447px"/>
+            <position value="0px -463px"/>
             <size value="832px 1px"/>
             <imageColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
 
-        <!-- Line items list: Y = -(447 + 1 + 6) = -454 -->
-        <Profile name="dashItemList" extends="emptyPanel">
-            <size value="815px 220px"/>
-            <position value="0px 0px"/>
+        <!-- Line items list: Y = -(463 + 1 + 6) = -470 -->
+        <Profile name="dashItemList" extends="emptyPanel" with="anchorTopLeft">
+            <position value="0px -470px"/>
+            <size value="832px 282px"/>
+        </Profile>
+
+        <!-- Slider outside list, absolute position (same pattern as Detail dialog) -->
+        <Profile name="dashRecapSliderBox" extends="fs25_listSliderBox" with="anchorTopLeft">
+            <position value="840px -470px"/>
+            <size value="6px 282px"/>
         </Profile>
 
         <Profile name="dashItemListRow" extends="fs25_calendarListItem">
@@ -425,11 +449,20 @@
         </Profile>
 
         <!-- Line item cells -->
+        <!-- Product icon in recap (visible only for fillType items) -->
+        <Profile name="dashCellItemIcon" extends="emptyPanel" with="anchorTopLeft">
+            <position value="10px -6px"/>
+            <size value="20px 20px"/>
+            <imageColor value="1 1 1 1"/>
+            <imageSelectedColor value="1 1 1 1"/>
+        </Profile>
+
         <Profile name="dashCellDesignation" extends="baseReference" with="anchorStretchingYLeft">
             <position value="10px 0px"/>
             <size value="214px 32px"/>
             <textSize value="13px"/>
-            <textColor value="1 1 1 1"/>
+            <textBold value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
@@ -465,7 +498,8 @@
             <position value="460px 0px"/>
             <size value="127px 32px"/>
             <textSize value="12px"/>
-            <textColor value="$preset_colorWhite_50"/>
+            <textBold value="true"/>
+            <textColor value="$preset_fs25_colorMainHighlight"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
@@ -490,7 +524,7 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Footer labels: Y = -(454 + 220 + 6) = -680 -->
+        <!-- Footer labels: Y = -(470 + 282 + 6) = -758 -->
         <Profile name="dashFooterLabelBase" extends="baseReference" with="anchorTopLeft">
             <textSize value="11px"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -498,23 +532,23 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="dashFooterNoteLabel" extends="dashFooterLabelBase">
-            <position value="0px -680px"/>
+            <position value="0px -758px"/>
             <size value="310px 16px"/>
         </Profile>
         <Profile name="dashFooterPriceLabel" extends="dashFooterLabelBase">
-            <position value="327px -680px"/>
+            <position value="327px -758px"/>
             <size value="165px 16px"/>
         </Profile>
         <Profile name="dashFooterQtyLabel" extends="dashFooterLabelBase">
-            <position value="509px -680px"/>
+            <position value="509px -758px"/>
             <size value="165px 16px"/>
         </Profile>
         <Profile name="dashFooterVatLabel" extends="dashFooterLabelBase">
-            <position value="691px -680px"/>
+            <position value="691px -758px"/>
             <size value="141px 16px"/>
         </Profile>
 
-        <!-- Footer text inputs: Y = -(680 + 16 + 2) = -698 -->
+        <!-- Footer text inputs: Y = -(758 + 16 + 2) = -776 -->
         <Profile name="dashFooterInputBase" extends="fs25_textInput" with="anchorTopLeft">
             <handleFocus value="true"/>
             <applyProfanityFilter value="false"/>
@@ -531,21 +565,21 @@
             <cursorOffset value="1px -2px"/>
         </Profile>
         <Profile name="dashFooterNoteInput" extends="dashFooterInputBase">
-            <position value="0px -698px"/>
+            <position value="0px -776px"/>
             <size value="310px 26px"/>
         </Profile>
         <Profile name="dashFooterPriceInput" extends="dashFooterInputBase">
-            <position value="327px -698px"/>
+            <position value="327px -776px"/>
             <size value="165px 26px"/>
             <maxCharacters value="11"/>
         </Profile>
         <Profile name="dashFooterQtyInput" extends="dashFooterInputBase">
-            <position value="509px -698px"/>
+            <position value="509px -776px"/>
             <size value="165px 26px"/>
             <maxCharacters value="11"/>
         </Profile>
         <Profile name="dashFooterVatInput" extends="dashFooterInputBase">
-            <position value="691px -698px"/>
+            <position value="691px -776px"/>
             <size value="141px 26px"/>
             <maxCharacters value="5"/>
         </Profile>
@@ -613,15 +647,15 @@
             <endImageDisabledColor value="$preset_fs25_colorGreyDark"/>
         </Profile>
 
-        <!-- Total bar: Y = -(698 + 26 + 16) = -740 -->
+        <!-- Total bar: Y = -(776 + 26 + 16) = -818 -->
         <Profile name="dashTotalBarBg" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -740px"/>
+            <position value="0px -818px"/>
             <size value="832px 68px"/>
             <color value="0 0 0 1"/>
             <cornerSize value="0.3"/>
         </Profile>
         <Profile name="dashTotalLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="22px -740px"/>
+            <position value="22px -818px"/>
             <size value="225px 68px"/>
             <textSize value="22px"/>
             <textBold value="true"/>
@@ -630,7 +664,7 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="dashVatHtText" extends="baseReference" with="anchorTopLeft">
-            <position value="394px -742px"/>
+            <position value="394px -820px"/>
             <size value="416px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -638,7 +672,7 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="dashVatTvaText" extends="baseReference" with="anchorTopLeft">
-            <position value="394px -760px"/>
+            <position value="394px -838px"/>
             <size value="416px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -646,7 +680,7 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="dashTotalSepBox" extends="emptyPanel" with="anchorTopLeft">
-            <position value="394px -778px"/>
+            <position value="394px -856px"/>
             <size value="416px 1px"/>
             <flowDirection value="horizontal"/>
             <alignmentX value="right"/>
@@ -657,19 +691,13 @@
             <imageColor value="0.3 0.3 0.3 0.8"/>
         </Profile>
         <Profile name="dashTotalValue" extends="baseReference" with="anchorTopLeft">
-            <position value="394px -779px"/>
+            <position value="394px -857px"/>
             <size value="416px 27px"/>
             <textSize value="24px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
-        </Profile>
-
-        <!-- ==================== BUTTONS ==================== -->
-
-        <Profile name="dashBtnRemove" extends="buttonOK">
-            <inputAction value="MENU_DELETE"/>
         </Profile>
 
     </GUIProfiles>

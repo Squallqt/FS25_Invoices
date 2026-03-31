@@ -152,23 +152,33 @@
 
     <!-- Slider -->
     <Profile name="invSliderBox" extends="fs25_listSliderBox" with="anchorTopRight">
+        <width value="6px"/>
         <height value="670px"/>
     </Profile>
 
     <!-- Shared dashboard profiles (used by InvoicesMainDashboard + InvoicesFillTypeDialog) -->
 
-    <Profile name="dashSelectListItem" extends="baseReference" with="anchorTopStretchingX alternating">
-        <height value="28px"/>
+    <Profile name="dashSelectListItem" extends="fs25_calendarListItem">
+        <height value="32px"/>
+        <imageColor value="$preset_fs25_colorGrey"/>
+        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+        <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
+    </Profile>
+
+    <Profile name="dashSelectGradient" extends="fs25_calendarListItemBg">
+        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+        <startImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+        <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+    </Profile>
+
+    <Profile name="dashSelectListItemFlat" extends="baseReference" with="anchorTopStretchingX alternating">
+        <height value="32px"/>
         <imageColor value="$preset_fs25_colorGrey"/>
         <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
         <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
     </Profile>
 
     <Profile name="dashSliderBox" extends="fs25_listSliderBox" with="anchorTopLeft"/>
-
-    <Profile name="dashBtnAdd" extends="buttonOK">
-        <inputAction value="MENU_ACTIVATE"/>
-    </Profile>
 
     <Profile name="dashBtnCancel" extends="buttonBack">
         <inputAction value="MENU_BACK"/>

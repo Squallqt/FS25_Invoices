@@ -15,14 +15,10 @@
         <e k="invoice_btn_payInvoice" v="Pagar" />
         <e k="invoice_btn_deleteInvoice" v="Borrar" />
         <e k="invoice_btn_showDetails" v="Detalles" />
-        <e k="invoice_btn_add" v="Añadir" />
-        <e k="invoice_btn_remove" v="Quitar" />
         <e k="invoice_btn_cancel" v="Cancelar" />
         <e k="invoice_btn_close" v="Cerrar" />
         <e k="invoice_btn_select" v="Seleccionar" />
         <e k="invoice_btn_selectFarm" v="Sel. Cliente" />
-        <e k="invoice_btn_next" v="Siguiente" />
-        <e k="invoice_btn_back" v="Atrás" />
         <e k="invoice_label_from" v="De:" />
         <e k="invoice_label_to" v="Para:" />
         <e k="invoice_label_note" v="Observaciones:" />
@@ -31,22 +27,14 @@
         <e k="invoice_dialog_details" v="Detalles de la factura" />
         <e k="invoice_dialog_selectField" v="Selección de campo" />
         <e k="invoice_wizard_mainTitle" v="NUEVA FACTURA" />
-        <e k="invoice_wizard_step1_subtitle" v="CLIENTE" />
         <e k="invoice_wizard_step1_label" v="Seleccione la granja cliente:" />
-        <e k="invoice_wizard_step2_subtitle" v="SERVICIOS" />
         <e k="invoice_wizard_step2_label" v="Seleccione el tipo de trabajo:" />
-        <e k="invoice_wizard_step3_subtitle" v="CAMPOS" />
         <e k="invoice_wizard_step3_label" v="Seleccione los campos:" />
-        <e k="invoice_wizard_step4_subtitle" v="RESUMEN" />
         <e k="invoice_btn_sendInvoice" v="Enviar factura" />
-        <e k="invoice_wizard_no_items" v="Ningún servicio seleccionado." />
-        <e k="invoice_error_select_work" v="Por favor, seleccione un servicio." />
         <e k="invoice_wizard_invoice_created" v="¡Factura creada con éxito!" />
         <e k="invoice_wizard_invoice_failed" v="Error al crear." />
         <e k="invoice_wizard_client_fields" v="Campos del cliente" />
         <e k="invoice_wizard_other_fields" v="Otros campos" />
-        <e k="invoice_wizard_selection_summary" v="Servicios:" />
-        <e k="invoice_wizard_field_selection_summary" v="Ubicación:" />
         <e k="invoice_format_field_id" v="Campo %d" />
         <e k="invoice_step4_col_service" v="Descripción" />
         <e k="invoice_step4_col_qty" v="Cant." />
@@ -62,14 +50,11 @@
         <e k="invoice_detail_col_amount" v="Importe" />
         <e k="invoice_col_number" v="Nº Factura" />
         <e k="invoice_col_status" v="Estado" />
-        <e k="invoice_popup_added" v="Añadido: %s" />
-        <e k="invoice_popup_removed" v="Eliminado: %s" />
-        <e k="invoice_popup_already_selected" v="Ya seleccionado: %s" />
         <e k="invoice_empty_list" v="Sin facturas" />
         <e k="invoice_format_inv_number" v="FAC-%03d" />
         <e k="invoice_format_services_count" v="%d línea(s)" />
         <e k="invoice_confirm_pay" v="¿Confirmar pago a '%s'?" />
-        <e k="invoice_confirm_delete" v="¿Eliminar definitivamente?" />
+        <e k="invoice_confirm_delete" v="¿Eliminar definitivamente?" />        <e k="invoice_confirm_send" v="¿Enviar factura de %s a %s?" />
         <e k="invoice_notification_new" v="Factura recibida de %s: %s" />
         <e k="invoice_reminder_single" v="Factura pendiente: %s" />
         <e k="invoice_reminder_multiple" v="%d facturas pendientes por un total de %s" />
@@ -80,7 +65,7 @@
         <e k="invoice_invoices_unit_piece" v="ud" />
         <e k="invoice_invoices_unit_hour" v="h" />
         <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_invoices_unit_liter" v="l" />
         <e k="invoice_work_stoneCollection" v="Despedregado" />
         <e k="invoice_work_plowing" v="Arado" />
         <e k="invoice_work_cultivating" v="Cultivador" />
@@ -116,8 +101,8 @@
         <e k="invoice_work_windrowing" v="Hilerado" />
         <e k="invoice_work_baling" v="Empacado" />
         <e k="invoice_work_wrapping" v="Encintado" />
-        <e k="invoice_work_buyBales" v="Comercio (Compra)" />
-        <e k="invoice_work_sellBales" v="Venta (Pacas)" />
+        <e k="invoice_work_buyBales" v="Compra (Materia prima)" />
+        <e k="invoice_work_sellBales" v="Venta (Forraje / Paja)" />
         <e k="invoice_work_animalFeeding" v="Alimentación" />
         <e k="invoice_work_barnCleaning" v="Limpieza de establos" />
         <e k="invoice_work_animalTransport" v="Transporte ganado" />
@@ -145,7 +130,6 @@
         <e k="invoice_moneyType_expense" v="Factura (Gasto)" />
         <e k="invoice_error_permission_required" v="Acción reservada a los gerentes de granja." />
         <e k="invoice_error_insufficient_funds" v="Saldo insuficiente para pagar esta factura." />
-        <e k="invoice_error_select_farm" v="Seleccione una granja." />
         <e k="invoice_settings_section_title" v="Facturas" />
         <e k="invoice_setting_invoiceVatSimulated" v="IVA simulado" />
         <e k="invoice_toolTip_invoiceVatSimulated" v="Cuando está activado, las facturas incluyen IVA. El cliente paga el importe bruto (con impuesto), el proveedor recibe el importe neto (sin impuesto). Cuando está desactivado, el IVA se fija en 0% y ambas partes intercambian el mismo importe." />
@@ -162,8 +146,8 @@
         <e k="invoice_toolTip_invoicePenalties" v="Activa penalizaciones por retraso en facturas impagadas. Después de 1 mes de vencimiento, se aplica automáticamente una tasa fija del 5% mensual. Limitadas al 25% del importe total." />
         <e k="invoice_notification_overdue" v="Factura %s vencida: %s" />
         <e k="invoice_notification_overdue_warning" v="Se aplicarán penalizaciones por retraso." />
+        <e k="invoice_dash_no_fields" v="Sin parcela requerida" />
         <e k="invoice_dialog_selectFillType" v="Seleccionar producto" />
         <e k="invoice_col_filltype_name" v="Producto" />
-        <e k="invoice_col_filltype_price" v="Precio / 1000 L" />
     </elements>
 </l10n>

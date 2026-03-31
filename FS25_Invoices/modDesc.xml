@@ -53,7 +53,7 @@ Access via the dedicated tab in the InGame Menu (ESC).
 Changelog:
 
 1.1.0.0:
-- Add product selection on the Goods line item with auto-price from in-game market
+- Add product selection for the Products work type with automatic market pricing
 - Add VAT system (rate per line item, simulated VAT option can be disabled in Game Settings)
 - Add option to disable payment reminders (can be disabled in Game Settings)
 - Add late fees on unpaid invoices (can be disabled in Game Settings)
@@ -86,7 +86,7 @@ Accès via l'onglet dédié dans le menu en jeu (ECHAP).
 Changelog :
 
 1.1.0.0 :
-- Ajout de la sélection de produit sur la ligne Fournitures (prix automatique depuis le marché)
+- Ajout de la sélection de produits pour le type Produits avec prix automatique du marché
 - Ajout du système de TVA (taux par ligne, option simulée désactivable dans les Paramètres du jeu)
 - Ajout de l'option pour désactiver les rappels de paiement (désactivable dans les Paramètres du jeu)
 - Ajout des pénalités de retard sur les factures impayées (désactivable dans les Paramètres du jeu)
@@ -119,7 +119,7 @@ Zugriff über den eigenen Tab im InGame-Menü (ESC).
 Changelog:
 
 1.1.0.0:
-- Produktauswahl für Waren-Positionen mit automatischem Spielmarktpreis
+- Produktauswahl für den Arbeitstyp Produkte mit automatischer Marktpreisermittlung
 - MwSt-System (Steuersatz pro Zeile, simulierte MwSt deaktivierbar in den Spieleinstellungen)
 - Option zum Deaktivieren der Zahlungserinnerungen (deaktivierbar in den Spieleinstellungen)
 - Verzugsgebühren bei unbezahlten Rechnungen (deaktivierbar in den Spieleinstellungen)
@@ -136,7 +136,7 @@ Ideal para el estilo de juego de contratista agrícola. Factura a otras granjas 
 Changelog:
 
 1.1.0.0:
-- Selección de producto en líneas de Suministros con precio automático del mercado
+- Selección de productos para el tipo Productos con precio automático del mercado
 - Sistema de IVA (tipo por línea, IVA simulado desactivable en los Ajustes del juego)
 - Opción para desactivar los recordatorios de pago (desactivable en los Ajustes del juego)
 - Penalizaciones por retraso en facturas impagadas (desactivable en los Ajustes del juego)
@@ -157,7 +157,7 @@ Ideale per il gameplay da contoterzista. Fattura altre aziende per i servizi svo
 Changelog:
 
 1.1.0.0:
-- Selezione prodotto sulla voce Forniture con prezzo automatico dal mercato
+- Selezione prodotti per il tipo Prodotti con prezzo automatico dal mercato
 - Sistema IVA (aliquota per riga, IVA simulata disattivabile nelle Impostazioni di gioco)
 - Opzione per disattivare i promemoria di pagamento (disattivabile nelle Impostazioni di gioco)
 - Penali per ritardo sulle fatture non pagate (disattivabile nelle Impostazioni di gioco)
@@ -178,7 +178,7 @@ Idealne do rozgrywki w stylu usług rolniczych. Wystawiaj faktury za wykonane pr
 Changelog:
 
 1.1.0.0:
-- Wybór produktu dla pozycji Materiały z automatyczną ceną z rynku gry
+- Wybór produktów dla typu Produkty z automatyczną ceną z rynku gry
 - System VAT (stawka na wiersz, symulowany VAT można wyłączyć w Ustawieniach gry)
 - Opcja wyłączenia przypomnień o płatności (można wyłączyć w Ustawieniach gry)
 - Kary za opóźnienie na niezapłaconych fakturach (możliwość wyłączenia w Ustawieniach gry)
@@ -199,7 +199,7 @@ Dostęp przez dedykowaną kartę w menu gry (ESC).]]></pl>
 Changelog:
 
 1.1.0.0:
-- Добавлен выбор продукта для позиции Товары (цена автоматически из рынка игры)
+- Выбор продуктов для типа работ Продукты с автоматической ценой с рынка
 - Система НДС (ставка на строку, симулированный НДС отключается в Настройках игры)
 - Опция отключения напоминаний об оплате (отключается в Настройках игры)
 - Штрафы за просрочку на неоплаченных счетах (отключается в Настройках игры)
