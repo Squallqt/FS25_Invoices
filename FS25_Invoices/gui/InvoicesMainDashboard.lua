@@ -976,22 +976,32 @@ function InvoicesMainDashboard:populateWorkTypeCell(index, cell)
     local cellPrice = cell:getDescendantByName("cellPrice")
     if cellPrice ~= nil then
         cellPrice:setDisabled(locked)
-        local manager = g_currentMission.invoicesManager
-        local unitKey = manager and manager:getUnitKey(workType.unit) or "invoices_unit_piece"
-        local unitStr = g_i18n:getText(unitKey)
-
-        local selectedEntry = self:getSelectedWorkTypeEntry(workType)
-        local price = (selectedEntry and selectedEntry.customPrice)
-            or (manager and manager:getAdjustedPrice(workType.id))
-            or workType.basePrice or 0
-
         local priceStr
-        if workType.unit == Invoice.UNIT_LITER then
-            local isCustom = selectedEntry and selectedEntry.customPrice
-            local displayPrice = isCustom and price or (price * 1000)
-            priceStr = string.format("%s /1000%s", g_i18n:formatMoney(displayPrice, 0), unitStr)
+        if workType.fillTypeDialog then
+            local count = 0
+            for _, item in ipairs(self.selectedWorkItems) do
+                if item.nameKey == workType.nameKey then
+                    count = count + 1
+                end
+            end
+            priceStr = count > 0 and string.format("× %d", count) or "—"
         else
-            priceStr = string.format("%s /%s", g_i18n:formatMoney(price, 0), unitStr)
+            local manager = g_currentMission.invoicesManager
+            local unitKey = manager and manager:getUnitKey(workType.unit) or "invoices_unit_piece"
+            local unitStr = g_i18n:getText(unitKey)
+
+            local selectedEntry = self:getSelectedWorkTypeEntry(workType)
+            local price = (selectedEntry and selectedEntry.customPrice)
+                or (manager and manager:getAdjustedPrice(workType.id))
+                or workType.basePrice or 0
+
+            if workType.unit == Invoice.UNIT_LITER then
+                local isCustom = selectedEntry and selectedEntry.customPrice
+                local displayPrice = isCustom and price or (price * 1000)
+                priceStr = string.format("%s /1000 %s", g_i18n:formatMoney(displayPrice, 0), unitStr)
+            else
+                priceStr = string.format("%s /%s", g_i18n:formatMoney(price, 0), unitStr)
+            end
         end
         cellPrice:setText(priceStr)
     end
