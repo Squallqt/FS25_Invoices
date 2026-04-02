@@ -49,89 +49,6 @@ function InvoicesWizardState:setRecipient(farmId, farmName)
     Logging.devInfo("[InvoicesWizardState] Recipient set: %s (id=%d)", farmName, farmId)
 end
 
-function InvoicesWizardState:setWorkType(workType)
-    self.selectedWorkType = workType
-    self.currentFieldId = nil
-    self.currentFieldArea = nil
-    self.currentQuantity = 1
-    self.currentPrice = workType and workType.basePrice or 0
-    self.currentNote = ""
-    Logging.devInfo("[InvoicesWizardState] Work type set: %s", workType and workType.nameKey or "nil")
-end
-
-function InvoicesWizardState:setField(fieldId, fieldArea)
-    self.currentFieldId = fieldId
-    self.currentFieldArea = fieldArea
-end
-
-function InvoicesWizardState:setDetails(quantity, price, note)
-    self.currentQuantity = quantity or 1
-    self.currentPrice = price or 0
-    self.currentNote = note or ""
-end
-
-function InvoicesWizardState:addLineItem()
-    if self.selectedWorkType == nil then
-        Logging.warning("[InvoicesWizardState] Cannot add line item: no work type selected")
-        return false
-    end
-    
-    local workType = self.selectedWorkType
-    local unit = workType.unit
-    local amount = 0
-    local displayName = g_i18n:getText(workType.nameKey)
-    
-    local manager = g_currentMission.invoicesManager
-    local unitStr = manager and g_i18n:getText(manager:getUnitKey(unit)) or ""
-    
-    if unit == Invoice.UNIT_HECTARE then
-        if self.currentFieldArea then
-            amount = self.currentPrice * self.currentFieldArea
-            displayName = string.format("%s (%.2f ha)", displayName, self.currentFieldArea)
-        else
-            Logging.warning("[InvoicesWizardState] Cannot add hectare item: no field selected")
-            return false
-        end
-    else
-        amount = self.currentPrice * self.currentQuantity
-        if unit == Invoice.UNIT_LITER then
-            displayName = string.format("%s (%.0f %s)", displayName, self.currentQuantity, unitStr)
-        else
-            displayName = string.format("%s (%.0f %s)", displayName, self.currentQuantity, unitStr)
-        end
-    end
-    
-    local vatRate = 0
-    if manager then
-        if manager.service:isVatEnabled() then
-            vatRate = manager.service:getVatRateForWorkType(workType.id)
-        end
-    end
-
-    local item = {
-        workTypeId = workType.id,
-        name = displayName,
-        quantity = self.currentQuantity,
-        price = self.currentPrice,
-        unit = unit,
-        fieldId = self.currentFieldId,
-        fieldArea = self.currentFieldArea,
-        amount = amount,
-        note = self.currentNote,
-        vatRate = vatRate
-    }
-    
-    table.insert(self.lineItems, item)
-    Logging.devInfo("[InvoicesWizardState] Line item added: %s = %.2f", displayName, amount)
-    
-    self.currentFieldId = nil
-    self.currentFieldArea = nil
-    self.currentQuantity = 1
-    self.currentNote = ""
-    
-    return true
-end
-
 function InvoicesWizardState:buildAllLineItems()
     local manager = g_currentMission.invoicesManager
 
@@ -205,28 +122,12 @@ function InvoicesWizardState:buildAllLineItems()
     Logging.devInfo("[InvoicesWizardState] Built %d line items, total: %.2f", #self.lineItems, self:getTotal())
 end
 
-function InvoicesWizardState:removeLineItem(index)
-    if index >= 1 and index <= #self.lineItems then
-        local removed = table.remove(self.lineItems, index)
-        Logging.devInfo("[InvoicesWizardState] Line item removed: %s", removed.name)
-    end
-end
-
 function InvoicesWizardState:getTotal()
     local total = 0
     for _, item in ipairs(self.lineItems) do
         total = total + (item.amount or 0)
     end
     return total
-end
-
-function InvoicesWizardState:requiresFieldSelection()
-    for _, workType in ipairs(self.selectedWorkTypes or {}) do
-        if workType.unit == Invoice.UNIT_HECTARE then
-            return true
-        end
-    end
-    return false
 end
 
 function InvoicesWizardState:canCreateInvoice()

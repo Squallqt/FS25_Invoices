@@ -87,10 +87,3 @@ function InvoiceCreateEvent:run(connection)
         manager.service:createAndSendInvoice(self.invoice, true)
     end
 end
-
-function InvoiceCreateEvent.send(invoice)
-    local manager = g_currentMission.invoicesManager
-    if manager then
-        manager:createAndSendInvoice(invoice)
-    end
-end

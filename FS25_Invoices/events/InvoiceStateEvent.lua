@@ -102,17 +102,3 @@ function InvoiceStateEvent:run(connection)
         end
     end
 end
-
-function InvoiceStateEvent.sendPay(invoiceId)
-    local manager = g_currentMission.invoicesManager
-    if manager then
-        manager:payInvoice(invoiceId)
-    end
-end
-
-function InvoiceStateEvent.sendDelete(invoiceId)
-    local manager = g_currentMission.invoicesManager
-    if manager then
-        manager:deleteInvoice(invoiceId)
-    end
-end

@@ -1429,40 +1429,6 @@ function InvoicesMainDashboard:removeField()
     end
 end
 
-function InvoicesMainDashboard:removeLineItem()
-    if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.lineItems then return end
-    local item = self.lineItems[self.selectedItemIndex]
-    if item == nil then return end
-
-    if item.unit == Invoice.UNIT_HECTARE and item.fieldId ~= nil and item.fieldId ~= 0 then
-        for i, f in ipairs(self.selectedFieldItems) do
-            if f.id == item.fieldId then
-                table.remove(self.selectedFieldItems, i)
-                break
-            end
-        end
-    else
-        if item.sourceIndex ~= nil and self.selectedWorkItems[item.sourceIndex] ~= nil then
-            table.remove(self.selectedWorkItems, item.sourceIndex)
-        else
-            for i, wt in ipairs(self.selectedWorkItems) do
-                if wt.id == item.workTypeId then
-                    table.remove(self.selectedWorkItems, i)
-                    break
-                end
-            end
-        end
-    end
-
-    self:rebuildLineItems()
-    if self.listWorkTypes ~= nil then
-        self.listWorkTypes:reloadData()
-    end
-    if self.listFields ~= nil then
-        self.listFields:reloadData()
-    end
-end
-
 -- ===================== SEND / CANCEL =====================
 
 function InvoicesMainDashboard:onClickSend()

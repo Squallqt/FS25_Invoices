@@ -17,12 +17,8 @@ source(modDirectory .. "events/InvoiceStateEvent.lua")
 source(modDirectory .. "events/InvoiceSyncEvent.lua")
 source(modDirectory .. "events/InvoiceSettingsEvent.lua")
 source(modDirectory .. "gui/InvoicesListRenderer.lua")
-source(modDirectory .. "gui/WorkTypesRenderer.lua")
-source(modDirectory .. "gui/LineItemsRenderer.lua")
 source(modDirectory .. "gui/InvoicesFrame.lua")
 source(modDirectory .. "gui/InvoicesDetailDialog.lua")
-source(modDirectory .. "gui/InvoicesFieldDialog.lua")
-source(modDirectory .. "gui/InvoicesFarmDialog.lua")
 source(modDirectory .. "gui/InvoicesFillTypeDialog.lua")
 source(modDirectory .. "gui/InvoicesMainDashboard.lua")
 
@@ -30,7 +26,6 @@ Invoices = {}
 Invoices.modDirectory = modDirectory
 Invoices.modName = modName
 Invoices.manager = nil
-Invoices.i18nOverrides = {}
 
 local function registerFinanceStat(statName)
     if FinanceStats.statNameToIndex[statName] == nil then
@@ -81,14 +76,6 @@ local function loadedMission()
     g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesDetailDialog.xml", "InvoicesDetailDialog", detailDialog)
     Logging.devInfo("[Invoices] InvoicesDetailDialog loaded")
     
-    local fieldDialog = InvoicesFieldDialog.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesFieldDialog.xml", "InvoicesFieldDialog", fieldDialog)
-    Logging.devInfo("[Invoices] InvoicesFieldDialog loaded")
-    
-    local farmDialog = InvoicesFarmDialog.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesFarmDialog.xml", "InvoicesFarmDialog", farmDialog)
-    Logging.devInfo("[Invoices] InvoicesFarmDialog loaded")
-
     local fillTypeDialog = InvoicesFillTypeDialog.new(frame)
     g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesFillTypeDialog.xml", "InvoicesFillTypeDialog", fillTypeDialog)
     Logging.devInfo("[Invoices] InvoicesFillTypeDialog loaded")
@@ -250,7 +237,7 @@ local InvoicesI18NTexts = {
     ["invoice_status_overdue"] = true,
     ["invoice_label_total_due"] = true,
     ["invoice_label_penalty"] = true,
-    ["invoice_label_subtotal"] = true,
+    ["invoice_label_subtotal_ht"] = true,
     ["invoice_setting_invoicePenalties"] = true,
     ["invoice_toolTip_invoicePenalties"] = true,
     ["invoice_notification_overdue"] = true,
@@ -258,9 +245,6 @@ local InvoicesI18NTexts = {
 }
 
 local function invoicesGetText(self, superFunc, text, modEnv)
-    if Invoices.i18nOverrides[text] ~= nil then
-        return Invoices.i18nOverrides[text]
-    end
     if modEnv == nil and InvoicesI18NTexts[text] then
         return superFunc(self, text, modName)
     end

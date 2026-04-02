@@ -132,15 +132,6 @@ function InvoiceSettings:loadDefaultsIfMissing()
     end
 end
 
--- Lazy-load settings from XML on first save to avoid creating files for unused savegames
-local settingsLoaded = false
-function InvoiceSettings:ensureSettingsLoaded()
-    if not settingsLoaded and g_currentMission ~= nil and g_currentMission:getIsServer() then
-        self:loadFromXMLFile()
-        settingsLoaded = true
-    end
-end
-
 function InvoiceSettings:saveToXMLFile()
     if g_currentMission == nil or not g_currentMission:getIsServer() then return end
     if g_currentMission.missionInfo == nil then return end
