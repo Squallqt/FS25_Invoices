@@ -62,6 +62,19 @@ function InvoiceCreateEvent:run(connection)
             return
         end
         
+        -- Sanitize line items
+        local items = invoice.lineItems or {}
+        if #items > 100 then
+            Logging.warning("[InvoiceCreateEvent] Server rejected CREATE: too many line items (%d)", #items)
+            return
+        end
+        for _, item in ipairs(items) do
+            if (item.amount or 0) < 0 or (item.price or 0) < 0 then
+                Logging.warning("[InvoiceCreateEvent] Server rejected CREATE: negative amount/price")
+                return
+            end
+        end
+        
         -- Server-authoritative recalculation of totals
         local total = 0
         local totalHT = 0

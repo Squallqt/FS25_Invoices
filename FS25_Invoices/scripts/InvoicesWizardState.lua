@@ -26,18 +26,8 @@ end
 function InvoicesWizardState:reset()
     self.recipientFarmId = nil
     self.recipientFarmName = nil
-    
-    self.selectedWorkType = nil
     self.selectedWorkTypes = {}
-    
     self.selectedFields = {}
-    
-    self.currentFieldId = nil
-    self.currentFieldArea = nil
-    self.currentQuantity = 1
-    self.currentPrice = 0
-    self.currentNote = ""
-    
     self.lineItems = {}
     
     Logging.devInfo("[InvoicesWizardState] State reset")

@@ -8,6 +8,7 @@ InvoiceSettings = {}
 
 InvoiceSettings.SETTINGS = {}
 InvoiceSettings.CONTROLS = {}
+InvoiceSettings._menuInjected = false
 
 InvoiceSettings.menuItems = {
     'invoiceVatSimulated',
@@ -242,18 +243,21 @@ function InvoiceSettings:injectMenu()
 
     settingsPage.gameSettingsLayout:invalidateLayout()
 
-    InGameMenuSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuSettingsFrame.onFrameOpen, function()
-        local isAdmin = g_currentMission:getIsServer() or g_currentMission.isMasterUser
-        for _, id in ipairs(InvoiceSettings.menuItems) do
-            local menuOption = InvoiceSettings.CONTROLS[id]
-            if menuOption ~= nil then
-                menuOption:setState(InvoiceSettings.getStateIndex(id))
-                if InvoiceSettings.SETTINGS[id].serverOnly and g_server == nil then
-                    menuOption:setDisabled(not isAdmin)
-                else
-                    menuOption:setDisabled(false)
+    if not InvoiceSettings._menuInjected then
+        InGameMenuSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuSettingsFrame.onFrameOpen, function()
+            local isAdmin = g_currentMission:getIsServer() or g_currentMission.isMasterUser
+            for _, id in ipairs(InvoiceSettings.menuItems) do
+                local menuOption = InvoiceSettings.CONTROLS[id]
+                if menuOption ~= nil then
+                    menuOption:setState(InvoiceSettings.getStateIndex(id))
+                    if InvoiceSettings.SETTINGS[id].serverOnly and g_server == nil then
+                        menuOption:setDisabled(not isAdmin)
+                    else
+                        menuOption:setDisabled(false)
+                    end
                 end
             end
-        end
-    end)
+        end)
+        InvoiceSettings._menuInjected = true
+    end
 end

@@ -122,6 +122,32 @@ function InvoiceRepository:saveToXML(savegamePath)
     delete(xmlFile)
 end
 
+function InvoiceRepository:saveToXMLWithSettings(savegamePath, settings)
+    local filePath = savegamePath .. "invoices.xml"
+    local xmlFile = createXMLFile("invoices", filePath, "invoices")
+
+    if xmlFile == nil then
+        Logging.error("[Invoices] Failed to create save file: %s", filePath)
+        return
+    end
+
+    setXMLInt(xmlFile, "invoices#version", InvoiceRepository.SAVE_VERSION)
+    setXMLInt(xmlFile, "invoices#nextId", self.nextInvoiceId)
+
+    for i, invoice in ipairs(self.invoices) do
+        local key = string.format("invoices.invoice(%d)", i - 1)
+        invoice:writeToXML(xmlFile, key)
+    end
+
+    local s = settings or {}
+    setXMLBool(xmlFile, "invoices.settings#vatSimulated", s.invoiceVatSimulated ~= false)
+    setXMLBool(xmlFile, "invoices.settings#reminders", s.invoiceReminders ~= false)
+    setXMLBool(xmlFile, "invoices.settings#penalties", s.invoicePenalties ~= false)
+
+    saveXMLFile(xmlFile)
+    delete(xmlFile)
+end
+
 function InvoiceRepository:loadFromXML(savegamePath)
     local filePath = savegamePath .. "invoices.xml"
 
@@ -163,7 +189,7 @@ function InvoiceRepository:loadFromXML(savegamePath)
             end
         end
 
-            if invoice.id >= self.nextInvoiceId then
+        if invoice.id >= self.nextInvoiceId then
             self.nextInvoiceId = invoice.id + 1
         end
 

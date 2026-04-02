@@ -184,7 +184,7 @@ local function onSaveToXMLFile()
             savegameFolderPath = ('%ssavegame%d'):format(getUserProfileAppPath(), g_currentMission.missionInfo.savegameIndex)
         end
         savegameFolderPath = savegameFolderPath .. "/"
-        Invoices.manager:saveToXML(savegameFolderPath)
+        Invoices.manager:saveToXML(savegameFolderPath, g_currentMission.invoiceSettings)
         Logging.devInfo("[Invoices] Saved to %s", savegameFolderPath)
     end
 end
@@ -193,9 +193,6 @@ local function initInvoices()
     Mission00.loadMission00Finished = Utils.appendedFunction(Mission00.loadMission00Finished, loadedMission)
     
     FSBaseMission.saveSavegame = Utils.appendedFunction(FSBaseMission.saveSavegame, onSaveToXMLFile)
-    FSBaseMission.saveSavegame = Utils.appendedFunction(FSBaseMission.saveSavegame, function()
-        InvoiceSettings:saveToXMLFile()
-    end)
     
     FSBaseMission.sendInitialClientState = Utils.appendedFunction(FSBaseMission.sendInitialClientState, sendInitialClientState)
     
@@ -212,6 +209,7 @@ local function initInvoices()
         g_currentMission.invoicesManager = nil
         g_currentMission.invoiceSettings = nil
         InvoiceSettings.CONTROLS = {}
+        InvoiceSettings._menuInjected = false
     end)
 end
 

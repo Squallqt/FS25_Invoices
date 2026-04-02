@@ -294,7 +294,13 @@ function InvoiceService:getAdjustedPrice(workTypeId)
 end
 
 function InvoiceService:createAndSendInvoice(invoice, noEventSend)
-    invoice.id = self.repository:generateId()
+    if invoice.id == 0 then
+        invoice.id = self.repository:generateId()
+    else
+        if invoice.id >= self.repository:getNextInvoiceId() then
+            self.repository:setNextInvoiceId(invoice.id + 1)
+        end
+    end
     self.repository:add(invoice)
     self:notifyNewInvoice(invoice)
     self:notifyUI()
