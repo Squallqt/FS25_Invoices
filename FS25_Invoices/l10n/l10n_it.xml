@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="A:" />
         <e k="invoice_label_note" v="Note:" />
         <e k="invoice_placeholder_note" v="Aggiungere nota o riferimento" />
-        <e k="invoice_label_total" v="Totale:" />
         <e k="invoice_dialog_details" v="Dettagli fattura" />
         <e k="invoice_dialog_selectField" v="Scelta campo" />
         <e k="invoice_wizard_mainTitle" v="NUOVA FATTURA" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="FAT-%03d" />
         <e k="invoice_format_services_count" v="%d linea(e)" />
         <e k="invoice_confirm_pay" v="Confermare il pagamento a '%s'?" />
-        <e k="invoice_confirm_delete" v="Eliminare definitivamente?" />        <e k="invoice_confirm_send" v="Inviare fattura di %s a %s?" />
+        <e k="invoice_confirm_delete" v="Eliminare definitivamente?" />
+        <e k="invoice_confirm_send" v="Inviare fattura di %s a %s?" />
         <e k="invoice_notification_new" v="Fattura ricevuta da %s: %s" />
         <e k="invoice_reminder_single" v="Fattura non pagata: %s" />
         <e k="invoice_reminder_multiple" v="%d fatture non pagate per un totale di %s" />
         <e k="invoice_format_date" v="%02d/%02d/A%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="G%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Campo %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Campo %s" />
         <e k="invoice_invoices_unit_piece" v="pz" />
         <e k="invoice_invoices_unit_hour" v="h" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="IVA" />
         <e k="finance_invoiceIncome" v="Ricavo fatture" />
         <e k="finance_invoiceExpense" v="Spesa fatture" />
-        <e k="invoice_moneyType_income" v="Fattura (Ricavo)" />
-        <e k="invoice_moneyType_expense" v="Fattura (Spesa)" />
+        <e k="invoice_label_invoice" v="Fattura" />
         <e k="invoice_error_permission_required" v="Azione riservata ai gestori dell'azienda agricola." />
         <e k="invoice_error_insufficient_funds" v="Saldo insufficiente per pagare questa fattura." />
         <e k="invoice_settings_section_title" v="Fatture" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Scaduta" />
         <e k="invoice_label_total_due" v="Totale dovuto:" />
         <e k="invoice_label_penalty" v="Penale di mora" />
-        <e k="invoice_label_subtotal" v="Subtotale" />
         <e k="invoice_setting_invoicePenalties" v="Penali per ritardo" />
         <e k="invoice_toolTip_invoicePenalties" v="Attiva le penali per ritardo sulle fatture non pagate. Dopo 1 mese dalla scadenza, viene applicato automaticamente un tasso fisso del 5% al mese. Limitate al 25% dell'importo totale." />
         <e k="invoice_notification_overdue" v="Fattura %s scaduta: %s" />

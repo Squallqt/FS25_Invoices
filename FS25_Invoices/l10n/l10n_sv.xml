@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Till:" />
         <e k="invoice_label_note" v="Anteckningar:" />
         <e k="invoice_placeholder_note" v="Lägg till anteckning eller referens" />
-        <e k="invoice_label_total" v="Totalt:" />
         <e k="invoice_dialog_details" v="Fakturadetaljer" />
         <e k="invoice_dialog_selectField" v="Fältval" />
         <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d rad(er)" />
         <e k="invoice_confirm_pay" v="Bekräfta betalning till '%s'?" />
-        <e k="invoice_confirm_delete" v="Radera permanent?" />        <e k="invoice_confirm_send" v="Skicka faktura på %s till %s?" />
+        <e k="invoice_confirm_delete" v="Radera permanent?" />
+        <e k="invoice_confirm_send" v="Skicka faktura på %s till %s?" />
         <e k="invoice_notification_new" v="Faktura från %s: %s" />
         <e k="invoice_reminder_single" v="Obetald faktura: %s" />
         <e k="invoice_reminder_multiple" v="%d obetalda fakturor totalt %s" />
         <e k="invoice_format_date" v="%02d/%02d/Å%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Fält %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Fält %s" />
         <e k="invoice_invoices_unit_piece" v="st" />
         <e k="invoice_invoices_unit_hour" v="h" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="Moms" />
         <e k="finance_invoiceIncome" v="Fakturaintäkt" />
         <e k="finance_invoiceExpense" v="Fakturautgift" />
-        <e k="invoice_moneyType_income" v="Faktura (Intäkt)" />
-        <e k="invoice_moneyType_expense" v="Faktura (Utgift)" />
+        <e k="invoice_label_invoice" v="Faktura" />
         <e k="invoice_error_permission_required" v="Åtgärd reserverad för gårdschefer." />
         <e k="invoice_error_insufficient_funds" v="Otillräckligt saldo för att betala denna faktura." />
         <e k="invoice_settings_section_title" v="Fakturor" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Förfallen" />
         <e k="invoice_label_total_due" v="Att betala:" />
         <e k="invoice_label_penalty" v="Förseningsavgift" />
-        <e k="invoice_label_subtotal" v="Delsumma" />
         <e k="invoice_setting_invoicePenalties" v="Dröjsmålsränta" />
         <e k="invoice_toolTip_invoicePenalties" v="Aktiverar dröjsmålsränta på obetalda fakturor. Efter 1 månads förfallotid tillämpas automatiskt en fast sats på 5% per månad. Begränsad till 25% av det totala beloppet." />
         <e k="invoice_notification_overdue" v="Faktura %s är förfallen: %s" />

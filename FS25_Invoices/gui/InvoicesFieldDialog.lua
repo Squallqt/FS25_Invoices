@@ -1,5 +1,6 @@
 --[[
     InvoicesFieldDialog.lua
+    Modal dialog presenting owned fields with area data for hectare-based line item attachment.
     Author: Squallqt
 ]]
 

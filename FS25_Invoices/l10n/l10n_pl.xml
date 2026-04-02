@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Do:" />
         <e k="invoice_label_note" v="Uwagi:" />
         <e k="invoice_placeholder_note" v="Dodaj uwagę lub odniesienie" />
-        <e k="invoice_label_total" v="Razem:" />
         <e k="invoice_dialog_details" v="Szczegóły faktury" />
         <e k="invoice_dialog_selectField" v="Wybór pola" />
         <e k="invoice_wizard_mainTitle" v="NOWA FAKTURA" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d linii" />
         <e k="invoice_confirm_pay" v="Potwierdzić płatność dla '%s'?" />
-        <e k="invoice_confirm_delete" v="Usunąć trwale?" />        <e k="invoice_confirm_send" v="Wysłać fakturę na %s do %s?" />
+        <e k="invoice_confirm_delete" v="Usunąć trwale?" />
+        <e k="invoice_confirm_send" v="Wysłać fakturę na %s do %s?" />
         <e k="invoice_notification_new" v="Faktura od %s: %s" />
         <e k="invoice_reminder_single" v="Nieopłacona faktura: %s" />
         <e k="invoice_reminder_multiple" v="%d nieopłaconych faktur na łączną kwotę %s" />
         <e k="invoice_format_date" v="%02d.%02d.R%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Pole %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Pole %s" />
         <e k="invoice_invoices_unit_piece" v="szt" />
         <e k="invoice_invoices_unit_hour" v="h" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="VAT" />
         <e k="finance_invoiceIncome" v="Przychód z faktur" />
         <e k="finance_invoiceExpense" v="Wydatek z faktur" />
-        <e k="invoice_moneyType_income" v="Faktura (Przychód)" />
-        <e k="invoice_moneyType_expense" v="Faktura (Wydatek)" />
+        <e k="invoice_label_invoice" v="Faktura" />
         <e k="invoice_error_permission_required" v="Akcja zarezerwowana dla kierowników gospodarstwa." />
         <e k="invoice_error_insufficient_funds" v="Niewystarczające saldo do zapłacenia tej faktury." />
         <e k="invoice_settings_section_title" v="Faktury" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Zaległa" />
         <e k="invoice_label_total_due" v="Do zapłaty:" />
         <e k="invoice_label_penalty" v="Kara za zwłokę" />
-        <e k="invoice_label_subtotal" v="Suma częściowa" />
         <e k="invoice_setting_invoicePenalties" v="Kary za zwłokę" />
         <e k="invoice_toolTip_invoicePenalties" v="Włącza kary za zwłokę na nieopłaconych fakturach. Po 1 miesiącu przeterminowania automatycznie naliczana jest stała stawka 5% miesięcznie. Ograniczone do 25% kwoty całkowitej." />
         <e k="invoice_notification_overdue" v="Faktura %s jest zaległa: %s" />

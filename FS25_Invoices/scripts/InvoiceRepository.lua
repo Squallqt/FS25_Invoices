@@ -175,3 +175,66 @@ function InvoiceRepository:loadFromXML(savegamePath)
     Logging.info("[Invoices] Loaded %d invoices from %s (format v%d)", #self.invoices, filePath, version)
     delete(xmlFile)
 end
+
+function InvoiceRepository:saveSettingsToXML(savegamePath, settings)
+    local filePath = savegamePath .. "invoices.xml"
+    local xmlFile = nil
+
+    if fileExists(filePath) then
+        xmlFile = loadXMLFile("invoices", filePath)
+    else
+        xmlFile = createXMLFile("invoices", filePath, "invoices")
+    end
+
+    if xmlFile == nil then
+        Logging.warning("[Invoices] Failed to save settings to %s", filePath)
+        return false
+    end
+
+    if getXMLInt(xmlFile, "invoices#version") == nil then
+        setXMLInt(xmlFile, "invoices#version", InvoiceRepository.SAVE_VERSION)
+    end
+    if getXMLInt(xmlFile, "invoices#nextId") == nil then
+        setXMLInt(xmlFile, "invoices#nextId", self.nextInvoiceId or 1)
+    end
+
+    local s = settings or {}
+    setXMLBool(xmlFile, "invoices.settings#vatSimulated", s.invoiceVatSimulated ~= false)
+    setXMLBool(xmlFile, "invoices.settings#reminders", s.invoiceReminders ~= false)
+    setXMLBool(xmlFile, "invoices.settings#penalties", s.invoicePenalties ~= false)
+
+    saveXMLFile(xmlFile)
+    delete(xmlFile)
+    return true
+end
+
+function InvoiceRepository:loadSettingsFromXML(savegamePath)
+    local filePath = savegamePath .. "invoices.xml"
+    if not fileExists(filePath) then
+        return nil
+    end
+
+    local xmlFile = loadXMLFile("invoices", filePath)
+    if xmlFile == nil then
+        Logging.warning("[Invoices] Failed to load settings from %s", filePath)
+        return nil
+    end
+
+    local hasAny = hasXMLProperty(xmlFile, "invoices.settings#vatSimulated")
+        or hasXMLProperty(xmlFile, "invoices.settings#reminders")
+        or hasXMLProperty(xmlFile, "invoices.settings#penalties")
+
+    if not hasAny then
+        delete(xmlFile)
+        return nil
+    end
+
+    local settings = {
+        invoiceVatSimulated = getXMLBool(xmlFile, "invoices.settings#vatSimulated"),
+        invoiceReminders = getXMLBool(xmlFile, "invoices.settings#reminders"),
+        invoicePenalties = getXMLBool(xmlFile, "invoices.settings#penalties")
+    }
+
+    delete(xmlFile)
+    return settings
+end

@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Alıcı:" />
         <e k="invoice_label_note" v="Notlar:" />
         <e k="invoice_placeholder_note" v="Not veya referans ekleyin" />
-        <e k="invoice_label_total" v="Toplam:" />
         <e k="invoice_dialog_details" v="Fatura Detayları" />
         <e k="invoice_dialog_selectField" v="Tarla Seçimi" />
         <e k="invoice_wizard_mainTitle" v="YENİ FATURA" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="FAT-%03d" />
         <e k="invoice_format_services_count" v="%d satır" />
         <e k="invoice_confirm_pay" v="'%s' kişisine ödeme yapılsın mı?" />
-        <e k="invoice_confirm_delete" v="Kalıcı olarak silinsin mi?" />        <e k="invoice_confirm_send" v="%s tutarında faturayı %s adresine gönder?" />
+        <e k="invoice_confirm_delete" v="Kalıcı olarak silinsin mi?" />
+        <e k="invoice_confirm_send" v="%s tutarında faturayı %s adresine gönder?" />
         <e k="invoice_notification_new" v="%s kişisinden fatura alındı: %s" />
         <e k="invoice_reminder_single" v="Ödenmemiş fatura: %s" />
         <e k="invoice_reminder_multiple" v="%d ödenmemiş fatura, toplam %s" />
         <e k="invoice_format_date" v="%02d.%02d.Y%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="G%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Tarla %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Tarla %s" />
         <e k="invoice_invoices_unit_piece" v="ad" />
         <e k="invoice_invoices_unit_hour" v="sa" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="KDV" />
         <e k="finance_invoiceIncome" v="Fatura geliri" />
         <e k="finance_invoiceExpense" v="Fatura gideri" />
-        <e k="invoice_moneyType_income" v="Fatura (Gelir)" />
-        <e k="invoice_moneyType_expense" v="Fatura (Gider)" />
+        <e k="invoice_label_invoice" v="Fatura" />
         <e k="invoice_error_permission_required" v="İşlem sadece çiftlik yöneticilerine ayrılmıştır." />
         <e k="invoice_error_insufficient_funds" v="Bu faturayı ödemek için yetersiz bakiye." />
         <e k="invoice_settings_section_title" v="Faturalar" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Gecikmiş" />
         <e k="invoice_label_total_due" v="Ödenecek toplam:" />
         <e k="invoice_label_penalty" v="Gecikme cezası" />
-        <e k="invoice_label_subtotal" v="Ara toplam" />
         <e k="invoice_setting_invoicePenalties" v="Gecikme cezası" />
         <e k="invoice_toolTip_invoicePenalties" v="Ödenmemiş faturalara gecikme cezası uygular. 1 aylık gecikmenin ardından, aylık %5 sabit oran otomatik olarak uygulanır. Toplam tutarın %25'i ile sınırlıdır." />
         <e k="invoice_notification_overdue" v="Fatura %s vadesi geçti: %s" />

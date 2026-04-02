@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="받는 사람:" />
         <e k="invoice_label_note" v="비고:" />
         <e k="invoice_placeholder_note" v="메모 또는 참조 추가" />
-        <e k="invoice_label_total" v="합계:" />
         <e k="invoice_dialog_details" v="청구서 상세" />
         <e k="invoice_dialog_selectField" v="밭 선택" />
         <e k="invoice_wizard_mainTitle" v="새 청구서" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d 줄" />
         <e k="invoice_confirm_pay" v="'%s'에게 지불하시겠습니까?" />
-        <e k="invoice_confirm_delete" v="영구 삭제하시겠습니까?" />        <e k="invoice_confirm_send" v="%s 청구서를 %s에게 보내시겠습니까?" />
+        <e k="invoice_confirm_delete" v="영구 삭제하시겠습니까?" />
+        <e k="invoice_confirm_send" v="%s 청구서를 %s에게 보내시겠습니까?" />
         <e k="invoice_notification_new" v="%s로부터 청구서 수신: %s" />
         <e k="invoice_reminder_single" v="미결제 청구서: %s" />
         <e k="invoice_reminder_multiple" v="%d개의 미결제 청구서 (총 %s)" />
         <e k="invoice_format_date" v="%02d/%02d/Y%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
-        <e k="invoice_format_field" v="%s번 밭 (%.2f ha)" />
         <e k="invoice_format_fieldId" v="%s번 밭" />
         <e k="invoice_invoices_unit_piece" v="개" />
         <e k="invoice_invoices_unit_hour" v="시간" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="부가세" />
         <e k="finance_invoiceIncome" v="청구서 수입" />
         <e k="finance_invoiceExpense" v="청구서 지출" />
-        <e k="invoice_moneyType_income" v="청구서 (수입)" />
-        <e k="invoice_moneyType_expense" v="청구서 (지출)" />
+        <e k="invoice_label_invoice" v="청구서" />
         <e k="invoice_error_permission_required" v="농장 관리자 전용 작업입니다." />
         <e k="invoice_error_insufficient_funds" v="이 청구서를 지불하기에 잔액이 부족합니다." />
         <e k="invoice_settings_section_title" v="청구서" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="연체" />
         <e k="invoice_label_total_due" v="납부 총액:" />
         <e k="invoice_label_penalty" v="연체료" />
-        <e k="invoice_label_subtotal" v="소계" />
         <e k="invoice_setting_invoicePenalties" v="연체 벌금" />
         <e k="invoice_toolTip_invoicePenalties" v="미결제 청구서에 연체 벌금을 활성화합니다. 1개월 연체 후 월 5%의 고정 요율이 자동으로 적용됩니다. 총액의 25%로 제한됩니다." />
         <e k="invoice_notification_overdue" v="청구서 %s 연체: %s" />

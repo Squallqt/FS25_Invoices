@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Đến:" />
         <e k="invoice_label_note" v="Ghi chú:" />
         <e k="invoice_placeholder_note" v="Thêm ghi chú hoặc tham chiếu" />
-        <e k="invoice_label_total" v="Tổng:" />
         <e k="invoice_dialog_details" v="Chi tiết hóa đơn" />
         <e k="invoice_dialog_selectField" v="Chọn cánh đồng" />
         <e k="invoice_wizard_mainTitle" v="HÓA ĐƠN MỚI" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="HD-%03d" />
         <e k="invoice_format_services_count" v="%d dòng" />
         <e k="invoice_confirm_pay" v="Xác nhận thanh toán cho '%s'?" />
-        <e k="invoice_confirm_delete" v="Xóa vĩnh viễn?" />        <e k="invoice_confirm_send" v="Gửi hóa đơn %s cho %s?" />
+        <e k="invoice_confirm_delete" v="Xóa vĩnh viễn?" />
+        <e k="invoice_confirm_send" v="Gửi hóa đơn %s cho %s?" />
         <e k="invoice_notification_new" v="Hóa đơn từ %s: %s" />
         <e k="invoice_reminder_single" v="Hóa đơn chưa thanh toán: %s" />
         <e k="invoice_reminder_multiple" v="%d hóa đơn chưa thanh toán tổng cộng %s" />
         <e k="invoice_format_date" v="%02d/%02d/N%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="N%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Đồng %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Đồng %s" />
         <e k="invoice_invoices_unit_piece" v="cái" />
         <e k="invoice_invoices_unit_hour" v="h" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="GTGT" />
         <e k="finance_invoiceIncome" v="Thu nhập hóa đơn" />
         <e k="finance_invoiceExpense" v="Chi phí hóa đơn" />
-        <e k="invoice_moneyType_income" v="Hóa đơn (Thu nhập)" />
-        <e k="invoice_moneyType_expense" v="Hóa đơn (Chi phí)" />
+        <e k="invoice_label_invoice" v="Hóa đơn" />
         <e k="invoice_error_permission_required" v="Hành động dành riêng cho người quản lý trang trại." />
         <e k="invoice_error_insufficient_funds" v="Số dư không đủ để thanh toán hóa đơn này." />
         <e k="invoice_settings_section_title" v="Hóa đơn" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Quá hạn" />
         <e k="invoice_label_total_due" v="Tổng phải trả:" />
         <e k="invoice_label_penalty" v="Phạt trả chậm" />
-        <e k="invoice_label_subtotal" v="Tạm tính" />
         <e k="invoice_setting_invoicePenalties" v="Phạt trễ hạn" />
         <e k="invoice_toolTip_invoicePenalties" v="Bật phạt trễ hạn trên các hóa đơn chưa thanh toán. Sau 1 tháng quá hạn, tỷ lệ phạt cố định 5% mỗi tháng được áp dụng tự động. Giới hạn ở mức 25% tổng số tiền." />
         <e k="invoice_notification_overdue" v="Hóa đơn %s quá hạn: %s" />

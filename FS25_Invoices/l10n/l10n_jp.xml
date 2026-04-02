@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="請求先:" />
         <e k="invoice_label_note" v="備考:" />
         <e k="invoice_placeholder_note" v="備考または参照を追加" />
-        <e k="invoice_label_total" v="合計:" />
         <e k="invoice_dialog_details" v="請求書詳細" />
         <e k="invoice_dialog_selectField" v="畑の選択" />
         <e k="invoice_wizard_mainTitle" v="新しい請求書" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="請求-%03d" />
         <e k="invoice_format_services_count" v="%d 件" />
         <e k="invoice_confirm_pay" v="'%s' への支払いを確定しますか？" />
-        <e k="invoice_confirm_delete" v="完全に削除しますか？" />        <e k="invoice_confirm_send" v="%s の請求書を %s に送信しますか？" />
+        <e k="invoice_confirm_delete" v="完全に削除しますか？" />
+        <e k="invoice_confirm_send" v="%s の請求書を %s に送信しますか？" />
         <e k="invoice_notification_new" v="%s から請求書を受信: %s" />
         <e k="invoice_reminder_single" v="未払い請求書: %s" />
         <e k="invoice_reminder_multiple" v="%d件の未払い請求書（合計 %s）" />
         <e k="invoice_format_date" v="%02d/%02d/%d年 - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="%d日目 - %02d:%02d" />
-        <e k="invoice_format_field" v="畑 %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="畑 %s" />
         <e k="invoice_invoices_unit_piece" v="個" />
         <e k="invoice_invoices_unit_hour" v="時間" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="消費税" />
         <e k="finance_invoiceIncome" v="請求書収入" />
         <e k="finance_invoiceExpense" v="請求書支出" />
-        <e k="invoice_moneyType_income" v="請求書（収入）" />
-        <e k="invoice_moneyType_expense" v="請求書（支出）" />
+        <e k="invoice_label_invoice" v="請求書" />
         <e k="invoice_error_permission_required" v="ファームマネージャー専用の操作です。" />
         <e k="invoice_error_insufficient_funds" v="この請求書を支払うには残高が不足しています。" />
         <e k="invoice_settings_section_title" v="請求書" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="延滞" />
         <e k="invoice_label_total_due" v="支払総額：" />
         <e k="invoice_label_penalty" v="延滞金" />
-        <e k="invoice_label_subtotal" v="小計" />
         <e k="invoice_setting_invoicePenalties" v="延滞金" />
         <e k="invoice_toolTip_invoicePenalties" v="未払い請求書に対する延滞金を有効にします。1ヶ月の延滞後、月5%の固定料率が自動的に適用されます。合計金額の25%が上限です。" />
         <e k="invoice_notification_overdue" v="請求書 %s が期限超過です: %s" />

@@ -1,5 +1,6 @@
 --[[
     WorkTypesRenderer.lua
+    SmoothList renderer for work type selection, displaying name and difficulty-adjusted unit price.
     Author: Squallqt
 ]]
 

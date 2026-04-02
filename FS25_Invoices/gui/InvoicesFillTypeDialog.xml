@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <!--
-    InvoicesFillTypeDialog.xml
+    InvoicesFillTypeDialog.xml - Fill type selection dialog
 -->
 <GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
     <GuiElement profile="newLayer" />
@@ -15,9 +15,9 @@
             <BoxLayout profile="ftdMainBox">
 
                 <!-- Title -->
-                <Text profile="ftdMainTitle" text="$l10n_invoice_dialog_selectFillType"/>
+                <Text profile="ftdMainTitle" text="$l10n_invoice_dialog_selectFillType" id="mainTitleText"/>
                 <GuiElement profile="ftdTitleSepWrapper">
-                    <ThreePartBitmap profile="ftdTitleSep"/>
+                    <ThreePartBitmap profile="ftdTitleSep" id="titleSep"/>
                 </GuiElement>
                 <GuiElement profile="ftdTitleSpacer"/>
 
@@ -74,6 +74,7 @@
 
         <Profile name="ftdMainTitle" extends="baseReference">
             <size value="400px 40px"/>
+            <margin value="0px 4px 0px 0px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -87,11 +88,11 @@
         </Profile>
 
         <Profile name="ftdTitleSpacer" extends="emptyPanel">
-            <size value="400px 24px"/>
+            <size value="400px 20px"/>
         </Profile>
 
         <Profile name="ftdTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
-            <size value="160px 1px"/>
+            <size value="180px 1px"/>
         </Profile>
 
         <!-- Content area: 534 - 40 - 1 - 24 = 469px -->

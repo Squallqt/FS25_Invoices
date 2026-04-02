@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Címzett:" />
         <e k="invoice_label_note" v="Megjegyzések:" />
         <e k="invoice_placeholder_note" v="Megjegyzés vagy hivatkozás hozzáadása" />
-        <e k="invoice_label_total" v="Összesen:" />
         <e k="invoice_dialog_details" v="Számla részletei" />
         <e k="invoice_dialog_selectField" v="Föld kiválasztása" />
         <e k="invoice_wizard_mainTitle" v="ÚJ SZÁMLA" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="SZLA-%03d" />
         <e k="invoice_format_services_count" v="%d sor" />
         <e k="invoice_confirm_pay" v="Fizetés megerősítése ide: '%s'?" />
-        <e k="invoice_confirm_delete" v="Végleges törlés?" />        <e k="invoice_confirm_send" v="Számla küldése: %s, címzett: %s?" />
+        <e k="invoice_confirm_delete" v="Végleges törlés?" />
+        <e k="invoice_confirm_send" v="Számla küldése: %s, címzett: %s?" />
         <e k="invoice_notification_new" v="Számla érkezett tőle: %s (%s)" />
         <e k="invoice_reminder_single" v="Fizetetlen számla: %s" />
         <e k="invoice_reminder_multiple" v="%d fizetetlen számla összesen: %s" />
         <e k="invoice_format_date" v="%02d/%02d/É%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="N%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Föld %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Föld %s" />
         <e k="invoice_invoices_unit_piece" v="db" />
         <e k="invoice_invoices_unit_hour" v="ó" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="ÁFA" />
         <e k="finance_invoiceIncome" v="Számla bevétel" />
         <e k="finance_invoiceExpense" v="Számla kiadás" />
-        <e k="invoice_moneyType_income" v="Számla (Bevétel)" />
-        <e k="invoice_moneyType_expense" v="Számla (Kiadás)" />
+        <e k="invoice_label_invoice" v="Számla" />
         <e k="invoice_error_permission_required" v="Művelet farm vezetők számára fenntartva." />
         <e k="invoice_error_insufficient_funds" v="Nem elegendő egyenleg a számla kifizetéséhez." />
         <e k="invoice_settings_section_title" v="Számlák" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Lejárt" />
         <e k="invoice_label_total_due" v="Fizetendő összeg:" />
         <e k="invoice_label_penalty" v="Késedelmi díj" />
-        <e k="invoice_label_subtotal" v="Részösszeg" />
         <e k="invoice_setting_invoicePenalties" v="Késedelmi pótlék" />
         <e k="invoice_toolTip_invoicePenalties" v="Engedélyezi a késedelmi pótlékot a kifizetetlen számlákon. 1 hónap lejárat után automatikusan havi 5%-os fix pótlék kerül alkalmazásra. Maximum a teljes összeg 25%-a." />
         <e k="invoice_notification_overdue" v="A(z) %s számla lejárt: %s" />

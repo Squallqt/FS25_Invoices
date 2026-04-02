@@ -1,5 +1,6 @@
 --[[
     LineItemsRenderer.lua
+    SmoothList renderer for invoice line items, displaying service label and TTC amount per entry.
     Author: Squallqt
 ]]
 

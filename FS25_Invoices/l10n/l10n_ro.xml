@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Către:" />
         <e k="invoice_label_note" v="Observații:" />
         <e k="invoice_placeholder_note" v="Adăugați o observație sau referință" />
-        <e k="invoice_label_total" v="Total:" />
         <e k="invoice_dialog_details" v="Detalii factură" />
         <e k="invoice_dialog_selectField" v="Selecție teren" />
         <e k="invoice_wizard_mainTitle" v="FACTURĂ NOUĂ" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="FAC-%03d" />
         <e k="invoice_format_services_count" v="%d rând(uri)" />
         <e k="invoice_confirm_pay" v="Confirmați plata către '%s'?" />
-        <e k="invoice_confirm_delete" v="Ștergeți definitiv?" />        <e k="invoice_confirm_send" v="Trimiteți factura de %s către %s?" />
+        <e k="invoice_confirm_delete" v="Ștergeți definitiv?" />
+        <e k="invoice_confirm_send" v="Trimiteți factura de %s către %s?" />
         <e k="invoice_notification_new" v="Factură de la %s: %s" />
         <e k="invoice_reminder_single" v="Factură neplătită: %s" />
         <e k="invoice_reminder_multiple" v="%d facturi neplătite în valoare de %s" />
         <e k="invoice_format_date" v="%02d.%02d.A%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="Z%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Teren %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Teren %s" />
         <e k="invoice_invoices_unit_piece" v="buc" />
         <e k="invoice_invoices_unit_hour" v="h" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="TVA" />
         <e k="finance_invoiceIncome" v="Venit din facturi" />
         <e k="finance_invoiceExpense" v="Cheltuială din facturi" />
-        <e k="invoice_moneyType_income" v="Factură (Venit)" />
-        <e k="invoice_moneyType_expense" v="Factură (Cheltuială)" />
+        <e k="invoice_label_invoice" v="Factură" />
         <e k="invoice_error_permission_required" v="Acțiune rezervată managerilor de fermă." />
         <e k="invoice_error_insufficient_funds" v="Sold insuficient pentru plata acestei facturi." />
         <e k="invoice_settings_section_title" v="Facturi" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Restantă" />
         <e k="invoice_label_total_due" v="Total de plată:" />
         <e k="invoice_label_penalty" v="Penalizare întârziere" />
-        <e k="invoice_label_subtotal" v="Subtotal" />
         <e k="invoice_setting_invoicePenalties" v="Penalități de întârziere" />
         <e k="invoice_toolTip_invoicePenalties" v="Activează penalitățile de întârziere pe facturile neplătite. După 1 lună de restanță, se aplică automat o rată fixă de 5% pe lună. Limitate la 25% din suma totală." />
         <e k="invoice_notification_overdue" v="Factura %s este restantă: %s" />

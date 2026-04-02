@@ -1,5 +1,6 @@
 --[[
     InvoicesDetailDialog.lua
+    Detail view dialog rendering line items, VAT breakdown, penalty bar, status badge, and pay action.
     Author: Squallqt
 ]]
 
@@ -22,6 +23,9 @@ InvoicesDetailDialog.CONTROLS = {
     TEXT_VAT_HT  = "textVatHt",
     TEXT_VAT_TVA = "textVatTva",
     TOTAL_SEP    = "totalSep",
+    TOTAL_RIGHT_COLUMN = "totalRightColumn",
+    TOTAL_VALUE_ROW = "totalValueRow",
+    TOTAL_VALUE_ANCHOR = "totalValueAnchor",
     PENALTY_BAR  = "penaltyBar",
     TEXT_PENALTY_BAR = "textPenaltyBar",
     BTN_PAY = "btnPay",
@@ -54,21 +58,39 @@ function InvoicesDetailDialog:onGuiSetupFinished()
     end
 end
 
-function InvoicesDetailDialog:resizeTotalSep(htText, tvaText)
+function InvoicesDetailDialog:resizeTotalSep(htText, tvaText, totalText)
     if self.totalSep == nil or self.textVatHt == nil then return end
-
-    if self._sepHeight == nil then
-        self._sepHeight = self.totalSep.absSize[2]
-    end
 
     local textSize = self.textVatHt.textSize
     local htWidth = getTextWidth(textSize, htText)
     local tvaWidth = self.textVatTva ~= nil and getTextWidth(self.textVatTva.textSize, tvaText) or 0
-    local maxTextWidth = math.max(htWidth, tvaWidth)
+    local totalWidth = self.textTotal ~= nil and getTextWidth(self.textTotal.textSize, totalText or self.textTotal.text or "") or 0
+    totalWidth = totalWidth + (20 * g_pixelSizeScaledX)
+    local maxTextWidth = math.max(htWidth, tvaWidth, totalWidth)
 
-    self.totalSep:setSize(maxTextWidth, self._sepHeight)
+    self.totalSep:setSize(maxTextWidth, self.totalSep.absSize[2])
+
+    if self.totalValueAnchor ~= nil then
+        self.totalValueAnchor:setSize(maxTextWidth, self.totalValueAnchor.absSize[2])
+        if self.totalValueAnchor.invalidateLayout ~= nil then
+            self.totalValueAnchor:invalidateLayout()
+        end
+    end
+
+    if self.totalValueRow ~= nil and self.totalValueRow.invalidateLayout ~= nil then
+        self.totalValueRow:invalidateLayout()
+    end
+
+    if self.textTotal ~= nil then
+        self.textTotal:setSize(maxTextWidth, self.textTotal.absSize[2])
+    end
+
     if self.totalSep.parent ~= nil and self.totalSep.parent.invalidateLayout ~= nil then
         self.totalSep.parent:invalidateLayout()
+    end
+
+    if self.totalRightColumn ~= nil and self.totalRightColumn.invalidateLayout ~= nil then
+        self.totalRightColumn:invalidateLayout()
     end
 end
 
@@ -81,12 +103,39 @@ function InvoicesDetailDialog:resizeTitleSep()
 
     local text = self.mainTitleText.text or ""
     local textWidth = getTextWidth(self.mainTitleText.textSize, text)
-    local padding = 10 * 2 * g_pixelSizeScaledX
+    local padding = 20 * 2 * g_pixelSizeScaledX
     local newWidth = textWidth + padding
 
     self.titleSep:setSize(newWidth, self._titleSepHeight)
     if self.titleSep.parent ~= nil and self.titleSep.parent.invalidateLayout ~= nil then
         self.titleSep.parent:invalidateLayout()
+    end
+end
+
+function InvoicesDetailDialog:resizePenaltyBar(penaltyText)
+    if self.penaltyBar == nil or self.textPenaltyBar == nil then return end
+    if self.penaltyBar.parent == nil then return end
+
+    if self._penaltyBarHeight == nil then
+        self._penaltyBarHeight = self.penaltyBar.absSize[2]
+    end
+    if self._penaltyTextHeight == nil then
+        self._penaltyTextHeight = self.textPenaltyBar.absSize[2]
+    end
+
+    local rowWidth = self.penaltyBar.parent.absSize[1]
+    local textWidth = getTextWidth(self.textPenaltyBar.textSize, penaltyText or "")
+    local horizontalPadding = 20 * g_pixelSizeScaledX
+    local newWidth = math.min(rowWidth, textWidth + horizontalPadding)
+    local offsetX = rowWidth - newWidth
+
+    self.penaltyBar:setSize(newWidth, self._penaltyBarHeight)
+    self.textPenaltyBar:setSize(newWidth, self._penaltyTextHeight)
+    self.penaltyBar:setPosition(offsetX, 0)
+    self.textPenaltyBar:setPosition(offsetX, 0)
+
+    if self.penaltyBar.parent.invalidateLayout ~= nil then
+        self.penaltyBar.parent:invalidateLayout()
     end
 end
 
@@ -159,17 +208,14 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
         end
 
         local totalDue = (invoice.totalAmount or 0) + penaltyAmount
+        local totalText = g_i18n:formatMoney(totalDue, 0, true, false)
 
         if self.textTotal then
-            self.textTotal:setText(g_i18n:formatMoney(totalDue))
+            self.textTotal:setText(totalText)
         end
 
         if self.textTotalLabel then
-            if penaltyAmount > 0 then
-                self.textTotalLabel:setText(g_i18n:getText("invoice_label_total_due"))
-            else
-                self.textTotalLabel:setText(g_i18n:getText("invoice_label_total"))
-            end
+            self.textTotalLabel:setText(g_i18n:getText("invoice_label_total_due"))
         end
 
         if self.textVatHt ~= nil and self.textVatTva ~= nil then
@@ -185,22 +231,34 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
                 self.textVatTva:setVisible(true)
                 if self.totalSep ~= nil then
                     self.totalSep:setVisible(true)
-                    self:resizeTotalSep(htText, tvaText)
+                    self:resizeTotalSep(htText, tvaText, totalText)
                 end
             else
-                self.textVatHt:setVisible(false)
-                self.textVatTva:setVisible(false)
+                local htText = string.format("%s :  N/A", g_i18n:getText("invoice_label_subtotal_ht"))
+                local tvaText = string.format("%s :  N/A", g_i18n:getText("invoice_label_vat"))
+                self.textVatHt:setText(htText)
+                self.textVatTva:setText(tvaText)
+                self.textVatTva:setTextColor(0.5, 0.5, 0.5, 1)
+                self.textVatHt:setVisible(true)
+                self.textVatTva:setVisible(true)
                 if self.totalSep ~= nil then
-                    self.totalSep:setVisible(false)
+                    self.totalSep:setVisible(true)
+                    self:resizeTotalSep(htText, tvaText, totalText)
                 end
             end
         end
 
         if self.penaltyBar ~= nil and self.textPenaltyBar ~= nil then
             if penaltyAmount > 0 then
-                local penaltyText = string.format("%s :  %s  (5%%/mois)",
-                    g_i18n:getText("invoice_label_penalty"), g_i18n:formatMoney(penaltyAmount, 0, true, false))
+                local effectiveRate = 0
+                local totalAmount = invoice.totalAmount or 0
+                if totalAmount > 0 then
+                    effectiveRate = math.floor(penaltyAmount / totalAmount * 100 + 0.5)
+                end
+                local penaltyText = string.format("%s : %s (%d%%)",
+                    g_i18n:getText("invoice_label_penalty"), g_i18n:formatMoney(penaltyAmount, 0, true, false), effectiveRate)
                 self.textPenaltyBar:setText(penaltyText)
+                self:resizePenaltyBar(penaltyText)
                 self.penaltyBar:setVisible(true)
                 self.textPenaltyBar:setVisible(true)
             else
@@ -334,11 +392,8 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
     local amountStr = g_i18n:formatMoney(amount)
 
     local vatRate = item.vatRate or 0
-    local vatStr = "—"
-    local vatEnabled = manager ~= nil and manager.service:isVatEnabled()
-    if not vatEnabled then
-        vatStr = "N/A"
-    elseif vatRate > 0 then
+    local vatStr = "N/A"
+    if vatRate > 0 then
         vatStr = string.format("%.1f%%", vatRate * 100)
     end
 

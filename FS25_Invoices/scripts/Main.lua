@@ -1,5 +1,6 @@
 --[[
     Main.lua
+    Mod bootstrap: source loading, mission lifecycle hooks, late-join sync dispatch, and InGameMenu registration.
     Author: Squallqt
 ]]
 
@@ -44,13 +45,12 @@ registerFinanceStat("invoiceExpense")
 local function loadedMission()
     Logging.devInfo("[Invoices] loadedMission() called")
     
-    MoneyType.INVOICE_INCOME = MoneyType.register("invoiceIncome", "invoice_moneyType_income")
-    MoneyType.INVOICE_EXPENSE = MoneyType.register("invoiceExpense", "invoice_moneyType_expense")
+    MoneyType.INVOICE_INCOME = MoneyType.register("invoiceIncome", "invoice_label_invoice")
+    MoneyType.INVOICE_EXPENSE = MoneyType.register("invoiceExpense", "invoice_label_invoice")
 
     Invoices.manager = InvoicesManager.new()
     Invoices.manager:initialize()
 
-    -- Load VAT rates from XML
     Invoices.manager.service:loadVatRates(Invoices.modDirectory .. "data/vatRates.xml")
 
     local savegameFolderPath = g_currentMission.missionInfo.savegameDirectory
@@ -234,8 +234,7 @@ initInvoices()
 local InvoicesI18NTexts = {
     ["finance_invoiceIncome"] = true,
     ["finance_invoiceExpense"] = true,
-    ["invoice_moneyType_income"] = true,
-    ["invoice_moneyType_expense"] = true,
+    ["invoice_label_invoice"] = true,
     ["invoice_notification_new"] = true,
     ["invoice_reminder_single"] = true,
     ["invoice_reminder_multiple"] = true,

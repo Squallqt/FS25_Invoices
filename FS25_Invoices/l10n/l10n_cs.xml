@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="致:" />
         <e k="invoice_label_note" v="备注:" />
         <e k="invoice_placeholder_note" v="添加备注或参考" />
-        <e k="invoice_label_total" v="总计:" />
         <e k="invoice_dialog_details" v="发票详情" />
         <e k="invoice_dialog_selectField" v="田地选择" />
         <e k="invoice_wizard_mainTitle" v="新发票" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d 行" />
         <e k="invoice_confirm_pay" v="确认支付给 '%s'？" />
-        <e k="invoice_confirm_delete" v="永久删除？" />        <e k="invoice_confirm_send" v="Odeslat fakturu ve výši %s na %s?" />
+        <e k="invoice_confirm_delete" v="永久删除？" />
+        <e k="invoice_confirm_send" v="Odeslat fakturu ve výši %s na %s?" />
         <e k="invoice_notification_new" v="收到来自 %s 的发票: %s" />
         <e k="invoice_reminder_single" v="未付款发票: %s" />
         <e k="invoice_reminder_multiple" v="%d 张未付款发票，总计 %s" />
         <e k="invoice_format_date" v="%02d/%02d/Y%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
-        <e k="invoice_format_field" v="田地 %s (%.2f 公顷)" />
         <e k="invoice_format_fieldId" v="田地 %s" />
         <e k="invoice_invoices_unit_piece" v="件" />
         <e k="invoice_invoices_unit_hour" v="小时" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="增值税" />
         <e k="finance_invoiceIncome" v="发票收入" />
         <e k="finance_invoiceExpense" v="发票支出" />
-        <e k="invoice_moneyType_income" v="发票（收入）" />
-        <e k="invoice_moneyType_expense" v="发票（支出）" />
+        <e k="invoice_label_invoice" v="发票" />
         <e k="invoice_error_permission_required" v="仅农场经理可执行此操作。" />
         <e k="invoice_error_insufficient_funds" v="余额不足，无法支付此发票。" />
         <e k="invoice_settings_section_title" v="发票" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="逾期" />
         <e k="invoice_label_total_due" v="应付总额：" />
         <e k="invoice_label_penalty" v="逾期罚款" />
-        <e k="invoice_label_subtotal" v="小计" />
         <e k="invoice_setting_invoicePenalties" v="Penále za prodlení" />
         <e k="invoice_toolTip_invoicePenalties" v="Aktivuje penále za pozdní úhradu nezaplacených faktur. Po 1 měsíci po splatnosti je automaticky účtována pevná sazba 5% měsíčně. Maximálně 25% z celkové částky." />
         <e k="invoice_notification_overdue" v="Faktura %s je po splatnosti: %s" />

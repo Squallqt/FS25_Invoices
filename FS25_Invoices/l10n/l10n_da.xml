@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Til:" />
         <e k="invoice_label_note" v="Bemærkninger:" />
         <e k="invoice_placeholder_note" v="Tilføj en bemærkning eller reference" />
-        <e k="invoice_label_total" v="Total:" />
         <e k="invoice_dialog_details" v="Fakturadetaljer" />
         <e k="invoice_dialog_selectField" v="Markvalg" />
         <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d linje(r)" />
         <e k="invoice_confirm_pay" v="Bekræft betaling til '%s'?" />
-        <e k="invoice_confirm_delete" v="Slet faktura permanent?" />        <e k="invoice_confirm_send" v="Send faktura på %s til %s?" />
+        <e k="invoice_confirm_delete" v="Slet faktura permanent?" />
+        <e k="invoice_confirm_send" v="Send faktura på %s til %s?" />
         <e k="invoice_notification_new" v="Faktura fra %s: %s" />
         <e k="invoice_reminder_single" v="Ubetalt faktura: %s" />
         <e k="invoice_reminder_multiple" v="%d ubetalte fakturaer i alt %s" />
         <e k="invoice_format_date" v="%02d/%02d/Å%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Mark %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Mark %s" />
         <e k="invoice_invoices_unit_piece" v="stk" />
         <e k="invoice_invoices_unit_hour" v="t" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="Moms" />
         <e k="finance_invoiceIncome" v="Fakturaindtægt" />
         <e k="finance_invoiceExpense" v="Fakturaudgift" />
-        <e k="invoice_moneyType_income" v="Faktura (Indtægt)" />
-        <e k="invoice_moneyType_expense" v="Faktura (Udgift)" />
+        <e k="invoice_label_invoice" v="Faktura" />
         <e k="invoice_error_permission_required" v="Handling forbeholdt gårdsledere." />
         <e k="invoice_error_insufficient_funds" v="Utilstrækkelig saldo til at betale denne faktura." />
         <e k="invoice_settings_section_title" v="Fakturaer" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Forfalden" />
         <e k="invoice_label_total_due" v="Skyldigt beløb:" />
         <e k="invoice_label_penalty" v="Forsinkelsesbøde" />
-        <e k="invoice_label_subtotal" v="Subtotal" />
         <e k="invoice_setting_invoicePenalties" v="Forsinkelsesrenter" />
         <e k="invoice_toolTip_invoicePenalties" v="Aktiverer forsinkelsesrenter på ubetalte fakturaer. Efter 1 måneds forfald pålægges automatisk en fast sats på 5% per måned. Begrænset til 25% af det samlede beløb." />
         <e k="invoice_notification_overdue" v="Faktura %s er forfalden: %s" />

@@ -1,154 +1,150 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <l10n>
-    <elements>
-        <e k="invoice_menu_title" v="Facturation" />
-        <e k="invoice_tab_incoming" v="FACTURES REÇUES" />
-        <e k="invoice_tab_outgoing" v="FACTURES ÉMISES" />
-        <e k="invoice_status_unpaid" v="En attente" />
-        <e k="invoice_status_paid" v="Réglée" />
-        <e k="invoice_col_date" v="Date" />
-        <e k="invoice_col_farm" v="Exploitation" />
-        <e k="invoice_col_amount" v="Montant" />
-        <e k="invoice_col_field" v="Parcelle" />
-        <e k="invoice_col_area" v="Surface" />
-        <e k="invoice_btn_newInvoice" v="Nouvelle facture" />
-        <e k="invoice_btn_payInvoice" v="Régler" />
-        <e k="invoice_btn_deleteInvoice" v="Supprimer" />
-        <e k="invoice_btn_showDetails" v="Détails" />
-        <e k="invoice_btn_cancel" v="Annuler" />
-        <e k="invoice_btn_close" v="Fermer" />
-        <e k="invoice_btn_select" v="Valider" />
-        <e k="invoice_btn_selectFarm" v="Sélectionner un client" />
-        <e k="invoice_label_from" v="Émetteur :" />
-        <e k="invoice_label_to" v="Client :" />
-        <e k="invoice_label_note" v="Remarques :" />
-        <e k="invoice_placeholder_note" v="Ajouter une remarque ou référence" />
-        <e k="invoice_label_total" v="Total :" />
-        <e k="invoice_dialog_details" v="Détail de la facture" />
-        <e k="invoice_dialog_selectField" v="Choix de la parcelle" />
-        <e k="invoice_wizard_mainTitle" v="NOUVELLE FACTURE" />
-        <e k="invoice_wizard_step1_label" v="Sélectionnez l'exploitation cliente:" />
-        <e k="invoice_wizard_step2_label" v="Sélectionnez le type de travaux :" />
-        <e k="invoice_wizard_step3_label" v="Sélectionnez les parcelles concernées:" />
-        <e k="invoice_btn_sendInvoice" v="Envoyer la facture" />
-        <e k="invoice_wizard_invoice_created" v="Facture émise avec succès !" />
-        <e k="invoice_wizard_invoice_failed" v="Erreur lors de l'émission." />
-        <e k="invoice_wizard_client_fields" v="Parcelles du client" />
-        <e k="invoice_wizard_other_fields" v="Autres parcelles" />
-        <e k="invoice_format_field_id" v="Parcelle n°%d" />
-        <e k="invoice_step4_col_service" v="Désignation" />
-        <e k="invoice_step4_col_qty" v="Qté" />
-        <e k="invoice_step4_col_unitprice" v="P.U." />
-        <e k="invoice_step4_col_amount" v="Montant" />
-        <e k="invoice_step4_from" v="Émetteur : %s" />
-        <e k="invoice_step4_to" v="Client : %s" />
-        <e k="invoice_step4_total" v="NET À PAYER" />
-        <e k="invoice_detail_col_service" v="Désignation" />
-        <e k="invoice_detail_col_qty" v="Qté" />
-        <e k="invoice_detail_col_unit" v="Unité" />
-        <e k="invoice_detail_col_unitprice" v="P.U." />
-        <e k="invoice_detail_col_amount" v="Montant" />
-        <e k="invoice_col_number" v="N° Facture" />
-        <e k="invoice_col_status" v="État" />
-        <e k="invoice_empty_list" v="Aucune facture" />
-        <e k="invoice_format_inv_number" v="FAC-%03d" />
-        <e k="invoice_format_services_count" v="%d ligne(s)" />
-        <e k="invoice_confirm_pay" v="Régler %s à %s ?" />
-        <e k="invoice_confirm_delete" v="Supprimer définitivement cette facture ?" />
-        <e k="invoice_confirm_send" v="Envoyer la facture de %s à %s ?" />
-        <e k="invoice_notification_new" v="Facture reçue de %s : %s" />
-        <e k="invoice_reminder_single" v="Facture impayée : %s" />
-        <e k="invoice_reminder_multiple" v="%d factures impayées pour un total de %s" />
-        <e k="invoice_format_date" v="%02d/%02d/A%d - %02d:%02d" />
-        <e k="invoice_format_date_legacy" v="J%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Parcelle n°%s (%.2f ha)" />
-        <e k="invoice_format_fieldId" v="Parcelle n°%s" />
-        <e k="invoice_invoices_unit_piece" v="u" />
-        <e k="invoice_invoices_unit_hour" v="h" />
-        <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="l" />
-        <e k="invoice_work_stoneCollection" v="Épierrage" />
-        <e k="invoice_work_plowing" v="Labour" />
-        <e k="invoice_work_cultivating" v="Déchaumage" />
-        <e k="invoice_work_mulching" v="Broyage" />
-        <e k="invoice_work_rolling" v="Roulage" />
-        <e k="invoice_work_harrowing" v="Hersage" />
-        <e k="invoice_work_seeding" v="Semis" />
-        <e k="invoice_work_seedingPotato" v="Plantation (PdT)" />
-        <e k="invoice_work_seedingSugarcane" v="Plantation (Canne)" />
-        <e k="invoice_work_seedingRice" v="Semis (Riz)" />
-        <e k="invoice_work_seedingRoot" v="Semis (Racines)" />
-        <e k="invoice_work_pruning" v="Taille (Vigne)" />
-        <e k="invoice_work_spraying" v="Traitement phyto" />
-        <e k="invoice_work_organicFertilizer" v="Épandage orga." />
-        <e k="invoice_work_mineralFertilizer" v="Épandage engrais" />
-        <e k="invoice_work_mechanicalWeeding" v="Désherbage méca." />
-        <e k="invoice_work_harvestGrain" v="Moisson (Céréales)" />
-        <e k="invoice_work_harvestPotato" v="Arrachage (PdT)" />
-        <e k="invoice_work_harvestSugarbeet" v="Arrachage (Betteraves)" />
-        <e k="invoice_work_harvestSugarcane" v="Récolte (Canne)" />
-        <e k="invoice_work_harvestCotton" v="Récolte (Coton)" />
-        <e k="invoice_work_harvestGrape" v="Vendanges" />
-        <e k="invoice_work_harvestOlive" v="Récolte (Olives)" />
-        <e k="invoice_work_harvestRice" v="Récolte (Riz)" />
-        <e k="invoice_work_harvestSpinach" v="Récolte (Épinards)" />
-        <e k="invoice_work_harvestPeas" v="Récolte (Pois)" />
-        <e k="invoice_work_harvestGreenBeans" v="Récolte (Haricots)" />
-        <e k="invoice_work_harvestVegetables" v="Récolte légumière" />
-        <e k="invoice_work_harvestOnion" v="Récolte (Oignons)" />
-        <e k="invoice_work_chaffing" v="Ensilage" />
-        <e k="invoice_work_mowing" v="Fauche" />
-        <e k="invoice_work_tedding" v="Fanage" />
-        <e k="invoice_work_windrowing" v="Andainage" />
-        <e k="invoice_work_baling" v="Pressage" />
-        <e k="invoice_work_wrapping" v="Enrubannage" />
-        <e k="invoice_work_buyBales" v="Achat (Matière première)" />
-        <e k="invoice_work_sellBales" v="Vente (Fourrage / Paille)" />
-        <e k="invoice_work_animalFeeding" v="Affouragement" />
-        <e k="invoice_work_barnCleaning" v="Curage stabulation" />
-        <e k="invoice_work_animalTransport" v="Transport bétail" />
-        <e k="invoice_work_snowRemoval" v="Déneigement" />
-        <e k="invoice_work_generalLabor" v="Main d'œuvre" />
-        <e k="invoice_work_loaderWork" v="Manutention" />
-        <e k="invoice_work_driving" v="Chauffeur" />
-        <e k="invoice_work_siloWork" v="Tassage silo" />
-        <e k="invoice_work_delivery" v="Livraison" />
-        <e k="invoice_work_transport" v="Transport routier" />
-        <e k="invoice_work_equipmentRental" v="Location matériel" />
-        <e k="invoice_work_heapLoading" v="Reprise en bout de champ" />
-        <e k="invoice_work_treePlanting" v="Reboisement" />
-        <e k="invoice_work_treeCutting" v="Abattage" />
-        <e k="invoice_work_treeRemoval" v="Débardage" />
-        <e k="invoice_work_goods" v="Fournitures" />
-        <e k="invoice_work_products" v="Produits" />
-        <e k="invoice_work_miscellaneous" v="Frais divers" />
-        <e k="invoice_step4_col_vat" v="TVA %" />
-        <e k="invoice_label_subtotal_ht" v="Sous-total HT" />
-        <e k="invoice_label_vat" v="TVA" />
-        <e k="finance_invoiceIncome" v="Revenus factures" />
-        <e k="finance_invoiceExpense" v="Dépenses factures" />
-        <e k="invoice_moneyType_income" v="Facture (Recette)" />
-        <e k="invoice_moneyType_expense" v="Facture (Dépense)" />
-        <e k="invoice_error_permission_required" v="Action réservée aux gérants de ferme." />
-        <e k="invoice_error_insufficient_funds" v="Solde insuffisant pour régler cette facture." />
-        <e k="invoice_settings_section_title" v="Factures" />
-        <e k="invoice_setting_invoiceVatSimulated" v="TVA simulée" />
-        <e k="invoice_toolTip_invoiceVatSimulated" v="Lorsque activé, les factures incluent la TVA. Le client paie le montant TTC, le prestataire reçoit le montant HT. Lorsque désactivé, la TVA est fixée à 0% et les deux parties échangent le même montant." />
-        <e k="invoice_setting_invoiceReminders" v="Rappels de paiement" />
-        <e k="invoice_toolTip_invoiceReminders" v="Lorsque activé, une notification de rappel est affichée toutes les 5 minutes pour les factures impayées." />
-        <e k="invoice_notification_vat_incl" v="dont %s : %s" />
-        <e k="invoice_notification_vat_excl" v="dont %s déduite : %s" />
-        <e k="invoice_notification_penalty_incl" v="incl. %s de pénalité" />
-        <e k="invoice_status_overdue" v="En retard" />
-        <e k="invoice_label_total_due" v="Total dû :" />
-        <e k="invoice_label_penalty" v="Pénalité de retard" />
-        <e k="invoice_label_subtotal" v="Sous-total" />
-        <e k="invoice_setting_invoicePenalties" v="Pénalités de retard" />
-        <e k="invoice_toolTip_invoicePenalties" v="Active les pénalités de retard sur les factures impayées. Après 1 mois de retard, un taux fixe de 5% par mois est appliqué automatiquement. Plafonné à 25% du montant total." />
-        <e k="invoice_notification_overdue" v="Facture %s en retard : %s" />
-        <e k="invoice_notification_overdue_warning" v="Des pénalités de retard seront appliquées." />
-        <e k="invoice_dash_no_fields" v="Aucune parcelle requise" />
-        <e k="invoice_dialog_selectFillType" v="Choix du produit" />
-        <e k="invoice_col_filltype_name" v="Produit" />
-    </elements>
+	<elements>
+		<e k="invoice_menu_title" v="Facturation" />
+		<e k="invoice_tab_incoming" v="FACTURES REÇUES" />
+		<e k="invoice_tab_outgoing" v="FACTURES ÉMISES" />
+		<e k="invoice_status_unpaid" v="En attente" />
+		<e k="invoice_status_paid" v="Réglée" />
+		<e k="invoice_col_date" v="Date" />
+		<e k="invoice_col_farm" v="Exploitation" />
+		<e k="invoice_col_amount" v="Montant" />
+		<e k="invoice_col_field" v="Parcelle" />
+		<e k="invoice_col_area" v="Surface" />
+		<e k="invoice_btn_newInvoice" v="Nouvelle facture" />
+		<e k="invoice_btn_payInvoice" v="Régler" />
+		<e k="invoice_btn_deleteInvoice" v="Supprimer" />
+		<e k="invoice_btn_showDetails" v="Détails" />
+		<e k="invoice_btn_cancel" v="Annuler" />
+		<e k="invoice_btn_close" v="Fermer" />
+		<e k="invoice_btn_select" v="Valider" />
+		<e k="invoice_btn_selectFarm" v="Sélectionner un client" />
+		<e k="invoice_label_from" v="Émetteur :" />
+		<e k="invoice_label_to" v="Client :" />
+		<e k="invoice_label_note" v="Remarques :" />
+		<e k="invoice_placeholder_note" v="Ajouter une remarque ou référence" />
+		<e k="invoice_dialog_details" v="Détails de la facture" />
+		<e k="invoice_dialog_selectField" v="Sélection de la parcelle" />
+		<e k="invoice_wizard_mainTitle" v="NOUVELLE FACTURE" />
+		<e k="invoice_wizard_step1_label" v="Sélectionnez l'exploitation cliente:" />
+		<e k="invoice_wizard_step2_label" v="Sélectionnez le type de travaux :" />
+		<e k="invoice_wizard_step3_label" v="Sélectionnez les parcelles concernées:" />
+		<e k="invoice_btn_sendInvoice" v="Envoyer la facture" />
+		<e k="invoice_wizard_invoice_created" v="Facture émise avec succès !" />
+		<e k="invoice_wizard_invoice_failed" v="Erreur lors de l'émission." />
+		<e k="invoice_wizard_client_fields" v="Parcelles du client" />
+		<e k="invoice_wizard_other_fields" v="Autres parcelles" />
+		<e k="invoice_format_field_id" v="Parcelle n°%d" />
+		<e k="invoice_step4_col_service" v="Désignation" />
+		<e k="invoice_step4_col_qty" v="Qté" />
+		<e k="invoice_step4_col_unitprice" v="P.U." />
+		<e k="invoice_step4_col_amount" v="Montant" />
+		<e k="invoice_step4_from" v="Émetteur : %s" />
+		<e k="invoice_step4_to" v="Client : %s" />
+		<e k="invoice_step4_total" v="NET À PAYER" />
+		<e k="invoice_detail_col_service" v="Désignation" />
+		<e k="invoice_detail_col_qty" v="Qté" />
+		<e k="invoice_detail_col_unit" v="Unité" />
+		<e k="invoice_detail_col_unitprice" v="P.U." />
+		<e k="invoice_detail_col_amount" v="Montant" />
+		<e k="invoice_col_number" v="N° Facture" />
+		<e k="invoice_col_status" v="État" />
+		<e k="invoice_empty_list" v="Aucune facture" />
+		<e k="invoice_format_inv_number" v="FAC-%03d" />
+		<e k="invoice_format_services_count" v="%d ligne(s)" />
+		<e k="invoice_confirm_pay" v="Régler %s à %s ?" />
+		<e k="invoice_confirm_delete" v="Supprimer définitivement cette facture ?" />
+		<e k="invoice_confirm_send" v="Envoyer la facture de %s à %s ?" />
+		<e k="invoice_notification_new" v="Facture reçue de %s : %s" />
+		<e k="invoice_reminder_single" v="Facture impayée : %s" />
+		<e k="invoice_reminder_multiple" v="%d factures impayées pour un total de %s" />
+		<e k="invoice_format_date" v="%02d/%02d/A%d - %02d:%02d" />
+		<e k="invoice_format_date_legacy" v="J%d - %02d:%02d" />
+		<e k="invoice_format_fieldId" v="Parcelle n°%s" />
+		<e k="invoice_invoices_unit_piece" v="u" />
+		<e k="invoice_invoices_unit_hour" v="h" />
+		<e k="invoice_invoices_unit_hectare" v="ha" />
+		<e k="invoice_invoices_unit_liter" v="l" />
+		<e k="invoice_work_stoneCollection" v="Épierrage" />
+		<e k="invoice_work_plowing" v="Labour" />
+		<e k="invoice_work_cultivating" v="Déchaumage" />
+		<e k="invoice_work_mulching" v="Broyage" />
+		<e k="invoice_work_rolling" v="Roulage" />
+		<e k="invoice_work_harrowing" v="Hersage" />
+		<e k="invoice_work_seeding" v="Semis" />
+		<e k="invoice_work_seedingPotato" v="Plantation (PdT)" />
+		<e k="invoice_work_seedingSugarcane" v="Plantation (Canne)" />
+		<e k="invoice_work_seedingRice" v="Semis (Riz)" />
+		<e k="invoice_work_seedingRoot" v="Semis (Racines)" />
+		<e k="invoice_work_pruning" v="Taille (Vigne)" />
+		<e k="invoice_work_spraying" v="Traitement phyto" />
+		<e k="invoice_work_organicFertilizer" v="Épandage organique" />
+		<e k="invoice_work_mineralFertilizer" v="Épandage d'engrais" />
+		<e k="invoice_work_mechanicalWeeding" v="Désherbage mécanique" />
+		<e k="invoice_work_harvestGrain" v="Récolte (Céréales)" />
+		<e k="invoice_work_harvestPotato" v="Arrachage (PdT)" />
+		<e k="invoice_work_harvestSugarbeet" v="Arrachage (Betteraves)" />
+		<e k="invoice_work_harvestSugarcane" v="Récolte (Canne)" />
+		<e k="invoice_work_harvestCotton" v="Récolte (Coton)" />
+		<e k="invoice_work_harvestGrape" v="Vendanges" />
+		<e k="invoice_work_harvestOlive" v="Récolte (Olives)" />
+		<e k="invoice_work_harvestRice" v="Récolte (Riz)" />
+		<e k="invoice_work_harvestSpinach" v="Récolte (Épinards)" />
+		<e k="invoice_work_harvestPeas" v="Récolte (Pois)" />
+		<e k="invoice_work_harvestGreenBeans" v="Récolte (Haricots)" />
+		<e k="invoice_work_harvestVegetables" v="Récolte légumière" />
+		<e k="invoice_work_harvestOnion" v="Récolte (Oignons)" />
+		<e k="invoice_work_chaffing" v="Ensilage" />
+		<e k="invoice_work_mowing" v="Fauche" />
+		<e k="invoice_work_tedding" v="Fanage" />
+		<e k="invoice_work_windrowing" v="Andainage" />
+		<e k="invoice_work_baling" v="Pressage" />
+		<e k="invoice_work_wrapping" v="Enrubannage" />
+		<e k="invoice_work_buyBales" v="Achat (Matière première)" />
+		<e k="invoice_work_sellBales" v="Vente (Fourrage / Paille)" />
+		<e k="invoice_work_animalFeeding" v="Affouragement" />
+		<e k="invoice_work_barnCleaning" v="Curage de stabulation" />
+		<e k="invoice_work_animalTransport" v="Transport bétail" />
+		<e k="invoice_work_snowRemoval" v="Déneigement" />
+		<e k="invoice_work_generalLabor" v="Main d'œuvre" />
+		<e k="invoice_work_loaderWork" v="Manutention" />
+		<e k="invoice_work_driving" v="Chauffeur" />
+		<e k="invoice_work_siloWork" v="Tassage de silo" />
+		<e k="invoice_work_delivery" v="Livraison" />
+		<e k="invoice_work_transport" v="Transport routier" />
+		<e k="invoice_work_equipmentRental" v="Location de matériel" />
+		<e k="invoice_work_heapLoading" v="Reprise en bout de champ" />
+		<e k="invoice_work_treePlanting" v="Reboisement" />
+		<e k="invoice_work_treeCutting" v="Abattage" />
+		<e k="invoice_work_treeRemoval" v="Débardage" />
+		<e k="invoice_work_goods" v="Fournitures" />
+		<e k="invoice_work_products" v="Produits" />
+		<e k="invoice_work_miscellaneous" v="Frais divers" />
+		<e k="invoice_step4_col_vat" v="TVA %" />
+		<e k="invoice_label_subtotal_ht" v="Sous-total HT" />
+		<e k="invoice_label_vat" v="TVA" />
+		<e k="finance_invoiceIncome" v="Revenus factures" />
+		<e k="finance_invoiceExpense" v="Dépenses factures" />
+		<e k="invoice_label_invoice" v="Facture" />
+		<e k="invoice_error_permission_required" v="Action réservée aux gérants de ferme." />
+		<e k="invoice_error_insufficient_funds" v="Solde insuffisant pour régler cette facture." />
+		<e k="invoice_settings_section_title" v="Factures" />
+		<e k="invoice_setting_invoiceVatSimulated" v="TVA simulée" />
+		<e k="invoice_toolTip_invoiceVatSimulated" v="Lorsque activé, les factures incluent la TVA. Le client paie le montant TTC, le prestataire reçoit le montant HT. Lorsque désactivé, la TVA est fixée à 0% et les deux parties échangent le même montant." />
+		<e k="invoice_setting_invoiceReminders" v="Rappels de paiement" />
+		<e k="invoice_toolTip_invoiceReminders" v="Lorsque activé, une notification de rappel est affichée toutes les 5 minutes pour les factures impayées." />
+		<e k="invoice_notification_vat_incl" v="Dont %s : %s" />
+		<e k="invoice_notification_vat_excl" v="Dont %s déduite : %s" />
+		<e k="invoice_notification_penalty_incl" v="Dont %s de pénalité" />
+		<e k="invoice_status_overdue" v="En retard" />
+		<e k="invoice_label_total_due" v="TOTAL DÛ :" />
+		<e k="invoice_label_penalty" v="Pénalité de retard" />
+		<e k="invoice_setting_invoicePenalties" v="Pénalités de retard" />
+		<e k="invoice_toolTip_invoicePenalties" v="Active les pénalités de retard sur les factures impayées. Après 1 mois de retard, un taux fixe de 5% par mois est appliqué automatiquement. Plafonné à 25% du montant total." />
+		<e k="invoice_notification_overdue" v="Facture %s en retard : %s" />
+		<e k="invoice_notification_overdue_warning" v="Pénalités de retard appliquées." />
+		<e k="invoice_dash_no_fields" v="Aucune parcelle requise" />
+		<e k="invoice_dialog_selectFillType" v="Sélection du produit" />
+		<e k="invoice_col_filltype_name" v="Produit" />
+	</elements>
 </l10n>

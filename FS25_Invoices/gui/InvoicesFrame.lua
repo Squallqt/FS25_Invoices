@@ -1,5 +1,6 @@
 --[[
     InvoicesFrame.lua
+    InGameMenu tab frame: incoming/outgoing invoice lists with pay, delete, and detail navigation.
     Author: Squallqt
 ]]
 

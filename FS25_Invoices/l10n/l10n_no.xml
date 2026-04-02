@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Til:" />
         <e k="invoice_label_note" v="Merknader:" />
         <e k="invoice_placeholder_note" v="Legg til merknad eller referanse" />
-        <e k="invoice_label_total" v="Totalt:" />
         <e k="invoice_dialog_details" v="Fakturadetails" />
         <e k="invoice_dialog_selectField" v="Jordevalg" />
         <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d linje(r)" />
         <e k="invoice_confirm_pay" v="Bekreft betaling til '%s'?" />
-        <e k="invoice_confirm_delete" v="Slette permanent?" />        <e k="invoice_confirm_send" v="Send faktura på %s til %s?" />
+        <e k="invoice_confirm_delete" v="Slette permanent?" />
+        <e k="invoice_confirm_send" v="Send faktura på %s til %s?" />
         <e k="invoice_notification_new" v="Faktura fra %s: %s" />
         <e k="invoice_reminder_single" v="Ubetalt faktura: %s" />
         <e k="invoice_reminder_multiple" v="%d ubetalte fakturaer totalt %s" />
         <e k="invoice_format_date" v="%02d/%02d/Å%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Jorde %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Jorde %s" />
         <e k="invoice_invoices_unit_piece" v="stk" />
         <e k="invoice_invoices_unit_hour" v="t" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="MVA" />
         <e k="finance_invoiceIncome" v="Fakturainntekt" />
         <e k="finance_invoiceExpense" v="Fakturautgift" />
-        <e k="invoice_moneyType_income" v="Faktura (Inntekt)" />
-        <e k="invoice_moneyType_expense" v="Faktura (Utgift)" />
+        <e k="invoice_label_invoice" v="Faktura" />
         <e k="invoice_error_permission_required" v="Handling reservert for gårdsledere." />
         <e k="invoice_error_insufficient_funds" v="Utilstrekkelig saldo til å betale denne fakturaen." />
         <e k="invoice_settings_section_title" v="Fakturaer" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Forfalt" />
         <e k="invoice_label_total_due" v="Skyldig beløp:" />
         <e k="invoice_label_penalty" v="Forsinkelsesgebyr" />
-        <e k="invoice_label_subtotal" v="Delsum" />
         <e k="invoice_setting_invoicePenalties" v="Forsinkelsesrenter" />
         <e k="invoice_toolTip_invoicePenalties" v="Aktiverer forsinkelsesrenter på ubetalte fakturaer. Etter 1 måneds forfall påløper automatisk en fast sats på 5% per måned. Begrenset til 25% av totalbeløpet." />
         <e k="invoice_notification_overdue" v="Faktura %s er forfalt: %s" />

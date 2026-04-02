@@ -1,6 +1,6 @@
 --[[
     InvoiceSettingsEvent.lua
-    Network event for settings synchronization.
+    Network event propagating VAT, reminder, and penalty flag changes from client to server and broadcast.
     Author: Squallqt
 ]]
 

@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="An:" />
         <e k="invoice_label_note" v="Anmerkungen:" />
         <e k="invoice_placeholder_note" v="Bemerkung oder Referenz hinzufügen" />
-        <e k="invoice_label_total" v="Gesamt:" />
         <e k="invoice_dialog_details" v="Rechnungsdetails" />
         <e k="invoice_dialog_selectField" v="Feldwahl" />
         <e k="invoice_wizard_mainTitle" v="NEUE RECHNUNG" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="RE-%03d" />
         <e k="invoice_format_services_count" v="%d Zeile(n)" />
         <e k="invoice_confirm_pay" v="Rechnung von %s an '%s' bezahlen?" />
-        <e k="invoice_confirm_delete" v="Rechnung endgültig löschen?" />        <e k="invoice_confirm_send" v="Rechnung über %s an %s senden?" />
+        <e k="invoice_confirm_delete" v="Rechnung endgültig löschen?" />
+        <e k="invoice_confirm_send" v="Rechnung über %s an %s senden?" />
         <e k="invoice_notification_new" v="Rechnung von %s: %s" />
         <e k="invoice_reminder_single" v="Unbezahlte Rechnung: %s" />
         <e k="invoice_reminder_multiple" v="%d unbezahlte Rechnungen insgesamt %s" />
         <e k="invoice_format_date" v="%02d.%02d.J%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="T%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Feld %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Feld %s" />
         <e k="invoice_invoices_unit_piece" v="stk" />
         <e k="invoice_invoices_unit_hour" v="std" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="MwSt" />
         <e k="finance_invoiceIncome" v="Rechnungseinnahmen" />
         <e k="finance_invoiceExpense" v="Rechnungsausgaben" />
-        <e k="invoice_moneyType_income" v="Rechnung (Einnahme)" />
-        <e k="invoice_moneyType_expense" v="Rechnung (Ausgabe)" />
+        <e k="invoice_label_invoice" v="Rechnung" />
         <e k="invoice_error_permission_required" v="Aktion nur für Hofleiter." />
         <e k="invoice_error_insufficient_funds" v="Nicht genügend Guthaben, um diese Rechnung zu zahlen." />
         <e k="invoice_settings_section_title" v="Rechnungen" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Überfällig" />
         <e k="invoice_label_total_due" v="Fälliger Betrag:" />
         <e k="invoice_label_penalty" v="Verzugsgebühr" />
-        <e k="invoice_label_subtotal" v="Zwischensumme" />
         <e k="invoice_setting_invoicePenalties" v="Verzugszinsen" />
         <e k="invoice_toolTip_invoicePenalties" v="Aktiviert Verzugszinsen auf unbezahlte Rechnungen. Nach 1 Monat Überfälligkeit wird ein fester Satz von 5% pro Monat automatisch berechnet. Begrenzt auf 25% des Gesamtbetrags." />
         <e k="invoice_notification_overdue" v="Rechnung %s ist überfällig: %s" />

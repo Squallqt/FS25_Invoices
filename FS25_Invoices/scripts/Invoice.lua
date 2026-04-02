@@ -1,5 +1,6 @@
 --[[
     Invoice.lua
+    Domain model: invoice state, line items, VAT totals, XML/stream serialization, and savegame retrocompat.
     Author: Squallqt
 ]]
 

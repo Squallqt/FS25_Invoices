@@ -1,7 +1,6 @@
 --[[
     InvoicesMainDashboard.lua
-    Consolidated invoice creation dashboard
-    Replaces WizardStep1-4 in a single view
+    Consolidated invoice creation dialog: farm/work/field selection, line item editing, and send dispatch.
     Author: Squallqt
 ]]
 
@@ -36,6 +35,9 @@ InvoicesMainDashboard.CONTROLS = {
     TEXT_VAT_HT      = "textVatHt",
     TEXT_VAT_TVA     = "textVatTva",
     TOTAL_SEP        = "totalSep",
+    TOTAL_RIGHT_COLUMN = "totalRightColumn",
+    TOTAL_VALUE_ROW = "totalValueRow",
+    TOTAL_VALUE_ANCHOR = "totalValueAnchor",
     -- Buttons
     BTN_SEND         = "btnSend",
 }
@@ -75,7 +77,7 @@ function InvoicesMainDashboard.new(target, customMt)
     return self
 end
 
--- ===================== LIFECYCLE =====================
+-- Lifecycle
 
 function InvoicesMainDashboard:onLoad()
     InvoicesMainDashboard:superClass().onLoad(self)
@@ -119,7 +121,6 @@ function InvoicesMainDashboard:onOpen()
     local state = InvoicesWizardState.getInstance()
     state:reset()
 
-    -- Reset local state
     self.selectedFarm = nil
     self.selectedFarmIndex = -1
     self.selectedWorkIndex = -1
@@ -190,7 +191,7 @@ function InvoicesMainDashboard:delete()
     InvoicesMainDashboard:superClass().delete(self)
 end
 
--- ===================== TITLE SEPARATOR =====================
+-- Title separator
 
 function InvoicesMainDashboard:resizeTitleSep()
     if self.titleSep == nil or self.mainTitleText == nil then return end
@@ -201,7 +202,7 @@ function InvoicesMainDashboard:resizeTitleSep()
 
     local text = self.mainTitleText.text or ""
     local textWidth = getTextWidth(self.mainTitleText.textSize, text)
-    local padding = 10 * 2 * g_pixelSizeScaledX
+    local padding = 20 * 2 * g_pixelSizeScaledX
     local newWidth = textWidth + padding
 
     self.titleSep:setSize(newWidth, self._titleSepHeight)
@@ -210,7 +211,7 @@ function InvoicesMainDashboard:resizeTitleSep()
     end
 end
 
--- ===================== DATA LOADING (from Step1/2/3) =====================
+-- Data loading
 
 function InvoicesMainDashboard:detectGameMode()
     self.playerFarmId = nil
@@ -290,10 +291,27 @@ end
 
 function InvoicesMainDashboard:loadWorkTypes()
     self.workTypes = {}
+
     local manager = g_currentMission.invoicesManager
-    if manager then
-        self.workTypes = manager:getWorkTypes()
+    if manager == nil then
+        return
     end
+
+    local source = manager:getWorkTypes() or {}
+
+    -- Keep source order/IDs untouched: sort only the local UI copy.
+    for i = 1, #source do
+        self.workTypes[i] = source[i]
+    end
+
+    table.sort(self.workTypes, function(a, b)
+        local aName = g_i18n:getText(a.nameKey or "") or ""
+        local bName = g_i18n:getText(b.nameKey or "") or ""
+        if aName == bName then
+            return (a.id or 0) < (b.id or 0)
+        end
+        return aName < bName
+    end)
 end
 
 function InvoicesMainDashboard:loadFields()
@@ -334,6 +352,7 @@ function InvoicesMainDashboard:handleAutoFarmSelection()
         state:setRecipient(self.selectedFarm.farmId, self.selectedFarm.name)
 
         if self.listFarms ~= nil then
+            self.listFarms:reloadData()
             self.listFarms:setSelectedIndex(1, 1, true)
         end
 
@@ -341,7 +360,7 @@ function InvoicesMainDashboard:handleAutoFarmSelection()
     end
 end
 
--- ===================== FIELDS PANEL =====================
+-- Fields panel state
 
 function InvoicesMainDashboard:requiresFieldSelection()
     for _, workType in ipairs(self.selectedWorkItems) do
@@ -375,7 +394,7 @@ function InvoicesMainDashboard:updateFieldsPanel()
     end
 end
 
--- ===================== LINE ITEMS REBUILD =====================
+-- Line item reconciliation
 
 function InvoicesMainDashboard:rebuildLineItems()
     local state = InvoicesWizardState.getInstance()
@@ -443,7 +462,7 @@ function InvoicesMainDashboard:updateSequentialLock()
     self:updateButtonStates()
 end
 
--- ===================== HEADER =====================
+-- Header display
 
 function InvoicesMainDashboard:updateHeader()
     if self.textFrom ~= nil then
@@ -468,11 +487,12 @@ function InvoicesMainDashboard:updateHeader()
     end
 end
 
--- ===================== TOTAL (from Step4) =====================
+-- Total computation and VAT display
 
 function InvoicesMainDashboard:updateTotal()
     local state = InvoicesWizardState.getInstance()
     local total = state:getTotal()
+    local totalText = g_i18n:formatMoney(total, 0, true, false)
 
     local totalHT = 0
     local totalVAT = 0
@@ -488,7 +508,7 @@ function InvoicesMainDashboard:updateTotal()
     end
 
     if self.textTotal ~= nil then
-        self.textTotal:setText(g_i18n:formatMoney(total, 0, true, true))
+        self.textTotal:setText(totalText)
     end
 
     if self.textVatHt ~= nil and self.textVatTva ~= nil then
@@ -503,29 +523,29 @@ function InvoicesMainDashboard:updateTotal()
             self.textVatTva:setVisible(true)
             if self.totalSep ~= nil then
                 self.totalSep:setVisible(true)
-                self:resizeTotalSep(htText, tvaText)
+                self:resizeTotalSep(htText, tvaText, totalText)
             end
         elseif not vatEnabled then
-            local htText = string.format("%s :  —", g_i18n:getText("invoice_label_subtotal_ht"))
-            local tvaText = string.format("%s :  —", g_i18n:getText("invoice_label_vat"))
+            local htText = string.format("%s :  N/A", g_i18n:getText("invoice_label_subtotal_ht"))
+            local tvaText = string.format("%s :  N/A", g_i18n:getText("invoice_label_vat"))
             self.textVatHt:setText(htText)
             self.textVatTva:setText(tvaText)
             self.textVatHt:setVisible(true)
             self.textVatTva:setVisible(true)
             if self.totalSep ~= nil then
                 self.totalSep:setVisible(true)
-                self:resizeTotalSep(htText, tvaText)
+                self:resizeTotalSep(htText, tvaText, totalText)
             end
         else
-            local htText = string.format("%s :  —", g_i18n:getText("invoice_label_subtotal_ht"))
-            local tvaText = string.format("%s :  —", g_i18n:getText("invoice_label_vat"))
+            local htText = string.format("%s :  N/A", g_i18n:getText("invoice_label_subtotal_ht"))
+            local tvaText = string.format("%s :  N/A", g_i18n:getText("invoice_label_vat"))
             self.textVatHt:setText(htText)
             self.textVatTva:setText(tvaText)
             self.textVatHt:setVisible(true)
             self.textVatTva:setVisible(true)
             if self.totalSep ~= nil then
                 self.totalSep:setVisible(true)
-                self:resizeTotalSep(htText, tvaText)
+                self:resizeTotalSep(htText, tvaText, totalText)
             end
         end
     end
@@ -536,25 +556,43 @@ function InvoicesMainDashboard:updateTotal()
     end
 end
 
-function InvoicesMainDashboard:resizeTotalSep(htText, tvaText)
+function InvoicesMainDashboard:resizeTotalSep(htText, tvaText, totalText)
     if self.totalSep == nil or self.textVatHt == nil then return end
-
-    if self._sepHeight == nil then
-        self._sepHeight = self.totalSep.absSize[2]
-    end
 
     local textSize = self.textVatHt.textSize
     local htWidth = getTextWidth(textSize, htText)
     local tvaWidth = self.textVatTva ~= nil and getTextWidth(self.textVatTva.textSize, tvaText) or 0
-    local maxTextWidth = math.max(htWidth, tvaWidth)
+    local totalWidth = self.textTotal ~= nil and getTextWidth(self.textTotal.textSize, totalText or self.textTotal.text or "") or 0
+    totalWidth = totalWidth + (20 * g_pixelSizeScaledX)
+    local maxTextWidth = math.max(htWidth, tvaWidth, totalWidth)
 
-    self.totalSep:setSize(maxTextWidth, self._sepHeight)
+    self.totalSep:setSize(maxTextWidth, self.totalSep.absSize[2])
+
+    if self.totalValueAnchor ~= nil then
+        self.totalValueAnchor:setSize(maxTextWidth, self.totalValueAnchor.absSize[2])
+        if self.totalValueAnchor.invalidateLayout ~= nil then
+            self.totalValueAnchor:invalidateLayout()
+        end
+    end
+
+    if self.totalValueRow ~= nil and self.totalValueRow.invalidateLayout ~= nil then
+        self.totalValueRow:invalidateLayout()
+    end
+
+    if self.textTotal ~= nil then
+        self.textTotal:setSize(maxTextWidth, self.textTotal.absSize[2])
+    end
+
     if self.totalSep.parent ~= nil and self.totalSep.parent.invalidateLayout ~= nil then
         self.totalSep.parent:invalidateLayout()
     end
+
+    if self.totalRightColumn ~= nil and self.totalRightColumn.invalidateLayout ~= nil then
+        self.totalRightColumn:invalidateLayout()
+    end
 end
 
--- ===================== EDIT FIELDS (from Step4) =====================
+-- Edit field management
 
 function InvoicesMainDashboard:setupNotePlaceholder()
     if self.inputNote == nil then return end
@@ -710,7 +748,7 @@ function InvoicesMainDashboard:updateSelectedCellValues()
     end
 end
 
--- ===================== TEXT INPUT CALLBACKS (from Step4) =====================
+-- Text input callbacks
 
 function InvoicesMainDashboard:onPriceTextChanged(element, text)
     if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.lineItems then return end
@@ -735,6 +773,13 @@ function InvoicesMainDashboard:onPriceTextChanged(element, text)
 
     if item.sourceIndex ~= nil and self.selectedWorkItems[item.sourceIndex] ~= nil then
         self.selectedWorkItems[item.sourceIndex].customPrice = item.price
+    end
+
+    if self.listWorkTypes ~= nil then
+        self.listWorkTypes:reloadData()
+        if self.selectedWorkIndex ~= nil and self.selectedWorkIndex >= 1 and self.selectedWorkIndex <= #self.workTypes then
+            self.listWorkTypes:setSelectedIndex(self.selectedWorkIndex)
+        end
     end
 
     self:updateSelectedCellValues()
@@ -779,6 +824,13 @@ function InvoicesMainDashboard:onQtyTextChanged(element, text)
         self.selectedWorkItems[item.sourceIndex].customQuantity = item.quantity
     end
 
+    if self.listWorkTypes ~= nil then
+        self.listWorkTypes:reloadData()
+        if self.selectedWorkIndex ~= nil and self.selectedWorkIndex >= 1 and self.selectedWorkIndex <= #self.workTypes then
+            self.listWorkTypes:setSelectedIndex(self.selectedWorkIndex)
+        end
+    end
+
     self:updateSelectedCellValues()
     self:updateTotal()
 end
@@ -807,7 +859,7 @@ function InvoicesMainDashboard:onVatRateTextChanged(element, text)
     self:updateTotal()
 end
 
--- ===================== DATA SOURCE (4 lists) =====================
+-- Data source: four SmoothList implementations
 
 function InvoicesMainDashboard:getNumberOfSections(list)
     if list == self.listFields then
@@ -1256,7 +1308,11 @@ function InvoicesMainDashboard:addWorkType()
         self:openFillTypeDialog(workType)
     else
         if self:isWorkTypeSelected(workType) then return end
-        table.insert(self.selectedWorkItems, workType)
+        local selectedWorkType = {}
+        for k, v in pairs(workType) do
+            selectedWorkType[k] = v
+        end
+        table.insert(self.selectedWorkItems, selectedWorkType)
         self:updateFieldsPanel()
         self:rebuildLineItems()
         if self.listWorkTypes ~= nil then

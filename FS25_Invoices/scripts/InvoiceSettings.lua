@@ -1,6 +1,6 @@
 --[[
     InvoiceSettings.lua
-    Settings menu injection.
+    Settings schema, InGameMenu control injection, and server-authoritative apply/broadcast for invoice flags.
     Author: Squallqt
 ]]
 
@@ -132,6 +132,15 @@ function InvoiceSettings:loadDefaultsIfMissing()
     end
 end
 
+-- Lazy-load settings from XML on first save to avoid creating files for unused savegames
+local settingsLoaded = false
+function InvoiceSettings:ensureSettingsLoaded()
+    if not settingsLoaded and g_currentMission ~= nil and g_currentMission:getIsServer() then
+        self:loadFromXMLFile()
+        settingsLoaded = true
+    end
+end
+
 function InvoiceSettings:saveToXMLFile()
     if g_currentMission == nil or not g_currentMission:getIsServer() then return end
     if g_currentMission.missionInfo == nil then return end
@@ -141,18 +150,10 @@ function InvoiceSettings:saveToXMLFile()
         savegameDirectory = ('%ssavegame%d'):format(getUserProfileAppPath(), g_currentMission.missionInfo.savegameIndex)
     end
 
-    local filename = savegameDirectory .. "/invoiceSettings.xml"
-    local key = "invoiceSettings"
-    local xmlFile = XMLFile.create("invoiceSettings", filename, key)
-    if xmlFile == nil then return end
-
-    local s = g_currentMission.invoiceSettings or {}
-    xmlFile:setBool(key .. "#vatSimulated", s.invoiceVatSimulated ~= false)
-    xmlFile:setBool(key .. "#reminders", s.invoiceReminders ~= false)
-    xmlFile:setBool(key .. "#penalties", s.invoicePenalties ~= false)
-
-    xmlFile:save()
-    xmlFile:delete()
+    local manager = g_currentMission.invoicesManager
+    if manager ~= nil and manager.repository ~= nil then
+        manager.repository:saveSettingsToXML(savegameDirectory .. "/", g_currentMission.invoiceSettings or {})
+    end
 end
 
 function InvoiceSettings:loadFromXMLFile()
@@ -164,18 +165,15 @@ function InvoiceSettings:loadFromXMLFile()
         savegameDirectory = ('%ssavegame%d'):format(getUserProfileAppPath(), g_currentMission.missionInfo.savegameIndex)
     end
 
-    local filename = savegameDirectory .. "/invoiceSettings.xml"
-    local key = "invoiceSettings"
-    local xmlFile = XMLFile.loadIfExists("invoiceSettings", filename, key)
-    if xmlFile == nil then return end
-
-    local s = {}
-    s.invoiceVatSimulated = xmlFile:getBool(key .. "#vatSimulated", true)
-    s.invoiceReminders = xmlFile:getBool(key .. "#reminders", true)
-    s.invoicePenalties = xmlFile:getBool(key .. "#penalties", true)
-    xmlFile:delete()
-
-    self:applySettings(s, true)
+    local manager = g_currentMission.invoicesManager
+    if manager ~= nil and manager.repository ~= nil then
+        local loaded = manager.repository:loadSettingsFromXML(savegameDirectory .. "/")
+        if loaded ~= nil then
+            -- Apply loaded settings client-side without triggering a server re-save or broadcast
+            self:applySettings(loaded, false)
+            return
+        end
+    end
 end
 
 function InvoiceSettings:injectMenu()

@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Vastaanottaja:" />
         <e k="invoice_label_note" v="Huomautukset:" />
         <e k="invoice_placeholder_note" v="Lisää huomautus tai viite" />
-        <e k="invoice_label_total" v="Yhteensä:" />
         <e k="invoice_dialog_details" v="Laskun tiedot" />
         <e k="invoice_dialog_selectField" v="Pellon valinta" />
         <e k="invoice_wizard_mainTitle" v="UUSI LASKU" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="L-%03d" />
         <e k="invoice_format_services_count" v="%d rivi(ä)" />
         <e k="invoice_confirm_pay" v="Vahvista maksu kohteelle '%s'?" />
-        <e k="invoice_confirm_delete" v="Poista lasku pysyvästi?" />        <e k="invoice_confirm_send" v="Lähetä lasku %s kohteelle %s?" />
+        <e k="invoice_confirm_delete" v="Poista lasku pysyvästi?" />
+        <e k="invoice_confirm_send" v="Lähetä lasku %s kohteelle %s?" />
         <e k="invoice_notification_new" v="Lasku saatu: %s - %s" />
         <e k="invoice_reminder_single" v="Maksamaton lasku: %s" />
         <e k="invoice_reminder_multiple" v="%d maksamatonta laskua yhteensä %s" />
         <e k="invoice_format_date" v="%02d.%02d.V%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="P%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Pelto %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Pelto %s" />
         <e k="invoice_invoices_unit_piece" v="kpl" />
         <e k="invoice_invoices_unit_hour" v="h" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="ALV" />
         <e k="finance_invoiceIncome" v="Laskutulot" />
         <e k="finance_invoiceExpense" v="Laskumenot" />
-        <e k="invoice_moneyType_income" v="Lasku (Tulo)" />
-        <e k="invoice_moneyType_expense" v="Lasku (Meno)" />
+        <e k="invoice_label_invoice" v="Lasku" />
         <e k="invoice_error_permission_required" v="Toiminto varattu maatilan johtajille." />
         <e k="invoice_error_insufficient_funds" v="Riittämätön saldo tämän laskun maksamiseen." />
         <e k="invoice_settings_section_title" v="Laskut" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Myöhässä" />
         <e k="invoice_label_total_due" v="Maksettava yhteensä:" />
         <e k="invoice_label_penalty" v="Viivästysmaksu" />
-        <e k="invoice_label_subtotal" v="Välisumma" />
         <e k="invoice_setting_invoicePenalties" v="Viivästyskorot" />
         <e k="invoice_toolTip_invoicePenalties" v="Ottaa käyttöön viivästyskoron maksamattomille laskuille. 1 kuukauden erääntymisen jälkeen sovelletaan automaattisesti kiinteää 5% kuukausikorkoa. Enintään 25% kokonaissummasta." />
         <e k="invoice_notification_overdue" v="Lasku %s on erääntynyt: %s" />

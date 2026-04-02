@@ -1,5 +1,6 @@
 --[[
     InvoicesListRenderer.lua
+    SmoothList data source and delegate rendering invoice rows with status-driven color coding.
     Author: Squallqt
 ]]
 

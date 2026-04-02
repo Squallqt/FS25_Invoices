@@ -24,6 +24,9 @@
                 <!-- Content area (absolute positioning) -->
                 <GuiElement profile="dashContentArea">
 
+                    <!-- Background behind top 3 selection tables -->
+                    <RoundCorner profile="dashSelectionBg"/>
+
                     <!-- ==================== SELECTION ZONE ==================== -->
 
                     <GuiElement profile="dashSelectionZone">
@@ -38,7 +41,7 @@
                                     <Text profile="dashFarmCellName" name="cellName"/>
                                 </ListItem>
                             </SmoothList>
-                            <ThreePartBitmap profile="dashSliderBox" position="262px 0px" size="6px 336px" id="farmSliderBox">
+                            <ThreePartBitmap profile="dashSliderBox" position="259px 0px" size="6px 336px" id="farmSliderBox">
                                 <Slider profile="fs25_listSlider" size="6px 336px" dataElementId="listFarms"/>
                             </ThreePartBitmap>
                         </GuiElement>
@@ -54,7 +57,7 @@
                                     <Text profile="dashWorkCellPrice" name="cellPrice"/>
                                 </ListItem>
                             </SmoothList>
-                            <ThreePartBitmap profile="dashSliderBox" position="262px 0px" size="6px 336px" id="workSliderBox">
+                            <ThreePartBitmap profile="dashSliderBox" position="259px 0px" size="6px 336px" id="workSliderBox">
                                 <Slider profile="fs25_listSlider" size="6px 336px" dataElementId="listWorkTypes"/>
                             </ThreePartBitmap>
                         </GuiElement>
@@ -73,7 +76,7 @@
                                     <Text profile="dashSectionTitle" name="title"/>
                                 </ListItem>
                             </SmoothList>
-                            <ThreePartBitmap profile="dashSliderBox" position="262px 0px" size="6px 336px" id="fieldSliderBox">
+                            <ThreePartBitmap profile="dashSliderBox" position="259px 0px" size="6px 336px" id="fieldSliderBox">
                                 <Slider profile="fs25_listSlider" size="6px 336px" dataElementId="listFields"/>
                             </ThreePartBitmap>
                             <Text profile="dashFieldsEmptyText" id="fieldsEmptyText" text="$l10n_invoice_dash_no_fields"/>
@@ -152,12 +155,18 @@
                     <!-- TOTAL section -->
                     <RoundCorner profile="dashTotalBarBg"/>
                     <Text      profile="dashTotalLabel"  text="$l10n_invoice_step4_total"/>
-                    <Text      profile="dashVatHtText"   id="textVatHt"/>
-                    <Text      profile="dashVatTvaText"  id="textVatTva"/>
-                    <BoxLayout profile="dashTotalSepBox">
-                        <Bitmap profile="dashTotalSepLine" id="totalSep"/>
+                    <BoxLayout profile="dashTotalRightColumn" id="totalRightColumn">
+                        <Text      profile="dashVatHtText"   id="textVatHt"/>
+                        <Text      profile="dashVatTvaText"  id="textVatTva"/>
+                        <BoxLayout profile="dashTotalSepBox">
+                            <Bitmap profile="dashTotalSepLine" id="totalSep"/>
+                        </BoxLayout>
+                        <BoxLayout profile="dashTotalValueRow" id="totalValueRow">
+                            <BoxLayout profile="dashTotalValueAnchor" id="totalValueAnchor">
+                                <Text      profile="dashTotalValue"  id="textTotal"/>
+                            </BoxLayout>
+                        </BoxLayout>
                     </BoxLayout>
-                    <Text      profile="dashTotalValue"  id="textTotal"/>
 
                 </GuiElement>
 
@@ -186,6 +195,7 @@
 
         <Profile name="dashMainTitle" extends="baseReference">
             <size value="832px 40px"/>
+            <margin value="0px 4px 0px 0px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -199,7 +209,7 @@
         </Profile>
 
         <Profile name="dashTitleSpacer" extends="emptyPanel">
-            <size value="832px 20px"/>
+            <size value="832px 16px"/>
         </Profile>
 
         <Profile name="dashTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
@@ -230,6 +240,13 @@
         <Profile name="dashSelectionZone" extends="emptyPanel" with="anchorTopLeft">
             <position value="0px 0px"/>
             <size value="832px 384px"/>
+        </Profile>
+
+        <Profile name="dashSelectionBg" extends="baseReference" with="anchorTopLeft">
+            <position value="0px 0px"/>
+            <size value="832px 384px"/>
+            <color value="0 0 0 0.5"/>
+            <cornerSize value="0.3"/>
         </Profile>
 
         <Profile name="dashColList" extends="emptyPanel">
@@ -431,7 +448,7 @@
 
         <!-- Slider outside list, absolute position (same pattern as Detail dialog) -->
         <Profile name="dashRecapSliderBox" extends="fs25_listSliderBox" with="anchorTopLeft">
-            <position value="840px -470px"/>
+            <position value="826px -470px"/>
             <size value="6px 282px"/>
         </Profile>
 
@@ -663,24 +680,29 @@
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="dashVatHtText" extends="baseReference" with="anchorTopLeft">
+        <Profile name="dashTotalRightColumn" extends="emptyPanel" with="anchorTopLeft">
             <position value="394px -820px"/>
+            <size value="416px 66px"/>
+            <flowDirection value="vertical"/>
+            <alignmentX value="right"/>
+            <alignmentY value="top"/>
+            <elementSpacing value="0px"/>
+        </Profile>
+        <Profile name="dashVatHtText" extends="baseReference">
             <size value="416px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="dashVatTvaText" extends="baseReference" with="anchorTopLeft">
-            <position value="394px -838px"/>
+        <Profile name="dashVatTvaText" extends="baseReference">
             <size value="416px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="dashTotalSepBox" extends="emptyPanel" with="anchorTopLeft">
-            <position value="394px -856px"/>
+        <Profile name="dashTotalSepBox" extends="emptyPanel">
             <size value="416px 1px"/>
             <flowDirection value="horizontal"/>
             <alignmentX value="right"/>
@@ -690,13 +712,24 @@
             <size value="416px 1px"/>
             <imageColor value="0.3 0.3 0.3 0.8"/>
         </Profile>
-        <Profile name="dashTotalValue" extends="baseReference" with="anchorTopLeft">
-            <position value="394px -857px"/>
-            <size value="416px 27px"/>
+        <Profile name="dashTotalValueRow" extends="emptyPanel">
+            <size value="416px 29px"/>
+            <flowDirection value="horizontal"/>
+            <alignmentX value="right"/>
+            <alignmentY value="center"/>
+        </Profile>
+        <Profile name="dashTotalValueAnchor" extends="emptyPanel">
+            <size value="416px 29px"/>
+            <flowDirection value="horizontal"/>
+            <alignmentX value="center"/>
+            <alignmentY value="center"/>
+        </Profile>
+        <Profile name="dashTotalValue" extends="baseReference">
+            <size value="120px 29px"/>
             <textSize value="24px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
-            <textAlignment value="right"/>
+            <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
 

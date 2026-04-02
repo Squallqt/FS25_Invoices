@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="To:" />
         <e k="invoice_label_note" v="Notes:" />
         <e k="invoice_placeholder_note" v="Add a note or reference" />
-        <e k="invoice_label_total" v="Total:" />
         <e k="invoice_dialog_details" v="Invoice Details" />
         <e k="invoice_dialog_selectField" v="Field Selection" />
         <e k="invoice_wizard_mainTitle" v="NEW INVOICE" />
@@ -61,7 +60,6 @@
         <e k="invoice_reminder_multiple" v="%d unpaid invoices totaling %s" />
         <e k="invoice_format_date" v="%02d/%02d/Y%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Field %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Field %s" />
         <e k="invoice_invoices_unit_piece" v="pc" />
         <e k="invoice_invoices_unit_hour" v="h" />
@@ -127,8 +125,7 @@
         <e k="invoice_label_vat" v="VAT" />
         <e k="finance_invoiceIncome" v="Invoice Income" />
         <e k="finance_invoiceExpense" v="Invoice Expense" />
-        <e k="invoice_moneyType_income" v="Invoice (Income)" />
-        <e k="invoice_moneyType_expense" v="Invoice (Expense)" />
+        <e k="invoice_label_invoice" v="Invoice" />
         <e k="invoice_error_permission_required" v="Action reserved for farm managers." />
         <e k="invoice_error_insufficient_funds" v="Insufficient balance to pay this invoice." />
         <e k="invoice_settings_section_title" v="Invoices" />
@@ -142,7 +139,6 @@
         <e k="invoice_status_overdue" v="Overdue" />
         <e k="invoice_label_total_due" v="Total Due:" />
         <e k="invoice_label_penalty" v="Late Penalty" />
-        <e k="invoice_label_subtotal" v="Subtotal" />
         <e k="invoice_setting_invoicePenalties" v="Late Penalties" />
         <e k="invoice_toolTip_invoicePenalties" v="Enables late penalties on unpaid invoices. After 1 month overdue, a fixed rate of 5% per month is applied automatically. Capped at 25% of the total amount." />
         <e k="invoice_notification_overdue" v="Invoice %s is overdue: %s" />

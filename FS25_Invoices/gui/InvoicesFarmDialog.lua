@@ -1,5 +1,6 @@
 --[[
     InvoicesFarmDialog.lua
+    Modal dialog presenting selectable recipient farm list for invoice targeting.
     Author: Squallqt
 ]]
 

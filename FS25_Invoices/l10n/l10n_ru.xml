@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Кому:" />
         <e k="invoice_label_note" v="Примечания:" />
         <e k="invoice_placeholder_note" v="Добавить примечание или ссылку" />
-        <e k="invoice_label_total" v="Итого:" />
         <e k="invoice_dialog_details" v="Детали счета" />
         <e k="invoice_dialog_selectField" v="Выбор поля" />
         <e k="invoice_wizard_mainTitle" v="НОВЫЙ СЧЕТ" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="СЧ-%03d" />
         <e k="invoice_format_services_count" v="%d строк(и)" />
         <e k="invoice_confirm_pay" v="Подтвердить оплату '%s'?" />
-        <e k="invoice_confirm_delete" v="Удалить безвозвратно?" />        <e k="invoice_confirm_send" v="Отправить счёт на %s для %s?" />
+        <e k="invoice_confirm_delete" v="Удалить безвозвратно?" />
+        <e k="invoice_confirm_send" v="Отправить счёт на %s для %s?" />
         <e k="invoice_notification_new" v="Счет получен от %s: %s" />
         <e k="invoice_reminder_single" v="Неоплаченный счет: %s" />
         <e k="invoice_reminder_multiple" v="%d неоплаченных счетов на сумму %s" />
         <e k="invoice_format_date" v="%02d.%02d.Г%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="Д%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Поле %s (%.2f га)" />
         <e k="invoice_format_fieldId" v="Поле %s" />
         <e k="invoice_invoices_unit_piece" v="шт" />
         <e k="invoice_invoices_unit_hour" v="ч" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="НДС" />
         <e k="finance_invoiceIncome" v="Доход по счетам" />
         <e k="finance_invoiceExpense" v="Расход по счетам" />
-        <e k="invoice_moneyType_income" v="Счёт (Доход)" />
-        <e k="invoice_moneyType_expense" v="Счёт (Расход)" />
+        <e k="invoice_label_invoice" v="Счёт" />
         <e k="invoice_error_permission_required" v="Действие доступно только управляющим фермой." />
         <e k="invoice_error_insufficient_funds" v="Недостаточно средств для оплаты этого счета." />
         <e k="invoice_settings_section_title" v="Счета" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Просрочен" />
         <e k="invoice_label_total_due" v="Итого к оплате:" />
         <e k="invoice_label_penalty" v="Штраф за просрочку" />
-        <e k="invoice_label_subtotal" v="Подытог" />
         <e k="invoice_setting_invoicePenalties" v="Пени за просрочку" />
         <e k="invoice_toolTip_invoicePenalties" v="Включает пени за просрочку неоплаченных счетов. После 1 месяца просрочки автоматически начисляется фиксированная ставка 5% в месяц. Максимум — 25% от общей суммы счёта." />
         <e k="invoice_notification_overdue" v="Счёт %s просрочен: %s" />

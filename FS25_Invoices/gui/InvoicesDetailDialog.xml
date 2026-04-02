@@ -15,15 +15,15 @@
 
             <BoxLayout profile="invDetMainBox">
 
-                <!-- Title text (flows as first child) -->
+                <!-- Dialog title -->
                 <Text profile="invDetMainTitle" text="$l10n_invoice_dialog_details" id="mainTitleText"/>
 
-                <!-- Green gradient separator (flows as second child, centered dynamically) -->
+                <!-- Title separator -->
                 <GuiElement profile="invDetTitleSepWrapper">
                     <ThreePartBitmap profile="invDetTitleSep" id="titleSep"/>
                 </GuiElement>
 
-                <!-- Content area (flows as third child) -->
+                <!-- Main content -->
                 <GuiElement profile="invDetContentArea">
 
                     <!-- Invoice number (left) + Status badge (right) -->
@@ -33,9 +33,15 @@
                     <!-- Separator after title row -->
                     <Bitmap profile="invDetSepTitle"/>
 
-                    <!-- From (left) + Date (right) -->
+                    <!-- From (left) + right meta column (Date + Penalty) -->
                     <Text profile="invDetFrom" id="textFrom"/>
-                    <Text profile="invDetDateVal" id="textDate"/>
+                    <BoxLayout profile="invDetRightMetaColumn">
+                        <Text profile="invDetDateVal" id="textDate"/>
+                        <GuiElement profile="invDetPenaltyRow">
+                            <RoundCorner profile="invDetPenaltyBarBg" id="penaltyBar"/>
+                            <Text profile="invDetPenaltyBarText" id="textPenaltyBar"/>
+                        </GuiElement>
+                    </BoxLayout>
 
                     <!-- To -->
                     <Text profile="invDetTo" id="textTo"/>
@@ -56,7 +62,7 @@
                     <Bitmap profile="invDetSepAccent"/>
 
                     <!-- Line items SmoothList -->
-                    <SmoothList profile="invDetList" id="listItems">
+                    <SmoothList profile="invDetList" id="listItems" listItemSpacing="0px" listItemLateralSpacing="0px" listSmoothingDisabled="true" listSnappingEnabled="true">
                         <ListItem profile="invDetListItem" name="templateItem">
                             <ThreePartBitmap profile="invDetItemGradient" name="alternating"/>
                             <Bitmap profile="invDetCellIcon" name="cellIcon"/>
@@ -83,19 +89,21 @@
                     <!-- Separator before total -->
                     <Bitmap profile="invDetSepBeforeTotal"/>
 
-                    <!-- Penalty bar (hidden by default, shown when overdue) -->
-                    <RoundCorner profile="invDetPenaltyBarBg" id="penaltyBar"/>
-                    <Text   profile="invDetPenaltyBarText" id="textPenaltyBar"/>
-
                     <!-- TOTAL bar -->
                     <RoundCorner profile="invDetTotalBarBg"/>
-                    <Text   profile="invDetTotalLabel" text="$l10n_invoice_label_total" id="textTotalLabel"/>
-                    <Text   profile="invDetVatHtText"  id="textVatHt"/>
-                    <Text   profile="invDetVatTvaText" id="textVatTva"/>
-                    <BoxLayout profile="invDetTotalSepBox">
-                        <Bitmap profile="invDetTotalSepLine" id="totalSep"/>
+                    <Text   profile="invDetTotalLabel" text="$l10n_invoice_label_total_due" id="textTotalLabel"/>
+                    <BoxLayout profile="invDetTotalRightColumn" id="totalRightColumn">
+                        <Text   profile="invDetVatHtText"  id="textVatHt"/>
+                        <Text   profile="invDetVatTvaText" id="textVatTva"/>
+                        <BoxLayout profile="invDetTotalSepBox">
+                            <Bitmap profile="invDetTotalSepLine" id="totalSep"/>
+                        </BoxLayout>
+                        <BoxLayout profile="invDetTotalValueRow" id="totalValueRow">
+                            <BoxLayout profile="invDetTotalValueAnchor" id="totalValueAnchor">
+                                <Text   profile="invDetTotalValue" id="textTotal"/>
+                            </BoxLayout>
+                        </BoxLayout>
                     </BoxLayout>
-                    <Text   profile="invDetTotalValue" id="textTotal"/>
 
                 </GuiElement>
 
@@ -124,6 +132,7 @@
         <!-- Title text (BoxLayout child, no anchor needed) -->
         <Profile name="invDetMainTitle" extends="baseReference">
             <size value="832px 40px"/>
+            <margin value="0px 4px 0px 0px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -135,7 +144,7 @@
         <!-- Separator wrapper (BoxLayout child, bottom margin = gap before content) -->
         <Profile name="invDetTitleSepWrapper" extends="emptyPanel">
             <size value="832px 1px"/>
-            <margin value="0px 0px 32px 0px"/>
+            <margin value="0px 0px 28px 0px"/>
         </Profile>
 
         <!-- Green gradient separator (centered, resized dynamically by Lua) -->
@@ -186,8 +195,15 @@
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="invDetDateVal" extends="baseReference" with="anchorTopLeft">
+        <Profile name="invDetRightMetaColumn" extends="emptyPanel" with="anchorTopLeft">
             <position value="428px -47px"/>
+            <size value="394px 57px"/>
+            <flowDirection value="vertical"/>
+            <alignmentX value="right"/>
+            <alignmentY value="top"/>
+            <elementSpacing value="3px"/>
+        </Profile>
+        <Profile name="invDetDateVal" extends="baseReference">
             <size value="394px 27px"/>
             <textSize value="14px"/>
             <textBold value="false"/>
@@ -294,11 +310,11 @@
         </Profile>
         <!-- Line items list -->
         <Profile name="invDetList" extends="emptyPanel" with="anchorTopLeft">
-            <position value="0px -153px"/>
+            <position value="0px -152px"/>
             <size value="832px 284px"/>
         </Profile>
         <Profile name="invDetSliderBox" extends="fs25_listSliderBox" with="anchorTopLeft">
-            <position value="840px -153px"/>
+            <position value="826px -152px"/>
             <size value="6px 284px"/>
         </Profile>
 
@@ -423,22 +439,23 @@
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
         <!-- Penalty indicator -->
-        <Profile name="invDetPenaltyBarBg" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -535px"/>
-            <size value="370px 20px"/>
+        <Profile name="invDetPenaltyRow" extends="emptyPanel">
+            <size value="394px 27px"/>
+        </Profile>
+        <Profile name="invDetPenaltyBarBg" extends="baseReference">
+            <size value="394px 27px"/>
             <color value="0.15 0.05 0.05 0.9"/>
             <cornerSize value="0.3"/>
         </Profile>
-        <Profile name="invDetPenaltyBarText" extends="baseReference" with="anchorTopLeft">
-            <position value="22px -535px"/>
-            <size value="340px 20px"/>
-            <textSize value="11px"/>
+        <Profile name="invDetPenaltyBarText" extends="baseReference">
+            <size value="394px 27px"/>
+            <textSize value="14px"/>
             <textBold value="true"/>
             <textColor value="1.00 0.40 0.35 1"/>
-            <textAlignment value="left"/>
+            <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <!-- Total bar (72px, copied from Step4: same position, dimensions, offsets) -->
+        <!-- Total bar -->
         <Profile name="invDetTotalBarBg" extends="baseReference" with="anchorTopLeft">
             <position value="0px -485px"/>
             <size value="832px 72px"/>
@@ -454,24 +471,29 @@
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="invDetVatHtText" extends="baseReference" with="anchorTopLeft">
+        <Profile name="invDetTotalRightColumn" extends="emptyPanel" with="anchorTopLeft">
             <position value="394px -487px"/>
+            <size value="416px 70px"/>
+            <flowDirection value="vertical"/>
+            <alignmentX value="right"/>
+            <alignmentY value="top"/>
+            <elementSpacing value="0px"/>
+        </Profile>
+        <Profile name="invDetVatHtText" extends="baseReference">
             <size value="416px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="invDetVatTvaText" extends="baseReference" with="anchorTopLeft">
-            <position value="394px -505px"/>
+        <Profile name="invDetVatTvaText" extends="baseReference">
             <size value="416px 18px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="invDetTotalSepBox" extends="emptyPanel" with="anchorTopLeft">
-            <position value="394px -523px"/>
+        <Profile name="invDetTotalSepBox" extends="emptyPanel">
             <size value="416px 1px"/>
             <flowDirection value="horizontal"/>
             <alignmentX value="right"/>
@@ -481,13 +503,24 @@
             <size value="416px 1px"/>
             <imageColor value="0.3 0.3 0.3 0.8"/>
         </Profile>
-        <Profile name="invDetTotalValue" extends="baseReference" with="anchorTopLeft">
-            <position value="394px -524px"/>
-            <size value="416px 29px"/>
+        <Profile name="invDetTotalValueRow" extends="emptyPanel">
+            <size value="416px 33px"/>
+            <flowDirection value="horizontal"/>
+            <alignmentX value="right"/>
+            <alignmentY value="center"/>
+        </Profile>
+        <Profile name="invDetTotalValueAnchor" extends="emptyPanel">
+            <size value="416px 33px"/>
+            <flowDirection value="horizontal"/>
+            <alignmentX value="center"/>
+            <alignmentY value="center"/>
+        </Profile>
+        <Profile name="invDetTotalValue" extends="baseReference">
+            <size value="120px 33px"/>
             <textSize value="24px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
-            <textAlignment value="right"/>
+            <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
     </GUIProfiles>

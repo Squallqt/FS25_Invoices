@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Aan:" />
         <e k="invoice_label_note" v="Opmerkingen:" />
         <e k="invoice_placeholder_note" v="Opmerking of referentie toevoegen" />
-        <e k="invoice_label_total" v="Totaal:" />
         <e k="invoice_dialog_details" v="Factuurdetails" />
         <e k="invoice_dialog_selectField" v="Veldkeuze" />
         <e k="invoice_wizard_mainTitle" v="NIEUWE FACTUUR" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="FAC-%03d" />
         <e k="invoice_format_services_count" v="%d regel(s)" />
         <e k="invoice_confirm_pay" v="Betaling aan '%s' bevestigen?" />
-        <e k="invoice_confirm_delete" v="Definitief verwijderen?" />        <e k="invoice_confirm_send" v="Factuur van %s naar %s verzenden?" />
+        <e k="invoice_confirm_delete" v="Definitief verwijderen?" />
+        <e k="invoice_confirm_send" v="Factuur van %s naar %s verzenden?" />
         <e k="invoice_notification_new" v="Factuur ontvangen van %s: %s" />
         <e k="invoice_reminder_single" v="Onbetaalde factuur: %s" />
         <e k="invoice_reminder_multiple" v="%d onbetaalde facturen voor een totaal van %s" />
         <e k="invoice_format_date" v="%02d/%02d/J%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Veld %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Veld %s" />
         <e k="invoice_invoices_unit_piece" v="st." />
         <e k="invoice_invoices_unit_hour" v="u" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="BTW" />
         <e k="finance_invoiceIncome" v="Factuurinkomsten" />
         <e k="finance_invoiceExpense" v="Factuuruitgaven" />
-        <e k="invoice_moneyType_income" v="Factuur (Inkomst)" />
-        <e k="invoice_moneyType_expense" v="Factuur (Uitgave)" />
+        <e k="invoice_label_invoice" v="Factuur" />
         <e k="invoice_error_permission_required" v="Actie voorbehouden aan bedrijfsleiders." />
         <e k="invoice_error_insufficient_funds" v="Onvoldoende saldo om deze factuur te betalen." />
         <e k="invoice_settings_section_title" v="Facturen" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Achterstallig" />
         <e k="invoice_label_total_due" v="Verschuldigd bedrag:" />
         <e k="invoice_label_penalty" v="Boete voor te laat betalen" />
-        <e k="invoice_label_subtotal" v="Subtotaal" />
         <e k="invoice_setting_invoicePenalties" v="Boetes bij te laat betalen" />
         <e k="invoice_toolTip_invoicePenalties" v="Schakelt boetes in voor onbetaalde facturen. Na 1 maand achterstand wordt automatisch een vast tarief van 5% per maand toegepast. Begrensd op 25% van het totaalbedrag." />
         <e k="invoice_notification_overdue" v="Factuur %s is achterstallig: %s" />

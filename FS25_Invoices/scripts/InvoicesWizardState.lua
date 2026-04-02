@@ -1,5 +1,6 @@
 --[[
     InvoicesWizardState.lua
+    Singleton wizard state managing multi-step invoice drafting: recipient, work type, fields, and line items.
     Author: Squallqt
 ]]
 

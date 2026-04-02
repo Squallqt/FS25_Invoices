@@ -23,7 +23,6 @@
         <e k="invoice_label_to" v="Kepada:" />
         <e k="invoice_label_note" v="Catatan:" />
         <e k="invoice_placeholder_note" v="Tambahkan catatan atau referensi" />
-        <e k="invoice_label_total" v="Total:" />
         <e k="invoice_dialog_details" v="Rincian Faktur" />
         <e k="invoice_dialog_selectField" v="Pilihan Ladang" />
         <e k="invoice_wizard_mainTitle" v="FAKTUR BARU" />
@@ -54,13 +53,13 @@
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d baris" />
         <e k="invoice_confirm_pay" v="Konfirmasi pembayaran ke '%s'?" />
-        <e k="invoice_confirm_delete" v="Hapus permanen?" />        <e k="invoice_confirm_send" v="Kirim faktur %s ke %s?" />
+        <e k="invoice_confirm_delete" v="Hapus permanen?" />
+        <e k="invoice_confirm_send" v="Kirim faktur %s ke %s?" />
         <e k="invoice_notification_new" v="Faktur diterima dari %s: %s" />
         <e k="invoice_reminder_single" v="Faktur belum dibayar: %s" />
         <e k="invoice_reminder_multiple" v="%d faktur belum dibayar total %s" />
         <e k="invoice_format_date" v="%02d/%02d/Y%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="H%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Ladang %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Ladang %s" />
         <e k="invoice_invoices_unit_piece" v="pcs" />
         <e k="invoice_invoices_unit_hour" v="jam" />
@@ -126,8 +125,7 @@
         <e k="invoice_label_vat" v="PPN" />
         <e k="finance_invoiceIncome" v="Pendapatan faktur" />
         <e k="finance_invoiceExpense" v="Pengeluaran faktur" />
-        <e k="invoice_moneyType_income" v="Faktur (Pendapatan)" />
-        <e k="invoice_moneyType_expense" v="Faktur (Pengeluaran)" />
+        <e k="invoice_label_invoice" v="Faktur" />
         <e k="invoice_error_permission_required" v="Tindakan khusus untuk manajer farm." />
         <e k="invoice_error_insufficient_funds" v="Saldo tidak mencukupi untuk membayar faktur ini." />
         <e k="invoice_settings_section_title" v="Faktur" />
@@ -141,7 +139,6 @@
         <e k="invoice_status_overdue" v="Terlambat" />
         <e k="invoice_label_total_due" v="Total tagihan:" />
         <e k="invoice_label_penalty" v="Denda keterlambatan" />
-        <e k="invoice_label_subtotal" v="Subtotal" />
         <e k="invoice_setting_invoicePenalties" v="Denda keterlambatan" />
         <e k="invoice_toolTip_invoicePenalties" v="Mengaktifkan denda keterlambatan pada faktur yang belum dibayar. Setelah 1 bulan lewat jatuh tempo, tarif tetap 5% per bulan diterapkan secara otomatis. Dibatasi hingga 25% dari jumlah total." />
         <e k="invoice_notification_overdue" v="Faktur %s lewat jatuh tempo: %s" />

@@ -1,5 +1,6 @@
 --[[
     InvoicesFillTypeDialog.lua
+    Modal dialog for multi-select fill type picking with market price display and edit mode support.
     Author: Squallqt
 ]]
 
@@ -9,6 +10,8 @@ local InvoicesFillTypeDialog_mt = Class(InvoicesFillTypeDialog, DialogElement)
 InvoicesFillTypeDialog.CONTROLS = {
     LIST_FILL_TYPES = "listFillTypes",
     BTN_SELECT      = "btnSelect",
+    MAIN_TITLE_TEXT = "mainTitleText",
+    TITLE_SEP       = "titleSep",
 }
 
 function InvoicesFillTypeDialog.new(target, customMt)
@@ -35,6 +38,7 @@ end
 
 function InvoicesFillTypeDialog:onOpen()
     InvoicesFillTypeDialog:superClass().onOpen(self)
+    self:resizeTitleSep()
     self.selectedMap = {}
     self._isEditMode = false
     self:loadFillTypes()
@@ -42,6 +46,27 @@ function InvoicesFillTypeDialog:onOpen()
         self.listFillTypes:setSelectedIndex(1)
     end
     self:updateButtonStates()
+end
+
+function InvoicesFillTypeDialog:resizeTitleSep()
+    if self.titleSep == nil or self.mainTitleText == nil then return end
+
+    if self._titleSepHeight == nil then
+        self._titleSepHeight = self.titleSep.absSize[2]
+    end
+    if self._titleSepBaseWidth == nil then
+        self._titleSepBaseWidth = self.titleSep.absSize[1]
+    end
+
+    local text = self.mainTitleText.text or ""
+    local textWidth = getTextWidth(self.mainTitleText.textSize, text)
+    local padding = 20 * 2 * g_pixelSizeScaledX
+    local newWidth = math.max(self._titleSepBaseWidth, textWidth + padding)
+
+    self.titleSep:setSize(newWidth, self._titleSepHeight)
+    if self.titleSep.parent ~= nil and self.titleSep.parent.invalidateLayout ~= nil then
+        self.titleSep.parent:invalidateLayout()
+    end
 end
 
 function InvoicesFillTypeDialog:setCallback(target, func)
