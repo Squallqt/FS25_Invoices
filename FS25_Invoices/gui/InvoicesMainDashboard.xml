@@ -301,6 +301,7 @@
             <textDisabledColor value="0.3 0.3 0.3 0.5"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
+            <textLayoutMode value="scrolling"/>
             <textClipArea value="true"/>
         </Profile>
 
@@ -483,6 +484,7 @@
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
+            <textLayoutMode value="scrolling"/>
         </Profile>
         <Profile name="dashCellField" extends="baseReference" with="anchorStretchingYLeft">
             <position value="236px 0px"/>

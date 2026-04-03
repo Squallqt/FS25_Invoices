@@ -187,6 +187,7 @@
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
+            <textLayoutMode value="scrolling"/>
         </Profile>
 
         <!-- Cell: price -->
