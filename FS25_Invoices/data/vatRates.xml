@@ -68,5 +68,6 @@
         <workType id="53" group="product" />
         <workType id="54" group="service" />
         <workType id="55" group="product" />
+        <workType id="56" group="service" />
     </workTypes>
 </vatRates>

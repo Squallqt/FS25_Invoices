@@ -4,47 +4,32 @@
     <version>1.1.0.0</version>
     <title>
         <en>Invoices</en>
-        <fr>Factures</fr>
         <de>Rechnungen</de>
-        <es>Facturas</es>
-        <it>Fatture</it>
-        <pt>Faturas</pt>
-        <br>Faturas</br>
-        <nl>Facturen</nl>
+        <fr>Factures</fr>
         <pl>Faktury</pl>
-        <ru>Счета</ru>
-        <cz>Faktury</cz>
-        <cs>发票</cs>
-        <ct>發票</ct>
-        <hu>Számlák</hu>
-        <ro>Facturi</ro>
-        <tr>Faturalar</tr>
-        <da>Fakturaer</da>
-        <no>Fakturaer</no>
-        <sv>Fakturor</sv>
-        <fi>Laskut</fi>
-        <uk>Рахунки</uk>
-        <jp>請求書</jp>
-        <kr>청구서</kr>
-        <vn>Hóa Đơn</vn>
-        <id>Faktur</id>
     </title>
     <description>
         <en><![CDATA[Create, send and manage invoices between farms in multiplayer.
 
-Ideal for agricultural contractor gameplay. Bill other farms for services performed: plowing, harvesting, transport, animal care, equipment rental, and 50+ predefined work types. Base prices are aligned with the game's contract economy and automatically adjusted based on your economic difficulty setting. The user can modify any price directly when creating an invoice.
+Ideal for agricultural contractor gameplay, this mod lets you bill other farms for your services (plowing, harvesting, transport, animal care, etc.), as well as sell vehicles and consumables directly via invoice.
+
+Base prices are aligned with the game's contract economy and automatically adjusted based on your economic difficulty setting. Each price can be freely modified when creating an invoice.
 
 Features:
-- Full invoice wizard: select recipient farm, work types, fields, quantities and prices
-- Realistic VAT system based on French fiscal law (4 rate groups, editable per line item)
-- HT / VAT / TTC breakdown displayed on each invoice
-- Simulated VAT setting: when ON, client pays TTC, provider receives HT; when OFF, no VAT applied
-- Separate Income and Expense entries in the Finance tab
+- Full creation wizard: choose recipient, work types, fields, quantities and prices
+- Vehicle selection with automatic ownership transfer and automatic resale pricing
+- Consumable selection (bales, pallets, bigbags…) with automatic ownership transfer and automatic resale pricing
+- Product selection with automatic market pricing
+- VAT system (4 rate groups, editable per line item, simulated option can be disabled)
+- Net / VAT / Gross breakdown displayed on each invoice
 - Incoming and outgoing invoice tabs with status tracking
 - Pay or delete invoices with automatic financial integration
-- Automatic payment reminders
+- Separate Income and Expense entries in the Finance tab
+- Automatic payment reminders and late fees
 - Savegame persistent, fully synchronized in multiplayer
 - 25 languages supported
+
+Important: Only consumables physically present in the world (not stored inside buildings) can be invoiced and transferred. Make sure to eject bales, pallets or bigbags from storage buildings before creating an invoice.
 
 GitHub repository: https://github.com/Squallqt/FS25_Invoices
 
@@ -53,64 +38,39 @@ Access via the dedicated tab in the InGame Menu (ESC).
 Changelog:
 
 1.1.0.0:
+- Add consumable selection (bales, pallets, bigbags…) with automatic ownership transfer and automatic resale pricing
+- Add vehicle selection with automatic ownership transfer and automatic resale pricing
 - Add product selection for the Products work type with automatic market pricing
-- Add VAT system (rate per line item, simulated VAT option can be disabled in Game Settings)
+- Add VAT system (rate per line item, simulated option can be disabled in Game Settings)
 - Add option to disable payment reminders (can be disabled in Game Settings)
 - Add late fees on unpaid invoices (can be disabled in Game Settings)
-- Add separated Income and Expense in Finance tab
-- Rebalance all prices to match game contract economy
-- Improve user interface
-- Fix price and quantity input fields in invoice wizard
+- Add separate Income and Expense entries in the Finance tab
+- Rebalance all prices to match game economy
+- Significantly improve user interface
+- Fix price and quantity input fields
 1.0.0.0:
 - Initial release]]></en>
-        <fr><![CDATA[Créez, envoyez et gérez des factures entre fermes en multijoueur.
+        <de><![CDATA[Erstellen, versenden und verwalten Sie Rechnungen zwischen Betrieben im Mehrspielermodus.
 
-Idéal pour le gameplay de type ETA (Entreprise de Travaux Agricoles). Facturez les autres fermes pour les prestations réalisées : labour, récolte, transport, soins aux animaux, location de matériel, et plus de 50 types de travaux prédéfinis. Les prix de base sont alignés sur l'économie des contrats du jeu et s'ajustent automatiquement selon le niveau de difficulté économique. L'utilisateur peut modifier librement chaque prix lors de la création d'une facture.
+Ideal für Lohnunternehmer-Gameplay. Mit diesem Mod können Sie anderen Betrieben Ihre Dienstleistungen in Rechnung stellen (Pflügen, Ernten, Transport, Tierpflege usw.) sowie Fahrzeuge und Verbrauchsmaterialien direkt per Rechnung verkaufen.
 
-Fonctionnalités :
-- Assistant de création complet : choix du destinataire, des travaux, des champs, quantités et prix
-- Système de TVA réaliste basé sur la fiscalité française (4 groupes de taux, modifiable par ligne)
-- Décomposition HT / TVA / TTC affichée sur chaque facture
-- Option TVA simulée : quand activée, le client paie TTC et le prestataire reçoit HT ; quand désactivée, pas de TVA
-- Lignes Recettes et Dépenses séparées dans l'onglet Finance
-- Onglets factures reçues et émises avec suivi des statuts
-- Règlement ou suppression des factures avec intégration financière automatique
-- Rappels de paiement automatiques
-- Sauvegarde persistante, synchronisation complète en multijoueur
-- 25 langues supportées
-
-Dépôt GitHub : https://github.com/Squallqt/FS25_Invoices
-
-Accès via l'onglet dédié dans le menu en jeu (ECHAP).
-
-Changelog :
-
-1.1.0.0 :
-- Ajout de la sélection de produits pour le type Produits avec prix automatique du marché
-- Ajout du système de TVA (taux par ligne, option simulée désactivable dans les Paramètres du jeu)
-- Ajout de l'option pour désactiver les rappels de paiement (désactivable dans les Paramètres du jeu)
-- Ajout des pénalités de retard sur les factures impayées (désactivable dans les Paramètres du jeu)
-- Ajout des lignes Recettes et Dépenses dans l'onglet Finance
-- Rééquilibrage de tous les prix pour correspondre à l'économie du jeu
-- Amélioration de l'interface
-- Correction de la saisie dans les champs prix et quantité
-1.0.0.0 :
-- Publication initiale]]></fr>
-        <de><![CDATA[Erstellen, senden und verwalten Sie Rechnungen zwischen Betrieben im Mehrspielermodus.
-
-Ideal für Lohnunternehmer-Gameplay. Stellen Sie anderen Betrieben Rechnungen für erbrachte Leistungen: Pflügen, Ernten, Transport, Tierpflege, Maschinenverleih und über 50 vordefinierte Arbeitstypen. Die Grundpreise sind an die Vertragswirtschaft des Spiels angepasst und werden automatisch nach wirtschaftlichem Schwierigkeitsgrad skaliert. Der Benutzer kann jeden Preis bei der Rechnungserstellung frei ändern.
+Die Grundpreise orientieren sich an der Vertragswirtschaft des Spiels und werden automatisch an den wirtschaftlichen Schwierigkeitsgrad angepasst. Jeder Preis kann bei der Rechnungserstellung frei geändert werden.
 
 Funktionen:
-- Vollständiger Rechnungsassistent: Empfänger, Arbeitstypen, Felder, Mengen und Preise wählen
-- Realistisches MwSt-System nach französischem Steuerrecht (4 Satzgruppen, pro Zeile bearbeitbar)
+- Vollständiger Erstellungsassistent: Empfänger, Arbeitstypen, Felder, Mengen und Preise auswählen
+- Fahrzeugauswahl mit automatischem Eigentümerwechsel und automatischer Wiederverkaufsbewertung
+- Verbrauchsmaterialauswahl (Ballen, Paletten, Bigbags…) mit automatischem Eigentümerwechsel und automatischer Wiederverkaufsbewertung
+- Produktauswahl mit automatischem Marktpreis
+- MwSt-System (4 Satzgruppen, pro Zeile bearbeitbar, simulierte Option deaktivierbar)
 - Netto / MwSt / Brutto-Aufschlüsselung auf jeder Rechnung
-- Simulierte MwSt-Einstellung: wenn AN, zahlt der Kunde brutto, der Dienstleister erhält netto; wenn AUS, keine MwSt
-- Getrennte Einnahmen- und Ausgabenposten im Finanz-Tab
 - Tabs für eingehende und ausgehende Rechnungen mit Statusverfolgung
 - Rechnungen bezahlen oder löschen mit automatischer Finanzintegration
-- Automatische Zahlungserinnerungen
+- Getrennte Einnahmen und Ausgaben im Finanz-Tab
+- Automatische Zahlungserinnerungen und Verzugsgebühren
 - Spielstand-persistent, vollständig synchronisiert im Multiplayer
 - 25 Sprachen unterstützt
+
+Wichtig: Nur Verbrauchsmaterialien, die sich physisch in der Welt befinden (nicht in Gebäuden gelagert), können fakturiert und übertragen werden. Stellen Sie sicher, dass Ballen, Paletten oder Bigbags aus Lagergebäuden entnommen werden, bevor Sie eine Rechnung erstellen.
 
 GitHub-Repository: https://github.com/Squallqt/FS25_Invoices
 
@@ -119,100 +79,100 @@ Zugriff über den eigenen Tab im InGame-Menü (ESC).
 Changelog:
 
 1.1.0.0:
-- Produktauswahl für den Arbeitstyp Produkte mit automatischer Marktpreisermittlung
-- MwSt-System (Steuersatz pro Zeile, simulierte MwSt deaktivierbar in den Spieleinstellungen)
-- Option zum Deaktivieren der Zahlungserinnerungen (deaktivierbar in den Spieleinstellungen)
-- Verzugsgebühren bei unbezahlten Rechnungen (deaktivierbar in den Spieleinstellungen)
-- Einnahmen und Ausgaben getrennt im Finanz-Tab
-- Alle Preise an die Spielvertragswirtschaft angepasst
-- Benutzeroberfläche verbessert
+- Verbrauchsmaterialauswahl hinzugefügt (Ballen, Paletten, Bigbags…) mit automatischem Eigentümerwechsel und automatischer Wiederverkaufsbewertung
+- Fahrzeugauswahl hinzugefügt mit automatischem Eigentümerwechsel und automatischer Wiederverkaufsbewertung
+- Produktauswahl für den Arbeitstyp Produkte mit automatischem Marktpreis hinzugefügt
+- MwSt-System hinzugefügt (Steuersatz pro Zeile, simulierte Option deaktivierbar in den Spieleinstellungen)
+- Option zum Deaktivieren der Zahlungserinnerungen hinzugefügt (deaktivierbar in den Spieleinstellungen)
+- Verzugsgebühren bei unbezahlten Rechnungen hinzugefügt (deaktivierbar in den Spieleinstellungen)
+- Getrennte Einnahmen und Ausgaben im Finanz-Tab hinzugefügt
+- Alle Preise an die Spielwirtschaft angepasst
+- Benutzeroberfläche signifikant verbessert
 - Eingabefelder für Preis und Menge korrigiert
 1.0.0.0:
 - Erstveröffentlichung]]></de>
-        <es><![CDATA[Crea, envía y gestiona facturas entre granjas en multijugador.
+        <fr><![CDATA[Créez, envoyez et gérez des factures entre fermes en multijoueur.
 
-Ideal para el estilo de juego de contratista agrícola. Factura a otras granjas por los servicios realizados con más de 50 tipos de trabajo predefinidos. Los precios base se ajustan automáticamente según el nivel de dificultad económica, y el usuario puede modificar cualquier precio al crear una factura.
+Idéal pour le gameplay de type ETA (Entreprise de Travaux Agricoles), ce mod permet de facturer les autres fermes pour vos prestations (labour, récolte, transport, soins aux animaux, etc.), mais aussi de vendre des véhicules et des consommables directement par facture.
 
-Changelog:
+Les prix de base sont alignés sur l'économie des contrats du jeu et s'ajustent automatiquement selon le niveau de difficulté économique. Chaque prix peut être modifié librement lors de la création d'une facture.
 
-1.1.0.0:
-- Selección de productos para el tipo Productos con precio automático del mercado
-- Sistema de IVA (tipo por línea, IVA simulado desactivable en los Ajustes del juego)
-- Opción para desactivar los recordatorios de pago (desactivable en los Ajustes del juego)
-- Penalizaciones por retraso en facturas impagadas (desactivable en los Ajustes del juego)
-- Ingresos y Gastos separados en la pestaña de finanzas
-- Reequilibrio de todos los precios según la economía del juego
-- Mejora de la interfaz
-- Corrección de los campos de entrada de precio y cantidad
-1.0.0.0:
-- Primera versión
+Fonctionnalités :
+- Interface de création complète : choix du destinataire, des travaux, des champs, quantités et prix
+- Sélection de véhicules avec transfert automatique de propriétaire et prix de revente automatique
+- Sélection de consommables (balles, palettes, bigbags…) avec transfert automatique de propriétaire et prix de revente automatique
+- Sélection de produits avec prix du marché automatique
+- Système de TVA (4 groupes de taux, modifiable par ligne, option simulée désactivable)
+- Décomposition HT / TVA / TTC affichée sur chaque facture
+- Onglets factures reçues et émises avec suivi des statuts
+- Règlement ou suppression des factures avec intégration financière automatique
+- Lignes Recettes et Dépenses séparées dans l'onglet Finance
+- Rappels de paiement automatiques et pénalités de retard
+- Sauvegarde persistante et synchronisation complète en multijoueur
+- 25 langues supportées
 
-Repositorio GitHub: https://github.com/Squallqt/FS25_Invoices
+Important : Seuls les consommables physiquement présents dans le monde (non stockés dans les bâtiments) peuvent être facturés et transférés. Assurez-vous de sortir les balles, palettes ou bigbags des bâtiments de stockage avant de créer une facture.
 
-Acceso desde la pestaña dedicada en el menú del juego (ESC).]]></es>
-        <it><![CDATA[Crea, invia e gestisci fatture tra aziende agricole in multiplayer.
+Dépôt GitHub : https://github.com/Squallqt/FS25_Invoices
 
-Ideale per il gameplay da contoterzista. Fattura altre aziende per i servizi svolti con oltre 50 tipi di lavoro predefiniti. I prezzi base vengono regolati automaticamente in base al livello di difficoltà economica, e l'utente può modificare liberamente ogni prezzo durante la creazione della fattura.
+Accès via l'onglet dédié dans le menu en jeu (ECHAP).
 
-Changelog:
+Changelog :
 
-1.1.0.0:
-- Selezione prodotti per il tipo Prodotti con prezzo automatico dal mercato
-- Sistema IVA (aliquota per riga, IVA simulata disattivabile nelle Impostazioni di gioco)
-- Opzione per disattivare i promemoria di pagamento (disattivabile nelle Impostazioni di gioco)
-- Penali per ritardo sulle fatture non pagate (disattivabile nelle Impostazioni di gioco)
-- Ricavi e Spese separati nella scheda finanze
-- Ribilanciamento di tutti i prezzi secondo l'economia del gioco
-- Miglioramento dell'interfaccia
-- Correzione dei campi di inserimento prezzo e quantità
-1.0.0.0:
-- Prima versione
-
-Repository GitHub: https://github.com/Squallqt/FS25_Invoices
-
-Accesso tramite la scheda dedicata nel menu di gioco (ESC).]]></it>
+1.1.0.0 :
+- Ajout de la sélection de consommables (balles, palettes, bigbags…) avec transfert automatique de propriétaire et prix de revente automatique
+- Ajout de la sélection de véhicules avec transfert automatique de propriétaire et prix de revente automatique
+- Ajout de la sélection de produits pour le type Produits avec prix du marché automatique
+- Ajout du système de TVA (taux par ligne, option simulée désactivable dans les Paramètres du jeu)
+- Ajout de l'option pour désactiver les rappels de paiement (désactivable dans les Paramètres du jeu)
+- Ajout des pénalités de retard sur les factures impayées (désactivable dans les Paramètres du jeu)
+- Ajout des lignes Recettes et Dépenses dans l'onglet Finance
+- Rééquilibrage de tous les prix pour correspondre à l'économie du jeu
+- Amélioration significative de l'interface
+- Correction de la saisie dans les champs prix et quantité
+1.0.0.0 :
+- Publication initiale]]></fr>
         <pl><![CDATA[Twórz, wysyłaj i zarządzaj fakturami między gospodarstwami w trybie wieloosobowym.
 
-Idealne do rozgrywki w stylu usług rolniczych. Wystawiaj faktury za wykonane prace z ponad 50 predefiniowanymi rodzajami prac. Ceny bazowe dostosowują się automatycznie do poziomu trudności ekonomicznej, a użytkownik może dowolnie modyfikować każdą cenę podczas tworzenia faktury.
+Idealny do rozgrywki w stylu usług rolniczych. Ten mod pozwala wystawiać faktury innym gospodarstwom za wykonane usługi (orka, zbiory, transport, opieka nad zwierzętami itp.), a także sprzedawać pojazdy i materiały eksploatacyjne bezpośrednio przez fakturę.
 
-Changelog:
+Ceny bazowe są dostosowane do ekonomii kontraktów w grze i automatycznie skalowane w zależności od poziomu trudności ekonomicznej. Każdą cenę można dowolnie modyfikować podczas tworzenia faktury.
 
-1.1.0.0:
-- Wybór produktów dla typu Produkty z automatyczną ceną z rynku gry
-- System VAT (stawka na wiersz, symulowany VAT można wyłączyć w Ustawieniach gry)
-- Opcja wyłączenia przypomnień o płatności (można wyłączyć w Ustawieniach gry)
-- Kary za opóźnienie na niezapłaconych fakturach (możliwość wyłączenia w Ustawieniach gry)
-- Przychody i Wydatki osobno w zakładce finanse
-- Zrównoważenie wszystkich cen do ekonomii gry
-- Ulepszenie interfejsu
-- Naprawiono pola wprowadzania ceny i ilości
-1.0.0.0:
-- Pierwsza wersja
+Funkcje:
+- Pełny kreator tworzenia: wybór odbiorcy, rodzajów prac, pól, ilości i cen
+- Wybór pojazdów z automatycznym przeniesieniem własności i automatyczną wyceną odsprzedaży
+- Wybór materiałów eksploatacyjnych (bele, palety, bigbagi…) z automatycznym przeniesieniem własności i automatyczną wyceną odsprzedaży
+- Wybór produktów z automatyczną ceną rynkową
+- System VAT (4 grupy stawek, edytowalny na wiersz, opcja symulowana możliwa do wyłączenia)
+- Rozbicie Netto / VAT / Brutto wyświetlane na każdej fakturze
+- Zakładki faktur przychodzących i wychodzących ze śledzeniem statusów
+- Opłacanie lub usuwanie faktur z automatyczną integracją finansową
+- Oddzielne pozycje Przychody i Wydatki w zakładce Finanse
+- Automatyczne przypomnienia o płatności i kary za opóźnienie
+- Zapis trwały, pełna synchronizacja w trybie wieloosobowym
+- 25 obsługiwanych języków
+
+Ważne: Tylko materiały eksploatacyjne fizycznie obecne w świecie gry (nie przechowywane w budynkach) mogą być fakturowane i przenoszone. Upewnij się, że bele, palety lub bigbagi zostały wyjęte z budynków magazynowych przed utworzeniem faktury.
 
 Repozytorium GitHub: https://github.com/Squallqt/FS25_Invoices
 
-Dostęp przez dedykowaną kartę w menu gry (ESC).]]></pl>
-        <ru><![CDATA[Создавайте, отправляйте и управляйте счетами между фермами в многопользовательском режиме.
-
-Идеально для геймплея сельскохозяйственного подрядчика. Выставляйте счета другим фермам за выполненные работы с более чем 50 предустановленными видами работ. Базовые цены автоматически корректируются в зависимости от уровня экономической сложности, а пользователь может свободно изменять любую цену при создании счёта.
+Dostęp przez dedykowaną zakładkę w menu gry (ESC).
 
 Changelog:
 
 1.1.0.0:
-- Выбор продуктов для типа работ Продукты с автоматической ценой с рынка
-- Система НДС (ставка на строку, симулированный НДС отключается в Настройках игры)
-- Опция отключения напоминаний об оплате (отключается в Настройках игры)
-- Штрафы за просрочку на неоплаченных счетах (отключается в Настройках игры)
-- Разделение Доходов и Расходов во вкладке финансов
-- Перебалансировка всех цен под экономику игры
-- Улучшение интерфейса
-- Исправлены поля ввода цены и количества
+- Dodano wybór materiałów eksploatacyjnych (bele, palety, bigbagi…) z automatycznym przeniesieniem własności i automatyczną wyceną odsprzedaży
+- Dodano wybór pojazdów z automatycznym przeniesieniem własności i automatyczną wyceną odsprzedaży
+- Dodano wybór produktów dla typu Produkty z automatyczną ceną rynkową
+- Dodano system VAT (stawka na wiersz, opcja symulowana możliwa do wyłączenia w Ustawieniach gry)
+- Dodano opcję wyłączenia przypomnień o płatności (możliwość wyłączenia w Ustawieniach gry)
+- Dodano kary za opóźnienie na niezapłaconych fakturach (możliwość wyłączenia w Ustawieniach gry)
+- Dodano oddzielne pozycje Przychody i Wydatki w zakładce Finanse
+- Zrównoważenie wszystkich cen zgodnie z ekonomią gry
+- Znaczące ulepszenie interfejsu
+- Korekta pól wprowadzania ceny i ilości
 1.0.0.0:
-- Первая версия
-
-Репозиторий GitHub: https://github.com/Squallqt/FS25_Invoices
-
-Доступ через вкладку в игровом меню (ESC).]]></ru>
+- Pierwsza wersja]]></pl>
     </description>
     <iconFilename>icon_Invoices.dds</iconFilename>
     <multiplayer supported="true" />

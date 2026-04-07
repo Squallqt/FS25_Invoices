@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="Gård" />
         <e k="invoice_col_amount" v="Beløp" />
         <e k="invoice_col_field" v="Jorde" />
-        <e k="invoice_col_area" v="Areal" />
+        <e k="invoice_col_stock" v="Lager" />
         <e k="invoice_btn_newInvoice" v="Ny faktura" />
         <e k="invoice_btn_payInvoice" v="Betal" />
         <e k="invoice_btn_deleteInvoice" v="Slett" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="Avbryt" />
         <e k="invoice_btn_close" v="Lukk" />
         <e k="invoice_btn_select" v="Velg" />
-        <e k="invoice_btn_selectFarm" v="Velg kunde" />
         <e k="invoice_label_from" v="Fra:" />
         <e k="invoice_label_to" v="Til:" />
         <e k="invoice_label_note" v="Merknader:" />
         <e k="invoice_placeholder_note" v="Legg til merknad eller referanse" />
         <e k="invoice_dialog_details" v="Fakturadetails" />
-        <e k="invoice_dialog_selectField" v="Jordevalg" />
         <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
         <e k="invoice_wizard_step1_label" v="Velg kundegård:" />
         <e k="invoice_wizard_step2_label" v="Velg arbeidstype:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Beløp" />
         <e k="invoice_step4_from" v="Avsender: %s" />
         <e k="invoice_step4_to" v="Kunde: %s" />
-        <e k="invoice_step4_total" v="Å BETALE" />
         <e k="invoice_detail_col_service" v="Beskrivelse" />
         <e k="invoice_detail_col_qty" v="Antall" />
         <e k="invoice_detail_col_unit" v="Enh." />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="Pressing" />
         <e k="invoice_work_wrapping" v="Pakking" />
         <e k="invoice_work_buyBales" v="Kjøp (Råvare)" />
-        <e k="invoice_work_sellBales" v="Salg (Fôr / Halm)" />
+        <e k="invoice_work_consumableSale" v="Salg (Fôr / Halm)" />
         <e k="invoice_work_animalFeeding" v="Fôring" />
         <e k="invoice_work_barnCleaning" v="Rengjøring fjøs" />
         <e k="invoice_work_animalTransport" v="Dyretransport" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="MVA %" />
         <e k="invoice_label_subtotal_ht" v="Delsum ekskl. MVA" />
         <e k="invoice_label_vat" v="MVA" />
+        <e k="invoice_label_na" v="I/T" />
         <e k="finance_invoiceIncome" v="Fakturainntekt" />
         <e k="finance_invoiceExpense" v="Fakturautgift" />
         <e k="invoice_label_invoice" v="Faktura" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="Ingen åker påkrevd" />
         <e k="invoice_dialog_selectFillType" v="Velg produkt" />
         <e k="invoice_col_filltype_name" v="Produkt" />
+        <e k="invoice_dialog_selectConsumable" v="Velg forbruksartikel" />
+        <e k="invoice_col_consumable_name" v="Vare" />
+        <e k="invoice_work_vehicleSale" v="Kjøretøysalg" />
+        <e k="invoice_dialog_selectVehicle" v="Velg kjøretøy" />
+        <e k="invoice_col_vehicle_name" v="Kjøretøy" />
+        <e k="invoice_error_single_farm" v="Det kreves minst to gårder for å opprette fakturaer." />
     </elements>
 </l10n>

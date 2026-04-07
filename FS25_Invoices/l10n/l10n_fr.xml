@@ -10,7 +10,7 @@
 		<e k="invoice_col_farm" v="Exploitation" />
 		<e k="invoice_col_amount" v="Montant" />
 		<e k="invoice_col_field" v="Parcelle" />
-		<e k="invoice_col_area" v="Surface" />
+		<e k="invoice_col_stock" v="Stock" />
 		<e k="invoice_btn_newInvoice" v="Nouvelle facture" />
 		<e k="invoice_btn_payInvoice" v="Régler" />
 		<e k="invoice_btn_deleteInvoice" v="Supprimer" />
@@ -18,13 +18,11 @@
 		<e k="invoice_btn_cancel" v="Annuler" />
 		<e k="invoice_btn_close" v="Fermer" />
 		<e k="invoice_btn_select" v="Valider" />
-		<e k="invoice_btn_selectFarm" v="Sélectionner un client" />
 		<e k="invoice_label_from" v="Émetteur :" />
 		<e k="invoice_label_to" v="Client :" />
 		<e k="invoice_label_note" v="Remarques :" />
 		<e k="invoice_placeholder_note" v="Ajouter une remarque ou référence" />
 		<e k="invoice_dialog_details" v="Détails de la facture" />
-		<e k="invoice_dialog_selectField" v="Sélection de la parcelle" />
 		<e k="invoice_wizard_mainTitle" v="NOUVELLE FACTURE" />
 		<e k="invoice_wizard_step1_label" v="Sélectionnez l'exploitation cliente:" />
 		<e k="invoice_wizard_step2_label" v="Sélectionnez le type de travaux :" />
@@ -38,10 +36,9 @@
 		<e k="invoice_step4_col_service" v="Désignation" />
 		<e k="invoice_step4_col_qty" v="Qté" />
 		<e k="invoice_step4_col_unitprice" v="P.U." />
-		<e k="invoice_step4_col_amount" v="Montant" />
+		<e k="invoice_step4_col_amount" v="Montant /1000 l" />
 		<e k="invoice_step4_from" v="Émetteur : %s" />
 		<e k="invoice_step4_to" v="Client : %s" />
-		<e k="invoice_step4_total" v="NET À PAYER" />
 		<e k="invoice_detail_col_service" v="Désignation" />
 		<e k="invoice_detail_col_qty" v="Qté" />
 		<e k="invoice_detail_col_unit" v="Unité" />
@@ -101,7 +98,7 @@
 		<e k="invoice_work_baling" v="Pressage" />
 		<e k="invoice_work_wrapping" v="Enrubannage" />
 		<e k="invoice_work_buyBales" v="Achat (Matière première)" />
-		<e k="invoice_work_sellBales" v="Vente (Fourrage / Paille)" />
+		<e k="invoice_work_consumableSale" v="Vente de consommables" />
 		<e k="invoice_work_animalFeeding" v="Affouragement" />
 		<e k="invoice_work_barnCleaning" v="Curage de stabulation" />
 		<e k="invoice_work_animalTransport" v="Transport bétail" />
@@ -123,6 +120,7 @@
 		<e k="invoice_step4_col_vat" v="TVA %" />
 		<e k="invoice_label_subtotal_ht" v="Sous-total HT" />
 		<e k="invoice_label_vat" v="TVA" />
+		<e k="invoice_label_na" v="N/A" />
 		<e k="finance_invoiceIncome" v="Revenus factures" />
 		<e k="finance_invoiceExpense" v="Dépenses factures" />
 		<e k="invoice_label_invoice" v="Facture" />
@@ -133,9 +131,9 @@
 		<e k="invoice_toolTip_invoiceVatSimulated" v="Lorsque activé, les factures incluent la TVA. Le client paie le montant TTC, le prestataire reçoit le montant HT. Lorsque désactivé, la TVA est fixée à 0% et les deux parties échangent le même montant." />
 		<e k="invoice_setting_invoiceReminders" v="Rappels de paiement" />
 		<e k="invoice_toolTip_invoiceReminders" v="Lorsque activé, une notification de rappel est affichée toutes les 5 minutes pour les factures impayées." />
-		<e k="invoice_notification_vat_incl" v="Dont %s : %s" />
-		<e k="invoice_notification_vat_excl" v="Dont %s déduite : %s" />
-		<e k="invoice_notification_penalty_incl" v="Dont %s de pénalité" />
+		<e k="invoice_notification_vat_incl" v="dont %s : %s" />
+		<e k="invoice_notification_vat_excl" v="dont %s déduite : %s" />
+		<e k="invoice_notification_penalty_incl" v="dont %s de pénalité" />
 		<e k="invoice_status_overdue" v="En retard" />
 		<e k="invoice_label_total_due" v="TOTAL DÛ :" />
 		<e k="invoice_label_penalty" v="Pénalité de retard" />
@@ -146,5 +144,11 @@
 		<e k="invoice_dash_no_fields" v="Aucune parcelle requise" />
 		<e k="invoice_dialog_selectFillType" v="Sélection du produit" />
 		<e k="invoice_col_filltype_name" v="Produit" />
+		<e k="invoice_work_vehicleSale" v="Vente de véhicule" />
+		<e k="invoice_dialog_selectVehicle" v="Sélection du véhicule" />
+		<e k="invoice_col_vehicle_name" v="Véhicule" />
+		<e k="invoice_dialog_selectConsumable" v="Sélection des consommables" />
+		<e k="invoice_col_consumable_name" v="Article" />
+		<e k="invoice_error_single_farm" v="Au moins deux fermes sont nécessaires pour créer des factures." />
 	</elements>
 </l10n>

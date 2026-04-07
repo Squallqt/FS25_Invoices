@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="Boerderij" />
         <e k="invoice_col_amount" v="Bedrag" />
         <e k="invoice_col_field" v="Veld" />
-        <e k="invoice_col_area" v="Gebied" />
+        <e k="invoice_col_stock" v="Voorraad" />
         <e k="invoice_btn_newInvoice" v="Nieuwe factuur" />
         <e k="invoice_btn_payInvoice" v="Betalen" />
         <e k="invoice_btn_deleteInvoice" v="Verwijderen" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="Annuleren" />
         <e k="invoice_btn_close" v="Sluiten" />
         <e k="invoice_btn_select" v="Selecteren" />
-        <e k="invoice_btn_selectFarm" v="Klant selecteren" />
         <e k="invoice_label_from" v="Van:" />
         <e k="invoice_label_to" v="Aan:" />
         <e k="invoice_label_note" v="Opmerkingen:" />
         <e k="invoice_placeholder_note" v="Opmerking of referentie toevoegen" />
         <e k="invoice_dialog_details" v="Factuurdetails" />
-        <e k="invoice_dialog_selectField" v="Veldkeuze" />
         <e k="invoice_wizard_mainTitle" v="NIEUWE FACTUUR" />
         <e k="invoice_wizard_step1_label" v="Selecteer de klant:" />
         <e k="invoice_wizard_step2_label" v="Selecteer type werk:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Bedrag" />
         <e k="invoice_step4_from" v="Afzender: %s" />
         <e k="invoice_step4_to" v="Klant: %s" />
-        <e k="invoice_step4_total" v="TE BETALEN" />
         <e k="invoice_detail_col_service" v="Beschrijving" />
         <e k="invoice_detail_col_qty" v="Aantal" />
         <e k="invoice_detail_col_unit" v="Eenh." />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="Persen" />
         <e k="invoice_work_wrapping" v="Wikkelen" />
         <e k="invoice_work_buyBales" v="Inkoop (Grondstof)" />
-        <e k="invoice_work_sellBales" v="Verkoop (Voer / Stro)" />
+        <e k="invoice_work_consumableSale" v="Verkoop (Voer / Stro)" />
         <e k="invoice_work_animalFeeding" v="Voeren" />
         <e k="invoice_work_barnCleaning" v="Stal uitmesten" />
         <e k="invoice_work_animalTransport" v="Veetransport" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="BTW %" />
         <e k="invoice_label_subtotal_ht" v="Subtotaal excl. BTW" />
         <e k="invoice_label_vat" v="BTW" />
+        <e k="invoice_label_na" v="n.v.t." />
         <e k="finance_invoiceIncome" v="Factuurinkomsten" />
         <e k="finance_invoiceExpense" v="Factuuruitgaven" />
         <e k="invoice_label_invoice" v="Factuur" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="Geen perceel vereist" />
         <e k="invoice_dialog_selectFillType" v="Product selecteren" />
         <e k="invoice_col_filltype_name" v="Product" />
+        <e k="invoice_dialog_selectConsumable" v="Verbruiksartikel selecteren" />
+        <e k="invoice_col_consumable_name" v="Artikel" />
+        <e k="invoice_work_vehicleSale" v="Voertuigverkoop" />
+        <e k="invoice_dialog_selectVehicle" v="Voertuig selecteren" />
+        <e k="invoice_col_vehicle_name" v="Voertuig" />
+        <e k="invoice_error_single_farm" v="Er zijn minimaal twee boerderijen nodig om facturen aan te maken." />
     </elements>
 </l10n>

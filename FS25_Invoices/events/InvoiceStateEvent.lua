@@ -72,7 +72,15 @@ function InvoiceStateEvent:run(connection)
             end
             
             manager.service:payInvoice(self.invoiceId, true)
-            g_server:broadcastEvent(self, nil, connection)
+
+            -- Send PAY state only to players in sender/recipient farms to avoid global broadcast.
+            local senderFarmId = invoice.senderFarmId
+            local recipientFarmId = invoice.recipientFarmId
+            for conn, p in pairs(g_currentMission.connectionsToPlayer or {}) do
+                if conn ~= nil and p ~= nil and (p.farmId == senderFarmId or p.farmId == recipientFarmId) then
+                    conn:sendEvent(InvoiceStateEvent.new(self.invoiceId, self.action))
+                end
+            end
         else
             manager.service:payInvoice(self.invoiceId, true)
         end
@@ -96,7 +104,7 @@ function InvoiceStateEvent:run(connection)
             end
             
             manager.service:deleteInvoice(self.invoiceId, true)
-            g_server:broadcastEvent(self, nil, connection)
+            g_server:broadcastEvent(self)
         else
             manager.service:deleteInvoice(self.invoiceId, true)
         end

@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="Trang trại" />
         <e k="invoice_col_amount" v="Số tiền" />
         <e k="invoice_col_field" v="Cánh đồng" />
-        <e k="invoice_col_area" v="Diện tích" />
+        <e k="invoice_col_stock" v="Kho" />
         <e k="invoice_btn_newInvoice" v="Hóa đơn mới" />
         <e k="invoice_btn_payInvoice" v="Thanh toán" />
         <e k="invoice_btn_deleteInvoice" v="Xóa" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="Hủy" />
         <e k="invoice_btn_close" v="Đóng" />
         <e k="invoice_btn_select" v="Chọn" />
-        <e k="invoice_btn_selectFarm" v="Chọn khách" />
         <e k="invoice_label_from" v="Từ:" />
         <e k="invoice_label_to" v="Đến:" />
         <e k="invoice_label_note" v="Ghi chú:" />
         <e k="invoice_placeholder_note" v="Thêm ghi chú hoặc tham chiếu" />
         <e k="invoice_dialog_details" v="Chi tiết hóa đơn" />
-        <e k="invoice_dialog_selectField" v="Chọn cánh đồng" />
         <e k="invoice_wizard_mainTitle" v="HÓA ĐƠN MỚI" />
         <e k="invoice_wizard_step1_label" v="Chọn trang trại khách:" />
         <e k="invoice_wizard_step2_label" v="Chọn loại công việc:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Thành tiền" />
         <e k="invoice_step4_from" v="Người gửi: %s" />
         <e k="invoice_step4_to" v="Khách: %s" />
-        <e k="invoice_step4_total" v="PHẢI TRẢ" />
         <e k="invoice_detail_col_service" v="Mô tả" />
         <e k="invoice_detail_col_qty" v="SL" />
         <e k="invoice_detail_col_unit" v="ĐV" />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="Đóng kiện" />
         <e k="invoice_work_wrapping" v="Bọc kiện" />
         <e k="invoice_work_buyBales" v="Mua (Nguyên liệu)" />
-        <e k="invoice_work_sellBales" v="Bán (Thức ăn / Rơm)" />
+        <e k="invoice_work_consumableSale" v="Bán (Thức ăn / Rơm)" />
         <e k="invoice_work_animalFeeding" v="Cho ăn" />
         <e k="invoice_work_barnCleaning" v="Dọn chuồng" />
         <e k="invoice_work_animalTransport" v="Vận chuyển thú" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="GTGT %" />
         <e k="invoice_label_subtotal_ht" v="Tổng phụ chưa thuế" />
         <e k="invoice_label_vat" v="GTGT" />
+        <e k="invoice_label_na" v="K/C" />
         <e k="finance_invoiceIncome" v="Thu nhập hóa đơn" />
         <e k="finance_invoiceExpense" v="Chi phí hóa đơn" />
         <e k="invoice_label_invoice" v="Hóa đơn" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="Không cần thửa đất" />
         <e k="invoice_dialog_selectFillType" v="Chọn sản phẩm" />
         <e k="invoice_col_filltype_name" v="Sản phẩm" />
+        <e k="invoice_dialog_selectConsumable" v="Chọn vật tư tiêu hao" />
+        <e k="invoice_col_consumable_name" v="Mặt hàng" />
+        <e k="invoice_work_vehicleSale" v="Bán xe" />
+        <e k="invoice_dialog_selectVehicle" v="Chọn xe" />
+        <e k="invoice_col_vehicle_name" v="Xe" />
+        <e k="invoice_error_single_farm" v="Cần ít nhất hai trang trại để tạo hóa đơn." />
     </elements>
 </l10n>

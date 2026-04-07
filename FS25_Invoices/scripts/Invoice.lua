@@ -129,6 +129,10 @@ function Invoice:writeToXML(xmlFile, key)
         setXMLString(xmlFile, itemKey .. "#name", item.name or "")
         setXMLString(xmlFile, itemKey .. "#iconFilename", item.iconFilename or "")
         setXMLFloat(xmlFile, itemKey .. "#price", item.price or 0)
+        setXMLString(xmlFile, itemKey .. "#vehicleUniqueId", item.vehicleUniqueId or "")
+        setXMLString(xmlFile, itemKey .. "#consumableXmlFilename", item.consumableXmlFilename or "")
+        setXMLInt(xmlFile, itemKey .. "#consumableFillTypeIndex", item.consumableFillTypeIndex or 0)
+        setXMLFloat(xmlFile, itemKey .. "#consumableFillLevel", item.consumableFillLevel or 0)
     end
 end
 
@@ -177,7 +181,11 @@ function Invoice:readFromXML(xmlFile, key)
             vatRate = getXMLFloat(xmlFile, itemKey .. "#vatRate") or 0,
             name = getXMLString(xmlFile, itemKey .. "#name") or "",
             iconFilename = getXMLString(xmlFile, itemKey .. "#iconFilename") or "",
-            price = getXMLFloat(xmlFile, itemKey .. "#price") or 0
+            price = getXMLFloat(xmlFile, itemKey .. "#price") or 0,
+            vehicleUniqueId = getXMLString(xmlFile, itemKey .. "#vehicleUniqueId") or "",
+            consumableXmlFilename = getXMLString(xmlFile, itemKey .. "#consumableXmlFilename") or "",
+            consumableFillTypeIndex = getXMLInt(xmlFile, itemKey .. "#consumableFillTypeIndex") or 0,
+            consumableFillLevel = getXMLFloat(xmlFile, itemKey .. "#consumableFillLevel") or 0
         }
 
         table.insert(self.lineItems, item)
@@ -218,8 +226,6 @@ function Invoice:readFromXML(xmlFile, key)
 
             if estimatedDay > 0 then
                 self.createdDay = estimatedDay
-                Logging.devInfo("[Invoice] Retrocompat: estimated createdDay=%d for inv#%d (Y%d P%d D%d)",
-                    estimatedDay, self.id, agYear, agPeriod, self.createdAt.day)
             end
         end
     end
@@ -254,6 +260,10 @@ function Invoice:writeStream(streamId)
         streamWriteString(streamId, item.name or "")
         streamWriteString(streamId, item.iconFilename or "")
         streamWriteFloat32(streamId, item.price or 0)
+        streamWriteString(streamId, item.vehicleUniqueId or "")
+        streamWriteString(streamId, item.consumableXmlFilename or "")
+        streamWriteInt16(streamId, item.consumableFillTypeIndex or 0)
+        streamWriteFloat32(streamId, item.consumableFillLevel or 0)
     end
 end
 
@@ -294,7 +304,11 @@ function Invoice:readStream(streamId)
             vatRate = streamReadFloat32(streamId),
             name = streamReadString(streamId),
             iconFilename = streamReadString(streamId),
-            price = streamReadFloat32(streamId)
+            price = streamReadFloat32(streamId),
+            vehicleUniqueId = streamReadString(streamId),
+            consumableXmlFilename = streamReadString(streamId),
+            consumableFillTypeIndex = streamReadInt16(streamId),
+            consumableFillLevel = streamReadFloat32(streamId)
         }
 
         table.insert(self.lineItems, item)

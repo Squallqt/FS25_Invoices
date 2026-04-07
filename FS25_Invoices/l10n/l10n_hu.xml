@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="Gazdaság" />
         <e k="invoice_col_amount" v="Összeg" />
         <e k="invoice_col_field" v="Föld" />
-        <e k="invoice_col_area" v="Terület" />
+        <e k="invoice_col_stock" v="Készlet" />
         <e k="invoice_btn_newInvoice" v="Új számla" />
         <e k="invoice_btn_payInvoice" v="Fizetés" />
         <e k="invoice_btn_deleteInvoice" v="Törlés" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="Mégse" />
         <e k="invoice_btn_close" v="Bezárás" />
         <e k="invoice_btn_select" v="Kiválasztás" />
-        <e k="invoice_btn_selectFarm" v="Ügyfelek" />
         <e k="invoice_label_from" v="Feladó:" />
         <e k="invoice_label_to" v="Címzett:" />
         <e k="invoice_label_note" v="Megjegyzések:" />
         <e k="invoice_placeholder_note" v="Megjegyzés vagy hivatkozás hozzáadása" />
         <e k="invoice_dialog_details" v="Számla részletei" />
-        <e k="invoice_dialog_selectField" v="Föld kiválasztása" />
         <e k="invoice_wizard_mainTitle" v="ÚJ SZÁMLA" />
         <e k="invoice_wizard_step1_label" v="Válassza ki az ügyfél gazdaságát:" />
         <e k="invoice_wizard_step2_label" v="Válassza ki a munka típusát:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Összeg" />
         <e k="invoice_step4_from" v="Kibocsátó: %s" />
         <e k="invoice_step4_to" v="Ügyfél: %s" />
-        <e k="invoice_step4_total" v="FIZETENDŐ" />
         <e k="invoice_detail_col_service" v="Leírás" />
         <e k="invoice_detail_col_qty" v="Menny." />
         <e k="invoice_detail_col_unit" v="Egys." />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="Bálázás" />
         <e k="invoice_work_wrapping" v="Csomagolás" />
         <e k="invoice_work_buyBales" v="Vétel (Alapanyag)" />
-        <e k="invoice_work_sellBales" v="Eladás (Takarmány / Szalma)" />
+        <e k="invoice_work_consumableSale" v="Eladás (Takarmány / Szalma)" />
         <e k="invoice_work_animalFeeding" v="Etetés" />
         <e k="invoice_work_barnCleaning" v="Istállótakarítás" />
         <e k="invoice_work_animalTransport" v="Állatszállítás" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="ÁFA %" />
         <e k="invoice_label_subtotal_ht" v="Részösszeg ÁFA nélkül" />
         <e k="invoice_label_vat" v="ÁFA" />
+        <e k="invoice_label_na" v="N/A" />
         <e k="finance_invoiceIncome" v="Számla bevétel" />
         <e k="finance_invoiceExpense" v="Számla kiadás" />
         <e k="invoice_label_invoice" v="Számla" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="Nincs szükséges parcella" />
         <e k="invoice_dialog_selectFillType" v="Termék kiválasztása" />
         <e k="invoice_col_filltype_name" v="Termék" />
+        <e k="invoice_dialog_selectConsumable" v="Fogyóeszköz kiválasztása" />
+        <e k="invoice_col_consumable_name" v="Tétel" />
+        <e k="invoice_work_vehicleSale" v="Jármű eladása" />
+        <e k="invoice_dialog_selectVehicle" v="Jármű kiválasztása" />
+        <e k="invoice_col_vehicle_name" v="Jármű" />
+        <e k="invoice_error_single_farm" v="Számlák létrehozásához legalább két gazdaság szükséges." />
     </elements>
 </l10n>

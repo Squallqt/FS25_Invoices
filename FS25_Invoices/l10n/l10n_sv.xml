@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="Gård" />
         <e k="invoice_col_amount" v="Belopp" />
         <e k="invoice_col_field" v="Fält" />
-        <e k="invoice_col_area" v="Område" />
+        <e k="invoice_col_stock" v="Lager" />
         <e k="invoice_btn_newInvoice" v="Ny faktura" />
         <e k="invoice_btn_payInvoice" v="Betala" />
         <e k="invoice_btn_deleteInvoice" v="Radera" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="Avbryt" />
         <e k="invoice_btn_close" v="Stäng" />
         <e k="invoice_btn_select" v="Välj" />
-        <e k="invoice_btn_selectFarm" v="Välj kund" />
         <e k="invoice_label_from" v="Från:" />
         <e k="invoice_label_to" v="Till:" />
         <e k="invoice_label_note" v="Anteckningar:" />
         <e k="invoice_placeholder_note" v="Lägg till anteckning eller referens" />
         <e k="invoice_dialog_details" v="Fakturadetaljer" />
-        <e k="invoice_dialog_selectField" v="Fältval" />
         <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
         <e k="invoice_wizard_step1_label" v="Välj kundens gård:" />
         <e k="invoice_wizard_step2_label" v="Välj typ av arbete:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Belopp" />
         <e k="invoice_step4_from" v="Avsändare: %s" />
         <e k="invoice_step4_to" v="Kund: %s" />
-        <e k="invoice_step4_total" v="ATT BETALA" />
         <e k="invoice_detail_col_service" v="Beskrivning" />
         <e k="invoice_detail_col_qty" v="Antal" />
         <e k="invoice_detail_col_unit" v="Enh." />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="Balning" />
         <e k="invoice_work_wrapping" v="Inplastning" />
         <e k="invoice_work_buyBales" v="Köp (Råvara)" />
-        <e k="invoice_work_sellBales" v="Försäljning (Foder / Halm)" />
+        <e k="invoice_work_consumableSale" v="Försäljning (Foder / Halm)" />
         <e k="invoice_work_animalFeeding" v="Utfodring" />
         <e k="invoice_work_barnCleaning" v="Rengöring stall" />
         <e k="invoice_work_animalTransport" v="Djurtransport" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="Moms %" />
         <e k="invoice_label_subtotal_ht" v="Delsumma exkl. moms" />
         <e k="invoice_label_vat" v="Moms" />
+        <e k="invoice_label_na" v="E/T" />
         <e k="finance_invoiceIncome" v="Fakturaintäkt" />
         <e k="finance_invoiceExpense" v="Fakturautgift" />
         <e k="invoice_label_invoice" v="Faktura" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="Inget fält krävs" />
         <e k="invoice_dialog_selectFillType" v="Välj produkt" />
         <e k="invoice_col_filltype_name" v="Produkt" />
+        <e k="invoice_dialog_selectConsumable" v="Välj förbrukningsartikel" />
+        <e k="invoice_col_consumable_name" v="Artikel" />
+        <e k="invoice_work_vehicleSale" v="Fordonsörsäljning" />
+        <e k="invoice_dialog_selectVehicle" v="Välj fordon" />
+        <e k="invoice_col_vehicle_name" v="Fordon" />
+        <e k="invoice_error_single_farm" v="Det krävs minst två gårdar för att skapa fakturor." />
     </elements>
 </l10n>

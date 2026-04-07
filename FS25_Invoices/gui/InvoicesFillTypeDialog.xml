@@ -27,8 +27,11 @@
                     <GuiElement profile="ftdSelectionZone">
 
                         <!-- Column headers -->
-                        <Text profile="ftdColName" text="$l10n_invoice_col_filltype_name"/>
-                        <Text profile="ftdColPrice" text="$l10n_invoice_step4_col_unitprice"/>
+                        <BoxLayout profile="ftdHeaderRow">
+                            <GuiElement profile="ftdFillHeaderPad"/>
+                            <Text profile="ftdFillColName" text="$l10n_invoice_col_filltype_name"/>
+                            <Text profile="ftdColPrice" text="$l10n_invoice_step4_col_amount"/>
+                        </BoxLayout>
                         <Bitmap profile="ftdSepHeaders"/>
 
                         <!-- List + slider -->
@@ -84,7 +87,7 @@
         </Profile>
 
         <Profile name="ftdTitleSepWrapper" extends="emptyPanel">
-            <size value="400px 1px"/>
+            <size value="400px 2dp"/>
         </Profile>
 
         <Profile name="ftdTitleSpacer" extends="emptyPanel">
@@ -92,7 +95,7 @@
         </Profile>
 
         <Profile name="ftdTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
-            <size value="180px 1px"/>
+            <size value="180px 2dp"/>
         </Profile>
 
         <!-- Content area: 534 - 40 - 1 - 24 = 469px -->
@@ -106,9 +109,26 @@
         </Profile>
 
         <!-- Column headers -->
-        <Profile name="ftdColName" extends="baseReference" with="anchorTopLeft">
-            <position value="45px -8px"/>
-            <size value="244px 28px"/>
+        <Profile name="ftdHeaderRow" extends="emptyPanel" with="anchorTopLeft">
+            <position value="8px -8px"/>
+            <size value="380px 28px"/>
+            <flowDirection value="horizontal"/>
+            <alignmentY value="middle"/>
+        </Profile>
+        <Profile name="ftdHeaderPad" extends="emptyPanel">
+            <size value="64px 28px"/>
+        </Profile>
+        <Profile name="ftdFillHeaderPad" extends="emptyPanel">
+            <size value="36px 28px"/>
+        </Profile>
+        <Profile name="ftdVehicleHeaderPad" extends="emptyPanel">
+            <size value="36px 28px"/>
+        </Profile>
+        <Profile name="ftdVehiclePriceOffset" extends="emptyPanel">
+            <size value="25px 28px"/>
+        </Profile>
+        <Profile name="ftdColName" extends="baseReference">
+            <size value="208px 28px"/>
             <textSize value="11px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -116,9 +136,34 @@
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-
-        <Profile name="ftdColPrice" extends="baseReference" with="anchorTopLeft">
-            <position value="310px -8px"/>
+        <Profile name="ftdFillColName" extends="baseReference">
+            <size value="236px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="ftdVehicleColName" extends="baseReference">
+            <size value="211px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="ftdColPrice" extends="baseReference">
+            <size value="100px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="ftdColPriceCenter" extends="baseReference">
             <size value="100px 28px"/>
             <textSize value="11px"/>
             <textBold value="true"/>
@@ -131,7 +176,7 @@
         <!-- Y = -(8 + 28 + 2) = -38 -->
         <Profile name="ftdSepHeaders" extends="baseReference" with="anchorTopLeft">
             <position value="8px -38px"/>
-            <size value="392px 1px"/>
+            <size value="392px 1dp"/>
             <imageColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
 

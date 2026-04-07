@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="Çiftlik" />
         <e k="invoice_col_amount" v="Tutar" />
         <e k="invoice_col_field" v="Tarla" />
-        <e k="invoice_col_area" v="Alan" />
+        <e k="invoice_col_stock" v="Stok" />
         <e k="invoice_btn_newInvoice" v="Yeni Fatura" />
         <e k="invoice_btn_payInvoice" v="Öde" />
         <e k="invoice_btn_deleteInvoice" v="Sil" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="İptal" />
         <e k="invoice_btn_close" v="Kapat" />
         <e k="invoice_btn_select" v="Seç" />
-        <e k="invoice_btn_selectFarm" v="Müşteri Seç" />
         <e k="invoice_label_from" v="Gönderen:" />
         <e k="invoice_label_to" v="Alıcı:" />
         <e k="invoice_label_note" v="Notlar:" />
         <e k="invoice_placeholder_note" v="Not veya referans ekleyin" />
         <e k="invoice_dialog_details" v="Fatura Detayları" />
-        <e k="invoice_dialog_selectField" v="Tarla Seçimi" />
         <e k="invoice_wizard_mainTitle" v="YENİ FATURA" />
         <e k="invoice_wizard_step1_label" v="Müşteri çiftliği seçin:" />
         <e k="invoice_wizard_step2_label" v="İş tipini seçin:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Tutar" />
         <e k="invoice_step4_from" v="Gönderen: %s" />
         <e k="invoice_step4_to" v="Müşteri: %s" />
-        <e k="invoice_step4_total" v="ÖDENECEK" />
         <e k="invoice_detail_col_service" v="Açıklama" />
         <e k="invoice_detail_col_qty" v="Miktar" />
         <e k="invoice_detail_col_unit" v="Birim" />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="Balyalama" />
         <e k="invoice_work_wrapping" v="Paketleme" />
         <e k="invoice_work_buyBales" v="Satın Alma (Hammadde)" />
-        <e k="invoice_work_sellBales" v="Satış (Yem / Saman)" />
+        <e k="invoice_work_consumableSale" v="Satış (Yem / Saman)" />
         <e k="invoice_work_animalFeeding" v="Yemleme" />
         <e k="invoice_work_barnCleaning" v="Ahır Temizliği" />
         <e k="invoice_work_animalTransport" v="Hayvan Taşıma" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="KDV %" />
         <e k="invoice_label_subtotal_ht" v="Ara toplam KDV hariç" />
         <e k="invoice_label_vat" v="KDV" />
+        <e k="invoice_label_na" v="G/D" />
         <e k="finance_invoiceIncome" v="Fatura geliri" />
         <e k="finance_invoiceExpense" v="Fatura gideri" />
         <e k="invoice_label_invoice" v="Fatura" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="Alan gerekmiyor" />
         <e k="invoice_dialog_selectFillType" v="Ürün seç" />
         <e k="invoice_col_filltype_name" v="Ürün" />
+        <e k="invoice_dialog_selectConsumable" v="Sarf malzemesi seç" />
+        <e k="invoice_col_consumable_name" v="Ürün" />
+        <e k="invoice_work_vehicleSale" v="Araç satışı" />
+        <e k="invoice_dialog_selectVehicle" v="Araç seç" />
+        <e k="invoice_col_vehicle_name" v="Araç" />
+        <e k="invoice_error_single_farm" v="Fatura oluşturmak için en az iki çiftlik gereklidir." />
     </elements>
 </l10n>

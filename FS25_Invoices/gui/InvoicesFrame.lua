@@ -278,7 +278,7 @@ function InvoicesFrame:updateButtonStates()
     
     local canPay = self.currentTab == InvoicesFrame.TAB.INCOMING and
                    self.selectedInvoice ~= nil and 
-                   self.selectedInvoice.state == Invoice.STATE_UNPAID and 
+                   self.selectedInvoice.state == Invoice.STATE.NEW and 
                    not isSpectator
     self.btnPay.disabled = not canPay
     
@@ -300,6 +300,21 @@ function InvoicesFrame:onClickNewInvoice()
     if not manager:getHasFarmManagerPermission() then
         InfoDialog.show(g_i18n:getText("invoice_error_permission_required"))
         return
+    end
+    local isMultiplayer = g_currentMission.missionDynamicInfo ~= nil and g_currentMission.missionDynamicInfo.isMultiplayer
+    if isMultiplayer then
+        local farmCount = 0
+        if g_farmManager then
+            for _, farm in pairs(g_farmManager:getFarms()) do
+                if farm.farmId ~= nil and farm.farmId ~= FarmManager.SPECTATOR_FARM_ID and farm.farmId ~= 0 and farm.name ~= nil and farm.name ~= "" then
+                    farmCount = farmCount + 1
+                end
+            end
+        end
+        if farmCount <= 1 then
+            InfoDialog.show(g_i18n:getText("invoice_error_single_farm"))
+            return
+        end
     end
     local state = InvoicesWizardState.getInstance()
     state:reset()

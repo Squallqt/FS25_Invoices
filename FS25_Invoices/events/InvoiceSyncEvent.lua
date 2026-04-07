@@ -34,7 +34,6 @@ function InvoiceSyncEvent:readStream(streamId, connection)
     local manager = g_currentMission.invoicesManager
     if manager ~= nil then
         manager.service:applySyncData(invoices, nextId)
-        Logging.devInfo("[Invoices] InvoiceSyncEvent: synced %d invoices (nextId=%d)", count, nextId)
     else
         Logging.warning("[Invoices] InvoiceSyncEvent: manager not available, %d invoices discarded", count)
     end

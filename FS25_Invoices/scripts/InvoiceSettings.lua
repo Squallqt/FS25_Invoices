@@ -112,6 +112,15 @@ function InvoiceSettings:applySettings(newSettings, isAuthoritative)
         end
     end
 
+    if g_currentMission.invoicesManager ~= nil then
+        local service = g_currentMission.invoicesManager.service
+        if s.invoiceReminders == true then
+            service:activateReminder()
+        elseif s.invoiceReminders == false then
+            service:deactivateReminder()
+        end
+    end
+
     if isAuthoritative and g_currentMission:getIsServer() then
         self:saveToXMLFile()
 
@@ -227,12 +236,11 @@ function InvoiceSettings:injectMenu()
         sectionTitle = TextElement.new()
         sectionTitle:applyProfile("fs25_settingsSectionHeader", true)
         sectionTitle:setText(g_i18n:getText("invoice_settings_section_title"))
-        sectionTitle.name = "sectionHeader"
         settingsPage.gameSettingsLayout:addElement(sectionTitle)
     end
 
+    sectionTitle.name = "invoiceSectionHeader"
     sectionTitle.focusId = FocusManager:serveAutoFocusId()
-    table.insert(settingsPage.controlsList, sectionTitle)
     self.CONTROLS[sectionTitle.name] = sectionTitle
 
     local ourElements = {sectionTitle}

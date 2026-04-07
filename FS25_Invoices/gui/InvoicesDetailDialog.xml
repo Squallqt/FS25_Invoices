@@ -65,8 +65,9 @@
                     <SmoothList profile="invDetList" id="listItems" listItemSpacing="0px" listItemLateralSpacing="0px" listSmoothingDisabled="true">
                         <ListItem profile="invDetListItem" name="templateItem">
                             <ThreePartBitmap profile="invDetItemGradient" name="alternating"/>
-                            <Bitmap profile="invDetCellIcon" name="cellIcon"/>
-                            <Text profile="invDetCellDesignation" name="cellDesignation"/>
+                            <Text profile="invDetCellDesignation" name="cellDesignation">
+                                <Bitmap profile="invDetCellIcon" name="cellIcon"/>
+                            </Text>
                             <Text profile="invDetCellField"       name="cellField"/>
                             <Text profile="invDetCellQty"         name="cellQty"/>
                             <Text profile="invDetCellUnit"        name="cellUnit"/>
@@ -143,13 +144,13 @@
 
         <!-- Separator wrapper (BoxLayout child, bottom margin = gap before content) -->
         <Profile name="invDetTitleSepWrapper" extends="emptyPanel">
-            <size value="832px 1px"/>
+            <size value="832px 2dp"/>
             <margin value="0px 0px 28px 0px"/>
         </Profile>
 
         <!-- Green gradient separator (centered, resized dynamically by Lua) -->
         <Profile name="invDetTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
-            <size value="200px 1px"/>
+            <size value="200px 2dp"/>
         </Profile>
 
         <!-- Content area (BoxLayout child) -->
@@ -181,7 +182,7 @@
         <!-- Separator after title -->
         <Profile name="invDetSepTitle" extends="baseReference" with="anchorTopLeft">
             <position value="0px -38px"/>
-            <size value="832px 1px"/>
+            <size value="832px 1dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
 
@@ -226,7 +227,7 @@
         <!-- Separator before columns -->
         <Profile name="invDetSepHeader" extends="baseReference" with="anchorTopLeft">
             <position value="0px -110px"/>
-            <size value="832px 1px"/>
+            <size value="832px 1dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
         <!-- Column headers -->
@@ -293,7 +294,7 @@
         </Profile>
         <Profile name="invDetColAmount" extends="baseReference" with="anchorTopLeft">
             <position value="664px -117px"/>
-            <size value="158px 25px"/>
+            <size value="162px 25px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -305,7 +306,7 @@
         <!-- Accent separator (green) -->
         <Profile name="invDetSepAccent" extends="baseReference" with="anchorTopLeft">
             <position value="0px -146px"/>
-            <size value="832px 1px"/>
+            <size value="832px 1dp"/>
             <imageColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
         <!-- Line items list -->
@@ -334,7 +335,7 @@
 
         <!-- Row cells -->
         <Profile name="invDetCellIcon" extends="emptyPanel" with="anchorTopLeft">
-            <position value="11px -6px"/>
+            <position value="0px -6px"/>
             <size value="20px 20px"/>
             <imageColor value="1 1 1 1"/>
             <imageSelectedColor value="1 1 1 1"/>
@@ -399,7 +400,7 @@
         </Profile>
         <Profile name="invDetCellAmount" extends="baseReference">
             <position value="664px 0px"/>
-            <size value="158px 32px"/>
+            <size value="162px 32px"/>
             <textSize value="14px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
@@ -411,7 +412,7 @@
         <!-- Separator after list -->
         <Profile name="invDetSepBottom" extends="baseReference" with="anchorTopLeft">
             <position value="0px -445px"/>
-            <size value="832px 2px"/>
+            <size value="832px 2dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
         <!-- Notes section -->
@@ -439,7 +440,7 @@
         <!-- Separator before total -->
         <Profile name="invDetSepBeforeTotal" extends="baseReference" with="anchorTopLeft">
             <position value="0px -479px"/>
-            <size value="832px 2px"/>
+            <size value="832px 2dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
         <!-- Penalty indicator -->
@@ -463,7 +464,7 @@
         <Profile name="invDetTotalBarBg" extends="baseReference" with="anchorTopLeft">
             <position value="0px -485px"/>
             <size value="832px 72px"/>
-            <color value="0 0 0 1"/>
+            <color value="0 0 0 0.75"/>
             <cornerSize value="0.3"/>
         </Profile>
         <Profile name="invDetTotalLabel" extends="baseReference" with="anchorTopLeft">
@@ -498,13 +499,13 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetTotalSepBox" extends="emptyPanel">
-            <size value="416px 1px"/>
+            <size value="416px 1dp"/>
             <flowDirection value="horizontal"/>
             <alignmentX value="right"/>
             <alignmentY value="top"/>
         </Profile>
         <Profile name="invDetTotalSepLine" extends="baseReference">
-            <size value="416px 1px"/>
+            <size value="416px 1dp"/>
             <imageColor value="0.3 0.3 0.3 0.8"/>
         </Profile>
         <Profile name="invDetTotalValueRow" extends="emptyPanel">

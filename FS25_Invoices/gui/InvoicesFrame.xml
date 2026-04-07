@@ -29,7 +29,7 @@
         </BoxLayout>
 
         <!-- Separator + paging -->
-        <ThreePartBitmap profile="fs25_lineSeparatorTopHighlighted" position="0px -57px"/>
+        <ThreePartBitmap profile="fs25_lineSeparatorTopHighlighted" position="0px -57px" size="100% 2dp"/>
         <MultiTextOption profile="fs25_subCategorySelectorTabbed" id="subCategoryPaging" position="0px -10px" onClick="updateSubCategoryPages"/>
 
         <!-- Tab 1: Incoming -->

@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="Fermă" />
         <e k="invoice_col_amount" v="Sumă" />
         <e k="invoice_col_field" v="Teren" />
-        <e k="invoice_col_area" v="Suprafață" />
+        <e k="invoice_col_stock" v="Stoc" />
         <e k="invoice_btn_newInvoice" v="Factură nouă" />
         <e k="invoice_btn_payInvoice" v="Plătește" />
         <e k="invoice_btn_deleteInvoice" v="Șterge" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="Anulează" />
         <e k="invoice_btn_close" v="Închide" />
         <e k="invoice_btn_select" v="Selectează" />
-        <e k="invoice_btn_selectFarm" v="Sel. Client" />
         <e k="invoice_label_from" v="De la:" />
         <e k="invoice_label_to" v="Către:" />
         <e k="invoice_label_note" v="Observații:" />
         <e k="invoice_placeholder_note" v="Adăugați o observație sau referință" />
         <e k="invoice_dialog_details" v="Detalii factură" />
-        <e k="invoice_dialog_selectField" v="Selecție teren" />
         <e k="invoice_wizard_mainTitle" v="FACTURĂ NOUĂ" />
         <e k="invoice_wizard_step1_label" v="Selectați ferma client:" />
         <e k="invoice_wizard_step2_label" v="Selectați tipul lucrării:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Sumă" />
         <e k="invoice_step4_from" v="Emitent: %s" />
         <e k="invoice_step4_to" v="Client: %s" />
-        <e k="invoice_step4_total" v="DE PLATĂ" />
         <e k="invoice_detail_col_service" v="Descriere" />
         <e k="invoice_detail_col_qty" v="Cant." />
         <e k="invoice_detail_col_unit" v="Unit." />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="Balotare" />
         <e k="invoice_work_wrapping" v="Înfoliere" />
         <e k="invoice_work_buyBales" v="Cumpărare (Materie primă)" />
-        <e k="invoice_work_sellBales" v="Vânzare (Furaj / Paie)" />
+        <e k="invoice_work_consumableSale" v="Vânzare (Furaj / Paie)" />
         <e k="invoice_work_animalFeeding" v="Hrănire" />
         <e k="invoice_work_barnCleaning" v="Curățare grajd" />
         <e k="invoice_work_animalTransport" v="Transport animale" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="TVA %" />
         <e k="invoice_label_subtotal_ht" v="Subtotal fără TVA" />
         <e k="invoice_label_vat" v="TVA" />
+        <e k="invoice_label_na" v="N/A" />
         <e k="finance_invoiceIncome" v="Venit din facturi" />
         <e k="finance_invoiceExpense" v="Cheltuială din facturi" />
         <e k="invoice_label_invoice" v="Factură" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="Nicio parcelă necesară" />
         <e k="invoice_dialog_selectFillType" v="Selectați produsul" />
         <e k="invoice_col_filltype_name" v="Produs" />
+        <e k="invoice_dialog_selectConsumable" v="Selectați consumabilul" />
+        <e k="invoice_col_consumable_name" v="Articol" />
+        <e k="invoice_work_vehicleSale" v="Vânzare vehicul" />
+        <e k="invoice_dialog_selectVehicle" v="Selectați vehiculul" />
+        <e k="invoice_col_vehicle_name" v="Vehicul" />
+        <e k="invoice_error_single_farm" v="Sunt necesare cel puțin două ferme pentru a crea facturi." />
     </elements>
 </l10n>

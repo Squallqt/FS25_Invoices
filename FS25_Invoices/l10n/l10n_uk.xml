@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="Ферма" />
         <e k="invoice_col_amount" v="Сума" />
         <e k="invoice_col_field" v="Поле" />
-        <e k="invoice_col_area" v="Площа" />
+        <e k="invoice_col_stock" v="Запас" />
         <e k="invoice_btn_newInvoice" v="Новий рахунок" />
         <e k="invoice_btn_payInvoice" v="Сплатити" />
         <e k="invoice_btn_deleteInvoice" v="Видалити" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="Скасувати" />
         <e k="invoice_btn_close" v="Закрити" />
         <e k="invoice_btn_select" v="Обрати" />
-        <e k="invoice_btn_selectFarm" v="Вибір клієнта" />
         <e k="invoice_label_from" v="Від:" />
         <e k="invoice_label_to" v="Кому:" />
         <e k="invoice_label_note" v="Примітки:" />
         <e k="invoice_placeholder_note" v="Додати примітку або посилання" />
         <e k="invoice_dialog_details" v="Деталі рахунку" />
-        <e k="invoice_dialog_selectField" v="Вибір поля" />
         <e k="invoice_wizard_mainTitle" v="НОВИЙ РАХУНОК" />
         <e k="invoice_wizard_step1_label" v="Оберіть ферму клієнта:" />
         <e k="invoice_wizard_step2_label" v="Оберіть тип робіт:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Сума" />
         <e k="invoice_step4_from" v="Відправник: %s" />
         <e k="invoice_step4_to" v="Клієнт: %s" />
-        <e k="invoice_step4_total" v="ДО СПЛАТИ" />
         <e k="invoice_detail_col_service" v="Опис" />
         <e k="invoice_detail_col_qty" v="Кіл-ть" />
         <e k="invoice_detail_col_unit" v="Од." />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="Пресування" />
         <e k="invoice_work_wrapping" v="Обмотування" />
         <e k="invoice_work_buyBales" v="Купівля (Сировина)" />
-        <e k="invoice_work_sellBales" v="Продаж (Корм / Солома)" />
+        <e k="invoice_work_consumableSale" v="Продаж (Корм / Солома)" />
         <e k="invoice_work_animalFeeding" v="Годування" />
         <e k="invoice_work_barnCleaning" v="Чищення стійл" />
         <e k="invoice_work_animalTransport" v="Перевезення худоби" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="ПДВ %" />
         <e k="invoice_label_subtotal_ht" v="Проміжний підсумок без ПДВ" />
         <e k="invoice_label_vat" v="ПДВ" />
+        <e k="invoice_label_na" v="Н/Д" />
         <e k="finance_invoiceIncome" v="Дохід за рахунками" />
         <e k="finance_invoiceExpense" v="Витрати за рахунками" />
         <e k="invoice_label_invoice" v="Рахунок" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="Поле не потрібне" />
         <e k="invoice_dialog_selectFillType" v="Обрати продукт" />
         <e k="invoice_col_filltype_name" v="Продукт" />
+        <e k="invoice_dialog_selectConsumable" v="Вибір витратника" />
+        <e k="invoice_col_consumable_name" v="Витратник" />
+        <e k="invoice_work_vehicleSale" v="Продаж техніки" />
+        <e k="invoice_dialog_selectVehicle" v="Вибір техніки" />
+        <e k="invoice_col_vehicle_name" v="Техніка" />
+        <e k="invoice_error_single_farm" v="Для створення рахунків необхідно щонайменше дві ферми." />
     </elements>
 </l10n>

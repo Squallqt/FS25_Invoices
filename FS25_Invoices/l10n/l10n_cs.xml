@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="农场" />
         <e k="invoice_col_amount" v="金额" />
         <e k="invoice_col_field" v="田地" />
-        <e k="invoice_col_area" v="面积" />
+        <e k="invoice_col_stock" v="库存" />
         <e k="invoice_btn_newInvoice" v="新发票" />
         <e k="invoice_btn_payInvoice" v="支付" />
         <e k="invoice_btn_deleteInvoice" v="删除" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="取消" />
         <e k="invoice_btn_close" v="关闭" />
         <e k="invoice_btn_select" v="选择" />
-        <e k="invoice_btn_selectFarm" v="选择客户" />
         <e k="invoice_label_from" v="来自:" />
         <e k="invoice_label_to" v="致:" />
         <e k="invoice_label_note" v="备注:" />
         <e k="invoice_placeholder_note" v="添加备注或参考" />
         <e k="invoice_dialog_details" v="发票详情" />
-        <e k="invoice_dialog_selectField" v="田地选择" />
         <e k="invoice_wizard_mainTitle" v="新发票" />
         <e k="invoice_wizard_step1_label" v="选择客户农场:" />
         <e k="invoice_wizard_step2_label" v="选择工作类型:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="金额" />
         <e k="invoice_step4_from" v="开票人: %s" />
         <e k="invoice_step4_to" v="客户: %s" />
-        <e k="invoice_step4_total" v="应付金额" />
         <e k="invoice_detail_col_service" v="描述" />
         <e k="invoice_detail_col_qty" v="数量" />
         <e k="invoice_detail_col_unit" v="单位" />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="打包" />
         <e k="invoice_work_wrapping" v="裹包" />
         <e k="invoice_work_buyBales" v="购买 (原材料)" />
-        <e k="invoice_work_sellBales" v="销售 (饲料 / 稻草)" />
+        <e k="invoice_work_consumableSale" v="销售 (饲料 / 稻草)" />
         <e k="invoice_work_animalFeeding" v="喂养" />
         <e k="invoice_work_barnCleaning" v="清洁畜舍" />
         <e k="invoice_work_animalTransport" v="牲畜运输" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="增值税 %" />
         <e k="invoice_label_subtotal_ht" v="不含税小计" />
         <e k="invoice_label_vat" v="增值税" />
+        <e k="invoice_label_na" v="N/A" />
         <e k="finance_invoiceIncome" v="发票收入" />
         <e k="finance_invoiceExpense" v="发票支出" />
         <e k="invoice_label_invoice" v="发票" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="Žádná parcela není vyžadována" />
         <e k="invoice_dialog_selectFillType" v="选择产品" />
         <e k="invoice_col_filltype_name" v="产品" />
+        <e k="invoice_dialog_selectConsumable" v="选择消耗品" />
+        <e k="invoice_col_consumable_name" v="物品" />
+        <e k="invoice_work_vehicleSale" v="车辆销售" />
+        <e k="invoice_dialog_selectVehicle" v="选择车辆" />
+        <e k="invoice_col_vehicle_name" v="车辆" />
+        <e k="invoice_error_single_farm" v="创建发票至少需要两个农场。" />
     </elements>
 </l10n>

@@ -97,15 +97,16 @@
                     <Text profile="dashColUnit"        text="$l10n_invoice_detail_col_unit"/>
                     <Text profile="dashColPrice"       text="$l10n_invoice_step4_col_unitprice"/>
                     <Text profile="dashColVat"         text="$l10n_invoice_step4_col_vat"/>
-                    <Text profile="dashColAmount"      text="$l10n_invoice_step4_col_amount"/>
+                    <Text profile="dashColAmount"      text="$l10n_invoice_col_amount"/>
                     <Bitmap profile="dashSepHeaders"/>
 
                     <!-- Line items list (full width, slider outside like Detail dialog) -->
                     <SmoothList profile="dashItemList" id="listItems">
                         <ListItem profile="dashItemListRow" name="itemTemplate">
                             <ThreePartBitmap profile="dashItemGradient" name="alternating"/>
-                            <Bitmap profile="dashCellItemIcon" name="cellIcon"/>
-                            <Text profile="dashCellDesignation" name="cellDesignation"/>
+                            <Text profile="dashCellDesignation" name="cellDesignation">
+                                <Bitmap profile="dashCellItemIcon" name="cellIcon"/>
+                            </Text>
                             <Text profile="dashCellField"       name="cellField"/>
                             <Text profile="dashCellQty"         name="cellQty"/>
                             <Text profile="dashCellUnit"        name="cellUnit"/>
@@ -154,7 +155,7 @@
 
                     <!-- TOTAL section -->
                     <RoundCorner profile="dashTotalBarBg"/>
-                    <Text      profile="dashTotalLabel"  text="$l10n_invoice_step4_total"/>
+                    <Text      profile="dashTotalLabel"  text="$l10n_invoice_label_total_due"/>
                     <BoxLayout profile="dashTotalRightColumn" id="totalRightColumn">
                         <Text      profile="dashVatHtText"   id="textVatHt"/>
                         <Text      profile="dashVatTvaText"  id="textVatTva"/>
@@ -205,7 +206,7 @@
         </Profile>
 
         <Profile name="dashTitleSepWrapper" extends="emptyPanel">
-            <size value="832px 1px"/>
+            <size value="832px 2dp"/>
         </Profile>
 
         <Profile name="dashTitleSpacer" extends="emptyPanel">
@@ -213,7 +214,7 @@
         </Profile>
 
         <Profile name="dashTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
-            <size value="200px 1px"/>
+            <size value="200px 2dp"/>
         </Profile>
 
         <Profile name="dashContentArea" extends="emptyPanel">
@@ -390,7 +391,7 @@
         <!-- Y = -(406 + 25) = -431 -->
         <Profile name="dashSepTop" extends="baseReference" with="anchorTopLeft">
             <position value="0px -431px"/>
-            <size value="832px 1px"/>
+            <size value="832px 1dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
 
@@ -430,14 +431,14 @@
         </Profile>
         <Profile name="dashColAmount" extends="dashColBase">
             <position value="664px -438px"/>
-            <size value="148px 25px"/>
+            <size value="162px 25px"/>
             <textAlignment value="right"/>
         </Profile>
 
         <!-- Y = -(438 + 25) = -463 -->
         <Profile name="dashSepHeaders" extends="baseReference" with="anchorTopLeft">
             <position value="0px -463px"/>
-            <size value="832px 1px"/>
+            <size value="832px 1dp"/>
             <imageColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
 
@@ -469,7 +470,7 @@
         <!-- Line item cells -->
         <!-- Product icon in recap (visible only for fillType items) -->
         <Profile name="dashCellItemIcon" extends="emptyPanel" with="anchorTopLeft">
-            <position value="10px -6px"/>
+            <position value="0px -6px"/>
             <size value="20px 20px"/>
             <imageColor value="1 1 1 1"/>
             <imageSelectedColor value="1 1 1 1"/>
@@ -534,7 +535,7 @@
         </Profile>
         <Profile name="dashCellAmount" extends="baseReference" with="anchorStretchingYLeft">
             <position value="664px 0px"/>
-            <size value="148px 32px"/>
+            <size value="162px 32px"/>
             <textSize value="13px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
@@ -670,7 +671,7 @@
         <Profile name="dashTotalBarBg" extends="baseReference" with="anchorTopLeft">
             <position value="0px -818px"/>
             <size value="832px 68px"/>
-            <color value="0 0 0 1"/>
+            <color value="0 0 0 0.75"/>
             <cornerSize value="0.3"/>
         </Profile>
         <Profile name="dashTotalLabel" extends="baseReference" with="anchorTopLeft">
@@ -705,13 +706,13 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="dashTotalSepBox" extends="emptyPanel">
-            <size value="416px 1px"/>
+            <size value="416px 1dp"/>
             <flowDirection value="horizontal"/>
             <alignmentX value="right"/>
             <alignmentY value="top"/>
         </Profile>
         <Profile name="dashTotalSepLine" extends="baseReference">
-            <size value="416px 1px"/>
+            <size value="416px 1dp"/>
             <imageColor value="0.3 0.3 0.3 0.8"/>
         </Profile>
         <Profile name="dashTotalValueRow" extends="emptyPanel">

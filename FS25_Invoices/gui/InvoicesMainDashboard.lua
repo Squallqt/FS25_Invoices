@@ -67,6 +67,7 @@ function InvoicesMainDashboard.new(target, customMt)
     self.selectedWorkItems = {}
     self.selectedFieldItems = {}
     self.lineItems = {}
+    self.displayItems = {}
 
     -- UI context
     self.activeContext = nil
@@ -130,6 +131,7 @@ function InvoicesMainDashboard:onOpen()
     self.selectedWorkItems = {}
     self.selectedFieldItems = {}
     self.lineItems = {}
+    self.displayItems = {}
     self.activeContext = InvoicesMainDashboard.CONTEXT_FARMS
 
     self:detectGameMode()
@@ -188,6 +190,7 @@ function InvoicesMainDashboard:delete()
     self.selectedWorkItems = nil
     self.selectedFieldItems = nil
     self.lineItems = nil
+    self.displayItems = nil
     InvoicesMainDashboard:superClass().delete(self)
 end
 
@@ -409,6 +412,7 @@ function InvoicesMainDashboard:rebuildLineItems()
 
     state:buildAllLineItems()
     self.lineItems = state.lineItems or {}
+    self:buildDisplayItems()
 
     if self.listItems ~= nil then
         self.listItems:reloadData()
@@ -416,9 +420,9 @@ function InvoicesMainDashboard:rebuildLineItems()
 
     self:updateRecapSliderVisibility()
 
-    if #self.lineItems > 0 then
-        if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.lineItems then
-            self.selectedItemIndex = #self.lineItems
+    if #self.displayItems > 0 then
+        if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.displayItems then
+            self.selectedItemIndex = #self.displayItems
         end
         if self.listItems ~= nil then
             self.suppressEditFieldUpdate = true
@@ -435,9 +439,50 @@ function InvoicesMainDashboard:rebuildLineItems()
     self:updateButtonStates()
 end
 
+function InvoicesMainDashboard:buildDisplayItems()
+    self.displayItems = {}
+
+    local consumableGroups = {}
+    local consumableOrder = {}
+
+    for _, item in ipairs(self.lineItems) do
+        if item.isConsumable and item.groupKey ~= nil then
+            local gk = item.groupKey
+            if consumableGroups[gk] == nil then
+                consumableGroups[gk] = {
+                    isConsumable   = true,
+                    groupKey       = gk,
+                    workTypeId     = item.workTypeId,
+                    name           = item.name,
+                    iconFilename   = item.iconFilename,
+                    unit           = item.unit,
+                    vatRate        = item.vatRate,
+                    quantity       = 0,
+                    totalAmount    = 0,
+                    lineIndices    = {},
+                }
+                table.insert(consumableOrder, gk)
+            end
+            local group = consumableGroups[gk]
+            group.quantity = group.quantity + 1
+            group.totalAmount = group.totalAmount + (item.amount or 0)
+            table.insert(group.lineIndices, #self.lineItems)
+        else
+            table.insert(self.displayItems, item)
+        end
+    end
+
+    for _, gk in ipairs(consumableOrder) do
+        local group = consumableGroups[gk]
+        group.price = group.quantity > 0 and math.floor(group.totalAmount / group.quantity) or 0
+        group.amount = group.totalAmount
+        table.insert(self.displayItems, group)
+    end
+end
+
 function InvoicesMainDashboard:updateRecapSliderVisibility()
     if self.itemSliderBox ~= nil and self.listItems ~= nil then
-        local itemCount = #self.lineItems
+        local itemCount = #self.displayItems
         local maxVisibleItems = math.floor(282 / 32)
         self.itemSliderBox:setVisible(itemCount > maxVisibleItems)
     end
@@ -526,8 +571,8 @@ function InvoicesMainDashboard:updateTotal()
                 self:resizeTotalSep(htText, tvaText, totalText)
             end
         elseif not vatEnabled then
-            local htText = string.format("%s :  N/A", g_i18n:getText("invoice_label_subtotal_ht"))
-            local tvaText = string.format("%s :  N/A", g_i18n:getText("invoice_label_vat"))
+            local htText = string.format("%s :  %s", g_i18n:getText("invoice_label_subtotal_ht"), g_i18n:getText("invoice_label_na"))
+            local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_label_vat"), g_i18n:getText("invoice_label_na"))
             self.textVatHt:setText(htText)
             self.textVatTva:setText(tvaText)
             self.textVatHt:setVisible(true)
@@ -537,8 +582,8 @@ function InvoicesMainDashboard:updateTotal()
                 self:resizeTotalSep(htText, tvaText, totalText)
             end
         else
-            local htText = string.format("%s :  N/A", g_i18n:getText("invoice_label_subtotal_ht"))
-            local tvaText = string.format("%s :  N/A", g_i18n:getText("invoice_label_vat"))
+            local htText = string.format("%s :  %s", g_i18n:getText("invoice_label_subtotal_ht"), g_i18n:getText("invoice_label_na"))
+            local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_label_vat"), g_i18n:getText("invoice_label_na"))
             self.textVatHt:setText(htText)
             self.textVatTva:setText(tvaText)
             self.textVatHt:setVisible(true)
@@ -660,9 +705,11 @@ function InvoicesMainDashboard:resetEditFields()
 end
 
 function InvoicesMainDashboard:updateEditFields()
+    if self._suppressRecapQty then return end
+
     local item = nil
-    if self.selectedItemIndex >= 1 and self.selectedItemIndex <= #self.lineItems then
-        item = self.lineItems[self.selectedItemIndex]
+    if self.selectedItemIndex >= 1 and self.selectedItemIndex <= #self.displayItems then
+        item = self.displayItems[self.selectedItemIndex]
     end
 
     if self.inputPrice ~= nil then
@@ -708,7 +755,7 @@ end
 function InvoicesMainDashboard:updateSelectedCellValues()
     local cell = self._selectedCell
     if cell == nil then return end
-    local item = self.lineItems[self.selectedItemIndex]
+    local item = self.displayItems[self.selectedItemIndex]
     if item == nil then return end
 
     local cellPrice = cell:getDescendantByName("cellPrice")
@@ -736,7 +783,7 @@ function InvoicesMainDashboard:updateSelectedCellValues()
     if cellVat ~= nil then
         local vatEnabled = g_currentMission.invoicesManager ~= nil and g_currentMission.invoicesManager.service:isVatEnabled()
         if not vatEnabled then
-            cellVat:setText("N/A")
+            cellVat:setText(g_i18n:getText("invoice_label_na"))
         else
             local vatRate = item.vatRate or 0
             if vatRate > 0 then
@@ -751,7 +798,7 @@ end
 -- Text input callbacks
 
 function InvoicesMainDashboard:onPriceTextChanged(element, text)
-    if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.lineItems then return end
+    if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.displayItems then return end
 
     local filtered = string.gsub(text or "", "[^0-9]", "")
     if filtered ~= text then
@@ -759,9 +806,44 @@ function InvoicesMainDashboard:onPriceTextChanged(element, text)
         return
     end
 
-    local item = self.lineItems[self.selectedItemIndex]
+    local item = self.displayItems[self.selectedItemIndex]
+    if item == nil then return end
+
     local value = tonumber(filtered or "") or 0
 
+    -- Consumable grouped row: update price on all underlying selectedWorkItems
+    if item.isConsumable and item.groupKey ~= nil then
+        if value >= 0 then
+            item.price = value
+            item.amount = MathUtil.round(value * item.quantity)
+            for _, swi in ipairs(self.selectedWorkItems) do
+                if swi.isConsumable and swi.groupKey == item.groupKey then
+                    swi.customPrice = value
+                end
+            end
+            self:rebuildLineItems()
+        end
+        return
+    end
+
+    -- Vehicle row: update price on the specific selectedWorkItem
+    if item.vehicleUniqueId ~= nil and item.vehicleUniqueId ~= "" then
+        if value >= 0 then
+            item.price = value
+            item.amount = MathUtil.round(value * item.quantity)
+            for _, swi in ipairs(self.selectedWorkItems) do
+                if swi.vehicleUniqueId == item.vehicleUniqueId then
+                    swi.customPrice = value
+                    break
+                end
+            end
+        end
+        self:updateSelectedCellValues()
+        self:updateTotal()
+        return
+    end
+
+    -- Standard workType
     if value >= 0 then
         item.price = value
     end
@@ -787,10 +869,55 @@ function InvoicesMainDashboard:onPriceTextChanged(element, text)
 end
 
 function InvoicesMainDashboard:onQtyTextChanged(element, text)
-    if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.lineItems then return end
+    if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.displayItems then return end
 
-    local item = self.lineItems[self.selectedItemIndex]
+    local item = self.displayItems[self.selectedItemIndex]
+    if item == nil then return end
     if item.unit == Invoice.UNIT_HECTARE then return end
+
+    -- Consumable grouped line: qty change rebuilds selection
+    if item.isConsumable and item.groupKey ~= nil then
+        local filtered = string.gsub(text or "", "[^0-9]", "")
+        if filtered ~= text then
+            element:setText(filtered)
+            return
+        end
+        if filtered == "" then return end
+        local newQty = tonumber(filtered) or 0
+        if newQty < 0 then newQty = 0 end
+
+        local maxStock = self:getConsumableStock(item.groupKey)
+        if newQty > maxStock then
+            newQty = maxStock
+            element:setText(string.format("%.0f", newQty))
+        end
+
+        self._suppressRecapQty = true
+        self:rebuildConsumableSelection(item.groupKey, newQty)
+        self._suppressRecapQty = false
+        return
+    end
+
+    -- Vehicle line: qty change rebuilds selection
+    if item.vehicleUniqueId ~= nil and item.vehicleUniqueId ~= "" and item.configFileName ~= nil then
+        local filtered = string.gsub(text or "", "[^0-9]", "")
+        if filtered ~= text then
+            element:setText(filtered)
+            return
+        end
+        if filtered == "" then return end
+        local newQty = tonumber(filtered) or 0
+        if newQty < 0 then newQty = 0 end
+
+        local maxStock = self:getVehicleStock(item.configFileName)
+        if newQty > maxStock then
+            newQty = maxStock
+            element:setText(string.format("%.0f", newQty))
+        end
+
+        self:rebuildVehicleSelection(item.configFileName, newQty)
+        return
+    end
 
     local allowDecimal = (item.unit == Invoice.UNIT_HOUR)
     local filtered
@@ -835,8 +962,138 @@ function InvoicesMainDashboard:onQtyTextChanged(element, text)
     self:updateTotal()
 end
 
+function InvoicesMainDashboard:getConsumableStock(groupKey)
+    if g_currentMission == nil then return 0 end
+    local playerFarmId = self.playerFarmId
+    if playerFarmId == nil or playerFarmId < 1 then return 0 end
+    InvoicesConsumablePipeline.invalidateCache()
+
+    return InvoicesConsumablePipeline.getStockForGroup(groupKey, playerFarmId)
+end
+
+function InvoicesMainDashboard:rebuildConsumableSelection(groupKey, targetQty)
+    local workTypeTemplate = nil
+    for i = #self.selectedWorkItems, 1, -1 do
+        local item = self.selectedWorkItems[i]
+        if item.isConsumable and item.groupKey == groupKey then
+            if workTypeTemplate == nil then
+                workTypeTemplate = {}
+                for k, v in pairs(item) do workTypeTemplate[k] = v end
+            end
+            table.remove(self.selectedWorkItems, i)
+        end
+    end
+
+    if workTypeTemplate == nil or targetQty <= 0 then
+        self:rebuildLineItems()
+        return
+    end
+
+    local available = InvoicesConsumablePipeline.getItemsForGroup(groupKey, self.playerFarmId, targetQty)
+    local workTypeName = g_i18n:getText(workTypeTemplate.nameKey or "")
+
+    for _, obj in ipairs(available) do
+        local wt = {}
+        for k, v in pairs(workTypeTemplate) do wt[k] = v end
+        wt.vehicleUniqueId = obj.uniqueId
+        wt.customPrice = obj.unitPrice
+        wt.displayOverride = workTypeName .. " (" .. obj.displayName .. ")"
+        wt.iconFilename = obj.iconFilename
+        wt.consumableXmlFilename = obj.xmlFilename or ""
+        wt.consumableFillTypeIndex = obj.fillTypeIndex or 0
+        wt.consumableFillLevel = obj.fillLevel or 0
+        table.insert(self.selectedWorkItems, wt)
+    end
+
+    self:rebuildLineItems()
+end
+
+function InvoicesMainDashboard:getVehicleStock(configFileName)
+    if g_currentMission == nil or g_currentMission.vehicleSystem == nil then return 0 end
+    local playerFarmId = self.playerFarmId
+    if playerFarmId == nil or playerFarmId < 1 then return 0 end
+
+    local count = 0
+    for _, vehicle in pairs(g_currentMission.vehicleSystem.vehicles) do
+        if vehicle ~= nil and not vehicle.isPallet then
+            local ownerFarmId = vehicle.getOwnerFarmId ~= nil and vehicle:getOwnerFarmId() or vehicle.ownerFarmId
+            local propertyState = vehicle.getPropertyState ~= nil and vehicle:getPropertyState() or vehicle.propertyState
+            if ownerFarmId == playerFarmId and propertyState == VehiclePropertyState.OWNED and vehicle.configFileName == configFileName then
+                count = count + 1
+            end
+        end
+    end
+    return count
+end
+
+function InvoicesMainDashboard:rebuildVehicleSelection(configFileName, targetQty)
+    -- Remove all existing selectedWorkItems for this configFileName (vehicles only)
+    local workTypeTemplate = nil
+    for i = #self.selectedWorkItems, 1, -1 do
+        local item = self.selectedWorkItems[i]
+        if not item.isConsumable and item.configFileName == configFileName and item.vehicleUniqueId ~= nil then
+            if workTypeTemplate == nil then
+                workTypeTemplate = {}
+                for k, v in pairs(item) do workTypeTemplate[k] = v end
+            end
+            table.remove(self.selectedWorkItems, i)
+        end
+    end
+
+    if workTypeTemplate == nil or targetQty <= 0 then
+        self:rebuildLineItems()
+        return
+    end
+
+    -- Scan real objects, sorted by sellPrice ascending
+    local available = {}
+    if g_currentMission ~= nil and g_currentMission.vehicleSystem ~= nil then
+        local playerFarmId = self.playerFarmId
+        for _, vehicle in pairs(g_currentMission.vehicleSystem.vehicles) do
+            if vehicle ~= nil and not vehicle.isPallet and vehicle.configFileName == configFileName then
+                local ownerFarmId = vehicle.getOwnerFarmId ~= nil and vehicle:getOwnerFarmId() or vehicle.ownerFarmId
+                local propertyState = vehicle.getPropertyState ~= nil and vehicle:getPropertyState() or vehicle.propertyState
+                if ownerFarmId == playerFarmId and propertyState == VehiclePropertyState.OWNED then
+                    local uniqueId = vehicle:getUniqueId()
+                    if uniqueId ~= nil then
+                        local storeItem = g_storeManager:getItemByXMLFilename(vehicle.configFileName)
+                        local vehicleName = vehicle.getFullName ~= nil and vehicle:getFullName() or (storeItem and storeItem.name or "?")
+                        local sellPrice = math.floor(vehicle:getSellPrice())
+                        local iconFilename = storeItem and storeItem.imageFilename or ""
+                        table.insert(available, {
+                            uniqueId     = uniqueId,
+                            name         = vehicleName,
+                            sellPrice    = sellPrice,
+                            iconFilename = iconFilename,
+                        })
+                    end
+                end
+            end
+        end
+    end
+
+    table.sort(available, function(a, b) return a.sellPrice < b.sellPrice end)
+
+    -- Take first N
+    local actualQty = math.min(targetQty, #available)
+    local workTypeName = g_i18n:getText(workTypeTemplate.nameKey or "")
+    for i = 1, actualQty do
+        local obj = available[i]
+        local wt = {}
+        for k, v in pairs(workTypeTemplate) do wt[k] = v end
+        wt.vehicleUniqueId = obj.uniqueId
+        wt.customPrice = obj.sellPrice
+        wt.displayOverride = workTypeName .. " (" .. obj.name .. ")"
+        wt.iconFilename = obj.iconFilename
+        wt.configFileName = configFileName
+        table.insert(self.selectedWorkItems, wt)
+    end
+
+    self:rebuildLineItems()
+end
+
 function InvoicesMainDashboard:onVatRateTextChanged(element, text)
-    if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.lineItems then return end
+    if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.displayItems then return end
 
     local filtered = string.gsub(text or "", "[^0-9.]", "")
     local _, dotCount = string.gsub(filtered, "%.", "")
@@ -852,7 +1109,8 @@ function InvoicesMainDashboard:onVatRateTextChanged(element, text)
     if value < 0 then value = 0 end
     if value > 100 then value = 100 end
 
-    local item = self.lineItems[self.selectedItemIndex]
+    local item = self.displayItems[self.selectedItemIndex]
+    if item == nil then return end
     item.vatRate = value / 100
 
     self:updateSelectedCellValues()
@@ -881,7 +1139,7 @@ function InvoicesMainDashboard:getNumberOfItemsInSection(list, section)
         end
         return 0
     elseif list == self.listItems then
-        return #self.lineItems
+        return #self.displayItems
     end
     return 0
 end
@@ -985,9 +1243,25 @@ function InvoicesMainDashboard:populateWorkTypeCell(index, cell)
                 end
             end
             priceStr = count > 0 and string.format("× %d", count) or "—"
+        elseif workType.vehicleDialog then
+            local count = 0
+            for _, item in ipairs(self.selectedWorkItems) do
+                if item.nameKey == workType.nameKey then
+                    count = count + 1
+                end
+            end
+            priceStr = count > 0 and string.format("× %d", count) or "—"
+        elseif workType.consumableDialog then
+            local count = 0
+            for _, item in ipairs(self.selectedWorkItems) do
+                if item.nameKey == workType.nameKey then
+                    count = count + 1
+                end
+            end
+            priceStr = count > 0 and string.format("× %d", count) or "—"
         else
             local manager = g_currentMission.invoicesManager
-            local unitKey = manager and manager:getUnitKey(workType.unit) or "invoices_unit_piece"
+            local unitKey = manager and manager:getUnitKey(workType.unit) or "invoice_invoices_unit_piece"
             local unitStr = g_i18n:getText(unitKey)
 
             local selectedEntry = self:getSelectedWorkTypeEntry(workType)
@@ -1039,12 +1313,12 @@ function InvoicesMainDashboard:populateFieldCell(section, index, cell)
 
     local cellArea = cell:getDescendantByName("cellArea")
     if cellArea ~= nil then
-        cellArea:setText(string.format("%.2f ha", fieldData.area))
+        cellArea:setText(string.format("%.2f %s", fieldData.area, g_i18n:getText("invoice_invoices_unit_hectare")))
     end
 end
 
 function InvoicesMainDashboard:populateLineItemCell(index, cell)
-    local item = self.lineItems[index]
+    local item = self.displayItems[index]
     if item == nil then return end
 
     if index == self.selectedItemIndex then
@@ -1066,24 +1340,41 @@ function InvoicesMainDashboard:populateLineItemCell(index, cell)
             local workType = manager and manager:getWorkTypeById(item.workTypeId) or nil
             name = workType and g_i18n:getText(workType.nameKey) or "?"
         end
-        if hasIcon and cellIcon ~= nil then
-            local parenPos = string.find(name, "%(")
-            if parenPos ~= nil then
-                local prefix = string.sub(name, 1, parenPos)
-                local suffix = string.sub(name, parenPos + 1)
-                local textSize = 13 * g_pixelSizeScaledY
-                setTextBold(true)
-                local prefixWidth = getTextWidth(textSize, prefix)
-                local spaceWidth = getTextWidth(textSize, " ")
-                setTextBold(false)
-                local baseX = 10 * g_pixelSizeScaledX
-                local iconPadding = 22 * g_pixelSizeScaledX
-                local numSpaces = math.ceil(iconPadding / spaceWidth)
-                cellIcon:setPosition(baseX + prefixWidth, -6 * g_pixelSizeScaledY)
-                cellIcon:setImageFilename(item.iconFilename)
-                cellIcon:setVisible(true)
-                name = prefix .. string.rep(" ", numSpaces) .. suffix
+        local baseName = name
+        -- Consumable grouped row: strip sub-dialog suffix, show count
+        if item.isConsumable and item.groupKey ~= nil then
+            -- Use base name (without workType prefix from displayOverride)
+            local parenStart = string.find(name, "%(")
+            if parenStart ~= nil then
+                local inner = string.sub(name, parenStart + 1, #name - 1)
+                if inner ~= "" then
+                    baseName = inner
+                end
             end
+            if item.quantity > 1 then
+                name = baseName .. string.format(" (x%d)", item.quantity)
+            else
+                name = baseName
+            end
+        elseif hasIcon and cellIcon ~= nil then
+            local parenStart = string.find(name, "%(")
+            if parenStart ~= nil then
+                local inner = string.sub(name, parenStart + 1, #name - 1)
+                if inner ~= "" then
+                    baseName = inner
+                end
+            end
+        end
+        if hasIcon and cellIcon ~= nil then
+            local textSize = 13 * g_pixelSizeScaledY
+            setTextBold(true)
+            local spaceWidth = getTextWidth(textSize, " ")
+            setTextBold(false)
+            local iconPadding = 22 * g_pixelSizeScaledX
+            local numSpaces = math.ceil(iconPadding / spaceWidth)
+            cellIcon:setImageFilename(item.iconFilename)
+            cellIcon:setVisible(true)
+            name = string.rep(" ", numSpaces) .. baseName
         end
         cellDesignation:setText(name)
     end
@@ -1123,7 +1414,7 @@ function InvoicesMainDashboard:populateLineItemCell(index, cell)
     if cellVat ~= nil then
         local vatEnabled = manager ~= nil and manager.service:isVatEnabled()
         if not vatEnabled then
-            cellVat:setText("N/A")
+            cellVat:setText(g_i18n:getText("invoice_label_na"))
         else
             local vatRate = item.vatRate or 0
             if vatRate > 0 then
@@ -1170,7 +1461,7 @@ function InvoicesMainDashboard:refreshItemListKeepSelection()
     local savedIndex = self.selectedItemIndex
     self.suppressEditFieldUpdate = true
     self.listItems:reloadData()
-    if savedIndex >= 1 and savedIndex <= #self.lineItems then
+    if savedIndex >= 1 and savedIndex <= #self.displayItems then
         self.listItems:setSelectedIndex(savedIndex)
     end
     self.suppressEditFieldUpdate = false
@@ -1235,6 +1526,10 @@ function InvoicesMainDashboard:onWorkTypeListClicked(list, section, index)
     local wt = self.workTypes[index]
     if wt.fillTypeDialog then
         self:openFillTypeDialog(wt)
+    elseif wt.vehicleDialog then
+        self:openVehicleDialog(wt)
+    elseif wt.consumableDialog then
+        self:openConsumableDialog(wt)
     elseif self:isWorkTypeSelected(wt) then
         self:removeWorkType()
     else
@@ -1316,6 +1611,10 @@ function InvoicesMainDashboard:addWorkType()
 
     if workType.fillTypeDialog then
         self:openFillTypeDialog(workType)
+    elseif workType.vehicleDialog then
+        self:openVehicleDialog(workType)
+    elseif workType.consumableDialog then
+        self:openConsumableDialog(workType)
     else
         if self:isWorkTypeSelected(workType) then return end
         local selectedWorkType = {}
@@ -1373,6 +1672,109 @@ function InvoicesMainDashboard:openFillTypeDialog(workType)
                 end
                 wt.displayOverride = g_i18n:getText(workType.nameKey) .. " (" .. fillType.name .. ")"
                 wt.iconFilename = fillType.iconFilename
+                table.insert(dashSelf.selectedWorkItems, wt)
+            end
+
+            dashSelf:updateFieldsPanel()
+            dashSelf:rebuildLineItems()
+            if dashSelf.listWorkTypes ~= nil then
+                dashSelf.listWorkTypes:reloadData()
+                dashSelf.listWorkTypes:setSelectedIndex(savedWorkIndex)
+            end
+        end)
+    else
+        self._pendingSubdialog = false
+    end
+end
+
+function InvoicesMainDashboard:openVehicleDialog(workType)
+    self._pendingSubdialog = true
+    local savedWorkIndex = self.selectedWorkIndex
+
+    local previousIds = {}
+    for _, item in ipairs(self.selectedWorkItems) do
+        if item.nameKey == workType.nameKey and item.vehicleUniqueId ~= nil then
+            previousIds[item.vehicleUniqueId] = true
+        end
+    end
+
+    local dialog = g_gui:showDialog("InvoicesVehicleDialog")
+    if dialog ~= nil and dialog.target ~= nil then
+        dialog.target:setPlayerFarmId(self.playerFarmId)
+        dialog.target:loadVehicles()
+        dialog.target:setInitialSelection(previousIds)
+        dialog.target:setCallback(self, function(dashSelf, selectedItems)
+            dashSelf._pendingSubdialog = false
+            if selectedItems == nil then return end
+
+            for i = #dashSelf.selectedWorkItems, 1, -1 do
+                if dashSelf.selectedWorkItems[i].nameKey == workType.nameKey and dashSelf.selectedWorkItems[i].vehicleUniqueId ~= nil then
+                    table.remove(dashSelf.selectedWorkItems, i)
+                end
+            end
+
+            local workTypeName = g_i18n:getText(workType.nameKey)
+            for _, vehicle in ipairs(selectedItems) do
+                local wt = {}
+                for k, v in pairs(workType) do wt[k] = v end
+                wt.vehicleUniqueId = vehicle.uniqueId
+                wt.customPrice = vehicle.sellPrice
+                wt.unit = Invoice.UNIT_PIECE
+                wt.displayOverride = workTypeName .. " (" .. vehicle.name .. ")"
+                wt.iconFilename = vehicle.iconFilename
+                wt.configFileName = vehicle.configFileName
+                table.insert(dashSelf.selectedWorkItems, wt)
+            end
+
+            dashSelf:updateFieldsPanel()
+            dashSelf:rebuildLineItems()
+            if dashSelf.listWorkTypes ~= nil then
+                dashSelf.listWorkTypes:reloadData()
+                dashSelf.listWorkTypes:setSelectedIndex(savedWorkIndex)
+            end
+        end)
+    else
+        self._pendingSubdialog = false
+    end
+end
+
+function InvoicesMainDashboard:openConsumableDialog(workType)
+    self._pendingSubdialog = true
+    local savedWorkIndex = self.selectedWorkIndex
+
+    local previousIds = {}
+    for _, item in ipairs(self.selectedWorkItems) do
+        if item.nameKey == workType.nameKey and item.vehicleUniqueId ~= nil then
+            previousIds[item.vehicleUniqueId] = true
+        end
+    end
+
+    local dialog = g_gui:showDialog("InvoicesConsumableDialog")
+    if dialog ~= nil and dialog.target ~= nil then
+        dialog.target:setPlayerFarmId(self.playerFarmId)
+        dialog.target:loadConsumables()
+        dialog.target:setInitialSelection(previousIds)
+        dialog.target:setCallback(self, function(dashSelf, selectedItems)
+            dashSelf._pendingSubdialog = false
+            if selectedItems == nil then return end
+
+            for i = #dashSelf.selectedWorkItems, 1, -1 do
+                if dashSelf.selectedWorkItems[i].nameKey == workType.nameKey and dashSelf.selectedWorkItems[i].vehicleUniqueId ~= nil then
+                    table.remove(dashSelf.selectedWorkItems, i)
+                end
+            end
+
+            local workTypeName = g_i18n:getText(workType.nameKey)
+            for _, consumable in ipairs(selectedItems) do
+                local wt = {}
+                for k, v in pairs(workType) do wt[k] = v end
+                wt.vehicleUniqueId = consumable.uniqueId
+                wt.customPrice = consumable.sellPrice
+                wt.unit = Invoice.UNIT_PIECE
+                wt.displayOverride = workTypeName .. " (" .. consumable.name .. ")"
+                wt.iconFilename = consumable.iconFilename
+                wt.groupKey = consumable.groupKey
+                wt.isConsumable = true
                 table.insert(dashSelf.selectedWorkItems, wt)
             end
 

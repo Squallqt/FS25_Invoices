@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="Farma" />
         <e k="invoice_col_amount" v="Částka" />
         <e k="invoice_col_field" v="Pole" />
-        <e k="invoice_col_area" v="Plocha" />
+        <e k="invoice_col_stock" v="Sklad" />
         <e k="invoice_btn_newInvoice" v="Nová faktura" />
         <e k="invoice_btn_payInvoice" v="Zaplatit" />
         <e k="invoice_btn_deleteInvoice" v="Smazat" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="Zrušit" />
         <e k="invoice_btn_close" v="Zavřít" />
         <e k="invoice_btn_select" v="Vybrat" />
-        <e k="invoice_btn_selectFarm" v="Vybrat klienta" />
         <e k="invoice_label_from" v="Od:" />
         <e k="invoice_label_to" v="Pro:" />
         <e k="invoice_label_note" v="Poznámky:" />
         <e k="invoice_placeholder_note" v="Přidat poznámku nebo odkaz" />
         <e k="invoice_dialog_details" v="Detaily faktury" />
-        <e k="invoice_dialog_selectField" v="Výběr pole" />
         <e k="invoice_wizard_mainTitle" v="NOVÁ FAKTURA" />
         <e k="invoice_wizard_step1_label" v="Vyberte farmu klienta:" />
         <e k="invoice_wizard_step2_label" v="Vyberte typ práce:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Částka" />
         <e k="invoice_step4_from" v="Vystavil: %s" />
         <e k="invoice_step4_to" v="Klient: %s" />
-        <e k="invoice_step4_total" v="K ÚHRADĚ" />
         <e k="invoice_detail_col_service" v="Popis" />
         <e k="invoice_detail_col_qty" v="Množ." />
         <e k="invoice_detail_col_unit" v="Jedn." />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="Lisování" />
         <e k="invoice_work_wrapping" v="Balení" />
         <e k="invoice_work_buyBales" v="Nákup (Surovina)" />
-        <e k="invoice_work_sellBales" v="Prodej (Krmivo / Sláma)" />
+        <e k="invoice_work_consumableSale" v="Prodej (Krmivo / Sláma)" />
         <e k="invoice_work_animalFeeding" v="Krmení" />
         <e k="invoice_work_barnCleaning" v="Čištění stájí" />
         <e k="invoice_work_animalTransport" v="Přeprava dobytka" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="DPH %" />
         <e k="invoice_label_subtotal_ht" v="Mezisoučet bez DPH" />
         <e k="invoice_label_vat" v="DPH" />
+        <e k="invoice_label_na" v="N/A" />
         <e k="finance_invoiceIncome" v="Příjem z faktur" />
         <e k="finance_invoiceExpense" v="Výdaj z faktur" />
         <e k="invoice_label_invoice" v="Faktura" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="Žádná parcela není vyžadována" />
         <e k="invoice_dialog_selectFillType" v="Vybrat produkt" />
         <e k="invoice_col_filltype_name" v="Produkt" />
+        <e k="invoice_dialog_selectConsumable" v="Výběr spotřebního materiálu" />
+        <e k="invoice_col_consumable_name" v="Položka" />
+        <e k="invoice_work_vehicleSale" v="Prodej vozidla" />
+        <e k="invoice_dialog_selectVehicle" v="Výběr vozidla" />
+        <e k="invoice_col_vehicle_name" v="Vozidlo" />
+        <e k="invoice_error_single_farm" v="K vytváření faktur jsou potřeba alespoň dvě hospodářství." />
     </elements>
 </l10n>

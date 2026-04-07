@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="農場" />
         <e k="invoice_col_amount" v="金額" />
         <e k="invoice_col_field" v="畑" />
-        <e k="invoice_col_area" v="面積" />
+        <e k="invoice_col_stock" v="在庫" />
         <e k="invoice_btn_newInvoice" v="新規請求書" />
         <e k="invoice_btn_payInvoice" v="支払う" />
         <e k="invoice_btn_deleteInvoice" v="削除" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="キャンセル" />
         <e k="invoice_btn_close" v="閉じる" />
         <e k="invoice_btn_select" v="選択" />
-        <e k="invoice_btn_selectFarm" v="顧客を選択" />
         <e k="invoice_label_from" v="請求元:" />
         <e k="invoice_label_to" v="請求先:" />
         <e k="invoice_label_note" v="備考:" />
         <e k="invoice_placeholder_note" v="備考または参照を追加" />
         <e k="invoice_dialog_details" v="請求書詳細" />
-        <e k="invoice_dialog_selectField" v="畑の選択" />
         <e k="invoice_wizard_mainTitle" v="新しい請求書" />
         <e k="invoice_wizard_step1_label" v="顧客の農場を選択:" />
         <e k="invoice_wizard_step2_label" v="作業の種類を選択:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="金額" />
         <e k="invoice_step4_from" v="請求元: %s" />
         <e k="invoice_step4_to" v="顧客: %s" />
-        <e k="invoice_step4_total" v="請求額" />
         <e k="invoice_detail_col_service" v="説明" />
         <e k="invoice_detail_col_qty" v="数量" />
         <e k="invoice_detail_col_unit" v="単位" />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="梱包 (ベール)" />
         <e k="invoice_work_wrapping" v="ラッピング" />
         <e k="invoice_work_buyBales" v="購入 (原材料)" />
-        <e k="invoice_work_sellBales" v="販売 (飼料 / わら)" />
+        <e k="invoice_work_consumableSale" v="販売 (飼料 / わら)" />
         <e k="invoice_work_animalFeeding" v="給餌" />
         <e k="invoice_work_barnCleaning" v="畜舎清掃" />
         <e k="invoice_work_animalTransport" v="家畜輸送" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="消費税 %" />
         <e k="invoice_label_subtotal_ht" v="税抜小計" />
         <e k="invoice_label_vat" v="消費税" />
+        <e k="invoice_label_na" v="該当なし" />
         <e k="finance_invoiceIncome" v="請求書収入" />
         <e k="finance_invoiceExpense" v="請求書支出" />
         <e k="invoice_label_invoice" v="請求書" />
@@ -146,5 +144,9 @@
         <e k="invoice_dash_no_fields" v="圃場不要" />
         <e k="invoice_dialog_selectFillType" v="製品を選択" />
         <e k="invoice_col_filltype_name" v="製品" />
-    </elements>
+        <e k="invoice_dialog_selectConsumable" v="消耗品を選択" />
+        <e k="invoice_col_consumable_name" v="品目" />
+        <e k="invoice_work_vehicleSale" v="车両の売却" />
+        <e k="invoice_dialog_selectVehicle" v="车両を選択" />
+        <e k="invoice_col_vehicle_name" v="车両" />        <e k="invoice_error_single_farm" v="請求書を作成するには、少なくとも2つの農場が必要です。" />    </elements>
 </l10n>

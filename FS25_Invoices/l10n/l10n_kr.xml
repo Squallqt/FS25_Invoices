@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="농장" />
         <e k="invoice_col_amount" v="금액" />
         <e k="invoice_col_field" v="밭" />
-        <e k="invoice_col_area" v="면적" />
+        <e k="invoice_col_stock" v="재고" />
         <e k="invoice_btn_newInvoice" v="새 청구서" />
         <e k="invoice_btn_payInvoice" v="지불" />
         <e k="invoice_btn_deleteInvoice" v="삭제" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="취소" />
         <e k="invoice_btn_close" v="닫기" />
         <e k="invoice_btn_select" v="선택" />
-        <e k="invoice_btn_selectFarm" v="고객 선택" />
         <e k="invoice_label_from" v="보내는 사람:" />
         <e k="invoice_label_to" v="받는 사람:" />
         <e k="invoice_label_note" v="비고:" />
         <e k="invoice_placeholder_note" v="메모 또는 참조 추가" />
         <e k="invoice_dialog_details" v="청구서 상세" />
-        <e k="invoice_dialog_selectField" v="밭 선택" />
         <e k="invoice_wizard_mainTitle" v="새 청구서" />
         <e k="invoice_wizard_step1_label" v="고객 농장을 선택하세요:" />
         <e k="invoice_wizard_step2_label" v="작업 유형을 선택하세요:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="금액" />
         <e k="invoice_step4_from" v="발신: %s" />
         <e k="invoice_step4_to" v="수신: %s" />
-        <e k="invoice_step4_total" v="청구액" />
         <e k="invoice_detail_col_service" v="설명" />
         <e k="invoice_detail_col_qty" v="수량" />
         <e k="invoice_detail_col_unit" v="단위" />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="베일링" />
         <e k="invoice_work_wrapping" v="랩핑" />
         <e k="invoice_work_buyBales" v="구매 (원자재)" />
-        <e k="invoice_work_sellBales" v="판매 (사료 / 짚)" />
+        <e k="invoice_work_consumableSale" v="판매 (사료 / 짚)" />
         <e k="invoice_work_animalFeeding" v="먹이 주기" />
         <e k="invoice_work_barnCleaning" v="축사 청소" />
         <e k="invoice_work_animalTransport" v="가축 운송" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="부가세 %" />
         <e k="invoice_label_subtotal_ht" v="세금 제외 소계" />
         <e k="invoice_label_vat" v="부가세" />
+        <e k="invoice_label_na" v="해당 없음" />
         <e k="finance_invoiceIncome" v="청구서 수입" />
         <e k="finance_invoiceExpense" v="청구서 지출" />
         <e k="invoice_label_invoice" v="청구서" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="필드 불필요" />
         <e k="invoice_dialog_selectFillType" v="제품 선택" />
         <e k="invoice_col_filltype_name" v="제품" />
+        <e k="invoice_dialog_selectConsumable" v="소모품 선택" />
+        <e k="invoice_col_consumable_name" v="품목" />
+        <e k="invoice_work_vehicleSale" v="요새 판매" />
+        <e k="invoice_dialog_selectVehicle" v="요새 선택" />
+        <e k="invoice_col_vehicle_name" v="요새" />
+        <e k="invoice_error_single_farm" v="청구서를 작성하려면 최소 2개의 농장이 필요합니다." />
     </elements>
 </l10n>

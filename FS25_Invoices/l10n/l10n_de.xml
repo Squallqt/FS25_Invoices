@@ -10,7 +10,7 @@
         <e k="invoice_col_farm" v="Hof" />
         <e k="invoice_col_amount" v="Betrag" />
         <e k="invoice_col_field" v="Feld" />
-        <e k="invoice_col_area" v="Fläche" />
+        <e k="invoice_col_stock" v="Bestand" />
         <e k="invoice_btn_newInvoice" v="Neue Rechnung" />
         <e k="invoice_btn_payInvoice" v="Bezahlen" />
         <e k="invoice_btn_deleteInvoice" v="Löschen" />
@@ -18,13 +18,11 @@
         <e k="invoice_btn_cancel" v="Abbrechen" />
         <e k="invoice_btn_close" v="Schließen" />
         <e k="invoice_btn_select" v="Auswählen" />
-        <e k="invoice_btn_selectFarm" v="Kunde wählen" />
         <e k="invoice_label_from" v="Von:" />
         <e k="invoice_label_to" v="An:" />
         <e k="invoice_label_note" v="Anmerkungen:" />
         <e k="invoice_placeholder_note" v="Bemerkung oder Referenz hinzufügen" />
         <e k="invoice_dialog_details" v="Rechnungsdetails" />
-        <e k="invoice_dialog_selectField" v="Feldwahl" />
         <e k="invoice_wizard_mainTitle" v="NEUE RECHNUNG" />
         <e k="invoice_wizard_step1_label" v="Wählen Sie den Kundenhof:" />
         <e k="invoice_wizard_step2_label" v="Wählen Sie die Art der Arbeit:" />
@@ -41,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Betrag" />
         <e k="invoice_step4_from" v="Absender: %s" />
         <e k="invoice_step4_to" v="Empfänger: %s" />
-        <e k="invoice_step4_total" v="ZU ZAHLEN" />
         <e k="invoice_detail_col_service" v="Beschreibung" />
         <e k="invoice_detail_col_qty" v="Menge" />
         <e k="invoice_detail_col_unit" v="Einh." />
@@ -101,7 +98,7 @@
         <e k="invoice_work_baling" v="Pressen" />
         <e k="invoice_work_wrapping" v="Wickeln" />
         <e k="invoice_work_buyBales" v="Kauf (Rohstoff)" />
-        <e k="invoice_work_sellBales" v="Verkauf (Futter / Stroh)" />
+        <e k="invoice_work_consumableSale" v="Verkauf (Futter / Stroh)" />
         <e k="invoice_work_animalFeeding" v="Füttern" />
         <e k="invoice_work_barnCleaning" v="Stallreinigung" />
         <e k="invoice_work_animalTransport" v="Tiertransport" />
@@ -123,6 +120,7 @@
         <e k="invoice_step4_col_vat" v="MwSt %" />
         <e k="invoice_label_subtotal_ht" v="Zwischensumme netto" />
         <e k="invoice_label_vat" v="MwSt" />
+        <e k="invoice_label_na" v="k. A." />
         <e k="finance_invoiceIncome" v="Rechnungseinnahmen" />
         <e k="finance_invoiceExpense" v="Rechnungsausgaben" />
         <e k="invoice_label_invoice" v="Rechnung" />
@@ -146,5 +144,11 @@
         <e k="invoice_dash_no_fields" v="Keine Parzelle erforderlich" />
         <e k="invoice_dialog_selectFillType" v="Produkt auswählen" />
         <e k="invoice_col_filltype_name" v="Produkt" />
+        <e k="invoice_dialog_selectConsumable" v="Verbrauchsmaterial auswählen" />
+        <e k="invoice_col_consumable_name" v="Artikel" />
+        <e k="invoice_work_vehicleSale" v="Fahrzeugverkauf" />
+        <e k="invoice_dialog_selectVehicle" v="Fahrzeug auswählen" />
+        <e k="invoice_col_vehicle_name" v="Fahrzeug" />
+        <e k="invoice_error_single_farm" v="Zum Erstellen von Rechnungen werden mindestens zwei Betriebe benötigt." />
     </elements>
 </l10n>

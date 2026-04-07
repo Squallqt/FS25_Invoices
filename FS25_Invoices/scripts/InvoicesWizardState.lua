@@ -29,14 +29,11 @@ function InvoicesWizardState:reset()
     self.selectedWorkTypes = {}
     self.selectedFields = {}
     self.lineItems = {}
-    
-    Logging.devInfo("[InvoicesWizardState] State reset")
 end
 
 function InvoicesWizardState:setRecipient(farmId, farmName)
     self.recipientFarmId = farmId
     self.recipientFarmName = farmName
-    Logging.devInfo("[InvoicesWizardState] Recipient set: %s (id=%d)", farmName, farmId)
 end
 
 function InvoicesWizardState:buildAllLineItems()
@@ -104,12 +101,16 @@ function InvoicesWizardState:buildAllLineItems()
                 amount = amount,
                 note = "",
                 vatRate = vatRate,
-                iconFilename = workType.iconFilename
+                iconFilename = workType.iconFilename,
+                vehicleUniqueId = workType.vehicleUniqueId,
+                isConsumable = workType.isConsumable,
+                groupKey = workType.groupKey,
+                consumableXmlFilename = workType.consumableXmlFilename,
+                consumableFillTypeIndex = workType.consumableFillTypeIndex,
+                consumableFillLevel = workType.consumableFillLevel
             })
         end
     end
-
-    Logging.devInfo("[InvoicesWizardState] Built %d line items, total: %.2f", #self.lineItems, self:getTotal())
 end
 
 function InvoicesWizardState:getTotal()
@@ -157,7 +158,11 @@ function InvoicesWizardState:createInvoice()
             vatRate = item.vatRate or 0,
             name = item.name or "",
             iconFilename = item.iconFilename or "",
-            price = item.price or 0
+            price = item.price or 0,
+            vehicleUniqueId = item.vehicleUniqueId or "",
+            consumableXmlFilename = item.consumableXmlFilename or "",
+            consumableFillTypeIndex = item.consumableFillTypeIndex or 0,
+            consumableFillLevel = item.consumableFillLevel or 0
         })
     end
 
@@ -165,8 +170,6 @@ function InvoicesWizardState:createInvoice()
     invoice:populateFromData(0, items, self.recipientFarmId, senderFarmId)
 
     manager:createAndSendInvoice(invoice)
-
-    Logging.devInfo("[InvoicesWizardState] Invoice created and sent to farm %d", self.recipientFarmId)
 
     self:reset()
 

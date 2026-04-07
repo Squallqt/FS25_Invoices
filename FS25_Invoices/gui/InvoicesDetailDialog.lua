@@ -46,7 +46,6 @@ end
 function InvoicesDetailDialog:onLoad()
     InvoicesDetailDialog:superClass().onLoad(self)
     self:registerControls(InvoicesDetailDialog.CONTROLS)
-    Logging.devInfo("[InvoicesDetailDialog] onLoad() - Controls registered")
 end
 
 function InvoicesDetailDialog:onGuiSetupFinished()
@@ -55,42 +54,6 @@ function InvoicesDetailDialog:onGuiSetupFinished()
     if self.listItems ~= nil then
         self.listItems:setDataSource(self)
         self.listItems:setDelegate(self)
-    end
-end
-
-function InvoicesDetailDialog:resizeTotalSep(htText, tvaText, totalText)
-    if self.totalSep == nil or self.textVatHt == nil then return end
-
-    local textSize = self.textVatHt.textSize
-    local htWidth = getTextWidth(textSize, htText)
-    local tvaWidth = self.textVatTva ~= nil and getTextWidth(self.textVatTva.textSize, tvaText) or 0
-    local totalWidth = self.textTotal ~= nil and getTextWidth(self.textTotal.textSize, totalText or self.textTotal.text or "") or 0
-    totalWidth = totalWidth + (20 * g_pixelSizeScaledX)
-    local maxTextWidth = math.max(htWidth, tvaWidth, totalWidth)
-
-    self.totalSep:setSize(maxTextWidth, self.totalSep.absSize[2])
-
-    if self.totalValueAnchor ~= nil then
-        self.totalValueAnchor:setSize(maxTextWidth, self.totalValueAnchor.absSize[2])
-        if self.totalValueAnchor.invalidateLayout ~= nil then
-            self.totalValueAnchor:invalidateLayout()
-        end
-    end
-
-    if self.totalValueRow ~= nil and self.totalValueRow.invalidateLayout ~= nil then
-        self.totalValueRow:invalidateLayout()
-    end
-
-    if self.textTotal ~= nil then
-        self.textTotal:setSize(maxTextWidth, self.textTotal.absSize[2])
-    end
-
-    if self.totalSep.parent ~= nil and self.totalSep.parent.invalidateLayout ~= nil then
-        self.totalSep.parent:invalidateLayout()
-    end
-
-    if self.totalRightColumn ~= nil and self.totalRightColumn.invalidateLayout ~= nil then
-        self.totalRightColumn:invalidateLayout()
     end
 end
 
@@ -139,10 +102,47 @@ function InvoicesDetailDialog:resizePenaltyBar(penaltyText)
     end
 end
 
+function InvoicesDetailDialog:resizeTotalSep(htText, tvaText, totalText)
+    if self.totalSep == nil or self.textVatHt == nil then return end
+
+    local textSize = self.textVatHt.textSize
+    local htWidth = getTextWidth(textSize, htText)
+    local tvaWidth = self.textVatTva ~= nil and getTextWidth(self.textVatTva.textSize, tvaText) or 0
+    local totalWidth = self.textTotal ~= nil and getTextWidth(self.textTotal.textSize, totalText or self.textTotal.text or "") or 0
+    totalWidth = totalWidth + (20 * g_pixelSizeScaledX)
+    local maxTextWidth = math.max(htWidth, tvaWidth, totalWidth)
+
+    self.totalSep:setSize(maxTextWidth, self.totalSep.absSize[2])
+
+    if self.totalValueAnchor ~= nil then
+        self.totalValueAnchor:setSize(maxTextWidth, self.totalValueAnchor.absSize[2])
+        if self.totalValueAnchor.invalidateLayout ~= nil then
+            self.totalValueAnchor:invalidateLayout()
+        end
+    end
+
+    if self.totalValueRow ~= nil and self.totalValueRow.invalidateLayout ~= nil then
+        self.totalValueRow:invalidateLayout()
+    end
+
+    if self.textTotal ~= nil then
+        self.textTotal:setSize(maxTextWidth, self.textTotal.absSize[2])
+    end
+
+    if self.totalSep.parent ~= nil and self.totalSep.parent.invalidateLayout ~= nil then
+        self.totalSep.parent:invalidateLayout()
+    end
+
+    if self.totalRightColumn ~= nil and self.totalRightColumn.invalidateLayout ~= nil then
+        self.totalRightColumn:invalidateLayout()
+    end
+end
+
 function InvoicesDetailDialog:onOpen()
     InvoicesDetailDialog:superClass().onOpen(self)
     self.invoice = nil
     self.items = {}
+    self.displayItems = {}
     self:resizeTitleSep()
 end
 
@@ -150,6 +150,7 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
     self.invoice = invoice
     self.isIncoming = isIncoming or false
     self.items = invoice and invoice.lineItems or {}
+    self:buildDisplayItems()
 
     if invoice then
         local invNumber = string.format(g_i18n:getText("invoice_format_inv_number"), invoice.id)
@@ -234,8 +235,8 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
                     self:resizeTotalSep(htText, tvaText, totalText)
                 end
             else
-                local htText = string.format("%s :  N/A", g_i18n:getText("invoice_label_subtotal_ht"))
-                local tvaText = string.format("%s :  N/A", g_i18n:getText("invoice_label_vat"))
+                local htText = string.format("%s :  %s", g_i18n:getText("invoice_label_subtotal_ht"), g_i18n:getText("invoice_label_na"))
+                local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_label_vat"), g_i18n:getText("invoice_label_na"))
                 self.textVatHt:setText(htText)
                 self.textVatTva:setText(tvaText)
                 self.textVatTva:setTextColor(0.5, 0.5, 0.5, 1)
@@ -292,9 +293,52 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
     self:updateSliderVisibility()
 end
 
+function InvoicesDetailDialog:buildDisplayItems()
+    self.displayItems = {}
+    local consumableGroups = {}
+    local consumableOrder = {}
+
+    for _, item in ipairs(self.items) do
+        local xmlFn = item.consumableXmlFilename
+        if xmlFn ~= nil and xmlFn ~= "" then
+            local gk = xmlFn .. "|" .. tostring(item.consumableFillTypeIndex or 0) .. "|" .. tostring(item.consumableFillLevel or 0)
+            if consumableGroups[gk] == nil then
+                consumableGroups[gk] = {
+                    workTypeId   = item.workTypeId,
+                    name         = item.name,
+                    iconFilename = item.iconFilename,
+                    unitType     = item.unitType,
+                    vatRate      = item.vatRate,
+                    fieldId      = 0,
+                    fieldArea    = 0,
+                    quantity     = 0,
+                    price        = item.price or 0,
+                    amount       = 0,
+                    note         = item.note or "",
+                    consumableXmlFilename   = item.consumableXmlFilename,
+                    consumableFillTypeIndex = item.consumableFillTypeIndex,
+                    consumableFillLevel     = item.consumableFillLevel,
+                }
+                table.insert(consumableOrder, gk)
+            end
+            local group = consumableGroups[gk]
+            group.quantity = group.quantity + 1
+            group.amount   = group.amount + (item.amount or 0)
+        else
+            table.insert(self.displayItems, item)
+        end
+    end
+
+    for _, gk in ipairs(consumableOrder) do
+        local group = consumableGroups[gk]
+        group.price = group.quantity > 0 and math.floor(group.amount / group.quantity) or 0
+        table.insert(self.displayItems, group)
+    end
+end
+
 function InvoicesDetailDialog:updateSliderVisibility()
     if self.sliderBox and self.listItems then
-        local itemCount = #self.items
+        local itemCount = #self.displayItems
         local maxVisibleItems = math.floor(284 / 32)
         local needsScroll = itemCount > maxVisibleItems
         self.sliderBox:setVisible(needsScroll)
@@ -306,7 +350,7 @@ function InvoicesDetailDialog:getNumberOfSections()
 end
 
 function InvoicesDetailDialog:getNumberOfItemsInSection(list, section)
-    return #self.items
+    return #self.displayItems
 end
 
 function InvoicesDetailDialog:getTitleForSectionHeader(list, section)
@@ -318,7 +362,7 @@ function InvoicesDetailDialog:getSectionHeaderHeight(list, section)
 end
 
 function InvoicesDetailDialog:populateCellForItemInSection(list, section, index, cell)
-    local item = self.items[index]
+    local item = self.displayItems[index]
     if not item then return end
 
     local manager = g_currentMission.invoicesManager
@@ -392,7 +436,7 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
     local amountStr = g_i18n:formatMoney(amount)
 
     local vatRate = item.vatRate or 0
-    local vatStr = "N/A"
+    local vatStr = g_i18n:getText("invoice_label_na")
     if vatRate > 0 then
         vatStr = string.format("%.1f%%", vatRate * 100)
     end
@@ -400,22 +444,22 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
     local cellDesignation = cell:getDescendantByName("cellDesignation")
     if cellDesignation ~= nil then
         if hasIcon and cellIcon ~= nil then
-            local parenPos = string.find(designation, "%(")
-            if parenPos ~= nil then
-                local prefix = string.sub(designation, 1, parenPos)
-                local suffix = string.sub(designation, parenPos + 1)
-                local textSize = 14 * g_pixelSizeScaledY
-                setTextBold(false)
-                local prefixWidth = getTextWidth(textSize, prefix)
-                local spaceWidth = getTextWidth(textSize, " ")
-                local baseX = 11 * g_pixelSizeScaledX
-                local iconPadding = 22 * g_pixelSizeScaledX
-                local numSpaces = math.ceil(iconPadding / spaceWidth)
-                cellIcon:setPosition(baseX + prefixWidth, -6 * g_pixelSizeScaledY)
-                cellIcon:setImageFilename(item.iconFilename)
-                cellIcon:setVisible(true)
-                designation = prefix .. string.rep(" ", numSpaces) .. suffix
+            local baseName = designation
+            local parenStart = string.find(designation, "%(")
+            if parenStart ~= nil then
+                local inner = string.sub(designation, parenStart + 1, #designation - 1)
+                if inner ~= "" then
+                    baseName = inner
+                end
             end
+            local textSize = 14 * g_pixelSizeScaledY
+            setTextBold(false)
+            local spaceWidth = getTextWidth(textSize, " ")
+            local iconPadding = 22 * g_pixelSizeScaledX
+            local numSpaces = math.ceil(iconPadding / spaceWidth)
+            cellIcon:setImageFilename(item.iconFilename)
+            cellIcon:setVisible(true)
+            designation = string.rep(" ", numSpaces) .. baseName
         end
         cellDesignation:setText(designation)
     end
