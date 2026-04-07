@@ -51,7 +51,7 @@
         <e k="invoice_format_services_count" v="%d 行" />
         <e k="invoice_confirm_pay" v="确认支付给 '%s'？" />
         <e k="invoice_confirm_delete" v="永久删除？" />
-        <e k="invoice_confirm_send" v="Odeslat fakturu ve výši %s na %s?" />
+        <e k="invoice_confirm_send" v="发送 %s 的发票给 %s？" />
         <e k="invoice_notification_new" v="收到来自 %s 的发票: %s" />
         <e k="invoice_reminder_single" v="未付款发票: %s" />
         <e k="invoice_reminder_multiple" v="%d 张未付款发票，总计 %s" />
@@ -136,12 +136,13 @@
         <e k="invoice_notification_penalty_incl" v="含 %s 罚款" />
         <e k="invoice_status_overdue" v="逾期" />
         <e k="invoice_label_total_due" v="应付总额：" />
+        <e k="invoice_label_total_paid" v="已付总额：" />
         <e k="invoice_label_penalty" v="逾期罚款" />
-        <e k="invoice_setting_invoicePenalties" v="Penále za prodlení" />
-        <e k="invoice_toolTip_invoicePenalties" v="Aktivuje penále za pozdní úhradu nezaplacených faktur. Po 1 měsíci po splatnosti je automaticky účtována pevná sazba 5% měsíčně. Maximálně 25% z celkové částky." />
-        <e k="invoice_notification_overdue" v="Faktura %s je po splatnosti: %s" />
-        <e k="invoice_notification_overdue_warning" v="Budou účtovány penále za prodlení." />
-        <e k="invoice_dash_no_fields" v="Žádná parcela není vyžadována" />
+        <e k="invoice_setting_invoicePenalties" v="逾期罚款" />
+        <e k="invoice_toolTip_invoicePenalties" v="启用对未付发票的逾期罚款。逾期1个月后，每月自动收取5%的固定费率。上限为总金额的25%。" />
+        <e k="invoice_notification_overdue" v="发票 %s 已逾期：%s" />
+        <e k="invoice_notification_overdue_warning" v="将收取逾期罚款。" />
+        <e k="invoice_dash_no_fields" v="无需选择田地" />
         <e k="invoice_dialog_selectFillType" v="选择产品" />
         <e k="invoice_col_filltype_name" v="产品" />
         <e k="invoice_dialog_selectConsumable" v="选择消耗品" />

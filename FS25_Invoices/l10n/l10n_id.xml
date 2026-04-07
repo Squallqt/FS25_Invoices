@@ -136,6 +136,7 @@
         <e k="invoice_notification_penalty_incl" v="termasuk %s denda" />
         <e k="invoice_status_overdue" v="Terlambat" />
         <e k="invoice_label_total_due" v="Total tagihan:" />
+        <e k="invoice_label_total_paid" v="Total dibayar:" />
         <e k="invoice_label_penalty" v="Denda keterlambatan" />
         <e k="invoice_setting_invoicePenalties" v="Denda keterlambatan" />
         <e k="invoice_toolTip_invoicePenalties" v="Mengaktifkan denda keterlambatan pada faktur yang belum dibayar. Setelah 1 bulan lewat jatuh tempo, tarif tetap 5% per bulan diterapkan secara otomatis. Dibatasi hingga 25% dari jumlah total." />

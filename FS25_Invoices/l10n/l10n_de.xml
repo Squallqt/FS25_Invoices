@@ -136,6 +136,7 @@
         <e k="invoice_notification_penalty_incl" v="inkl. %s Verzugsgebühr" />
         <e k="invoice_status_overdue" v="Überfällig" />
         <e k="invoice_label_total_due" v="Fälliger Betrag:" />
+        <e k="invoice_label_total_paid" v="Bezahlter Betrag:" />
         <e k="invoice_label_penalty" v="Verzugsgebühr" />
         <e k="invoice_setting_invoicePenalties" v="Verzugszinsen" />
         <e k="invoice_toolTip_invoicePenalties" v="Aktiviert Verzugszinsen auf unbezahlte Rechnungen. Nach 1 Monat Überfälligkeit wird ein fester Satz von 5% pro Monat automatisch berechnet. Begrenzt auf 25% des Gesamtbetrags." />

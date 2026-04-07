@@ -136,6 +136,7 @@
         <e k="invoice_notification_penalty_incl" v="%s ceza dahil" />
         <e k="invoice_status_overdue" v="Gecikmiş" />
         <e k="invoice_label_total_due" v="Ödenecek toplam:" />
+        <e k="invoice_label_total_paid" v="Ödenen toplam:" />
         <e k="invoice_label_penalty" v="Gecikme cezası" />
         <e k="invoice_setting_invoicePenalties" v="Gecikme cezası" />
         <e k="invoice_toolTip_invoicePenalties" v="Ödenmemiş faturalara gecikme cezası uygular. 1 aylık gecikmenin ardından, aylık %5 sabit oran otomatik olarak uygulanır. Toplam tutarın %25'i ile sınırlıdır." />

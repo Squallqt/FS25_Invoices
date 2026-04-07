@@ -136,6 +136,7 @@
         <e k="invoice_notification_penalty_incl" v="incl. %s boete" />
         <e k="invoice_status_overdue" v="Achterstallig" />
         <e k="invoice_label_total_due" v="Verschuldigd bedrag:" />
+        <e k="invoice_label_total_paid" v="Betaald bedrag:" />
         <e k="invoice_label_penalty" v="Boete voor te laat betalen" />
         <e k="invoice_setting_invoicePenalties" v="Boetes bij te laat betalen" />
         <e k="invoice_toolTip_invoicePenalties" v="Schakelt boetes in voor onbetaalde facturen. Na 1 maand achterstand wordt automatisch een vast tarief van 5% per maand toegepast. Begrensd op 25% van het totaalbedrag." />

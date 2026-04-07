@@ -28,6 +28,7 @@ Features:
 - Automatic payment reminders and late fees
 - Savegame persistent, fully synchronized in multiplayer
 - 25 languages supported
+- Compatible with FS25_RedTape: invoice transactions are properly categorized as taxable income and deductible expenses
 
 Important: Only consumables physically present in the world (not stored inside buildings) can be invoiced and transferred. Make sure to eject bales, pallets or bigbags from storage buildings before creating an invoice.
 
@@ -45,9 +46,11 @@ Changelog:
 - Add option to disable payment reminders (can be disabled in Game Settings)
 - Add late fees on unpaid invoices (can be disabled in Game Settings)
 - Add separate Income and Expense entries in the Finance tab
+- Add FS25_RedTape integration: invoice income and expenses are categorized for tax calculations
 - Rebalance all prices to match game economy
 - Significantly improve user interface
 - Fix price and quantity input fields
+- Existing invoices from v1.0 are fully preserved on update
 1.0.0.0:
 - Initial release]]></en>
         <de><![CDATA[Erstellen, versenden und verwalten Sie Rechnungen zwischen Betrieben im Mehrspielermodus.
@@ -69,6 +72,7 @@ Funktionen:
 - Automatische Zahlungserinnerungen und Verzugsgebühren
 - Spielstand-persistent, vollständig synchronisiert im Multiplayer
 - 25 Sprachen unterstützt
+- Kompatibel mit FS25_RedTape: Rechnungstransaktionen werden korrekt als steuerpflichtiges Einkommen und abzugsfähige Ausgaben kategorisiert
 
 Wichtig: Nur Verbrauchsmaterialien, die sich physisch in der Welt befinden (nicht in Gebäuden gelagert), können fakturiert und übertragen werden. Stellen Sie sicher, dass Ballen, Paletten oder Bigbags aus Lagergebäuden entnommen werden, bevor Sie eine Rechnung erstellen.
 
@@ -86,9 +90,11 @@ Changelog:
 - Option zum Deaktivieren der Zahlungserinnerungen hinzugefügt (deaktivierbar in den Spieleinstellungen)
 - Verzugsgebühren bei unbezahlten Rechnungen hinzugefügt (deaktivierbar in den Spieleinstellungen)
 - Getrennte Einnahmen und Ausgaben im Finanz-Tab hinzugefügt
+- FS25_RedTape-Integration hinzugefügt: Rechnungseinnahmen und -ausgaben werden für die Steuerberechnung kategorisiert
 - Alle Preise an die Spielwirtschaft angepasst
 - Benutzeroberfläche signifikant verbessert
 - Eingabefelder für Preis und Menge korrigiert
+- Bestehende Rechnungen aus v1.0 bleiben beim Update vollständig erhalten
 1.0.0.0:
 - Erstveröffentlichung]]></de>
         <fr><![CDATA[Créez, envoyez et gérez des factures entre fermes en multijoueur.
@@ -110,6 +116,7 @@ Fonctionnalités :
 - Rappels de paiement automatiques et pénalités de retard
 - Sauvegarde persistante et synchronisation complète en multijoueur
 - 25 langues supportées
+- Compatible avec FS25_RedTape : les transactions de factures sont correctement catégorisées comme revenus imposables et dépenses déductibles
 
 Important : Seuls les consommables physiquement présents dans le monde (non stockés dans les bâtiments) peuvent être facturés et transférés. Assurez-vous de sortir les balles, palettes ou bigbags des bâtiments de stockage avant de créer une facture.
 
@@ -127,9 +134,11 @@ Changelog :
 - Ajout de l'option pour désactiver les rappels de paiement (désactivable dans les Paramètres du jeu)
 - Ajout des pénalités de retard sur les factures impayées (désactivable dans les Paramètres du jeu)
 - Ajout des lignes Recettes et Dépenses dans l'onglet Finance
+- Ajout de l'intégration FS25_RedTape : les revenus et dépenses de factures sont catégorisés pour le calcul des impôts
 - Rééquilibrage de tous les prix pour correspondre à l'économie du jeu
 - Amélioration significative de l'interface
 - Correction de la saisie dans les champs prix et quantité
+- Les factures créées en v1.0 sont intégralement conservées lors de la mise à jour
 1.0.0.0 :
 - Publication initiale]]></fr>
         <pl><![CDATA[Twórz, wysyłaj i zarządzaj fakturami między gospodarstwami w trybie wieloosobowym.
@@ -151,6 +160,7 @@ Funkcje:
 - Automatyczne przypomnienia o płatności i kary za opóźnienie
 - Zapis trwały, pełna synchronizacja w trybie wieloosobowym
 - 25 obsługiwanych języków
+- Kompatybilny z FS25_RedTape: transakcje fakturowe są prawidłowo kategoryzowane jako dochód podlegający opodatkowaniu i koszty uzyskania przychodu
 
 Ważne: Tylko materiały eksploatacyjne fizycznie obecne w świecie gry (nie przechowywane w budynkach) mogą być fakturowane i przenoszone. Upewnij się, że bele, palety lub bigbagi zostały wyjęte z budynków magazynowych przed utworzeniem faktury.
 
@@ -168,9 +178,11 @@ Changelog:
 - Dodano opcję wyłączenia przypomnień o płatności (możliwość wyłączenia w Ustawieniach gry)
 - Dodano kary za opóźnienie na niezapłaconych fakturach (możliwość wyłączenia w Ustawieniach gry)
 - Dodano oddzielne pozycje Przychody i Wydatki w zakładce Finanse
+- Dodano integrację z FS25_RedTape: przychody i wydatki z faktur są kategoryzowane do obliczeń podatkowych
 - Zrównoważenie wszystkich cen zgodnie z ekonomią gry
 - Znaczące ulepszenie interfejsu
 - Korekta pól wprowadzania ceny i ilości
+- Istniejące faktury z v1.0 są w pełni zachowane po aktualizacji
 1.0.0.0:
 - Pierwsza wersja]]></pl>
     </description>

@@ -136,6 +136,7 @@
         <e k="invoice_notification_penalty_incl" v="incl. %s penalizare" />
         <e k="invoice_status_overdue" v="Restantă" />
         <e k="invoice_label_total_due" v="Total de plată:" />
+        <e k="invoice_label_total_paid" v="Total plătit:" />
         <e k="invoice_label_penalty" v="Penalizare întârziere" />
         <e k="invoice_setting_invoicePenalties" v="Penalități de întârziere" />
         <e k="invoice_toolTip_invoicePenalties" v="Activează penalitățile de întârziere pe facturile neplătite. După 1 lună de restanță, se aplică automat o rată fixă de 5% pe lună. Limitate la 25% din suma totală." />

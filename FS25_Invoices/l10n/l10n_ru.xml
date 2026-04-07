@@ -136,6 +136,7 @@
         <e k="invoice_notification_penalty_incl" v="вкл. %s штрафа" />
         <e k="invoice_status_overdue" v="Просрочен" />
         <e k="invoice_label_total_due" v="Итого к оплате:" />
+        <e k="invoice_label_total_paid" v="Итого оплачено:" />
         <e k="invoice_label_penalty" v="Штраф за просрочку" />
         <e k="invoice_setting_invoicePenalties" v="Пени за просрочку" />
         <e k="invoice_toolTip_invoicePenalties" v="Включает пени за просрочку неоплаченных счетов. После 1 месяца просрочки автоматически начисляется фиксированная ставка 5% в месяц. Максимум — 25% от общей суммы счёта." />

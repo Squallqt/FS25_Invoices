@@ -69,13 +69,7 @@ function InvoiceSettingsControls.onMenuOptionChanged(self, state, menuOption)
     end
 end
 
-local function updateFocusIds(element)
-    if not element then return end
-    element.focusId = FocusManager:serveAutoFocusId()
-    for _, child in pairs(element.elements) do
-        updateFocusIds(child)
-    end
-end
+
 
 function InvoiceSettings:applySettings(newSettings, isAuthoritative)
     if g_currentMission == nil then return end
@@ -189,67 +183,57 @@ function InvoiceSettings:injectMenu()
     local function addBinaryMenuOption(id)
         local i18n_title = "invoice_setting_" .. id
         local i18n_tooltip = "invoice_toolTip_" .. id
-        local options = self.SETTINGS[id].strings
 
-        local originalBox = settingsPage.checkWoodHarvesterAutoCutBox
-        local menuOptionBox = originalBox:clone(settingsPage.gameSettingsLayout)
-        menuOptionBox.id = id .. "box"
+        local menuOptionBox = BitmapElement.new()
+        menuOptionBox:loadProfile(g_gui:getProfile("fs25_multiTextOptionContainer"), true)
 
-        local menuBinaryOption = menuOptionBox.elements[1]
+        local menuBinaryOption = BinaryOptionElement.new()
+        menuBinaryOption.useYesNoTexts = true
+        menuBinaryOption:loadProfile(g_gui:getProfile("fs25_settingsBinaryOption"), true)
         menuBinaryOption.id = id
         menuBinaryOption.target = InvoiceSettingsControls
         menuBinaryOption:setCallback("onClickCallback", "onMenuOptionChanged")
-        menuBinaryOption:setDisabled(false)
 
-        local toolTip = menuBinaryOption.elements[1]
-        toolTip:setText(g_i18n:getText(i18n_tooltip))
-
-        local setting = menuOptionBox.elements[2]
+        local setting = TextElement.new()
+        setting:loadProfile(g_gui:getProfile("fs25_settingsMultiTextOptionTitle"), true)
         setting:setText(g_i18n:getText(i18n_title))
 
-        local resolved = {}
-        for _, key in ipairs(options) do
-            table.insert(resolved, g_i18n:getText(key))
-        end
-        menuBinaryOption:setTexts(resolved)
+        local toolTip = TextElement.new()
+        toolTip.name = "ignore"
+        toolTip:loadProfile(g_gui:getProfile("fs25_multiTextOptionTooltip"), true)
+        toolTip:setText(g_i18n:getText(i18n_tooltip))
+
+        menuBinaryOption:addElement(toolTip)
+        menuOptionBox:addElement(menuBinaryOption)
+        menuOptionBox:addElement(setting)
+
+        menuBinaryOption:onGuiSetupFinished()
+        setting:onGuiSetupFinished()
+        toolTip:onGuiSetupFinished()
+
+        settingsPage.gameSettingsLayout:addElement(menuOptionBox)
+        menuOptionBox:onGuiSetupFinished()
+
         menuBinaryOption:setState(self.getStateIndex(id))
 
         self.CONTROLS[id] = menuBinaryOption
-
-        updateFocusIds(menuOptionBox)
-        table.insert(settingsPage.controlsList, menuOptionBox)
-        return menuOptionBox
     end
 
     -- Section header
-    local sectionTitle = nil
-    for _, elem in ipairs(settingsPage.gameSettingsLayout.elements) do
-        if elem.name == "sectionHeader" then
-            sectionTitle = elem:clone(settingsPage.gameSettingsLayout)
-            break
-        end
-    end
+    local sectionTitle = TextElement.new()
+    sectionTitle.name = "sectionHeader"
+    sectionTitle:loadProfile(g_gui:getProfile("fs25_settingsSectionHeader"), true)
+    sectionTitle:setText(g_i18n:getText("invoice_settings_section_title"))
+    settingsPage.gameSettingsLayout:addElement(sectionTitle)
+    sectionTitle:onGuiSetupFinished()
 
-    if sectionTitle then
-        sectionTitle:setText(g_i18n:getText("invoice_settings_section_title"))
-    else
-        sectionTitle = TextElement.new()
-        sectionTitle:applyProfile("fs25_settingsSectionHeader", true)
-        sectionTitle:setText(g_i18n:getText("invoice_settings_section_title"))
-        settingsPage.gameSettingsLayout:addElement(sectionTitle)
-    end
-
-    sectionTitle.name = "invoiceSectionHeader"
-    sectionTitle.focusId = FocusManager:serveAutoFocusId()
-    self.CONTROLS[sectionTitle.name] = sectionTitle
-
-    local ourElements = {sectionTitle}
     for _, id in ipairs(self.menuItems) do
-        local box = addBinaryMenuOption(id)
-        table.insert(ourElements, box)
+        addBinaryMenuOption(id)
     end
 
     settingsPage.gameSettingsLayout:invalidateLayout()
+    settingsPage:updateAlternatingElements(settingsPage.gameSettingsLayout)
+    settingsPage:updateGeneralSettings(settingsPage.gameSettingsLayout)
 
     if not InvoiceSettings._menuInjected then
         InGameMenuSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuSettingsFrame.onFrameOpen, function()

@@ -35,9 +35,6 @@ InvoicesMainDashboard.CONTROLS = {
     TEXT_VAT_HT      = "textVatHt",
     TEXT_VAT_TVA     = "textVatTva",
     TOTAL_SEP        = "totalSep",
-    TOTAL_RIGHT_COLUMN = "totalRightColumn",
-    TOTAL_VALUE_ROW = "totalValueRow",
-    TOTAL_VALUE_ANCHOR = "totalValueAnchor",
     -- Buttons
     BTN_SEND         = "btnSend",
 }
@@ -604,6 +601,11 @@ end
 function InvoicesMainDashboard:resizeTotalSep(htText, tvaText, totalText)
     if self.totalSep == nil or self.textVatHt == nil then return end
 
+    if self._sepOrigX == nil then
+        self._sepOrigX = self.totalSep.position[1]
+        self._sepOrigW = self.totalSep.size[1]
+    end
+
     local textSize = self.textVatHt.textSize
     local htWidth = getTextWidth(textSize, htText)
     local tvaWidth = self.textVatTva ~= nil and getTextWidth(self.textVatTva.textSize, tvaText) or 0
@@ -611,30 +613,10 @@ function InvoicesMainDashboard:resizeTotalSep(htText, tvaText, totalText)
     totalWidth = totalWidth + (20 * g_pixelSizeScaledX)
     local maxTextWidth = math.max(htWidth, tvaWidth, totalWidth)
 
-    self.totalSep:setSize(maxTextWidth, self.totalSep.absSize[2])
-
-    if self.totalValueAnchor ~= nil then
-        self.totalValueAnchor:setSize(maxTextWidth, self.totalValueAnchor.absSize[2])
-        if self.totalValueAnchor.invalidateLayout ~= nil then
-            self.totalValueAnchor:invalidateLayout()
-        end
-    end
-
-    if self.totalValueRow ~= nil and self.totalValueRow.invalidateLayout ~= nil then
-        self.totalValueRow:invalidateLayout()
-    end
-
-    if self.textTotal ~= nil then
-        self.textTotal:setSize(maxTextWidth, self.textTotal.absSize[2])
-    end
-
-    if self.totalSep.parent ~= nil and self.totalSep.parent.invalidateLayout ~= nil then
-        self.totalSep.parent:invalidateLayout()
-    end
-
-    if self.totalRightColumn ~= nil and self.totalRightColumn.invalidateLayout ~= nil then
-        self.totalRightColumn:invalidateLayout()
-    end
+    local newW = math.min(maxTextWidth, self._sepOrigW)
+    local newX = self._sepOrigX + self._sepOrigW - newW
+    self.totalSep:setPosition(newX, self.totalSep.position[2])
+    self.totalSep:setSize(newW, self.totalSep.size[2])
 end
 
 -- Edit field management

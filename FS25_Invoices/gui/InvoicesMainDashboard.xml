@@ -100,8 +100,8 @@
                     <Text profile="dashColAmount"      text="$l10n_invoice_col_amount"/>
                     <Bitmap profile="dashSepHeaders"/>
 
-                    <!-- Line items list (full width, slider outside like Detail dialog) -->
-                    <SmoothList profile="dashItemList" id="listItems">
+                    <!-- Line items list -->
+                    <SmoothList profile="dashItemList" id="listItems" listItemSpacing="-1px">
                         <ListItem profile="dashItemListRow" name="itemTemplate">
                             <ThreePartBitmap profile="dashItemGradient" name="alternating"/>
                             <Text profile="dashCellDesignation" name="cellDesignation">
@@ -431,7 +431,7 @@
         </Profile>
         <Profile name="dashColAmount" extends="dashColBase">
             <position value="664px -438px"/>
-            <size value="162px 25px"/>
+            <size value="148px 25px"/>
             <textAlignment value="right"/>
         </Profile>
 
@@ -535,7 +535,7 @@
         </Profile>
         <Profile name="dashCellAmount" extends="baseReference" with="anchorStretchingYLeft">
             <position value="664px 0px"/>
-            <size value="162px 32px"/>
+            <size value="148px 32px"/>
             <textSize value="13px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
@@ -724,15 +724,15 @@
         <Profile name="dashTotalValueAnchor" extends="emptyPanel">
             <size value="416px 29px"/>
             <flowDirection value="horizontal"/>
-            <alignmentX value="center"/>
+            <alignmentX value="right"/>
             <alignmentY value="center"/>
         </Profile>
         <Profile name="dashTotalValue" extends="baseReference">
-            <size value="120px 29px"/>
+            <size value="416px 29px"/>
             <textSize value="24px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
-            <textAlignment value="center"/>
+            <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
 

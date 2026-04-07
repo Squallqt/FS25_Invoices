@@ -93,18 +93,10 @@
                     <!-- TOTAL bar -->
                     <RoundCorner profile="invDetTotalBarBg"/>
                     <Text   profile="invDetTotalLabel" text="$l10n_invoice_label_total_due" id="textTotalLabel"/>
-                    <BoxLayout profile="invDetTotalRightColumn" id="totalRightColumn">
-                        <Text   profile="invDetVatHtText"  id="textVatHt"/>
-                        <Text   profile="invDetVatTvaText" id="textVatTva"/>
-                        <BoxLayout profile="invDetTotalSepBox">
-                            <Bitmap profile="invDetTotalSepLine" id="totalSep"/>
-                        </BoxLayout>
-                        <BoxLayout profile="invDetTotalValueRow" id="totalValueRow">
-                            <BoxLayout profile="invDetTotalValueAnchor" id="totalValueAnchor">
-                                <Text   profile="invDetTotalValue" id="textTotal"/>
-                            </BoxLayout>
-                        </BoxLayout>
-                    </BoxLayout>
+                    <Text   profile="invDetVatHtText"  id="textVatHt"/>
+                    <Text   profile="invDetVatTvaText" id="textVatTva"/>
+                    <Bitmap profile="invDetTotalSepLine" id="totalSep"/>
+                    <Text   profile="invDetTotalValue" id="textTotal"/>
 
                 </GuiElement>
 
@@ -294,7 +286,7 @@
         </Profile>
         <Profile name="invDetColAmount" extends="baseReference" with="anchorTopLeft">
             <position value="664px -117px"/>
-            <size value="162px 25px"/>
+            <size value="148px 25px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -400,7 +392,7 @@
         </Profile>
         <Profile name="invDetCellAmount" extends="baseReference">
             <position value="664px 0px"/>
-            <size value="162px 32px"/>
+            <size value="148px 32px"/>
             <textSize value="14px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
@@ -476,56 +468,34 @@
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="invDetTotalRightColumn" extends="emptyPanel" with="anchorTopLeft">
-            <position value="394px -487px"/>
-            <size value="416px 70px"/>
-            <flowDirection value="vertical"/>
-            <alignmentX value="right"/>
-            <alignmentY value="top"/>
-            <elementSpacing value="0px"/>
-        </Profile>
-        <Profile name="invDetVatHtText" extends="baseReference">
-            <size value="416px 18px"/>
+        <Profile name="invDetVatHtText" extends="baseReference" with="anchorTopLeft">
+            <position value="350px -489px"/>
+            <size value="474px 16px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="invDetVatTvaText" extends="baseReference">
-            <size value="416px 18px"/>
+        <Profile name="invDetVatTvaText" extends="baseReference" with="anchorTopLeft">
+            <position value="350px -505px"/>
+            <size value="474px 16px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="invDetTotalSepBox" extends="emptyPanel">
-            <size value="416px 1dp"/>
-            <flowDirection value="horizontal"/>
-            <alignmentX value="right"/>
-            <alignmentY value="top"/>
-        </Profile>
-        <Profile name="invDetTotalSepLine" extends="baseReference">
-            <size value="416px 1dp"/>
+        <Profile name="invDetTotalSepLine" extends="baseReference" with="anchorTopLeft">
+            <position value="350px -522px"/>
+            <size value="474px 1dp"/>
             <imageColor value="0.3 0.3 0.3 0.8"/>
         </Profile>
-        <Profile name="invDetTotalValueRow" extends="emptyPanel">
-            <size value="416px 33px"/>
-            <flowDirection value="horizontal"/>
-            <alignmentX value="right"/>
-            <alignmentY value="center"/>
-        </Profile>
-        <Profile name="invDetTotalValueAnchor" extends="emptyPanel">
-            <size value="416px 33px"/>
-            <flowDirection value="horizontal"/>
-            <alignmentX value="center"/>
-            <alignmentY value="center"/>
-        </Profile>
-        <Profile name="invDetTotalValue" extends="baseReference">
-            <size value="120px 33px"/>
+        <Profile name="invDetTotalValue" extends="baseReference" with="anchorTopLeft">
+            <position value="350px -524px"/>
+            <size value="474px 33px"/>
             <textSize value="24px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
-            <textAlignment value="center"/>
+            <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
     </GUIProfiles>

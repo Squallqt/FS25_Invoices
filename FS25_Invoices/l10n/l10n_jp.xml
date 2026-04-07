@@ -136,6 +136,7 @@
         <e k="invoice_notification_penalty_incl" v="%s の延滞金を含む" />
         <e k="invoice_status_overdue" v="延滞" />
         <e k="invoice_label_total_due" v="支払総額：" />
+        <e k="invoice_label_total_paid" v="支払済総額：" />
         <e k="invoice_label_penalty" v="延滞金" />
         <e k="invoice_setting_invoicePenalties" v="延滞金" />
         <e k="invoice_toolTip_invoicePenalties" v="未払い請求書に対する延滞金を有効にします。1ヶ月の延滞後、月5%の固定料率が自動的に適用されます。合計金額の25%が上限です。" />
@@ -146,7 +147,9 @@
         <e k="invoice_col_filltype_name" v="製品" />
         <e k="invoice_dialog_selectConsumable" v="消耗品を選択" />
         <e k="invoice_col_consumable_name" v="品目" />
-        <e k="invoice_work_vehicleSale" v="车両の売却" />
-        <e k="invoice_dialog_selectVehicle" v="车両を選択" />
-        <e k="invoice_col_vehicle_name" v="车両" />        <e k="invoice_error_single_farm" v="請求書を作成するには、少なくとも2つの農場が必要です。" />    </elements>
+        <e k="invoice_work_vehicleSale" v="車両の売却" />
+        <e k="invoice_dialog_selectVehicle" v="車両を選択" />
+        <e k="invoice_col_vehicle_name" v="車両" />
+        <e k="invoice_error_single_farm" v="請求書を作成するには、少なくとも2つの農場が必要です。" />
+    </elements>
 </l10n>

@@ -136,6 +136,7 @@
         <e k="invoice_notification_penalty_incl" v="incl. %s penalty" />
         <e k="invoice_status_overdue" v="Overdue" />
         <e k="invoice_label_total_due" v="Total Due:" />
+        <e k="invoice_label_total_paid" v="Total Paid:" />
         <e k="invoice_label_penalty" v="Late Penalty" />
         <e k="invoice_setting_invoicePenalties" v="Late Penalties" />
         <e k="invoice_toolTip_invoicePenalties" v="Enables late penalties on unpaid invoices. After 1 month overdue, a fixed rate of 5% per month is applied automatically. Capped at 25% of the total amount." />

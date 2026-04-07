@@ -136,6 +136,7 @@
         <e k="invoice_notification_penalty_incl" v="incl. %s di penale" />
         <e k="invoice_status_overdue" v="Scaduta" />
         <e k="invoice_label_total_due" v="Totale dovuto:" />
+        <e k="invoice_label_total_paid" v="Totale pagato:" />
         <e k="invoice_label_penalty" v="Penale di mora" />
         <e k="invoice_setting_invoicePenalties" v="Penali per ritardo" />
         <e k="invoice_toolTip_invoicePenalties" v="Attiva le penali per ritardo sulle fatture non pagate. Dopo 1 mese dalla scadenza, viene applicato automaticamente un tasso fisso del 5% al mese. Limitate al 25% dell'importo totale." />
