@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="備考または参照を追加" />
         <e k="invoice_dialog_details" v="請求書詳細" />
         <e k="invoice_wizard_mainTitle" v="新しい請求書" />
-        <e k="invoice_wizard_step1_label" v="顧客の農場を選択:" />
-        <e k="invoice_wizard_step2_label" v="作業の種類を選択:" />
-        <e k="invoice_wizard_step3_label" v="対象の畑を選択:" />
+        <e k="invoice_wizard_step1_label" v="顧客" />
+        <e k="invoice_wizard_step2_label" v="作業" />
+        <e k="invoice_wizard_step3_label" v="畑" />
         <e k="invoice_btn_sendInvoice" v="送信" />
         <e k="invoice_wizard_invoice_created" v="請求書を作成しました！" />
         <e k="invoice_wizard_invoice_failed" v="作成エラー。" />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="請求書 %s が期限超過です: %s" />
         <e k="invoice_notification_overdue_warning" v="延滞金が適用されます。" />
         <e k="invoice_dash_no_fields" v="圃場不要" />
-        <e k="invoice_dialog_selectFillType" v="製品を選択" />
+        <e k="invoice_dialog_selectFillType" v="製品" />
         <e k="invoice_col_filltype_name" v="製品" />
-        <e k="invoice_dialog_selectConsumable" v="消耗品を選択" />
+        <e k="invoice_dialog_selectConsumable" v="消耗品" />
         <e k="invoice_col_consumable_name" v="品目" />
         <e k="invoice_work_vehicleSale" v="車両の売却" />
-        <e k="invoice_dialog_selectVehicle" v="車両を選択" />
+        <e k="invoice_dialog_selectVehicle" v="車両" />
         <e k="invoice_col_vehicle_name" v="車両" />
         <e k="invoice_error_single_farm" v="請求書を作成するには、少なくとも2つの農場が必要です。" />
     </elements>

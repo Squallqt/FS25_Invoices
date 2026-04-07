@@ -24,9 +24,9 @@
 		<e k="invoice_placeholder_note" v="Ajouter une remarque ou référence" />
 		<e k="invoice_dialog_details" v="Détails de la facture" />
 		<e k="invoice_wizard_mainTitle" v="NOUVELLE FACTURE" />
-		<e k="invoice_wizard_step1_label" v="Sélectionnez l'exploitation cliente:" />
-		<e k="invoice_wizard_step2_label" v="Sélectionnez le type de travaux :" />
-		<e k="invoice_wizard_step3_label" v="Sélectionnez les parcelles concernées:" />
+		<e k="invoice_wizard_step1_label" v="Client" />
+		<e k="invoice_wizard_step2_label" v="Travaux" />
+		<e k="invoice_wizard_step3_label" v="Parcelles" />
 		<e k="invoice_btn_sendInvoice" v="Envoyer la facture" />
 		<e k="invoice_wizard_invoice_created" v="Facture émise avec succès !" />
 		<e k="invoice_wizard_invoice_failed" v="Erreur lors de l'émission." />
@@ -143,12 +143,12 @@
 		<e k="invoice_notification_overdue" v="Facture %s en retard : %s" />
 		<e k="invoice_notification_overdue_warning" v="Pénalités de retard appliquées." />
 		<e k="invoice_dash_no_fields" v="Aucune parcelle requise" />
-		<e k="invoice_dialog_selectFillType" v="Sélection du produit" />
+		<e k="invoice_dialog_selectFillType" v="Produit" />
 		<e k="invoice_col_filltype_name" v="Produit" />
 		<e k="invoice_work_vehicleSale" v="Vente de véhicule" />
-		<e k="invoice_dialog_selectVehicle" v="Sélection du véhicule" />
+		<e k="invoice_dialog_selectVehicle" v="Véhicule" />
 		<e k="invoice_col_vehicle_name" v="Véhicule" />
-		<e k="invoice_dialog_selectConsumable" v="Sélection des consommables" />
+		<e k="invoice_dialog_selectConsumable" v="Consommables" />
 		<e k="invoice_col_consumable_name" v="Article" />
 		<e k="invoice_error_single_farm" v="Au moins deux fermes sont nécessaires pour créer des factures." />
 	</elements>

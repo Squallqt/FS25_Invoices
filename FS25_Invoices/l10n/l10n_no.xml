@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Legg til merknad eller referanse" />
         <e k="invoice_dialog_details" v="Fakturadetails" />
         <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
-        <e k="invoice_wizard_step1_label" v="Velg kundegård:" />
-        <e k="invoice_wizard_step2_label" v="Velg arbeidstype:" />
-        <e k="invoice_wizard_step3_label" v="Velg involverte jorder:" />
+        <e k="invoice_wizard_step1_label" v="Kunde" />
+        <e k="invoice_wizard_step2_label" v="Arbeid" />
+        <e k="invoice_wizard_step3_label" v="Jorder" />
         <e k="invoice_btn_sendInvoice" v="Send faktura" />
         <e k="invoice_wizard_invoice_created" v="Faktura opprettet!" />
         <e k="invoice_wizard_invoice_failed" v="Feil ved opprettelse." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Faktura %s er forfalt: %s" />
         <e k="invoice_notification_overdue_warning" v="Det vil bli beregnet forsinkelsesrenter." />
         <e k="invoice_dash_no_fields" v="Ingen åker påkrevd" />
-        <e k="invoice_dialog_selectFillType" v="Velg produkt" />
+        <e k="invoice_dialog_selectFillType" v="Produkt" />
         <e k="invoice_col_filltype_name" v="Produkt" />
-        <e k="invoice_dialog_selectConsumable" v="Velg forbruksartikel" />
+        <e k="invoice_dialog_selectConsumable" v="Forbruksartikel" />
         <e k="invoice_col_consumable_name" v="Vare" />
         <e k="invoice_work_vehicleSale" v="Kjøretøysalg" />
-        <e k="invoice_dialog_selectVehicle" v="Velg kjøretøy" />
+        <e k="invoice_dialog_selectVehicle" v="Kjøretøy" />
         <e k="invoice_col_vehicle_name" v="Kjøretøy" />
         <e k="invoice_error_single_farm" v="Det kreves minst to gårder for å opprette fakturaer." />
     </elements>

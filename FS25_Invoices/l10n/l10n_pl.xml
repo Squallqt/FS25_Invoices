@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Dodaj uwagę lub odniesienie" />
         <e k="invoice_dialog_details" v="Szczegóły faktury" />
         <e k="invoice_wizard_mainTitle" v="NOWA FAKTURA" />
-        <e k="invoice_wizard_step1_label" v="Wybierz gospodarstwo klienta:" />
-        <e k="invoice_wizard_step2_label" v="Wybierz rodzaj pracy:" />
-        <e k="invoice_wizard_step3_label" v="Wybierz pola:" />
+        <e k="invoice_wizard_step1_label" v="Klient" />
+        <e k="invoice_wizard_step2_label" v="Prace" />
+        <e k="invoice_wizard_step3_label" v="Pola" />
         <e k="invoice_btn_sendInvoice" v="Wyślij fakturę" />
         <e k="invoice_wizard_invoice_created" v="Faktura utworzona!" />
         <e k="invoice_wizard_invoice_failed" v="Błąd tworzenia." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Faktura %s jest zaległa: %s" />
         <e k="invoice_notification_overdue_warning" v="Zostaną naliczone kary za zwłokę." />
         <e k="invoice_dash_no_fields" v="Nie wymaga działki" />
-        <e k="invoice_dialog_selectFillType" v="Wybierz produkt" />
+        <e k="invoice_dialog_selectFillType" v="Produkt" />
         <e k="invoice_col_filltype_name" v="Produkt" />
-        <e k="invoice_dialog_selectConsumable" v="Wybierz materiał eksploatacyjny" />
+        <e k="invoice_dialog_selectConsumable" v="Materiał eksploatacyjny" />
         <e k="invoice_col_consumable_name" v="Pozycja" />
         <e k="invoice_work_vehicleSale" v="Sprzedaż pojazdu" />
-        <e k="invoice_dialog_selectVehicle" v="Wybierz pojazd" />
+        <e k="invoice_dialog_selectVehicle" v="Pojazd" />
         <e k="invoice_col_vehicle_name" v="Pojazd" />
         <e k="invoice_error_single_farm" v="Do tworzenia faktur wymagane są co najmniej dwa gospodarstwa." />
     </elements>

@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Lägg till anteckning eller referens" />
         <e k="invoice_dialog_details" v="Fakturadetaljer" />
         <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
-        <e k="invoice_wizard_step1_label" v="Välj kundens gård:" />
-        <e k="invoice_wizard_step2_label" v="Välj typ av arbete:" />
-        <e k="invoice_wizard_step3_label" v="Välj berörda fält:" />
+        <e k="invoice_wizard_step1_label" v="Kund" />
+        <e k="invoice_wizard_step2_label" v="Arbete" />
+        <e k="invoice_wizard_step3_label" v="Fält" />
         <e k="invoice_btn_sendInvoice" v="Skicka faktura" />
         <e k="invoice_wizard_invoice_created" v="Faktura skapad!" />
         <e k="invoice_wizard_invoice_failed" v="Fel vid skapande." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Faktura %s är förfallen: %s" />
         <e k="invoice_notification_overdue_warning" v="Dröjsmålsränta kommer att debiteras." />
         <e k="invoice_dash_no_fields" v="Inget fält krävs" />
-        <e k="invoice_dialog_selectFillType" v="Välj produkt" />
+        <e k="invoice_dialog_selectFillType" v="Produkt" />
         <e k="invoice_col_filltype_name" v="Produkt" />
-        <e k="invoice_dialog_selectConsumable" v="Välj förbrukningsartikel" />
+        <e k="invoice_dialog_selectConsumable" v="Förbrukningsartikel" />
         <e k="invoice_col_consumable_name" v="Artikel" />
         <e k="invoice_work_vehicleSale" v="Fordonsörsäljning" />
-        <e k="invoice_dialog_selectVehicle" v="Välj fordon" />
+        <e k="invoice_dialog_selectVehicle" v="Fordon" />
         <e k="invoice_col_vehicle_name" v="Fordon" />
         <e k="invoice_error_single_farm" v="Det krävs minst två gårdar för att skapa fakturor." />
     </elements>

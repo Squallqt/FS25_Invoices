@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Opmerking of referentie toevoegen" />
         <e k="invoice_dialog_details" v="Factuurdetails" />
         <e k="invoice_wizard_mainTitle" v="NIEUWE FACTUUR" />
-        <e k="invoice_wizard_step1_label" v="Selecteer de klant:" />
-        <e k="invoice_wizard_step2_label" v="Selecteer type werk:" />
-        <e k="invoice_wizard_step3_label" v="Selecteer betrokken velden:" />
+        <e k="invoice_wizard_step1_label" v="Klant" />
+        <e k="invoice_wizard_step2_label" v="Werk" />
+        <e k="invoice_wizard_step3_label" v="Velden" />
         <e k="invoice_btn_sendInvoice" v="Verstuur factuur" />
         <e k="invoice_wizard_invoice_created" v="Factuur succesvol aangemaakt!" />
         <e k="invoice_wizard_invoice_failed" v="Fout bij aanmaken." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Factuur %s is achterstallig: %s" />
         <e k="invoice_notification_overdue_warning" v="Er worden boetes voor te laat betalen berekend." />
         <e k="invoice_dash_no_fields" v="Geen perceel vereist" />
-        <e k="invoice_dialog_selectFillType" v="Product selecteren" />
+        <e k="invoice_dialog_selectFillType" v="Product" />
         <e k="invoice_col_filltype_name" v="Product" />
-        <e k="invoice_dialog_selectConsumable" v="Verbruiksartikel selecteren" />
+        <e k="invoice_dialog_selectConsumable" v="Verbruiksartikel" />
         <e k="invoice_col_consumable_name" v="Artikel" />
         <e k="invoice_work_vehicleSale" v="Voertuigverkoop" />
-        <e k="invoice_dialog_selectVehicle" v="Voertuig selecteren" />
+        <e k="invoice_dialog_selectVehicle" v="Voertuig" />
         <e k="invoice_col_vehicle_name" v="Voertuig" />
         <e k="invoice_error_single_farm" v="Er zijn minimaal twee boerderijen nodig om facturen aan te maken." />
     </elements>

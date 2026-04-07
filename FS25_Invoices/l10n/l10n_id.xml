@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Tambahkan catatan atau referensi" />
         <e k="invoice_dialog_details" v="Rincian Faktur" />
         <e k="invoice_wizard_mainTitle" v="FAKTUR BARU" />
-        <e k="invoice_wizard_step1_label" v="Pilih peternakan pelanggan:" />
-        <e k="invoice_wizard_step2_label" v="Pilih jenis pekerjaan:" />
-        <e k="invoice_wizard_step3_label" v="Pilih ladang terkait:" />
+        <e k="invoice_wizard_step1_label" v="Pelanggan" />
+        <e k="invoice_wizard_step2_label" v="Pekerjaan" />
+        <e k="invoice_wizard_step3_label" v="Ladang" />
         <e k="invoice_btn_sendInvoice" v="Kirim Faktur" />
         <e k="invoice_wizard_invoice_created" v="Faktur berhasil dibuat!" />
         <e k="invoice_wizard_invoice_failed" v="Gagal membuat." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Faktur %s lewat jatuh tempo: %s" />
         <e k="invoice_notification_overdue_warning" v="Denda keterlambatan akan dikenakan." />
         <e k="invoice_dash_no_fields" v="Tidak ada lahan yang diperlukan" />
-        <e k="invoice_dialog_selectFillType" v="Pilih produk" />
+        <e k="invoice_dialog_selectFillType" v="Produk" />
         <e k="invoice_col_filltype_name" v="Produk" />
-        <e k="invoice_dialog_selectConsumable" v="Pilih bahan habis pakai" />
+        <e k="invoice_dialog_selectConsumable" v="Bahan habis pakai" />
         <e k="invoice_col_consumable_name" v="Barang" />
         <e k="invoice_work_vehicleSale" v="Penjualan kendaraan" />
-        <e k="invoice_dialog_selectVehicle" v="Pilih kendaraan" />
+        <e k="invoice_dialog_selectVehicle" v="Kendaraan" />
         <e k="invoice_col_vehicle_name" v="Kendaraan" />
         <e k="invoice_error_single_farm" v="Diperlukan minimal dua pertanian untuk membuat faktur." />
     </elements>

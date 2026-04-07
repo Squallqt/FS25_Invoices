@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Lisää huomautus tai viite" />
         <e k="invoice_dialog_details" v="Laskun tiedot" />
         <e k="invoice_wizard_mainTitle" v="UUSI LASKU" />
-        <e k="invoice_wizard_step1_label" v="Valitse asiakastila:" />
-        <e k="invoice_wizard_step2_label" v="Valitse työn tyyppi:" />
-        <e k="invoice_wizard_step3_label" v="Valitse liittyvät pellot:" />
+        <e k="invoice_wizard_step1_label" v="Asiakas" />
+        <e k="invoice_wizard_step2_label" v="Työ" />
+        <e k="invoice_wizard_step3_label" v="Pellot" />
         <e k="invoice_btn_sendInvoice" v="Lähetä lasku" />
         <e k="invoice_wizard_invoice_created" v="Lasku luotu onnistuneesti!" />
         <e k="invoice_wizard_invoice_failed" v="Virhe luonnissa." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Lasku %s on erääntynyt: %s" />
         <e k="invoice_notification_overdue_warning" v="Viivästyskorkoa tullaan perimään." />
         <e k="invoice_dash_no_fields" v="Ei vaadittua peltoa" />
-        <e k="invoice_dialog_selectFillType" v="Valitse tuote" />
+        <e k="invoice_dialog_selectFillType" v="Tuote" />
         <e k="invoice_col_filltype_name" v="Tuote" />
-        <e k="invoice_dialog_selectConsumable" v="Valitse tarvike" />
+        <e k="invoice_dialog_selectConsumable" v="Tarvike" />
         <e k="invoice_col_consumable_name" v="Tuote" />
         <e k="invoice_work_vehicleSale" v="Ajoneuvon myynti" />
-        <e k="invoice_dialog_selectVehicle" v="Valitse ajoneuvo" />
+        <e k="invoice_dialog_selectVehicle" v="Ajoneuvo" />
         <e k="invoice_col_vehicle_name" v="Ajoneuvo" />
         <e k="invoice_error_single_farm" v="Laskujen luomiseen tarvitaan vähintään kaksi maatilaa." />
     </elements>

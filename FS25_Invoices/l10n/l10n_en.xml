@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Add a note or reference" />
         <e k="invoice_dialog_details" v="Invoice Details" />
         <e k="invoice_wizard_mainTitle" v="NEW INVOICE" />
-        <e k="invoice_wizard_step1_label" v="Select the customer farm:" />
-        <e k="invoice_wizard_step2_label" v="Select the type of work:" />
-        <e k="invoice_wizard_step3_label" v="Select the fields involved:" />
+        <e k="invoice_wizard_step1_label" v="Customer" />
+        <e k="invoice_wizard_step2_label" v="Work" />
+        <e k="invoice_wizard_step3_label" v="Fields" />
         <e k="invoice_btn_sendInvoice" v="Send Invoice" />
         <e k="invoice_wizard_invoice_created" v="Invoice created successfully!" />
         <e k="invoice_wizard_invoice_failed" v="Error creating invoice." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Invoice %s is overdue: %s" />
         <e k="invoice_notification_overdue_warning" v="Late penalties will be applied." />
         <e k="invoice_dash_no_fields" v="No field required" />
-        <e k="invoice_dialog_selectFillType" v="Select product" />
+        <e k="invoice_dialog_selectFillType" v="Product" />
         <e k="invoice_col_filltype_name" v="Product" />
         <e k="invoice_work_vehicleSale" v="Vehicle Sale" />
-        <e k="invoice_dialog_selectVehicle" v="Select vehicle" />
+        <e k="invoice_dialog_selectVehicle" v="Vehicle" />
         <e k="invoice_col_vehicle_name" v="Vehicle" />
-        <e k="invoice_dialog_selectConsumable" v="Select consumable" />
+        <e k="invoice_dialog_selectConsumable" v="Consumable" />
         <e k="invoice_col_consumable_name" v="Item" />
         <e k="invoice_error_single_farm" v="At least two farms are required to create invoices." />
     </elements>

@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Not veya referans ekleyin" />
         <e k="invoice_dialog_details" v="Fatura Detayları" />
         <e k="invoice_wizard_mainTitle" v="YENİ FATURA" />
-        <e k="invoice_wizard_step1_label" v="Müşteri çiftliği seçin:" />
-        <e k="invoice_wizard_step2_label" v="İş tipini seçin:" />
-        <e k="invoice_wizard_step3_label" v="İlgili tarlaları seçin:" />
+        <e k="invoice_wizard_step1_label" v="Müşteri" />
+        <e k="invoice_wizard_step2_label" v="İş" />
+        <e k="invoice_wizard_step3_label" v="Tarlalar" />
         <e k="invoice_btn_sendInvoice" v="Faturayı Gönder" />
         <e k="invoice_wizard_invoice_created" v="Fatura başarıyla oluşturuldu!" />
         <e k="invoice_wizard_invoice_failed" v="Oluşturma hatası." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Fatura %s vadesi geçti: %s" />
         <e k="invoice_notification_overdue_warning" v="Gecikme cezası uygulanacaktır." />
         <e k="invoice_dash_no_fields" v="Alan gerekmiyor" />
-        <e k="invoice_dialog_selectFillType" v="Ürün seç" />
+        <e k="invoice_dialog_selectFillType" v="Ürün" />
         <e k="invoice_col_filltype_name" v="Ürün" />
-        <e k="invoice_dialog_selectConsumable" v="Sarf malzemesi seç" />
+        <e k="invoice_dialog_selectConsumable" v="Sarf malzemesi" />
         <e k="invoice_col_consumable_name" v="Ürün" />
         <e k="invoice_work_vehicleSale" v="Araç satışı" />
-        <e k="invoice_dialog_selectVehicle" v="Araç seç" />
+        <e k="invoice_dialog_selectVehicle" v="Araç" />
         <e k="invoice_col_vehicle_name" v="Araç" />
         <e k="invoice_error_single_farm" v="Fatura oluşturmak için en az iki çiftlik gereklidir." />
     </elements>

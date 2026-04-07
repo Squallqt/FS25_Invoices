@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Megjegyzés vagy hivatkozás hozzáadása" />
         <e k="invoice_dialog_details" v="Számla részletei" />
         <e k="invoice_wizard_mainTitle" v="ÚJ SZÁMLA" />
-        <e k="invoice_wizard_step1_label" v="Válassza ki az ügyfél gazdaságát:" />
-        <e k="invoice_wizard_step2_label" v="Válassza ki a munka típusát:" />
-        <e k="invoice_wizard_step3_label" v="Válassza ki az érintett földeket:" />
+        <e k="invoice_wizard_step1_label" v="Ügyfél" />
+        <e k="invoice_wizard_step2_label" v="Munka" />
+        <e k="invoice_wizard_step3_label" v="Földek" />
         <e k="invoice_btn_sendInvoice" v="Számla küldése" />
         <e k="invoice_wizard_invoice_created" v="Számla sikeresen létrehozva!" />
         <e k="invoice_wizard_invoice_failed" v="Hiba a létrehozás során." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="A(z) %s számla lejárt: %s" />
         <e k="invoice_notification_overdue_warning" v="Késedelmi pótlék kerül felszámításra." />
         <e k="invoice_dash_no_fields" v="Nincs szükséges parcella" />
-        <e k="invoice_dialog_selectFillType" v="Termék kiválasztása" />
+        <e k="invoice_dialog_selectFillType" v="Termék" />
         <e k="invoice_col_filltype_name" v="Termék" />
-        <e k="invoice_dialog_selectConsumable" v="Fogyóeszköz kiválasztása" />
+        <e k="invoice_dialog_selectConsumable" v="Fogyóeszköz" />
         <e k="invoice_col_consumable_name" v="Tétel" />
         <e k="invoice_work_vehicleSale" v="Jármű eladása" />
-        <e k="invoice_dialog_selectVehicle" v="Jármű kiválasztása" />
+        <e k="invoice_dialog_selectVehicle" v="Jármu" />
         <e k="invoice_col_vehicle_name" v="Jármű" />
         <e k="invoice_error_single_farm" v="Számlák létrehozásához legalább két gazdaság szükséges." />
     </elements>

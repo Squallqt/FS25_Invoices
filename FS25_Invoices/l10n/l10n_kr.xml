@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="메모 또는 참조 추가" />
         <e k="invoice_dialog_details" v="청구서 상세" />
         <e k="invoice_wizard_mainTitle" v="새 청구서" />
-        <e k="invoice_wizard_step1_label" v="고객 농장을 선택하세요:" />
-        <e k="invoice_wizard_step2_label" v="작업 유형을 선택하세요:" />
-        <e k="invoice_wizard_step3_label" v="관련된 밭을 선택하세요:" />
+        <e k="invoice_wizard_step1_label" v="고객" />
+        <e k="invoice_wizard_step2_label" v="작업" />
+        <e k="invoice_wizard_step3_label" v="밭" />
         <e k="invoice_btn_sendInvoice" v="청구서 전송" />
         <e k="invoice_wizard_invoice_created" v="청구서 생성 완료!" />
         <e k="invoice_wizard_invoice_failed" v="생성 오류." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="청구서 %s 연체: %s" />
         <e k="invoice_notification_overdue_warning" v="연체 벌금이 부과됩니다." />
         <e k="invoice_dash_no_fields" v="필드 불필요" />
-        <e k="invoice_dialog_selectFillType" v="제품 선택" />
+        <e k="invoice_dialog_selectFillType" v="제품" />
         <e k="invoice_col_filltype_name" v="제품" />
-        <e k="invoice_dialog_selectConsumable" v="소모품 선택" />
+        <e k="invoice_dialog_selectConsumable" v="소모품" />
         <e k="invoice_col_consumable_name" v="품목" />
         <e k="invoice_work_vehicleSale" v="요새 판매" />
-        <e k="invoice_dialog_selectVehicle" v="요새 선택" />
+        <e k="invoice_dialog_selectVehicle" v="요새" />
         <e k="invoice_col_vehicle_name" v="요새" />
         <e k="invoice_error_single_farm" v="청구서를 작성하려면 최소 2개의 농장이 필요합니다." />
     </elements>

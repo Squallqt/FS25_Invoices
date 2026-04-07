@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Bemerkung oder Referenz hinzufügen" />
         <e k="invoice_dialog_details" v="Rechnungsdetails" />
         <e k="invoice_wizard_mainTitle" v="NEUE RECHNUNG" />
-        <e k="invoice_wizard_step1_label" v="Wählen Sie den Kundenhof:" />
-        <e k="invoice_wizard_step2_label" v="Wählen Sie die Art der Arbeit:" />
-        <e k="invoice_wizard_step3_label" v="Betroffene Felder wählen:" />
+        <e k="invoice_wizard_step1_label" v="Kunde" />
+        <e k="invoice_wizard_step2_label" v="Arbeiten" />
+        <e k="invoice_wizard_step3_label" v="Felder" />
         <e k="invoice_btn_sendInvoice" v="Rechnung senden" />
         <e k="invoice_wizard_invoice_created" v="Rechnung erfolgreich erstellt!" />
         <e k="invoice_wizard_invoice_failed" v="Fehler bei Erstellung." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Rechnung %s ist überfällig: %s" />
         <e k="invoice_notification_overdue_warning" v="Es werden Verzugszinsen berechnet." />
         <e k="invoice_dash_no_fields" v="Keine Parzelle erforderlich" />
-        <e k="invoice_dialog_selectFillType" v="Produkt auswählen" />
+        <e k="invoice_dialog_selectFillType" v="Produkt" />
         <e k="invoice_col_filltype_name" v="Produkt" />
-        <e k="invoice_dialog_selectConsumable" v="Verbrauchsmaterial auswählen" />
+        <e k="invoice_dialog_selectConsumable" v="Verbrauchsmaterial" />
         <e k="invoice_col_consumable_name" v="Artikel" />
         <e k="invoice_work_vehicleSale" v="Fahrzeugverkauf" />
-        <e k="invoice_dialog_selectVehicle" v="Fahrzeug auswählen" />
+        <e k="invoice_dialog_selectVehicle" v="Fahrzeug" />
         <e k="invoice_col_vehicle_name" v="Fahrzeug" />
         <e k="invoice_error_single_farm" v="Zum Erstellen von Rechnungen werden mindestens zwei Betriebe benötigt." />
     </elements>

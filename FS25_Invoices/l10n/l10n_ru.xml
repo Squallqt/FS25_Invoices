@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Добавить примечание или ссылку" />
         <e k="invoice_dialog_details" v="Детали счета" />
         <e k="invoice_wizard_mainTitle" v="НОВЫЙ СЧЕТ" />
-        <e k="invoice_wizard_step1_label" v="Выберите ферму клиента:" />
-        <e k="invoice_wizard_step2_label" v="Выберите тип работ:" />
-        <e k="invoice_wizard_step3_label" v="Выберите поля:" />
+        <e k="invoice_wizard_step1_label" v="Клиент" />
+        <e k="invoice_wizard_step2_label" v="Работы" />
+        <e k="invoice_wizard_step3_label" v="Поля" />
         <e k="invoice_btn_sendInvoice" v="Отправить счет" />
         <e k="invoice_wizard_invoice_created" v="Счет создан!" />
         <e k="invoice_wizard_invoice_failed" v="Ошибка создания." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Счёт %s просрочен: %s" />
         <e k="invoice_notification_overdue_warning" v="Будут начислены пени за просрочку." />
         <e k="invoice_dash_no_fields" v="Поле не требуется" />
-        <e k="invoice_dialog_selectFillType" v="Выбрать продукт" />
+        <e k="invoice_dialog_selectFillType" v="Продукт" />
         <e k="invoice_col_filltype_name" v="Продукт" />
-        <e k="invoice_dialog_selectConsumable" v="Выбор расходника" />
+        <e k="invoice_dialog_selectConsumable" v="Расходник" />
         <e k="invoice_col_consumable_name" v="Расходник" />
         <e k="invoice_work_vehicleSale" v="Продажа техники" />
-        <e k="invoice_dialog_selectVehicle" v="Выбор техники" />
+        <e k="invoice_dialog_selectVehicle" v="Техника" />
         <e k="invoice_col_vehicle_name" v="Техника" />
         <e k="invoice_error_single_farm" v="Для создания счетов необходимо как минимум две фермы." />
     </elements>

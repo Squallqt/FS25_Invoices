@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Adăugați o observație sau referință" />
         <e k="invoice_dialog_details" v="Detalii factură" />
         <e k="invoice_wizard_mainTitle" v="FACTURĂ NOUĂ" />
-        <e k="invoice_wizard_step1_label" v="Selectați ferma client:" />
-        <e k="invoice_wizard_step2_label" v="Selectați tipul lucrării:" />
-        <e k="invoice_wizard_step3_label" v="Selectați terenurile:" />
+        <e k="invoice_wizard_step1_label" v="Client" />
+        <e k="invoice_wizard_step2_label" v="Lucrări" />
+        <e k="invoice_wizard_step3_label" v="Terenuri" />
         <e k="invoice_btn_sendInvoice" v="Trimite factura" />
         <e k="invoice_wizard_invoice_created" v="Factură creată cu succes!" />
         <e k="invoice_wizard_invoice_failed" v="Eroare la creare." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Factura %s este restantă: %s" />
         <e k="invoice_notification_overdue_warning" v="Se vor aplica penalități de întârziere." />
         <e k="invoice_dash_no_fields" v="Nicio parcelă necesară" />
-        <e k="invoice_dialog_selectFillType" v="Selectați produsul" />
+        <e k="invoice_dialog_selectFillType" v="Produs" />
         <e k="invoice_col_filltype_name" v="Produs" />
-        <e k="invoice_dialog_selectConsumable" v="Selectați consumabilul" />
+        <e k="invoice_dialog_selectConsumable" v="Consumabil" />
         <e k="invoice_col_consumable_name" v="Articol" />
         <e k="invoice_work_vehicleSale" v="Vânzare vehicul" />
-        <e k="invoice_dialog_selectVehicle" v="Selectați vehiculul" />
+        <e k="invoice_dialog_selectVehicle" v="Vehicul" />
         <e k="invoice_col_vehicle_name" v="Vehicul" />
         <e k="invoice_error_single_farm" v="Sunt necesare cel puțin două ferme pentru a crea facturi." />
     </elements>

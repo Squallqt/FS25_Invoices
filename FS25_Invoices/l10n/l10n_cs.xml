@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="添加备注或参考" />
         <e k="invoice_dialog_details" v="发票详情" />
         <e k="invoice_wizard_mainTitle" v="新发票" />
-        <e k="invoice_wizard_step1_label" v="选择客户农场:" />
-        <e k="invoice_wizard_step2_label" v="选择工作类型:" />
-        <e k="invoice_wizard_step3_label" v="选择相关田地:" />
+        <e k="invoice_wizard_step1_label" v="客户" />
+        <e k="invoice_wizard_step2_label" v="工作" />
+        <e k="invoice_wizard_step3_label" v="田地" />
         <e k="invoice_btn_sendInvoice" v="发送发票" />
         <e k="invoice_wizard_invoice_created" v="发票创建成功！" />
         <e k="invoice_wizard_invoice_failed" v="创建失败。" />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="发票 %s 已逾期：%s" />
         <e k="invoice_notification_overdue_warning" v="将收取逾期罚款。" />
         <e k="invoice_dash_no_fields" v="无需选择田地" />
-        <e k="invoice_dialog_selectFillType" v="选择产品" />
+        <e k="invoice_dialog_selectFillType" v="产品" />
         <e k="invoice_col_filltype_name" v="产品" />
-        <e k="invoice_dialog_selectConsumable" v="选择消耗品" />
+        <e k="invoice_dialog_selectConsumable" v="消耗品" />
         <e k="invoice_col_consumable_name" v="物品" />
         <e k="invoice_work_vehicleSale" v="车辆销售" />
-        <e k="invoice_dialog_selectVehicle" v="选择车辆" />
+        <e k="invoice_dialog_selectVehicle" v="车辆" />
         <e k="invoice_col_vehicle_name" v="车辆" />
         <e k="invoice_error_single_farm" v="创建发票至少需要两个农场。" />
     </elements>

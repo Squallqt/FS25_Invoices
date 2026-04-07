@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Aggiungere nota o riferimento" />
         <e k="invoice_dialog_details" v="Dettagli fattura" />
         <e k="invoice_wizard_mainTitle" v="NUOVA FATTURA" />
-        <e k="invoice_wizard_step1_label" v="Seleziona l'azienda cliente:" />
-        <e k="invoice_wizard_step2_label" v="Seleziona il tipo di lavoro:" />
-        <e k="invoice_wizard_step3_label" v="Seleziona i campi interessati:" />
+        <e k="invoice_wizard_step1_label" v="Cliente" />
+        <e k="invoice_wizard_step2_label" v="Lavori" />
+        <e k="invoice_wizard_step3_label" v="Campi" />
         <e k="invoice_btn_sendInvoice" v="Invia fattura" />
         <e k="invoice_wizard_invoice_created" v="Fattura creata con successo!" />
         <e k="invoice_wizard_invoice_failed" v="Errore creazione." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Fattura %s scaduta: %s" />
         <e k="invoice_notification_overdue_warning" v="Verranno applicate penali per ritardo." />
         <e k="invoice_dash_no_fields" v="Nessun appezzamento richiesto" />
-        <e k="invoice_dialog_selectFillType" v="Seleziona prodotto" />
+        <e k="invoice_dialog_selectFillType" v="Prodotto" />
         <e k="invoice_col_filltype_name" v="Prodotto" />
-        <e k="invoice_dialog_selectConsumable" v="Seleziona materiale di consumo" />
+        <e k="invoice_dialog_selectConsumable" v="Materiale di consumo" />
         <e k="invoice_col_consumable_name" v="Articolo" />
         <e k="invoice_work_vehicleSale" v="Vendita veicolo" />
-        <e k="invoice_dialog_selectVehicle" v="Seleziona veicolo" />
+        <e k="invoice_dialog_selectVehicle" v="Veicolo" />
         <e k="invoice_col_vehicle_name" v="Veicolo" />
         <e k="invoice_error_single_farm" v="Sono necessarie almeno due aziende per creare fatture." />
     </elements>

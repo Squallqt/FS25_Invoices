@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Přidat poznámku nebo odkaz" />
         <e k="invoice_dialog_details" v="Detaily faktury" />
         <e k="invoice_wizard_mainTitle" v="NOVÁ FAKTURA" />
-        <e k="invoice_wizard_step1_label" v="Vyberte farmu klienta:" />
-        <e k="invoice_wizard_step2_label" v="Vyberte typ práce:" />
-        <e k="invoice_wizard_step3_label" v="Vyberte dotčená pole:" />
+        <e k="invoice_wizard_step1_label" v="Klient" />
+        <e k="invoice_wizard_step2_label" v="Práce" />
+        <e k="invoice_wizard_step3_label" v="Pole" />
         <e k="invoice_btn_sendInvoice" v="Odeslat fakturu" />
         <e k="invoice_wizard_invoice_created" v="Faktura úspěšně vytvořena!" />
         <e k="invoice_wizard_invoice_failed" v="Chyba při vytváření." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Faktura %s je po splatnosti: %s" />
         <e k="invoice_notification_overdue_warning" v="Budou účtovány penále za prodlení." />
         <e k="invoice_dash_no_fields" v="Žádná parcela není vyžadována" />
-        <e k="invoice_dialog_selectFillType" v="Vybrat produkt" />
+        <e k="invoice_dialog_selectFillType" v="Produkt" />
         <e k="invoice_col_filltype_name" v="Produkt" />
-        <e k="invoice_dialog_selectConsumable" v="Výběr spotřebního materiálu" />
+        <e k="invoice_dialog_selectConsumable" v="Spotřební materiál" />
         <e k="invoice_col_consumable_name" v="Položka" />
         <e k="invoice_work_vehicleSale" v="Prodej vozidla" />
-        <e k="invoice_dialog_selectVehicle" v="Výběr vozidla" />
+        <e k="invoice_dialog_selectVehicle" v="Vozidlo" />
         <e k="invoice_col_vehicle_name" v="Vozidlo" />
         <e k="invoice_error_single_farm" v="K vytváření faktur jsou potřeba alespoň dvě hospodářství." />
     </elements>

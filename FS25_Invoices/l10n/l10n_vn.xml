@@ -24,9 +24,9 @@
         <e k="invoice_placeholder_note" v="Thêm ghi chú hoặc tham chiếu" />
         <e k="invoice_dialog_details" v="Chi tiết hóa đơn" />
         <e k="invoice_wizard_mainTitle" v="HÓA ĐƠN MỚI" />
-        <e k="invoice_wizard_step1_label" v="Chọn trang trại khách:" />
-        <e k="invoice_wizard_step2_label" v="Chọn loại công việc:" />
-        <e k="invoice_wizard_step3_label" v="Chọn các cánh đồng:" />
+        <e k="invoice_wizard_step1_label" v="Khách hàng" />
+        <e k="invoice_wizard_step2_label" v="Công việc" />
+        <e k="invoice_wizard_step3_label" v="Cánh đồng" />
         <e k="invoice_btn_sendInvoice" v="Gửi hóa đơn" />
         <e k="invoice_wizard_invoice_created" v="Đã tạo hóa đơn!" />
         <e k="invoice_wizard_invoice_failed" v="Lỗi khi tạo." />
@@ -143,12 +143,12 @@
         <e k="invoice_notification_overdue" v="Hóa đơn %s quá hạn: %s" />
         <e k="invoice_notification_overdue_warning" v="Phạt trễ hạn sẽ được áp dụng." />
         <e k="invoice_dash_no_fields" v="Không cần thửa đất" />
-        <e k="invoice_dialog_selectFillType" v="Chọn sản phẩm" />
+        <e k="invoice_dialog_selectFillType" v="Sản phẩm" />
         <e k="invoice_col_filltype_name" v="Sản phẩm" />
-        <e k="invoice_dialog_selectConsumable" v="Chọn vật tư tiêu hao" />
+        <e k="invoice_dialog_selectConsumable" v="Vật tư tiêu hao" />
         <e k="invoice_col_consumable_name" v="Mặt hàng" />
         <e k="invoice_work_vehicleSale" v="Bán xe" />
-        <e k="invoice_dialog_selectVehicle" v="Chọn xe" />
+        <e k="invoice_dialog_selectVehicle" v="Xe" />
         <e k="invoice_col_vehicle_name" v="Xe" />
         <e k="invoice_error_single_farm" v="Cần ít nhất hai trang trại để tạo hóa đơn." />
     </elements>
