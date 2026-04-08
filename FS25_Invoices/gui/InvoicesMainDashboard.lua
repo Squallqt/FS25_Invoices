@@ -1,9 +1,5 @@
---[[
-    InvoicesMainDashboard.lua
-    Consolidated invoice creation dialog: farm/work/field selection, line item editing, and send dispatch.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Consolidated invoice creation dialog: farm/work/field selection, line item editing, and send dispatch.
 InvoicesMainDashboard = {}
 local InvoicesMainDashboard_mt = Class(InvoicesMainDashboard, MessageDialog)
 
@@ -45,6 +41,10 @@ InvoicesMainDashboard.CONTEXT_WORK_TYPES = 2
 InvoicesMainDashboard.CONTEXT_FIELDS = 3
 InvoicesMainDashboard.CONTEXT_ITEMS = 4
 
+---Creates new invoices main dashboard instance
+-- @param table target Parent target element
+-- @param table? customMt Optional custom metatable
+-- @return InvoicesMainDashboard instance The new dashboard instance
 function InvoicesMainDashboard.new(target, customMt)
     local self = MessageDialog.new(target, customMt or InvoicesMainDashboard_mt)
 
@@ -77,11 +77,13 @@ end
 
 -- Lifecycle
 
+---Loads dialog controls
 function InvoicesMainDashboard:onLoad()
     InvoicesMainDashboard:superClass().onLoad(self)
     self:registerControls(InvoicesMainDashboard.CONTROLS)
 end
 
+---Finalizes GUI setup
 function InvoicesMainDashboard:onGuiSetupFinished()
     InvoicesMainDashboard:superClass().onGuiSetupFinished(self)
 
@@ -106,6 +108,7 @@ function InvoicesMainDashboard:onGuiSetupFinished()
     self:hookInputCapture()
 end
 
+---Called when dialog opens, resets wizard state and initializes all panels
 function InvoicesMainDashboard:onOpen()
     InvoicesMainDashboard:superClass().onOpen(self)
 
@@ -172,6 +175,7 @@ function InvoicesMainDashboard:onOpen()
     end
 end
 
+---Called when dialog closes, resets wizard state
 function InvoicesMainDashboard:onClose()
     InvoicesMainDashboard:superClass().onClose(self)
     self._pendingSubdialog = false
@@ -179,6 +183,7 @@ function InvoicesMainDashboard:onClose()
     state:reset()
 end
 
+---Cleans up internal data tables and calls parent delete
 function InvoicesMainDashboard:delete()
     self.farms = nil
     self.workTypes = nil
@@ -193,6 +198,7 @@ end
 
 -- Title separator
 
+---Resizes title separator to match title text width
 function InvoicesMainDashboard:resizeTitleSep()
     if self.titleSep == nil or self.mainTitleText == nil then return end
 
@@ -213,6 +219,7 @@ end
 
 -- Data loading
 
+---Detects solo or multiplayer mode and resolves current player farm ID
 function InvoicesMainDashboard:detectGameMode()
     self.playerFarmId = nil
     self.isSoloMode = false
@@ -248,6 +255,7 @@ function InvoicesMainDashboard:detectGameMode()
     self.isSoloMode = (farmCount <= 1)
 end
 
+---Loads available farms sorted by name, filtering based on game mode
 function InvoicesMainDashboard:loadFarms()
     self.farms = {}
 
@@ -289,6 +297,7 @@ function InvoicesMainDashboard:loadFarms()
     table.sort(self.farms, function(a, b) return a.name < b.name end)
 end
 
+---Loads work types from manager sorted by localized name
 function InvoicesMainDashboard:loadWorkTypes()
     self.workTypes = {}
 
@@ -314,6 +323,7 @@ function InvoicesMainDashboard:loadWorkTypes()
     end)
 end
 
+---Loads farmland fields split into client-owned and other categories
 function InvoicesMainDashboard:loadFields()
     self.clientFields = {}
     self.otherFields = {}
@@ -343,6 +353,7 @@ function InvoicesMainDashboard:loadFields()
     table.sort(self.otherFields, function(a, b) return a.id < b.id end)
 end
 
+---Auto-selects the only available farm in solo mode
 function InvoicesMainDashboard:handleAutoFarmSelection()
     if self.isSoloMode and #self.farms == 1 then
         self.selectedFarmIndex = 1
@@ -362,6 +373,8 @@ end
 
 -- Fields panel state
 
+---Checks if any selected work type requires field-based hectare billing
+-- @return boolean needsFields True if field selection is needed
 function InvoicesMainDashboard:requiresFieldSelection()
     for _, workType in ipairs(self.selectedWorkItems) do
         if workType.unit == Invoice.UNIT_HECTARE then
@@ -371,6 +384,7 @@ function InvoicesMainDashboard:requiresFieldSelection()
     return false
 end
 
+---Shows or hides field selection panel based on selected work types
 function InvoicesMainDashboard:updateFieldsPanel()
     local needsFields = self:requiresFieldSelection()
 
@@ -396,6 +410,7 @@ end
 
 -- Line item reconciliation
 
+---Rebuilds all line items from wizard state and refreshes display
 function InvoicesMainDashboard:rebuildLineItems()
     local state = InvoicesWizardState.getInstance()
 
@@ -436,6 +451,7 @@ function InvoicesMainDashboard:rebuildLineItems()
     self:updateButtonStates()
 end
 
+---Builds display items from line items, grouping consumables by group key
 function InvoicesMainDashboard:buildDisplayItems()
     self.displayItems = {}
 
@@ -477,6 +493,7 @@ function InvoicesMainDashboard:buildDisplayItems()
     end
 end
 
+---Shows or hides recap list scroll slider based on item count
 function InvoicesMainDashboard:updateRecapSliderVisibility()
     if self.itemSliderBox ~= nil and self.listItems ~= nil then
         local itemCount = #self.displayItems
@@ -485,6 +502,7 @@ function InvoicesMainDashboard:updateRecapSliderVisibility()
     end
 end
 
+---Locks work type panel when no farm is selected
 function InvoicesMainDashboard:updateSequentialLock()
     local locked = (self.selectedFarm == nil)
     local savedContext = self.activeContext
@@ -506,6 +524,7 @@ end
 
 -- Header display
 
+---Updates sender and recipient farm name display
 function InvoicesMainDashboard:updateHeader()
     if self.textFrom ~= nil then
         local senderFarmId = 0
@@ -531,6 +550,7 @@ end
 
 -- Total computation and VAT display
 
+---Computes and displays HT, VAT and total amounts
 function InvoicesMainDashboard:updateTotal()
     local state = InvoicesWizardState.getInstance()
     local total = state:getTotal()
@@ -598,6 +618,10 @@ function InvoicesMainDashboard:updateTotal()
     end
 end
 
+---Resizes total separator to fit VAT and total amount text
+-- @param string htText Formatted HT amount text
+-- @param string tvaText Formatted TVA amount text
+-- @param string totalText Formatted total amount text
 function InvoicesMainDashboard:resizeTotalSep(htText, tvaText, totalText)
     if self.totalSep == nil or self.textVatHt == nil then return end
 
@@ -621,6 +645,7 @@ end
 
 -- Edit field management
 
+---Sets up note input placeholder visibility toggle on focus
 function InvoicesMainDashboard:setupNotePlaceholder()
     if self.inputNote == nil then return end
     self._notePlaceholder = self.inputNote:getDescendantByName("notePlaceholder")
@@ -638,6 +663,7 @@ function InvoicesMainDashboard:setupNotePlaceholder()
     end
 end
 
+---Hooks input capture on price, quantity, VAT and note fields to track active input
 function InvoicesMainDashboard:hookInputCapture()
     self._activeInput = nil
     local inputs = {self.inputPrice, self.inputQty, self.inputVat, self.inputNote}
@@ -658,6 +684,15 @@ function InvoicesMainDashboard:hookInputCapture()
     end
 end
 
+---Intercepts MENU_CANCEL while an input field is active
+-- @param integer action Input action identifier
+-- @param float value Input value
+-- @param integer direction Input direction
+-- @param boolean isAnalog True if analog input
+-- @param boolean isMouse True if mouse input
+-- @param integer deviceCategory Device category
+-- @param string bindingName Binding name
+-- @return boolean consumed True if input was consumed
 function InvoicesMainDashboard:inputEvent(action, value, direction, isAnalog, isMouse, deviceCategory, bindingName)
     if action == InputAction.MENU_CANCEL and self._activeInput ~= nil then
         return true
@@ -665,6 +700,7 @@ function InvoicesMainDashboard:inputEvent(action, value, direction, isAnalog, is
     return InvoicesMainDashboard:superClass().inputEvent(self, action, value, direction, isAnalog, isMouse, deviceCategory, bindingName)
 end
 
+---Resets all edit fields to empty and disabled state
 function InvoicesMainDashboard:resetEditFields()
     if self.inputPrice ~= nil then
         self.inputPrice:setText("")
@@ -686,6 +722,7 @@ function InvoicesMainDashboard:resetEditFields()
     end
 end
 
+---Updates edit fields with values from currently selected display item
 function InvoicesMainDashboard:updateEditFields()
     if self._suppressRecapQty then return end
 
@@ -734,6 +771,7 @@ function InvoicesMainDashboard:updateEditFields()
     end
 end
 
+---Updates price, quantity, VAT and amount text in the currently selected list cell
 function InvoicesMainDashboard:updateSelectedCellValues()
     local cell = self._selectedCell
     if cell == nil then return end
@@ -779,6 +817,9 @@ end
 
 -- Text input callbacks
 
+---Called when price input text changes, updates item price and recalculates amount
+-- @param table element Input element
+-- @param string text New text value
 function InvoicesMainDashboard:onPriceTextChanged(element, text)
     if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.displayItems then return end
 
@@ -850,6 +891,9 @@ function InvoicesMainDashboard:onPriceTextChanged(element, text)
     self:updateTotal()
 end
 
+---Called when quantity input text changes, updates item quantity and recalculates amount
+-- @param table element Input element
+-- @param string text New text value
 function InvoicesMainDashboard:onQtyTextChanged(element, text)
     if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.displayItems then return end
 
@@ -944,6 +988,9 @@ function InvoicesMainDashboard:onQtyTextChanged(element, text)
     self:updateTotal()
 end
 
+---Returns available stock count for a consumable group
+-- @param string groupKey Consumable group key
+-- @return integer count Available stock
 function InvoicesMainDashboard:getConsumableStock(groupKey)
     if g_currentMission == nil then return 0 end
     local playerFarmId = self.playerFarmId
@@ -953,6 +1000,9 @@ function InvoicesMainDashboard:getConsumableStock(groupKey)
     return InvoicesConsumablePipeline.getStockForGroup(groupKey, playerFarmId)
 end
 
+---Rebuilds consumable selection for a group to match target quantity
+-- @param string groupKey Consumable group key
+-- @param integer targetQty Desired quantity
 function InvoicesMainDashboard:rebuildConsumableSelection(groupKey, targetQty)
     local workTypeTemplate = nil
     for i = #self.selectedWorkItems, 1, -1 do
@@ -990,6 +1040,9 @@ function InvoicesMainDashboard:rebuildConsumableSelection(groupKey, targetQty)
     self:rebuildLineItems()
 end
 
+---Returns count of owned vehicles matching given config file
+-- @param string configFileName Vehicle config XML filename
+-- @return integer count Number of matching owned vehicles
 function InvoicesMainDashboard:getVehicleStock(configFileName)
     if g_currentMission == nil or g_currentMission.vehicleSystem == nil then return 0 end
     local playerFarmId = self.playerFarmId
@@ -1008,6 +1061,9 @@ function InvoicesMainDashboard:getVehicleStock(configFileName)
     return count
 end
 
+---Rebuilds vehicle selection for a config file to match target quantity
+-- @param string configFileName Vehicle config XML filename
+-- @param integer targetQty Desired quantity
 function InvoicesMainDashboard:rebuildVehicleSelection(configFileName, targetQty)
     -- Remove all existing selectedWorkItems for this configFileName (vehicles only)
     local workTypeTemplate = nil
@@ -1074,6 +1130,9 @@ function InvoicesMainDashboard:rebuildVehicleSelection(configFileName, targetQty
     self:rebuildLineItems()
 end
 
+---Called when VAT rate input text changes, updates item VAT rate
+-- @param table element Input element
+-- @param string text New text value
 function InvoicesMainDashboard:onVatRateTextChanged(element, text)
     if self.selectedItemIndex < 1 or self.selectedItemIndex > #self.displayItems then return end
 
@@ -1101,6 +1160,9 @@ end
 
 -- Data source: four SmoothList implementations
 
+---Returns number of sections for the given list
+-- @param table list SmoothList element
+-- @return integer count Number of sections
 function InvoicesMainDashboard:getNumberOfSections(list)
     if list == self.listFields then
         return 2
@@ -1108,6 +1170,10 @@ function InvoicesMainDashboard:getNumberOfSections(list)
     return 1
 end
 
+---Returns number of items in given section for the given list
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return integer count Number of items
 function InvoicesMainDashboard:getNumberOfItemsInSection(list, section)
     if list == self.listFarms then
         return #self.farms
@@ -1126,6 +1192,10 @@ function InvoicesMainDashboard:getNumberOfItemsInSection(list, section)
     return 0
 end
 
+---Returns localized title for given section header
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return string title Section header title or nil
 function InvoicesMainDashboard:getTitleForSectionHeader(list, section)
     if list == self.listFields then
         if section == 1 then
@@ -1137,6 +1207,10 @@ function InvoicesMainDashboard:getTitleForSectionHeader(list, section)
     return nil
 end
 
+---Returns height in pixels for given section header
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return integer height Header height
 function InvoicesMainDashboard:getSectionHeaderHeight(list, section)
     if list == self.listFields then
         return 24
@@ -1144,6 +1218,10 @@ function InvoicesMainDashboard:getSectionHeaderHeight(list, section)
     return 0
 end
 
+---Returns cell type identifier for section header
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return string cellType Cell type name or nil
 function InvoicesMainDashboard:getCellTypeForSectionHeader(list, section)
     if list == self.listFields then
         return "section"
@@ -1151,6 +1229,11 @@ function InvoicesMainDashboard:getCellTypeForSectionHeader(list, section)
     return nil
 end
 
+---Returns cell type identifier for item based on which list it belongs to
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index
+-- @return string cellType Cell type name or nil
 function InvoicesMainDashboard:getCellTypeForItemInSection(list, section, index)
     if list == self.listFarms then
         return "farmTemplate"
@@ -1164,6 +1247,11 @@ function InvoicesMainDashboard:getCellTypeForItemInSection(list, section, index)
     return nil
 end
 
+---Routes cell population to the appropriate list-specific populate method
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index
+-- @param table cell Cell element to populate
 function InvoicesMainDashboard:populateCellForItemInSection(list, section, index, cell)
     if list == self.listFarms then
         self:populateFarmCell(index, cell)
@@ -1176,6 +1264,9 @@ function InvoicesMainDashboard:populateCellForItemInSection(list, section, index
     end
 end
 
+---Populates a farm list cell with name and selection tick
+-- @param integer index Farm index
+-- @param table cell Cell element to populate
 function InvoicesMainDashboard:populateFarmCell(index, cell)
     local farm = self.farms[index]
     if farm == nil then return end
@@ -1193,6 +1284,9 @@ function InvoicesMainDashboard:populateFarmCell(index, cell)
     end
 end
 
+---Populates a work type list cell with name, price per unit and selection tick
+-- @param integer index Work type index
+-- @param table cell Cell element to populate
 function InvoicesMainDashboard:populateWorkTypeCell(index, cell)
     local workType = self.workTypes[index]
     if workType == nil then return end
@@ -1263,6 +1357,9 @@ function InvoicesMainDashboard:populateWorkTypeCell(index, cell)
     end
 end
 
+---Finds the selected work item entry matching given work type
+-- @param table workType Work type definition
+-- @return table entry Selected work item or nil
 function InvoicesMainDashboard:getSelectedWorkTypeEntry(workType)
     for _, item in ipairs(self.selectedWorkItems) do
         if item.nameKey == workType.nameKey then
@@ -1272,6 +1369,10 @@ function InvoicesMainDashboard:getSelectedWorkTypeEntry(workType)
     return nil
 end
 
+---Populates a field list cell with field ID, area and selection tick
+-- @param integer section Section index (1=client, 2=other)
+-- @param integer index Field index within section
+-- @param table cell Cell element to populate
 function InvoicesMainDashboard:populateFieldCell(section, index, cell)
     local fieldData = nil
     if section == 1 then
@@ -1299,6 +1400,9 @@ function InvoicesMainDashboard:populateFieldCell(section, index, cell)
     end
 end
 
+---Populates a recap line item cell with designation, icon, quantity, unit, price, VAT and amount
+-- @param integer index Display item index
+-- @param table cell Cell element to populate
 function InvoicesMainDashboard:populateLineItemCell(index, cell)
     local item = self.displayItems[index]
     if item == nil then return end
@@ -1415,6 +1519,10 @@ end
 
 -- ===================== LIST DELEGATES =====================
 
+---Called when any list selection changes, updates active context and edit fields
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index
 function InvoicesMainDashboard:onListSelectionChanged(list, section, index)
     if list == self.listFarms then
         self.activeContext = InvoicesMainDashboard.CONTEXT_FARMS
@@ -1438,6 +1546,7 @@ function InvoicesMainDashboard:onListSelectionChanged(list, section, index)
     self:updateButtonStates()
 end
 
+---Reloads item list data while preserving current selection index
 function InvoicesMainDashboard:refreshItemListKeepSelection()
     if self.listItems == nil then return end
     local savedIndex = self.selectedItemIndex
@@ -1451,6 +1560,9 @@ end
 
 -- ===================== SELECTION HELPERS =====================
 
+---Checks if a work type is currently selected
+-- @param table workType Work type definition to check
+-- @return boolean selected True if work type is selected
 function InvoicesMainDashboard:isWorkTypeSelected(workType)
     for _, item in ipairs(self.selectedWorkItems) do
         if item.nameKey == workType.nameKey then
@@ -1460,6 +1572,9 @@ function InvoicesMainDashboard:isWorkTypeSelected(workType)
     return false
 end
 
+---Checks if a field is currently selected
+-- @param table fieldData Field data to check
+-- @return boolean selected True if field is selected
 function InvoicesMainDashboard:isFieldSelected(fieldData)
     for _, item in ipairs(self.selectedFieldItems) do
         if item.id == fieldData.id then
@@ -1469,6 +1584,8 @@ function InvoicesMainDashboard:isFieldSelected(fieldData)
     return false
 end
 
+---Returns field data for current field list selection
+-- @return table fieldData Selected field data or nil
 function InvoicesMainDashboard:getSelectedFieldData()
     if self.selectedFieldSection == 1 then
         return self.clientFields[self.selectedFieldIndex]
@@ -1480,6 +1597,7 @@ end
 
 -- ===================== BUTTON STATES =====================
 
+---Enables or disables send button based on wizard state readiness
 function InvoicesMainDashboard:updateButtonStates()
     if self.btnSend ~= nil then
         local state = InvoicesWizardState.getInstance()
@@ -1489,6 +1607,10 @@ end
 
 -- ===================== LIST CLICK HANDLERS =====================
 
+---Handles click on farm list item, toggles farm selection
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Farm index
 function InvoicesMainDashboard:onFarmListClicked(list, section, index)
     if list ~= self.listFarms or index == nil or index < 1 or index > #self.farms then return end
     self.activeContext = InvoicesMainDashboard.CONTEXT_FARMS
@@ -1501,6 +1623,10 @@ function InvoicesMainDashboard:onFarmListClicked(list, section, index)
     end
 end
 
+---Handles click on work type list item, opens sub-dialog or toggles selection
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Work type index
 function InvoicesMainDashboard:onWorkTypeListClicked(list, section, index)
     if list ~= self.listWorkTypes or index == nil or index < 1 or index > #self.workTypes then return end
     self.activeContext = InvoicesMainDashboard.CONTEXT_WORK_TYPES
@@ -1519,6 +1645,10 @@ function InvoicesMainDashboard:onWorkTypeListClicked(list, section, index)
     end
 end
 
+---Handles click on field list item, toggles field selection
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Field index
 function InvoicesMainDashboard:onFieldListClicked(list, section, index)
     if list ~= self.listFields or index == nil or index < 1 then return end
     self.activeContext = InvoicesMainDashboard.CONTEXT_FIELDS
@@ -1534,6 +1664,7 @@ function InvoicesMainDashboard:onFieldListClicked(list, section, index)
 end
 
 -- Farm toggle
+---Selects the currently highlighted farm as invoice recipient
 function InvoicesMainDashboard:addFarm()
     if self.selectedFarmIndex < 1 or self.selectedFarmIndex > #self.farms then return end
     local farm = self.farms[self.selectedFarmIndex]
@@ -1559,6 +1690,7 @@ function InvoicesMainDashboard:addFarm()
     self:updateSequentialLock()
 end
 
+---Deselects the current recipient farm and clears all selections
 function InvoicesMainDashboard:removeFarm()
     if self.selectedFarm == nil then return end
     local farm = self.farms[self.selectedFarmIndex]
@@ -1585,6 +1717,7 @@ function InvoicesMainDashboard:removeFarm()
     self:updateSequentialLock()
 end
 
+---Adds the currently highlighted work type to selection or opens its sub-dialog
 function InvoicesMainDashboard:addWorkType()
     if self.selectedFarm == nil then return end
     if self.selectedWorkIndex < 1 or self.selectedWorkIndex > #self.workTypes then return end
@@ -1613,6 +1746,8 @@ function InvoicesMainDashboard:addWorkType()
     end
 end
 
+---Opens fill type selection sub-dialog for given work type
+-- @param table workType Work type definition with fillTypeDialog flag
 function InvoicesMainDashboard:openFillTypeDialog(workType)
     self._pendingSubdialog = true
     local savedWorkIndex = self.selectedWorkIndex
@@ -1669,6 +1804,8 @@ function InvoicesMainDashboard:openFillTypeDialog(workType)
     end
 end
 
+---Opens vehicle selection sub-dialog for given work type
+-- @param table workType Work type definition with vehicleDialog flag
 function InvoicesMainDashboard:openVehicleDialog(workType)
     self._pendingSubdialog = true
     local savedWorkIndex = self.selectedWorkIndex
@@ -1720,6 +1857,8 @@ function InvoicesMainDashboard:openVehicleDialog(workType)
     end
 end
 
+---Opens consumable selection sub-dialog for given work type
+-- @param table workType Work type definition with consumableDialog flag
 function InvoicesMainDashboard:openConsumableDialog(workType)
     self._pendingSubdialog = true
     local savedWorkIndex = self.selectedWorkIndex
@@ -1772,6 +1911,7 @@ function InvoicesMainDashboard:openConsumableDialog(workType)
     end
 end
 
+---Removes the currently highlighted work type from selection
 function InvoicesMainDashboard:removeWorkType()
     if self.selectedWorkIndex < 1 or self.selectedWorkIndex > #self.workTypes then return end
     local workType = self.workTypes[self.selectedWorkIndex]
@@ -1791,6 +1931,7 @@ function InvoicesMainDashboard:removeWorkType()
     end
 end
 
+---Adds the currently highlighted field to selection
 function InvoicesMainDashboard:addField()
     local fieldData = self:getSelectedFieldData()
     if fieldData == nil then return end
@@ -1805,6 +1946,7 @@ function InvoicesMainDashboard:addField()
     end
 end
 
+---Removes the currently highlighted field from selection
 function InvoicesMainDashboard:removeField()
     local fieldData = self:getSelectedFieldData()
     if fieldData == nil then return end
@@ -1825,6 +1967,7 @@ end
 
 -- ===================== SEND / CANCEL =====================
 
+---Handles send button click, validates and shows confirmation dialog
 function InvoicesMainDashboard:onClickSend()
     local state = InvoicesWizardState.getInstance()
     if not state:canCreateInvoice() then return end
@@ -1838,6 +1981,8 @@ function InvoicesMainDashboard:onClickSend()
     YesNoDialog.show(self.onSendConfirmed, self, confirmText)
 end
 
+---Callback for send confirmation dialog, creates and dispatches invoice
+-- @param boolean confirmed True if user confirmed sending
 function InvoicesMainDashboard:onSendConfirmed(confirmed)
     if not confirmed then return end
 
@@ -1862,6 +2007,7 @@ function InvoicesMainDashboard:onSendConfirmed(confirmed)
     end
 end
 
+---Cancels invoice creation, resets wizard state and closes dialog
 function InvoicesMainDashboard:onClickCancel()
     local state = InvoicesWizardState.getInstance()
     state:reset()

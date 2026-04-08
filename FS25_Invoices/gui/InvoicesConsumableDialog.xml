@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<!--
-    InvoicesConsumableDialog.xml - Consumable selection dialog (bales, pallets, bigBags)
--->
 <GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
-    <GuiElement profile="newLayer" />
+    <GuiElement profile="newLayer"/>
     <Bitmap profile="dialogFullscreenBg"/>
 
     <GuiElement profile="fs25_dialogBg" id="dialogElement" size="480px 634px">
@@ -78,7 +75,7 @@
     </GuiElement>
 
     <GUIProfiles>
-        <!-- Reduced content area (leaves room for qty row in BoxLayout flow) -->
+        <!-- Content area -->
         <Profile name="cdContentArea" extends="emptyPanel">
             <size value="400px 429px"/>
         </Profile>
@@ -87,7 +84,7 @@
             <size value="400px 429px"/>
         </Profile>
 
-        <!-- Column headers (aligned with cell positions) -->
+        <!-- Columns -->
         <Profile name="cdHeaderRow" extends="emptyPanel" with="anchorTopLeft">
             <position value="8px -8px"/>
             <size value="380px 28px"/>
@@ -138,7 +135,7 @@
             <position value="0px 0px"/>
         </Profile>
 
-        <!-- Cell: name (narrower for stock column) -->
+        <!-- Cell: name -->
         <Profile name="cdCellName" extends="baseReference" with="anchorStretchingYLeft">
             <position value="64px 0px"/>
             <size value="164px 32px"/>
@@ -173,7 +170,7 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Qty row (centered in BoxLayout flow) -->
+        <!-- Qty selector -->
         <Profile name="cdQtyRow" extends="emptyPanel">
             <size value="400px 32px"/>
             <margin value="0px 8px 0px 0px"/>

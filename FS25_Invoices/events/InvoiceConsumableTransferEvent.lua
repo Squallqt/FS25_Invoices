@@ -1,20 +1,25 @@
---[[
-    InvoiceConsumableTransferEvent.lua
-    Network event: broadcasts consumable ownership transfer to clients.
-    Business logic lives in InvoicesConsumablePipeline.transferByCriteria().
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Network event: broadcasts consumable ownership transfer to clients.
+-- Business logic lives in InvoicesConsumablePipeline.transferByCriteria().
 InvoiceConsumableTransferEvent = {}
 local InvoiceConsumableTransferEvent_mt = Class(InvoiceConsumableTransferEvent, Event)
 
 InitEventClass(InvoiceConsumableTransferEvent, "InvoiceConsumableTransferEvent")
 
+---Creates empty event instance
+-- @return InvoiceConsumableTransferEvent instance Empty event
 function InvoiceConsumableTransferEvent.emptyNew()
     local self = Event.new(InvoiceConsumableTransferEvent_mt)
     return self
 end
 
+---Creates initialized consumable transfer event
+-- @param string xmlFilename Consumable XML definition file
+-- @param integer fillTypeIndex Fill type index
+-- @param integer quantity Quantity to transfer
+-- @param integer senderFarmId Sender farm identifier
+-- @param integer recipientFarmId Recipient farm identifier
+-- @return InvoiceConsumableTransferEvent instance The new event instance
 function InvoiceConsumableTransferEvent.new(xmlFilename, fillTypeIndex, quantity, senderFarmId, recipientFarmId)
     local self = InvoiceConsumableTransferEvent.emptyNew()
     self.xmlFilename     = xmlFilename
@@ -25,6 +30,9 @@ function InvoiceConsumableTransferEvent.new(xmlFilename, fillTypeIndex, quantity
     return self
 end
 
+---Reads consumable transfer data from network stream
+-- @param integer streamId Network stream identifier
+-- @param Connection connection Network connection
 function InvoiceConsumableTransferEvent:readStream(streamId, connection)
     self.xmlFilename     = streamReadString(streamId)
     self.fillTypeIndex   = streamReadInt16(streamId)
@@ -34,6 +42,9 @@ function InvoiceConsumableTransferEvent:readStream(streamId, connection)
     self:run(connection)
 end
 
+---Writes consumable transfer data to network stream
+-- @param integer streamId Network stream identifier
+-- @param Connection connection Network connection
 function InvoiceConsumableTransferEvent:writeStream(streamId, connection)
     streamWriteString(streamId, self.xmlFilename or "")
     streamWriteInt16(streamId, self.fillTypeIndex or 0)
@@ -42,6 +53,8 @@ function InvoiceConsumableTransferEvent:writeStream(streamId, connection)
     streamWriteInt32(streamId, self.recipientFarmId or 0)
 end
 
+---Executes consumable transfer event
+-- @param Connection connection Network connection
 function InvoiceConsumableTransferEvent:run(connection)
     if not connection:getIsServer() then
         if not g_currentMission:getHasPlayerPermission("farmManager", connection) then

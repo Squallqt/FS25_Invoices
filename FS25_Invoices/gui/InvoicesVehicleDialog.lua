@@ -1,11 +1,6 @@
---[[
-    InvoicesVehicleDialog.lua
-    Modal dialog for multi-select vehicle picking with resale price display.
-    Flat list — one row per vehicle, selection by uniqueId.
-    Consumables (bales, pallets, bigBags) are excluded.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Modal dialog for multi-select vehicle picking with resale price display.
+-- Flat list — one row per vehicle, selection by uniqueId. Consumables are excluded.
 InvoicesVehicleDialog = {}
 local InvoicesVehicleDialog_mt = Class(InvoicesVehicleDialog, DialogElement)
 
@@ -16,6 +11,10 @@ InvoicesVehicleDialog.CONTROLS = {
     TITLE_SEP       = "titleSep",
 }
 
+---Creates new vehicle selection dialog instance
+-- @param table target Parent target element
+-- @param table? customMt Optional custom metatable
+-- @return InvoicesVehicleDialog instance The new dialog instance
 function InvoicesVehicleDialog.new(target, customMt)
     local self = DialogElement.new(target, customMt or InvoicesVehicleDialog_mt)
     self.vehicles        = {}
@@ -25,11 +24,13 @@ function InvoicesVehicleDialog.new(target, customMt)
     return self
 end
 
+---Loads dialog controls
 function InvoicesVehicleDialog:onLoad()
     InvoicesVehicleDialog:superClass().onLoad(self)
     self:registerControls(InvoicesVehicleDialog.CONTROLS)
 end
 
+---Finalizes GUI setup
 function InvoicesVehicleDialog:onGuiSetupFinished()
     InvoicesVehicleDialog:superClass().onGuiSetupFinished(self)
     if self.listFillTypes ~= nil then
@@ -38,6 +39,7 @@ function InvoicesVehicleDialog:onGuiSetupFinished()
     end
 end
 
+---Called when dialog opens, resets selection and loads vehicles
 function InvoicesVehicleDialog:onOpen()
     InvoicesVehicleDialog:superClass().onOpen(self)
     self:resizeTitleSep()
@@ -50,6 +52,7 @@ function InvoicesVehicleDialog:onOpen()
     self:updateButtonStates()
 end
 
+---Resizes title separator to match title text width
 function InvoicesVehicleDialog:resizeTitleSep()
     if self.titleSep == nil or self.mainTitleText == nil then return end
 
@@ -71,15 +74,22 @@ function InvoicesVehicleDialog:resizeTitleSep()
     end
 end
 
+---Sets callback target and function for selection result
+-- @param table target Callback target object
+-- @param function func Callback function receiving selected vehicles
 function InvoicesVehicleDialog:setCallback(target, func)
     self.callbackTarget = target
     self.callbackFunc   = func
 end
 
+---Sets the player farm ID used to filter owned vehicles
+-- @param integer farmId Player farm identifier
 function InvoicesVehicleDialog:setPlayerFarmId(farmId)
     self._playerFarmId = farmId
 end
 
+---Pre-selects vehicles by unique ID map and enables edit mode
+-- @param table uniqueIdMap Map of vehicle unique IDs to pre-select
 function InvoicesVehicleDialog:setInitialSelection(uniqueIdMap)
     self._isEditMode = false
     if uniqueIdMap ~= nil then
@@ -99,6 +109,7 @@ function InvoicesVehicleDialog:setInitialSelection(uniqueIdMap)
     self:updateButtonStates()
 end
 
+---Loads owned vehicles for current player farm with sell prices
 function InvoicesVehicleDialog:loadVehicles()
     self.vehicles = {}
 
@@ -139,6 +150,7 @@ function InvoicesVehicleDialog:loadVehicles()
     end
 end
 
+---Enables or disables select button based on current selection state
 function InvoicesVehicleDialog:updateButtonStates()
     if self.btnSelect ~= nil then
         if self._isEditMode then
@@ -154,18 +166,33 @@ function InvoicesVehicleDialog:updateButtonStates()
     end
 end
 
+---Returns number of list sections
+-- @return integer count Always 1
 function InvoicesVehicleDialog:getNumberOfSections()
     return 1
 end
 
+---Returns number of vehicles in given section
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return integer count Number of vehicles
 function InvoicesVehicleDialog:getNumberOfItemsInSection(list, section)
     return #self.vehicles
 end
 
+---Returns title for given section header
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return string title Empty string
 function InvoicesVehicleDialog:getTitleForSectionHeader(list, section)
     return ""
 end
 
+---Populates a list cell with vehicle name, icon, price and selection tick
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index within section
+-- @param table cell Cell element to populate
 function InvoicesVehicleDialog:populateCellForItemInSection(list, section, index, cell)
     local item = self.vehicles[index]
     if item == nil then return end
@@ -198,10 +225,16 @@ function InvoicesVehicleDialog:populateCellForItemInSection(list, section, index
     end
 end
 
+---Called when list selection changes, updates button states
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index within section
 function InvoicesVehicleDialog:onListSelectionChanged(list, section, index)
     self:updateButtonStates()
 end
 
+---Toggles selection state of vehicle at given index
+-- @param integer index Vehicle index to toggle
 function InvoicesVehicleDialog:toggleItemAtIndex(index)
     if index < 1 or index > #self.vehicles then return end
     local uid = self.vehicles[index].uniqueId
@@ -216,11 +249,16 @@ function InvoicesVehicleDialog:toggleItemAtIndex(index)
     self:updateButtonStates()
 end
 
+---Handles click on vehicle list item, toggles its selection
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index within section
 function InvoicesVehicleDialog:onVehicleListClicked(list, section, index)
     if list ~= self.listFillTypes or index == nil or index < 1 or index > #self.vehicles then return end
     self:toggleItemAtIndex(index)
 end
 
+---Confirms selection, closes dialog and invokes callback with selected vehicles
 function InvoicesVehicleDialog:onClickSelect()
     local selectedItems = {}
     for _, item in ipairs(self.vehicles) do
@@ -240,6 +278,7 @@ function InvoicesVehicleDialog:onClickSelect()
     end
 end
 
+---Cancels selection, closes dialog and invokes callback with nil
 function InvoicesVehicleDialog:onClickBack()
     self:close()
     if self.callbackTarget ~= nil and self.callbackFunc ~= nil then

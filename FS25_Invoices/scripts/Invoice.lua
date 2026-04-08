@@ -1,9 +1,5 @@
---[[
-    Invoice.lua
-    Domain model: invoice state, line items, VAT totals, XML/stream serialization, and savegame retrocompat.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Domain model: invoice state, line items, VAT totals, XML/stream serialization, and savegame retrocompat.
 Invoice = {}
 local Invoice_mt = Class(Invoice)
 
@@ -23,6 +19,9 @@ Invoice.UNIT_HOUR = 2
 Invoice.UNIT_HECTARE = 3
 Invoice.UNIT_LITER = 4
 
+---Create invoice instance
+-- @param table? customMt Optional custom metatable
+-- @return Invoice instance The created invoice
 function Invoice.new(customMt)
     local self = setmetatable({}, customMt or Invoice_mt)
     
@@ -47,6 +46,11 @@ function Invoice.new(customMt)
     return self
 end
 
+---Populate invoice from data with calculated totals
+-- @param integer id Invoice ID
+-- @param table items Line items array
+-- @param integer recipientFarmId Recipient farm ID
+-- @param integer senderFarmId Sender farm ID
 function Invoice:populateFromData(id, items, recipientFarmId, senderFarmId)
     self.id = id
     self.senderFarmId = senderFarmId
@@ -101,6 +105,9 @@ function Invoice:populateFromData(id, items, recipientFarmId, senderFarmId)
     end
 end
 
+---Serialize invoice data to XML file
+-- @param integer xmlFile XML file handle
+-- @param string key XML key path
 function Invoice:writeToXML(xmlFile, key)
     setXMLInt(xmlFile, key .. "#id", self.id)
     setXMLInt(xmlFile, key .. "#senderFarmId", self.senderFarmId)
@@ -136,6 +143,9 @@ function Invoice:writeToXML(xmlFile, key)
     end
 end
 
+---Deserialize invoice from XML file
+-- @param XMLFile xmlFile XML file handle
+-- @param string key XML key path
 function Invoice:readFromXML(xmlFile, key)
     self.id = getXMLInt(xmlFile, key .. "#id") or 0
     self.senderFarmId = getXMLInt(xmlFile, key .. "#senderFarmId") or 0
@@ -231,6 +241,8 @@ function Invoice:readFromXML(xmlFile, key)
     end
 end
 
+---Serialize invoice data to network stream
+-- @param integer streamId Network stream identifier
 function Invoice:writeStream(streamId)
     streamWriteInt32(streamId, self.id)
     streamWriteInt32(streamId, self.senderFarmId)
@@ -267,6 +279,8 @@ function Invoice:writeStream(streamId)
     end
 end
 
+---Deserialize invoice data from network stream
+-- @param integer streamId Network stream identifier
 function Invoice:readStream(streamId)
     self.id = streamReadInt32(streamId)
     self.senderFarmId = streamReadInt32(streamId)

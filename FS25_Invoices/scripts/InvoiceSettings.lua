@@ -1,9 +1,5 @@
---[[
-    InvoiceSettings.lua
-    Settings schema, InGameMenu control injection, and server-authoritative apply/broadcast for invoice flags.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Settings schema, InGameMenu control injection, and server-authoritative apply/broadcast for invoice flags.
 InvoiceSettings = {}
 
 InvoiceSettings.SETTINGS = {}
@@ -37,6 +33,10 @@ InvoiceSettings.SETTINGS.invoicePenalties = {
     ['strings'] = { "ui_off", "ui_on" }
 }
 
+---Returns state index for a setting value
+-- @param string id Setting identifier
+-- @param any? value Current value to look up
+-- @return integer index State index
 function InvoiceSettings.getStateIndex(id, value)
     local current = value
     if current == nil and g_currentMission ~= nil and g_currentMission.invoiceSettings ~= nil then
@@ -56,6 +56,9 @@ end
 
 InvoiceSettingsControls = {}
 
+---Called when a menu option changes, applies and broadcasts
+-- @param integer state New state index
+-- @param table menuOption Menu option element
 function InvoiceSettingsControls.onMenuOptionChanged(self, state, menuOption)
     local id = menuOption.id
     local value = InvoiceSettings.SETTINGS[id].values[state]
@@ -69,8 +72,9 @@ function InvoiceSettingsControls.onMenuOptionChanged(self, state, menuOption)
     end
 end
 
-
-
+---Applies settings, validates, and broadcasts if authoritative
+-- @param table newSettings Settings to apply
+-- @param boolean isAuthoritative If true saves to XML and broadcasts
 function InvoiceSettings:applySettings(newSettings, isAuthoritative)
     if g_currentMission == nil then return end
 
@@ -124,6 +128,7 @@ function InvoiceSettings:applySettings(newSettings, isAuthoritative)
     end
 end
 
+---Loads default settings if not already set
 function InvoiceSettings:loadDefaultsIfMissing()
     if g_currentMission == nil then return end
 
@@ -136,6 +141,7 @@ function InvoiceSettings:loadDefaultsIfMissing()
     end
 end
 
+---Saves current settings to savegame XML file
 function InvoiceSettings:saveToXMLFile()
     if g_currentMission == nil or not g_currentMission:getIsServer() then return end
     if g_currentMission.missionInfo == nil then return end
@@ -151,6 +157,7 @@ function InvoiceSettings:saveToXMLFile()
     end
 end
 
+---Loads settings from savegame XML file
 function InvoiceSettings:loadFromXMLFile()
     if g_currentMission == nil or not g_currentMission:getIsServer() then return end
     if g_currentMission.missionInfo == nil then return end
@@ -171,6 +178,7 @@ function InvoiceSettings:loadFromXMLFile()
     end
 end
 
+---Injects invoice settings into in-game menu
 function InvoiceSettings:injectMenu()
     local inGameMenu = g_gui.screenControllers[InGameMenu]
     if inGameMenu == nil then return end

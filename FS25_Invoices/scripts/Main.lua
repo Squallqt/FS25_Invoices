@@ -1,9 +1,5 @@
---[[
-    Main.lua
-    Mod bootstrap: source loading, mission lifecycle hooks, late-join sync dispatch, and InGameMenu registration.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Mod bootstrap: source loading, mission lifecycle hooks, late-join sync dispatch, and InGameMenu registration.
 local modDirectory = g_currentModDirectory
 local modName = g_currentModName
 source(modDirectory .. "scripts/Invoice.lua")
@@ -32,7 +28,8 @@ Invoices = {}
 Invoices.modDirectory = modDirectory
 Invoices.modName = modName
 Invoices.manager = nil
-
+---Register finance stat entry
+-- @param string statName Name of stat to register
 local function registerFinanceStat(statName)
     if FinanceStats.statNameToIndex[statName] == nil then
         table.insert(FinanceStats.statNames, statName)
@@ -43,6 +40,7 @@ end
 registerFinanceStat("invoiceIncome")
 registerFinanceStat("invoiceExpense")
 
+---Load mission lifecycle initiation
 local function loadedMission()
     MoneyType.INVOICE_INCOME = MoneyType.register("invoiceIncome", "invoice_label_invoice")
     MoneyType.INVOICE_EXPENSE = MoneyType.register("invoiceExpense", "invoice_label_invoice")
@@ -94,6 +92,12 @@ local function loadedMission()
     InvoiceSettings:injectMenu()
 end
 
+---Add invoice frame to InGameMenu at specified position
+-- @param table frame Frame element to add
+-- @param string pageName Name of the page
+-- @param table uvs UV coordinates
+-- @param function predicateFunc Visibility predicate
+-- @param integer|string insertPosition Insert position (number or page name)
 function Invoices.addInGameMenuPage(frame, pageName, uvs, predicateFunc, insertPosition)
     local targetPosition = 1
 
@@ -156,6 +160,11 @@ function Invoices.addInGameMenuPage(frame, pageName, uvs, predicateFunc, insertP
     g_inGameMenu:rebuildTabList()
 end
 
+---Send initial invoice state to client on connection
+-- @param table self Mission instance
+-- @param table connection Network connection
+-- @param table user User data
+-- @param table farm Farm data
 local function sendInitialClientState(self, connection, user, farm)
     if g_server == nil then return end
     -- Nil guards for late-join race condition
@@ -172,6 +181,7 @@ local function sendInitialClientState(self, connection, user, farm)
     connection:sendEvent(InvoiceSettingsEvent.new(g_currentMission.invoiceSettings))
 end
 
+---Save invoices to XML on savegame write
 local function onSaveToXMLFile()
     if not g_currentMission:getIsServer() then return end
 
@@ -185,6 +195,7 @@ local function onSaveToXMLFile()
     end
 end
 
+---Initialize invoices mod: register lifecycle hooks and setup
 local function initInvoices()
     Mission00.loadMission00Finished = Utils.appendedFunction(Mission00.loadMission00Finished, loadedMission)
     
@@ -240,6 +251,10 @@ local InvoicesI18NTexts = {
 
 local origI18NGetText = I18N.getText
 
+---Overrides I18N:getText to redirect mod translation keys to the mod's own locale
+-- @param string text Translation key
+-- @param string modEnv Optional mod environment name
+-- @return string text Localized text
 function I18N:getText(text, modEnv)
     if modEnv == nil and InvoicesI18NTexts[text] then
         return origI18NGetText(self, text, modName)

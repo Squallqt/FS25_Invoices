@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<!--
-    vatRates.xml
-    VAT groups and work type mapping for FS25_Invoices.
-    Active when the "Simulated VAT" setting is enabled.
--->
 <vatRates>
     <groups>
         <group name="service"   defaultRate="0.20" />

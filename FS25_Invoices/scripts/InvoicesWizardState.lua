@@ -1,12 +1,10 @@
---[[
-    InvoicesWizardState.lua
-    Singleton wizard state managing multi-step invoice drafting: recipient, work type, fields, and line items.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Singleton wizard state managing multi-step invoice drafting: recipient, work type, fields, and line items.
 InvoicesWizardState = {}
 InvoicesWizardState.instance = nil
 
+---Returns or creates the wizard state singleton
+-- @return InvoicesWizardState instance
 function InvoicesWizardState.getInstance()
     if InvoicesWizardState.instance == nil then
         InvoicesWizardState.instance = InvoicesWizardState.new()
@@ -14,6 +12,8 @@ function InvoicesWizardState.getInstance()
     return InvoicesWizardState.instance
 end
 
+---Creates a new wizard state instance
+-- @return InvoicesWizardState instance
 function InvoicesWizardState.new()
     local self = {}
     setmetatable(self, {__index = InvoicesWizardState})
@@ -23,6 +23,7 @@ function InvoicesWizardState.new()
     return self
 end
 
+---Resets wizard state to initial values
 function InvoicesWizardState:reset()
     self.recipientFarmId = nil
     self.recipientFarmName = nil
@@ -31,11 +32,15 @@ function InvoicesWizardState:reset()
     self.lineItems = {}
 end
 
+---Sets the invoice recipient farm
+-- @param integer farmId Recipient farm identifier
+-- @param string farmName Recipient farm name
 function InvoicesWizardState:setRecipient(farmId, farmName)
     self.recipientFarmId = farmId
     self.recipientFarmName = farmName
 end
 
+---Builds line items from selected work types and fields
 function InvoicesWizardState:buildAllLineItems()
     local manager = g_currentMission.invoicesManager
 
@@ -113,6 +118,8 @@ function InvoicesWizardState:buildAllLineItems()
     end
 end
 
+---Calculates the total amount of all line items
+-- @return integer total Sum of all line item amounts
 function InvoicesWizardState:getTotal()
     local total = 0
     for _, item in ipairs(self.lineItems) do
@@ -121,10 +128,14 @@ function InvoicesWizardState:getTotal()
     return total
 end
 
+---Checks if invoice creation is allowed
+-- @return boolean canCreate True if recipient is set and items exist
 function InvoicesWizardState:canCreateInvoice()
     return self.recipientFarmId ~= nil and #self.lineItems > 0
 end
 
+---Creates and sends invoice from wizard state
+-- @return Invoice|nil invoice Created invoice or nil on failure
 function InvoicesWizardState:createInvoice()
     if not self:canCreateInvoice() then
         return nil

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<!--
-    InvoicesFillTypeDialog.xml - Fill type selection dialog
--->
 <GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
-    <GuiElement profile="newLayer" />
+    <GuiElement profile="newLayer"/>
     <Bitmap profile="dialogFullscreenBg"/>
 
     <GuiElement profile="fs25_dialogBg" id="dialogElement" size="480px 634px">
@@ -21,7 +18,7 @@
                 </GuiElement>
                 <GuiElement profile="ftdTitleSpacer"/>
 
-                <!-- Content area (absolute positioning) -->
+                <!-- Content area -->
                 <GuiElement profile="ftdContentArea">
 
                     <GuiElement profile="ftdSelectionZone">
@@ -98,7 +95,7 @@
             <size value="180px 2dp"/>
         </Profile>
 
-        <!-- Content area: 534 - 40 - 1 - 24 = 469px -->
+        <!-- Content area -->
         <Profile name="ftdContentArea" extends="emptyPanel">
             <size value="400px 469px"/>
         </Profile>
@@ -180,7 +177,7 @@
             <imageColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
 
-        <!-- List wrapper: Y = -(38 + 1 + 6) = -45 -->
+        <!-- List -->
         <Profile name="ftdListWrapper" extends="emptyPanel" with="anchorTopLeft">
             <position value="8px -45px"/>
             <size value="392px 416px"/>
@@ -246,8 +243,6 @@
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-
-
 
     </GUIProfiles>
 </GUI>

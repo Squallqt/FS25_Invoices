@@ -1,35 +1,44 @@
---[[
-    InvoiceCreateEvent.lua
-    Network event for invoice creation with server-authoritative ID assignment.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Network event for invoice creation with server-authoritative ID assignment.
 InvoiceCreateEvent = {}
 local InvoiceCreateEvent_mt = Class(InvoiceCreateEvent, Event)
 
 InitEventClass(InvoiceCreateEvent, "InvoiceCreateEvent")
 
+---Creates empty event instance
+-- @return InvoiceCreateEvent instance Empty event
 function InvoiceCreateEvent.emptyNew()
     local self = Event.new(InvoiceCreateEvent_mt)
     return self
 end
 
+---Creates initialized invoice create event
+-- @param Invoice invoice The invoice to create
+-- @return InvoiceCreateEvent instance The new event instance
 function InvoiceCreateEvent.new(invoice)
     local self = InvoiceCreateEvent.emptyNew()
     self.invoice = invoice
     return self
 end
 
+---Reads invoice data from network stream
+-- @param integer streamId Network stream identifier
+-- @param Connection connection Network connection
 function InvoiceCreateEvent:readStream(streamId, connection)
     self.invoice = Invoice.new()
     self.invoice:readStream(streamId)
     self:run(connection)
 end
 
+---Writes invoice data to network stream
+-- @param integer streamId Network stream identifier
+-- @param Connection connection Network connection
 function InvoiceCreateEvent:writeStream(streamId, connection)
     self.invoice:writeStream(streamId)
 end
 
+---Executes invoice creation event
+-- @param Connection connection Network connection
 function InvoiceCreateEvent:run(connection)
     local manager = g_currentMission.invoicesManager
     if manager == nil then

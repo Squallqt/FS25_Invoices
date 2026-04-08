@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<!--
-    InvoicesFrame.xml - Main invoice menu frame
--->
 <GUI name="InvoicesFrame">
     <GuiElement profile="fs25_menuContainer">
 
@@ -18,7 +15,7 @@
             </BoxLayout>
         </GuiElement>
 
-        <!-- Tabs: Incoming / Outgoing -->
+        <!-- Tabs -->
         <BoxLayout profile="fs25_subCategorySelectorTabbedBox" id="subCategoryBox">
             <Button profile="fs25_subCategorySelectorTabbedTab" id="subCategoryTabs[1]" text="$l10n_invoice_tab_incoming" onClick="onClickIncoming">
                 <ThreePartBitmap profile="fs25_subCategorySelectorTabbedTabBg" name="background"/>
@@ -28,7 +25,7 @@
             </Button>
         </BoxLayout>
 
-        <!-- Separator + paging -->
+        <!-- Separator -->
         <ThreePartBitmap profile="fs25_lineSeparatorTopHighlighted" position="0px -57px" size="100% 2dp"/>
         <MultiTextOption profile="fs25_subCategorySelectorTabbed" id="subCategoryPaging" position="0px -10px" onClick="updateSubCategoryPages"/>
 

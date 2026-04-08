@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<!--
-    InvoicesVehicleDialog.xml - Vehicle selection dialog (clone of FillTypeDialog)
--->
 <GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
-    <GuiElement profile="newLayer" />
+    <GuiElement profile="newLayer"/>
     <Bitmap profile="dialogFullscreenBg"/>
 
     <GuiElement profile="fs25_dialogBg" id="dialogElement" size="480px 634px">
@@ -21,7 +18,7 @@
                 </GuiElement>
                 <GuiElement profile="ftdTitleSpacer"/>
 
-                <!-- Content area (absolute positioning) -->
+                <!-- Content area -->
                 <GuiElement profile="ftdContentArea">
 
                     <GuiElement profile="ftdSelectionZone">

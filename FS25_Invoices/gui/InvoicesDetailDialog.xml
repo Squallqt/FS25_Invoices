@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<!--
-    InvoicesDetailDialog.xml - Invoice detail view
--->
 <GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
     <GuiElement profile="newLayer"/>
     <Bitmap profile="dialogFullscreenBg" id="dialogBg"/>
@@ -26,14 +23,14 @@
                 <!-- Main content -->
                 <GuiElement profile="invDetContentArea">
 
-                    <!-- Invoice number (left) + Status badge (right) -->
+                    <!-- Invoice number + status -->
                     <Text profile="invDetInvNumber" id="textTitle"/>
                     <Text profile="invDetInvStatus" id="textStatus"/>
 
-                    <!-- Separator after title row -->
+                    <!-- Separator -->
                     <Bitmap profile="invDetSepTitle"/>
 
-                    <!-- From (left) + right meta column (Date + Penalty) -->
+                    <!-- From + date + penalty -->
                     <Text profile="invDetFrom" id="textFrom"/>
                     <BoxLayout profile="invDetRightMetaColumn">
                         <Text profile="invDetDateVal" id="textDate"/>
@@ -46,10 +43,10 @@
                     <!-- To -->
                     <Text profile="invDetTo" id="textTo"/>
 
-                    <!-- Separator before column headers -->
+                    <!-- Separator -->
                     <Bitmap profile="invDetSepHeader"/>
 
-                    <!-- Column headers: 7 columns -->
+                    <!-- Column headers -->
                     <Text profile="invDetColDesignation" text="$l10n_invoice_detail_col_service"/>
                     <Text profile="invDetColField"       text="$l10n_invoice_col_field"/>
                     <Text profile="invDetColQty"         text="$l10n_invoice_detail_col_qty"/>
@@ -58,10 +55,10 @@
                     <Text profile="invDetColVat"         text="$l10n_invoice_step4_col_vat"/>
                     <Text profile="invDetColAmount"      text="$l10n_invoice_detail_col_amount"/>
 
-                    <!-- Accent separator (green) below headers -->
+                    <!-- Accent separator -->
                     <Bitmap profile="invDetSepAccent"/>
 
-                    <!-- Line items SmoothList -->
+                    <!-- Line items -->
                     <SmoothList profile="invDetList" id="listItems" listItemSpacing="0px" listItemLateralSpacing="0px" listSmoothingDisabled="true">
                         <ListItem profile="invDetListItem" name="templateItem">
                             <ThreePartBitmap profile="invDetItemGradient" name="alternating"/>
@@ -80,17 +77,17 @@
                         <Slider profile="fs25_listSlider" dataElementId="listItems"/>
                     </ThreePartBitmap>
 
-                    <!-- Separator after list -->
+                    <!-- Separator -->
                     <Bitmap profile="invDetSepBottom"/>
 
-                    <!-- Notes section -->
+                    <!-- Notes -->
                     <Text profile="invDetNotesLabel" text="$l10n_invoice_label_note"/>
                     <Text profile="invDetNotesValue" id="textNotes"/>
 
-                    <!-- Separator before total -->
+                    <!-- Separator -->
                     <Bitmap profile="invDetSepBeforeTotal"/>
 
-                    <!-- TOTAL bar -->
+                    <!-- Total -->
                     <RoundCorner profile="invDetTotalBarBg"/>
                     <Text   profile="invDetTotalLabel" text="$l10n_invoice_label_total_due" id="textTotalLabel"/>
                     <Text   profile="invDetVatHtText"  id="textVatHt"/>
@@ -104,7 +101,7 @@
 
         </GuiElement>
 
-        <!-- Button bar (native Giant) -->
+        <!-- Button bar -->
         <BoxLayout profile="fs25_dialogButtonBox" size="860px 60px">
             <Button profile="buttonOK" text="$l10n_invoice_btn_payInvoice" onClick="onClickPay" id="btnPay"/>
             <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
@@ -113,7 +110,7 @@
     </GuiElement>
 
     <GUIProfiles>
-        <!-- Main content box (vertical flow, centered in content container) -->
+        <!-- Layout -->
         <Profile name="invDetMainBox" extends="emptyPanel" with="anchorTopCenter">
             <size value="832px 630px"/>
             <flowDirection value="vertical"/>
@@ -122,7 +119,7 @@
             <elementSpacing value="0px"/>
         </Profile>
 
-        <!-- Title text (BoxLayout child, no anchor needed) -->
+        <!-- Title -->
         <Profile name="invDetMainTitle" extends="baseReference">
             <size value="832px 40px"/>
             <margin value="0px 4px 0px 0px"/>
@@ -134,23 +131,23 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Separator wrapper (BoxLayout child, bottom margin = gap before content) -->
+        <!-- Title separator -->
         <Profile name="invDetTitleSepWrapper" extends="emptyPanel">
             <size value="832px 2dp"/>
             <margin value="0px 0px 28px 0px"/>
         </Profile>
 
-        <!-- Green gradient separator (centered, resized dynamically by Lua) -->
+        <!-- Separator -->
         <Profile name="invDetTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
             <size value="200px 2dp"/>
         </Profile>
 
-        <!-- Content area (BoxLayout child) -->
+        <!-- Content area -->
         <Profile name="invDetContentArea" extends="emptyPanel">
             <size value="832px 557px"/>
         </Profile>
 
-        <!-- Invoice number (left) + Status (right) -->
+        <!-- Invoice number + status -->
         <Profile name="invDetInvNumber" extends="baseReference" with="anchorTopLeft">
             <position value="11px 0px"/>
             <size value="450px 32px"/>
@@ -171,14 +168,14 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Separator after title -->
+        <!-- Separator -->
         <Profile name="invDetSepTitle" extends="baseReference" with="anchorTopLeft">
             <position value="0px -38px"/>
             <size value="832px 1dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
 
-        <!-- From + Date -->
+        <!-- From + date -->
         <Profile name="invDetFrom" extends="baseReference" with="anchorTopLeft">
             <position value="11px -47px"/>
             <size value="394px 27px"/>
@@ -216,7 +213,7 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Separator before columns -->
+        <!-- Separator -->
         <Profile name="invDetSepHeader" extends="baseReference" with="anchorTopLeft">
             <position value="0px -110px"/>
             <size value="832px 1dp"/>
@@ -295,13 +292,13 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Accent separator (green) -->
+        <!-- Accent separator -->
         <Profile name="invDetSepAccent" extends="baseReference" with="anchorTopLeft">
             <position value="0px -146px"/>
             <size value="832px 1dp"/>
             <imageColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
-        <!-- Line items list -->
+        <!-- Line items -->
         <Profile name="invDetList" extends="emptyPanel" with="anchorTopLeft">
             <position value="0px -152px"/>
             <size value="832px 284px"/>
@@ -401,13 +398,13 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Separator after list -->
+        <!-- Separator -->
         <Profile name="invDetSepBottom" extends="baseReference" with="anchorTopLeft">
             <position value="0px -445px"/>
             <size value="832px 2dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
-        <!-- Notes section -->
+        <!-- Notes -->
         <Profile name="invDetNotesLabel" extends="baseReference" with="anchorTopLeft">
             <position value="11px -447px"/>
             <size value="90px 32px"/>
@@ -429,13 +426,13 @@
             <textScrollOnFocusOnly value="false"/>
         </Profile>
 
-        <!-- Separator before total -->
+        <!-- Separator -->
         <Profile name="invDetSepBeforeTotal" extends="baseReference" with="anchorTopLeft">
             <position value="0px -479px"/>
             <size value="832px 2dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
-        <!-- Penalty indicator -->
+        <!-- Penalty -->
         <Profile name="invDetPenaltyRow" extends="emptyPanel">
             <size value="394px 27px"/>
         </Profile>
@@ -452,7 +449,7 @@
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <!-- Total bar -->
+        <!-- Total -->
         <Profile name="invDetTotalBarBg" extends="baseReference" with="anchorTopLeft">
             <position value="0px -485px"/>
             <size value="832px 72px"/>
@@ -485,7 +482,7 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetTotalSepLine" extends="baseReference" with="anchorTopLeft">
-            <position value="350px -522px"/>
+            <position value="350px -525px"/>
             <size value="474px 1dp"/>
             <imageColor value="0.3 0.3 0.3 0.8"/>
         </Profile>

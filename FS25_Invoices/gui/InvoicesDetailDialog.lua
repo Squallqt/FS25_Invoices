@@ -1,9 +1,5 @@
---[[
-    InvoicesDetailDialog.lua
-    Detail view dialog rendering line items, VAT breakdown, penalty bar, status badge, and pay action.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Detail view dialog rendering line items, VAT breakdown, penalty bar, status label, and pay action.
 InvoicesDetailDialog = {}
 local InvoicesDetailDialog_mt = Class(InvoicesDetailDialog, MessageDialog)
 
@@ -35,16 +31,22 @@ InvoicesDetailDialog.COLOR_PAID    = {0.40, 0.85, 0.40, 1}
 InvoicesDetailDialog.COLOR_OVERDUE = {1.00, 0.30, 0.30, 1}
 InvoicesDetailDialog.COLOR_PENALTY = {1.00, 0.40, 0.35, 1}
 
+---Creates new invoice detail dialog instance
+-- @param table target Parent target element
+-- @param table? customMt Optional custom metatable
+-- @return InvoicesDetailDialog instance The new dialog instance
 function InvoicesDetailDialog.new(target, customMt)
     local self = MessageDialog.new(target, customMt or InvoicesDetailDialog_mt)
     return self
 end
 
+---Loads dialog controls
 function InvoicesDetailDialog:onLoad()
     InvoicesDetailDialog:superClass().onLoad(self)
     self:registerControls(InvoicesDetailDialog.CONTROLS)
 end
 
+---Finalizes GUI setup
 function InvoicesDetailDialog:onGuiSetupFinished()
     InvoicesDetailDialog:superClass().onGuiSetupFinished(self)
 
@@ -54,6 +56,7 @@ function InvoicesDetailDialog:onGuiSetupFinished()
     end
 end
 
+---Resizes title separator to match title text width
 function InvoicesDetailDialog:resizeTitleSep()
     if self.titleSep == nil or self.mainTitleText == nil then return end
 
@@ -72,6 +75,8 @@ function InvoicesDetailDialog:resizeTitleSep()
     end
 end
 
+---Resizes penalty bar to fit penalty text
+-- @param string penaltyText Formatted penalty text
 function InvoicesDetailDialog:resizePenaltyBar(penaltyText)
     if self.penaltyBar == nil or self.textPenaltyBar == nil then return end
     if self.penaltyBar.parent == nil then return end
@@ -99,6 +104,10 @@ function InvoicesDetailDialog:resizePenaltyBar(penaltyText)
     end
 end
 
+---Resizes total separator to fit VAT and total amounts
+-- @param string htText Formatted HT amount text
+-- @param string tvaText Formatted TVA amount text
+-- @param string totalText Formatted total amount text
 function InvoicesDetailDialog:resizeTotalSep(htText, tvaText, totalText)
     if self.totalSep == nil or self.textVatHt == nil then return end
 
@@ -120,6 +129,7 @@ function InvoicesDetailDialog:resizeTotalSep(htText, tvaText, totalText)
     self.totalSep:setSize(newW, self.totalSep.size[2])
 end
 
+---Called when dialog opens, resets invoice state
 function InvoicesDetailDialog:onOpen()
     InvoicesDetailDialog:superClass().onOpen(self)
     self.invoice = nil
@@ -128,6 +138,9 @@ function InvoicesDetailDialog:onOpen()
     self:resizeTitleSep()
 end
 
+---Sets invoice data and populates all display fields
+-- @param table invoice Invoice to display
+-- @param boolean isIncoming True if invoice is incoming
 function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
     self.invoice = invoice
     self.isIncoming = isIncoming or false
@@ -279,6 +292,7 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
     self:updateSliderVisibility()
 end
 
+---Builds display items, grouping consumables by type
 function InvoicesDetailDialog:buildDisplayItems()
     self.displayItems = {}
     local consumableGroups = {}
@@ -322,6 +336,7 @@ function InvoicesDetailDialog:buildDisplayItems()
     end
 end
 
+---Shows or hides scroll slider based on item count
 function InvoicesDetailDialog:updateSliderVisibility()
     if self.sliderBox and self.listItems then
         local itemCount = #self.displayItems
@@ -331,22 +346,41 @@ function InvoicesDetailDialog:updateSliderVisibility()
     end
 end
 
+---Returns number of list sections
+-- @return integer count Always 1
 function InvoicesDetailDialog:getNumberOfSections()
     return 1
 end
 
+---Returns number of items in given section
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return integer count Number of display items
 function InvoicesDetailDialog:getNumberOfItemsInSection(list, section)
     return #self.displayItems
 end
 
+---Returns title for given section header
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return string title Empty string
 function InvoicesDetailDialog:getTitleForSectionHeader(list, section)
     return nil
 end
 
+---Returns height for given section header
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return float height Always 0
 function InvoicesDetailDialog:getSectionHeaderHeight(list, section)
     return 0
 end
 
+---Populates a list cell with line item data including icon, designation, quantity, unit, VAT and amount
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index within section
+-- @param table cell Cell element to populate
 function InvoicesDetailDialog:populateCellForItemInSection(list, section, index, cell)
     local item = self.displayItems[index]
     if not item then return end
@@ -465,9 +499,14 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
     if cellAmount      then cellAmount:setText(amountStr) end
 end
 
+---Called when list selection changes
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index within section
 function InvoicesDetailDialog:onListSelectionChanged(list, section, index)
 end
 
+---Handles pay button click, validates permissions and balance then shows confirmation
 function InvoicesDetailDialog:onClickPay()
     if self.invoice == nil then
         return
@@ -511,6 +550,8 @@ function InvoicesDetailDialog:onClickPay()
     YesNoDialog.show(self.onPayConfirmed, self, confirmText)
 end
 
+---Callback for pay confirmation dialog, executes payment if confirmed
+-- @param boolean confirmed True if user confirmed payment
 function InvoicesDetailDialog:onPayConfirmed(confirmed)
     if confirmed and self.invoice then
         local manager = g_currentMission.invoicesManager
@@ -521,6 +562,7 @@ function InvoicesDetailDialog:onPayConfirmed(confirmed)
     end
 end
 
+---Closes the detail dialog
 function InvoicesDetailDialog:onClickBack()
     self:close()
 end

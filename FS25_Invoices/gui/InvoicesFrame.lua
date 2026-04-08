@@ -1,9 +1,5 @@
---[[
-    InvoicesFrame.lua
-    InGameMenu tab frame: incoming/outgoing invoice lists with pay, delete, and detail navigation.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- InGameMenu tab frame: incoming/outgoing invoice lists with pay, delete, and detail navigation.
 InvoicesFrame = {}
 InvoicesFrame._mt = Class(InvoicesFrame, TabbedMenuFrameElement)
 
@@ -12,6 +8,10 @@ InvoicesFrame.TAB = {
     OUTGOING = 2
 }
 
+---Creates new invoices frame instance
+-- @param table i18n Internationalization context
+-- @param table messageCenter Message center instance
+-- @return InvoicesFrame instance The new frame instance
 function InvoicesFrame.new(i18n, messageCenter)
     local self = InvoicesFrame:superClass().new(nil, InvoicesFrame._mt)
     
@@ -31,6 +31,7 @@ function InvoicesFrame.new(i18n, messageCenter)
     return self
 end
 
+---Performs GUI setup after elements are initialized
 function InvoicesFrame:onGuiSetupFinished()
     InvoicesFrame:superClass().onGuiSetupFinished(self)
     
@@ -52,6 +53,7 @@ function InvoicesFrame:onGuiSetupFinished()
     end
 end
 
+---Initializes frame buttons, tabs, and menu button info
 function InvoicesFrame:initialize()
     InvoicesFrame:superClass().initialize(self)
 
@@ -111,6 +113,8 @@ function InvoicesFrame:initialize()
     self.menuButtonInfo[InvoicesFrame.TAB.OUTGOING] = { self.btnBack, self.btnNextPage, self.btnPrevPage, self.btnNewInvoice, self.btnDelete, self.btnDetails }
 end
 
+---Returns menu button info for the current tab
+-- @return table buttonInfo Array of button definitions
 function InvoicesFrame:getMenuButtonInfo()
     if self.menuButtonInfo == nil then
         return {}
@@ -118,6 +122,7 @@ function InvoicesFrame:getMenuButtonInfo()
     return self.menuButtonInfo[self.currentTab] or {}
 end
 
+---Called when frame is opened, sets up tabs and loads data
 function InvoicesFrame:onFrameOpen()
     InvoicesFrame:superClass().onFrameOpen(self)
     g_currentMission.invoicesFrame = self
@@ -153,22 +158,26 @@ function InvoicesFrame:onFrameOpen()
     self:setMenuButtonInfoDirty()
 end
 
+---Called when frame is closed, unsubscribes from events
 function InvoicesFrame:onFrameClose()
     InvoicesFrame:superClass().onFrameClose(self)
     g_messageCenter:unsubscribeAll(self)
     g_currentMission.invoicesFrame = nil
 end
 
+---Switches to incoming invoices tab
 function InvoicesFrame:onClickIncoming()
     self.subCategoryPaging:setState(InvoicesFrame.TAB.INCOMING, true)
     self:setMenuButtonInfoDirty()
 end
 
+---Switches to outgoing invoices tab
 function InvoicesFrame:onClickOutgoing()
     self.subCategoryPaging:setState(InvoicesFrame.TAB.OUTGOING, true)
     self:setMenuButtonInfoDirty()
 end
 
+---Updates page visibility based on current tab
 function InvoicesFrame:updateSubCategoryPages()
     self.currentTab = self.subCategoryPaging:getState()
     
@@ -180,10 +189,12 @@ function InvoicesFrame:updateSubCategoryPages()
     self:setMenuButtonInfoDirty()
 end
 
+---Called when player money changes
 function InvoicesFrame:onMoneyChanged()
     self:updateBalanceDisplay()
 end
 
+---Updates balance display with current farm money
 function InvoicesFrame:updateBalanceDisplay()
     if self.currentBalanceText == nil then
         return
@@ -206,6 +217,7 @@ function InvoicesFrame:updateBalanceDisplay()
     end
 end
 
+---Reloads invoice lists and updates visibility
 function InvoicesFrame:refreshList()
     self.selectedInvoice = nil
     
@@ -252,12 +264,16 @@ function InvoicesFrame:refreshList()
     self:updateButtonStates()
 end
 
+---Called when list selection changes
+-- @param integer index Selected row index
 function InvoicesFrame:onSelectionChanged(index)
     local renderer = (self.currentTab == InvoicesFrame.TAB.INCOMING) and self.listRenderer or self.listRenderer2
     self.selectedInvoice = renderer:getSelectedInvoice()
     self:updateButtonStates()
 end
 
+---Returns the current player farm ID
+-- @return integer farmId
 function InvoicesFrame:getCurrentFarmId()
     local farm = g_farmManager:getFarmByUserId(g_currentMission.playerUserId)
     if farm then
@@ -266,6 +282,7 @@ function InvoicesFrame:getCurrentFarmId()
     return -1
 end
 
+---Updates button enabled/disabled states based on selection
 function InvoicesFrame:updateButtonStates()
     if self.btnNewInvoice == nil then
         return
@@ -292,6 +309,7 @@ function InvoicesFrame:updateButtonStates()
     self:setMenuButtonInfoDirty()
 end
 
+---Opens invoice creation wizard
 function InvoicesFrame:onClickNewInvoice()
     local manager = g_currentMission.invoicesManager
     if manager == nil then
@@ -321,6 +339,7 @@ function InvoicesFrame:onClickNewInvoice()
     g_gui:showDialog("InvoicesMainDashboard")
 end
 
+---Shows payment confirmation dialog for selected invoice
 function InvoicesFrame:onClickPay()
     if self.selectedInvoice == nil then
         return
@@ -363,6 +382,8 @@ function InvoicesFrame:onClickPay()
     YesNoDialog.show(self.onPayConfirmed, self, text)
 end
 
+---Handles payment confirmation result
+-- @param boolean confirmed True if user confirmed
 function InvoicesFrame:onPayConfirmed(confirmed)
     if confirmed and self.selectedInvoice then
         local manager = g_currentMission.invoicesManager
@@ -372,6 +393,7 @@ function InvoicesFrame:onPayConfirmed(confirmed)
     end
 end
 
+---Shows delete confirmation dialog for selected invoice
 function InvoicesFrame:onClickDelete()
     if self.selectedInvoice == nil then
         return
@@ -388,6 +410,8 @@ function InvoicesFrame:onClickDelete()
     YesNoDialog.show(self.onDeleteConfirmed, self, text)
 end
 
+---Handles delete confirmation result
+-- @param boolean confirmed True if user confirmed
 function InvoicesFrame:onDeleteConfirmed(confirmed)
     if confirmed and self.selectedInvoice then
         local manager = g_currentMission.invoicesManager
@@ -397,6 +421,7 @@ function InvoicesFrame:onDeleteConfirmed(confirmed)
     end
 end
 
+---Opens detail dialog for selected invoice
 function InvoicesFrame:onClickDetails()
     if self.selectedInvoice == nil then
         return
@@ -411,12 +436,15 @@ function InvoicesFrame:onClickDetails()
     end
 end
 
+---Copies frame attributes from source element
+-- @param table src Source element
 function InvoicesFrame:copyAttributes(src)
     InvoicesFrame:superClass().copyAttributes(self, src)
     self.i18n = src.i18n
     self.messageCenter = src.messageCenter
 end
 
+---Deletes frame and cleans up references
 function InvoicesFrame:delete()
     self.listRenderer = nil
     self.listRenderer2 = nil

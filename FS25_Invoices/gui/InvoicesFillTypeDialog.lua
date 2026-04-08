@@ -1,9 +1,5 @@
---[[
-    InvoicesFillTypeDialog.lua
-    Modal dialog for multi-select fill type picking with market price display and edit mode support.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Modal dialog for multi-select fill type picking with market price display and edit mode support.
 InvoicesFillTypeDialog = {}
 local InvoicesFillTypeDialog_mt = Class(InvoicesFillTypeDialog, DialogElement)
 
@@ -14,6 +10,10 @@ InvoicesFillTypeDialog.CONTROLS = {
     TITLE_SEP       = "titleSep",
 }
 
+---Creates new fill type selection dialog instance
+-- @param table target Parent target element
+-- @param table? customMt Optional custom metatable
+-- @return InvoicesFillTypeDialog instance The new dialog instance
 function InvoicesFillTypeDialog.new(target, customMt)
     local self = DialogElement.new(target, customMt or InvoicesFillTypeDialog_mt)
     self.fillTypes       = {}
@@ -23,11 +23,13 @@ function InvoicesFillTypeDialog.new(target, customMt)
     return self
 end
 
+---Loads dialog controls
 function InvoicesFillTypeDialog:onLoad()
     InvoicesFillTypeDialog:superClass().onLoad(self)
     self:registerControls(InvoicesFillTypeDialog.CONTROLS)
 end
 
+---Finalizes GUI setup
 function InvoicesFillTypeDialog:onGuiSetupFinished()
     InvoicesFillTypeDialog:superClass().onGuiSetupFinished(self)
     if self.listFillTypes ~= nil then
@@ -36,6 +38,7 @@ function InvoicesFillTypeDialog:onGuiSetupFinished()
     end
 end
 
+---Called when dialog opens, resets selection and loads fill types
 function InvoicesFillTypeDialog:onOpen()
     InvoicesFillTypeDialog:superClass().onOpen(self)
     self:resizeTitleSep()
@@ -48,6 +51,7 @@ function InvoicesFillTypeDialog:onOpen()
     self:updateButtonStates()
 end
 
+---Resizes title separator to match title text width
 function InvoicesFillTypeDialog:resizeTitleSep()
     if self.titleSep == nil or self.mainTitleText == nil then return end
 
@@ -69,11 +73,16 @@ function InvoicesFillTypeDialog:resizeTitleSep()
     end
 end
 
+---Sets callback target and function for selection result
+-- @param table target Callback target object
+-- @param function func Callback function receiving selected items
 function InvoicesFillTypeDialog:setCallback(target, func)
     self.callbackTarget = target
     self.callbackFunc   = func
 end
 
+---Pre-selects fill types by name map and enables edit mode
+-- @param table nameMap Map of fill type names to pre-select
 function InvoicesFillTypeDialog:setInitialSelection(nameMap)
     self._isEditMode = false
     if nameMap ~= nil then
@@ -93,6 +102,7 @@ function InvoicesFillTypeDialog:setInitialSelection(nameMap)
     self:updateButtonStates()
 end
 
+---Loads available fill types from fill type manager with market prices
 function InvoicesFillTypeDialog:loadFillTypes()
     self.fillTypes = {}
 
@@ -126,6 +136,7 @@ function InvoicesFillTypeDialog:loadFillTypes()
     end
 end
 
+---Enables or disables select button based on current selection state
 function InvoicesFillTypeDialog:updateButtonStates()
     if self.btnSelect ~= nil then
         if self._isEditMode then
@@ -141,18 +152,33 @@ function InvoicesFillTypeDialog:updateButtonStates()
     end
 end
 
+---Returns number of list sections
+-- @return integer count Always 1
 function InvoicesFillTypeDialog:getNumberOfSections()
     return 1
 end
 
+---Returns number of fill types in given section
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return integer count Number of fill types
 function InvoicesFillTypeDialog:getNumberOfItemsInSection(list, section)
     return #self.fillTypes
 end
 
+---Returns title for given section header
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return string title Empty string
 function InvoicesFillTypeDialog:getTitleForSectionHeader(list, section)
     return ""
 end
 
+---Populates a list cell with fill type name, icon, price and selection tick
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index within section
+-- @param table cell Cell element to populate
 function InvoicesFillTypeDialog:populateCellForItemInSection(list, section, index, cell)
     local ft = self.fillTypes[index]
     if ft == nil then return end
@@ -185,10 +211,16 @@ function InvoicesFillTypeDialog:populateCellForItemInSection(list, section, inde
     end
 end
 
+---Called when list selection changes, updates button states
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index within section
 function InvoicesFillTypeDialog:onListSelectionChanged(list, section, index)
     self:updateButtonStates()
 end
 
+---Toggles selection state of fill type at given index
+-- @param integer index Fill type index to toggle
 function InvoicesFillTypeDialog:toggleItemAtIndex(index)
     if index < 1 or index > #self.fillTypes then return end
     if self.selectedMap[index] then
@@ -202,11 +234,16 @@ function InvoicesFillTypeDialog:toggleItemAtIndex(index)
     self:updateButtonStates()
 end
 
+---Handles click on fill type list item, toggles its selection
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index within section
 function InvoicesFillTypeDialog:onFillTypeListClicked(list, section, index)
     if list ~= self.listFillTypes or index == nil or index < 1 or index > #self.fillTypes then return end
     self:toggleItemAtIndex(index)
 end
 
+---Confirms selection, closes dialog and invokes callback with selected fill types
 function InvoicesFillTypeDialog:onClickSelect()
     local selectedItems = {}
     for idx, _ in pairs(self.selectedMap) do
@@ -221,6 +258,7 @@ function InvoicesFillTypeDialog:onClickSelect()
     end
 end
 
+---Cancels selection, closes dialog and invokes callback with nil
 function InvoicesFillTypeDialog:onClickBack()
     self:close()
     if self.callbackTarget ~= nil and self.callbackFunc ~= nil then

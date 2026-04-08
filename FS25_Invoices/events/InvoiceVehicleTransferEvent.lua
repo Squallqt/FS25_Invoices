@@ -1,19 +1,22 @@
---[[
-    InvoiceVehicleTransferEvent.lua
-    Network event for vehicle ownership transfer upon invoice payment.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Network event for vehicle ownership transfer upon invoice payment.
 InvoiceVehicleTransferEvent = {}
 local InvoiceVehicleTransferEvent_mt = Class(InvoiceVehicleTransferEvent, Event)
 
 InitEventClass(InvoiceVehicleTransferEvent, "InvoiceVehicleTransferEvent")
 
+---Creates empty event instance
+-- @return InvoiceVehicleTransferEvent instance Empty event
 function InvoiceVehicleTransferEvent.emptyNew()
     local self = Event.new(InvoiceVehicleTransferEvent_mt)
     return self
 end
 
+---Creates initialized vehicle transfer event
+-- @param string vehicleUniqueId Vehicle unique identifier
+-- @param integer senderFarmId Sender farm identifier
+-- @param integer recipientFarmId Recipient farm identifier
+-- @return InvoiceVehicleTransferEvent instance The new event instance
 function InvoiceVehicleTransferEvent.new(vehicleUniqueId, senderFarmId, recipientFarmId)
     local self = InvoiceVehicleTransferEvent.emptyNew()
     self.vehicleUniqueId = vehicleUniqueId
@@ -22,6 +25,9 @@ function InvoiceVehicleTransferEvent.new(vehicleUniqueId, senderFarmId, recipien
     return self
 end
 
+---Reads vehicle transfer data from network stream
+-- @param integer streamId Network stream identifier
+-- @param Connection connection Network connection
 function InvoiceVehicleTransferEvent:readStream(streamId, connection)
     self.vehicleUniqueId = streamReadString(streamId)
     self.senderFarmId    = streamReadInt32(streamId)
@@ -29,12 +35,17 @@ function InvoiceVehicleTransferEvent:readStream(streamId, connection)
     self:run(connection)
 end
 
+---Writes vehicle transfer data to network stream
+-- @param integer streamId Network stream identifier
+-- @param Connection connection Network connection
 function InvoiceVehicleTransferEvent:writeStream(streamId, connection)
     streamWriteString(streamId, self.vehicleUniqueId or "")
     streamWriteInt32(streamId, self.senderFarmId or 0)
     streamWriteInt32(streamId, self.recipientFarmId or 0)
 end
 
+---Executes vehicle transfer event
+-- @param Connection connection Network connection
 function InvoiceVehicleTransferEvent:run(connection)
     if not connection:getIsServer() then
         local player = g_currentMission.connectionsToPlayer[connection]

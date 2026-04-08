@@ -1,9 +1,5 @@
---[[
-    InvoiceService.lua
-    Business logic + pricing + server-authoritative money transfers.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Business logic: pricing, VAT rates, server-authoritative money transfers, penalty accrual, reminders, and notifications.
 InvoiceService = {}
 local InvoiceService_mt = Class(InvoiceService)
 
@@ -73,6 +69,9 @@ InvoiceService.REMINDER_INTERVAL = 300000
 InvoiceService.REMINDER_FIRST_DELAY = 60000
 InvoiceService.PENALTY_CHECK_INTERVAL = 10000
 
+---Creates new invoice service instance
+-- @param table repository Invoice repository instance
+-- @return InvoiceService instance
 function InvoiceService.new(repository)
     local self = setmetatable({}, InvoiceService_mt)
 
@@ -94,6 +93,8 @@ function InvoiceService.new(repository)
     return self
 end
 
+---Loads VAT rates from XML configuration
+-- @param string xmlPath Path to VAT rates XML file
 function InvoiceService:loadVatRates(xmlPath)
     local xmlFile = loadXMLFile("vatRates", xmlPath)
     if xmlFile == nil or xmlFile == 0 then
@@ -132,6 +133,8 @@ function InvoiceService:loadVatRates(xmlPath)
     Logging.info("[InvoiceService] VAT rates loaded: %d groups, %d work type mappings", groupCount, wtCount)
 end
 
+---Returns whether VAT simulation is enabled
+-- @return boolean isEnabled
 function InvoiceService:isVatEnabled()
     if g_currentMission == nil or g_currentMission.invoiceSettings == nil then
         return true
@@ -143,6 +146,8 @@ end
 InvoiceService.PENALTY_GRACE_PERIODS = 1
 InvoiceService.PENALTY_CAP_PERCENT = 25
 
+---Returns whether penalty system is enabled
+-- @return boolean isEnabled
 function InvoiceService:isPenaltyEnabled()
     if g_currentMission == nil or g_currentMission.invoiceSettings == nil then
         return false
@@ -150,10 +155,14 @@ function InvoiceService:isPenaltyEnabled()
     return g_currentMission.invoiceSettings.invoicePenalties ~= false
 end
 
+---Returns monthly penalty rate in percent
+-- @return integer rate Penalty rate
 function InvoiceService:getPenaltyRate()
     return 5
 end
 
+---Returns planned days per period from environment
+-- @return integer daysPerPeriod
 function InvoiceService:getDaysPerPeriod()
     if g_currentMission ~= nil and g_currentMission.environment ~= nil then
         return g_currentMission.environment.plannedDaysPerPeriod or 1
@@ -161,6 +170,7 @@ function InvoiceService:getDaysPerPeriod()
     return 1
 end
 
+---Processes penalty accrual on unpaid invoices (server only)
 function InvoiceService:processPenalties()
     if g_server == nil then return end
     if not self:isPenaltyEnabled() then return end
@@ -229,6 +239,8 @@ function InvoiceService:processPenalties()
     end
 end
 
+---Applies penalty sync updates received from server
+-- @param table updates Array of penalty update records
 function InvoiceService:applyPenaltySync(updates)
     for _, upd in ipairs(updates) do
         local invoice = self.repository:getById(upd.id)
@@ -243,6 +255,8 @@ function InvoiceService:applyPenaltySync(updates)
     self:notifyUI()
 end
 
+---Shows overdue notification to recipient farm player
+-- @param table invoice Invoice with overdue penalty
 function InvoiceService:notifyOverdue(invoice)
     if invoice == nil then return end
     if g_localPlayer == nil then return end
@@ -264,16 +278,24 @@ function InvoiceService:notifyOverdue(invoice)
     g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_CRITICAL, text)
 end
 
+---Returns VAT rate for a work type
+-- @param integer workTypeId Work type identifier
+-- @return float rate VAT rate or 0
 function InvoiceService:getVatRateForWorkType(workTypeId)
     local group = self.workTypeGroups[workTypeId]
     if group == nil then return 0 end
     return self.vatGroups[group] or 0
 end
 
+---Returns all available work types
+-- @return table workTypes Array of work type definitions
 function InvoiceService:getWorkTypes()
     return InvoiceService.WORK_TYPES
 end
 
+---Returns work type definition by identifier
+-- @param integer id Work type identifier
+-- @return table|nil workType Work type definition or nil
 function InvoiceService:getWorkTypeById(id)
     for _, workType in ipairs(InvoiceService.WORK_TYPES) do
         if workType.id == id then
@@ -283,6 +305,9 @@ function InvoiceService:getWorkTypeById(id)
     return nil
 end
 
+---Returns i18n key for a unit type
+-- @param integer unitType Unit type constant
+-- @return string key Localization key
 function InvoiceService:getUnitKey(unitType)
     if unitType == Invoice.UNIT_PIECE then
         return "invoice_invoices_unit_piece"
@@ -297,6 +322,8 @@ function InvoiceService:getUnitKey(unitType)
 end
 
 -- Matches FS25 AbstractFieldMission:getReward() formula
+---Returns economic difficulty multiplier
+-- @return float multiplier Difficulty-adjusted price multiplier
 function InvoiceService:getDifficultyMultiplier()
     local difficulty = 2
     if g_currentMission ~= nil and g_currentMission.missionInfo ~= nil then
@@ -305,6 +332,9 @@ function InvoiceService:getDifficultyMultiplier()
     return 1.3 - 0.1 * difficulty
 end
 
+---Returns difficulty-adjusted price for a work type
+-- @param integer workTypeId Work type identifier
+-- @return float price Adjusted price
 function InvoiceService:getAdjustedPrice(workTypeId)
     local workType = self:getWorkTypeById(workTypeId)
     if workType == nil then
@@ -313,6 +343,9 @@ function InvoiceService:getAdjustedPrice(workTypeId)
     return MathUtil.round(workType.basePrice * self:getDifficultyMultiplier(), 2)
 end
 
+---Creates invoice, assigns ID, and broadcasts event
+-- @param table invoice Invoice to create
+-- @param boolean noEventSend If true skip network broadcast
 function InvoiceService:createAndSendInvoice(invoice, noEventSend)
     if invoice.id == 0 then
         invoice.id = self.repository:generateId()
@@ -334,6 +367,9 @@ function InvoiceService:createAndSendInvoice(invoice, noEventSend)
     end
 end
 
+---Pays invoice, transfers money, and broadcasts event
+-- @param integer invoiceId Invoice identifier
+-- @param boolean noEventSend If true skip network broadcast
 function InvoiceService:payInvoice(invoiceId, noEventSend)
     if g_server == nil and not (noEventSend == true) then
         g_client:getServerConnection():sendEvent(InvoiceStateEvent.new(invoiceId, InvoiceStateEvent.ACTION_PAY))
@@ -349,6 +385,9 @@ function InvoiceService:payInvoice(invoiceId, noEventSend)
     end
 end
 
+---Deletes invoice and broadcasts event
+-- @param integer invoiceId Invoice identifier
+-- @param boolean noEventSend If true skip network broadcast
 function InvoiceService:deleteInvoice(invoiceId, noEventSend)
     if g_server == nil and not (noEventSend == true) then
         g_client:getServerConnection():sendEvent(InvoiceStateEvent.new(invoiceId, InvoiceStateEvent.ACTION_DELETE))
@@ -361,12 +400,18 @@ function InvoiceService:deleteInvoice(invoiceId, noEventSend)
 end
 
 -- Server-authoritative create (called by network events)
+---Applies incoming invoice on server side
+-- @param table invoice Invoice to add
 function InvoiceService:applyCreateAuthoritative(invoice)
     self.repository:add(invoice)
     self:notifyNewInvoice(invoice)
     self:notifyUI()
 end
 
+---Executes payment with money transfer (server-authoritative)
+-- @param integer invoiceId Invoice identifier
+-- @param boolean isAuthoritative If true performs money transfer
+-- @return boolean success True if payment succeeded
 function InvoiceService:executePayment(invoiceId, isAuthoritative)
     local invoice = self.repository:getById(invoiceId)
     if invoice == nil then
@@ -509,6 +554,10 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
     return true
 end
 
+---Transfers vehicle ownership between farms
+-- @param string vehicleUniqueId Vehicle unique identifier
+-- @param integer senderFarmId Current owner farm identifier
+-- @param integer recipientFarmId New owner farm identifier
 function InvoiceService:transferVehicleOwnership(vehicleUniqueId, senderFarmId, recipientFarmId)
     local vehicle = g_currentMission.vehicleSystem:getVehicleByUniqueId(vehicleUniqueId)
     if vehicle == nil then
@@ -526,12 +575,18 @@ function InvoiceService:transferVehicleOwnership(vehicleUniqueId, senderFarmId, 
     g_server:broadcastEvent(InvoiceVehicleTransferEvent.new(vehicleUniqueId, senderFarmId, recipientFarmId))
 end
 
+---Deletes invoice from repository
+-- @param integer invoiceId Invoice identifier
+-- @return boolean success True if deleted
 function InvoiceService:executeDelete(invoiceId)
     local result = self.repository:removeById(invoiceId)
     self:notifyUI()
     return result
 end
 
+---Replaces all invoices with sync data from server
+-- @param table invoices Array of invoices
+-- @param integer nextId Next invoice ID counter
 function InvoiceService:applySyncData(invoices, nextId)
     self.repository:replaceAll(invoices, nextId)
 
@@ -548,16 +603,22 @@ function InvoiceService:applySyncData(invoices, nextId)
     self:notifyUI()
 end
 
+---Returns all invoices and next ID for sync
+-- @return table invoices All invoices
+-- @return integer nextId Next invoice ID counter
 function InvoiceService:getSyncData()
     return self.repository:getAll(), self.repository:getNextInvoiceId()
 end
 
+---Refreshes invoice list UI if available
 function InvoiceService:notifyUI()
     if g_currentMission.invoicesFrame ~= nil then
         g_currentMission.invoicesFrame:refreshList()
     end
 end
 
+---Shows new invoice notification to recipient farm player
+-- @param table invoice Newly created invoice
 function InvoiceService:notifyNewInvoice(invoice)
     if invoice == nil then return end
     if g_localPlayer == nil then return end
@@ -575,6 +636,7 @@ function InvoiceService:notifyNewInvoice(invoice)
     self:activateReminder()
 end
 
+---Initializes reminder system and subscribes to farm changes
 function InvoiceService:initializeReminderSystem()
     g_messageCenter:subscribe(MessageType.PLAYER_FARM_CHANGED, self.onPlayerFarmChanged, self)
 
@@ -582,6 +644,8 @@ function InvoiceService:initializeReminderSystem()
     self.initialCheckDone = false
 end
 
+---Returns whether invoice reminders are enabled
+-- @return boolean isEnabled
 function InvoiceService:isRemindersEnabled()
     if g_currentMission == nil or g_currentMission.invoiceSettings == nil then
         return true
@@ -589,6 +653,8 @@ function InvoiceService:isRemindersEnabled()
     return g_currentMission.invoiceSettings.invoiceReminders ~= false
 end
 
+---Activates periodic reminder for unpaid invoices
+-- @param integer? farmId Target farm identifier
 function InvoiceService:activateReminder(farmId)
     if g_localPlayer == nil then return end
     if not self:isRemindersEnabled() then return end
@@ -608,6 +674,7 @@ function InvoiceService:activateReminder(farmId)
     end
 end
 
+---Deactivates periodic invoice reminder
 function InvoiceService:deactivateReminder()
     if self.reminderActive then
         self.reminderActive = false
@@ -615,6 +682,7 @@ function InvoiceService:deactivateReminder()
     end
 end
 
+---Cleans up reminder system and unsubscribes from events
 function InvoiceService:cleanupReminderSystem()
     self.reminderActive = false
     self.reminderFarmId = nil
@@ -624,12 +692,16 @@ function InvoiceService:cleanupReminderSystem()
     g_currentMission:removeUpdateable(self)
 end
 
+---Called when player changes farm, resets reminder state
 function InvoiceService:onPlayerFarmChanged()
     self:deactivateReminder()
     self.initialCheckDone = false
     self.lastNotifiedFarmId = nil
 end
 
+---Checks if any invoice in the list has a penalty
+-- @param table unpaidInvoices Array of unpaid invoices
+-- @return boolean hasOverdue True if any has penalty > 0
 function InvoiceService:hasOverdueInvoices(unpaidInvoices)
     for _, invoice in ipairs(unpaidInvoices or {}) do
         if (invoice.penaltyAmount or 0) > 0 then
@@ -639,6 +711,10 @@ function InvoiceService:hasOverdueInvoices(unpaidInvoices)
     return false
 end
 
+---Builds reminder notification text with amounts and overdue info
+-- @param table unpaidInvoices Array of unpaid invoices
+-- @param integer totalAmount Total amount due
+-- @return string text Formatted notification text
 function InvoiceService:buildReminderText(unpaidInvoices, totalAmount)
     local amountStr = g_i18n:formatMoney(totalAmount or 0)
     local text
@@ -665,6 +741,8 @@ function InvoiceService:buildReminderText(unpaidInvoices, totalAmount)
 end
 
 -- Handles initial connection check (PLAYER_FARM_CHANGED not fired on first join)
+---Called each frame to process penalties and reminders
+-- @param float dt Delta time in milliseconds
 function InvoiceService:update(dt)
     -- Penalty accrual (server only, throttled)
     if g_server ~= nil then
@@ -734,6 +812,9 @@ function InvoiceService:update(dt)
     end
 end
 
+---Returns unpaid invoices for a recipient farm
+-- @param integer farmId Recipient farm identifier
+-- @return table unpaidInvoices Array of unpaid invoices
 function InvoiceService:getUnpaidInvoicesForFarm(farmId)
     local unpaidInvoices = {}
     local invoices = self.repository:getByRecipientFarm(farmId)

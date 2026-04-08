@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<!--
-    guiProfiles.xml - Shared GUI profiles for Invoices mod
--->
 <GUIProfiles>
-    <!-- Header Icon Profile -->
-    
+
+    <!-- Header icon -->
     <Profile name="invHeaderIcon" extends="baseReference">
-        <imageUVs value="0 0 1 1" />
-        <imageColor value="$preset_fs25_colorMainDark" />
-        <imageSliceId value="noSlice" />
+        <imageUVs value="0 0 1 1"/>
+        <imageColor value="$preset_fs25_colorMainDark"/>
+        <imageSliceId value="noSlice"/>
     </Profile>
-    <!-- Dialog backgrounds -->
-<Profile name="invSelectFieldDialog" extends="fs25_dialogBg">
+
+    <!-- Selection dialogs -->
+    <Profile name="invSelectFieldDialog" extends="fs25_dialogBg">
         <size value="560px 780px"/>
     </Profile>
-    <!-- Common BoxLayout containers -->
-    
+
     <Profile name="invSelectMainBox" extends="emptyPanel">
         <size value="520px 710px"/>
         <flowDirection value="vertical"/>
         <elementSpacing value="10px"/>
     </Profile>
 
-    
     <Profile name="invSelectListSection" extends="emptyPanel">
         <size value="520px 660px"/>
     </Profile>
-    
+
     <Profile name="invSelectHeader" extends="emptyPanel">
         <size value="500px 40px"/>
         <imageColor value="0 0 0 0.35"/>
     </Profile>
-    
+
     <Profile name="invSelectHeaderCell" extends="fs25_statisticsHeaderText">
         <size value="200px 40px"/>
         <textSize value="16px"/>
@@ -40,22 +36,22 @@
         <textAlignment value="center"/>
         <textVerticalAlignment value="middle"/>
     </Profile>
-    
+
     <Profile name="invSelectList" extends="emptyPanel">
         <size value="500px 600px"/>
     </Profile>
-    
+
     <Profile name="invSelectListItem" extends="invTableItem">
         <size value="500px 40px"/>
     </Profile>
-    <!-- Common table/list profiles -->
-    
+
+    <!-- Table -->
     <Profile name="invTableItem" extends="baseReference" with="anchorTopStretchingX">
         <height value="40px"/>
         <imageColor value="$preset_fs25_colorGrey"/>
         <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
     </Profile>
-    
+
     <Profile name="invTableCell" extends="baseReference">
         <textSize value="16px"/>
         <textColor value="$preset_fs25_colorMainLight"/>
@@ -63,14 +59,12 @@
         <textAlignment value="left"/>
         <textVerticalAlignment value="middle"/>
     </Profile>
-<Profile name="invTableCellCenter" extends="invTableCell">
+
+    <Profile name="invTableCellCenter" extends="invTableCell">
         <textAlignment value="center"/>
     </Profile>
-    
 
-    <!-- Menu frame profiles (InvoicesFrame) -->
-
-    <!-- Column header button -->
+    <!-- Column headers -->
     <Profile name="invColumnHeaderBtn" extends="baseReference" with="anchorTopLeft">
         <imageColor value="0 0 0 0"/>
         <textFocusedColor value="$preset_fs25_colorMainHighlight"/>
@@ -84,12 +78,11 @@
         <textDisabledColor value="$preset_colorDisabled"/>
     </Profile>
 
-    
     <Profile name="invColumnHeaderBtnCenter" extends="invColumnHeaderBtn">
         <textAlignment value="center"/>
     </Profile>
 
-<!-- Content area: list + slider -->
+    <!-- Content area -->
     <Profile name="invListContentArea" extends="emptyPanel" with="anchorTopStretchingX pivotTopLeft"/>
 
     <!-- Invoice list -->
@@ -111,7 +104,7 @@
         <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
     </Profile>
 
-    <!-- Row cell: center-aligned base -->
+    <!-- Row cells -->
     <Profile name="invRowCellLeft" extends="baseReference" with="anchorStretchingYLeft">
         <textBold value="false"/>
         <textSize value="15px"/>
@@ -122,7 +115,6 @@
         <textDisabledColor value="$preset_colorDisabled"/>
     </Profile>
 
-    <!-- Row cell: dimmed text for secondary info -->
     <Profile name="invRowCellDim" extends="invRowCellLeft">
         <textColor value="0.6 0.6 0.6 1"/>
         <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -131,7 +123,6 @@
         <textVerticalAlignment value="middle"/>
     </Profile>
 
-    <!-- Row cell: center-aligned (status) -->
     <Profile name="invRowCellCenter" extends="invRowCellLeft">
         <textAlignment value="center"/>
         <textBold value="true"/>
@@ -139,7 +130,6 @@
         <textVerticalAlignment value="middle"/>
     </Profile>
 
-    <!-- Row cell: center-aligned (amount) -->
     <Profile name="invRowCellRight" extends="baseReference" with="anchorStretchingYLeft">
         <textBold value="true"/>
         <textSize value="15px"/>
@@ -150,14 +140,13 @@
         <textDisabledColor value="$preset_colorDisabled"/>
     </Profile>
 
-    <!-- Slider -->
+    <!-- List slider -->
     <Profile name="invSliderBox" extends="fs25_listSliderBox" with="anchorTopRight">
         <width value="6px"/>
         <height value="670px"/>
     </Profile>
 
-    <!-- Shared dashboard profiles (used by InvoicesMainDashboard + InvoicesFillTypeDialog) -->
-
+    <!-- Dashboard -->
     <Profile name="dashSelectListItem" extends="fs25_calendarListItem">
         <height value="32px"/>
         <imageColor value="$preset_fs25_colorGrey"/>
@@ -184,7 +173,7 @@
         <inputAction value="MENU_BACK"/>
     </Profile>
 
-    <!-- Empty state text -->
+    <!-- Empty state -->
     <Profile name="invEmptyStateText" extends="baseReference" with="anchorTopLeft">
         <size value="400px 40px"/>
         <textSize value="18px"/>
