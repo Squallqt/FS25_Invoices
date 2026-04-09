@@ -137,7 +137,11 @@ function Invoice:writeToXML(xmlFile, key)
         setXMLString(xmlFile, itemKey .. "#iconFilename", item.iconFilename or "")
         setXMLFloat(xmlFile, itemKey .. "#price", item.price or 0)
         setXMLString(xmlFile, itemKey .. "#vehicleUniqueId", item.vehicleUniqueId or "")
-        setXMLString(xmlFile, itemKey .. "#consumableXmlFilename", item.consumableXmlFilename or "")
+        local xmlFn = item.consumableXmlFilename or ""
+        if xmlFn ~= "" then
+            xmlFn = NetworkUtil.convertToNetworkFilename(xmlFn)
+        end
+        setXMLString(xmlFile, itemKey .. "#consumableXmlFilename", xmlFn)
         setXMLInt(xmlFile, itemKey .. "#consumableFillTypeIndex", item.consumableFillTypeIndex or 0)
         setXMLFloat(xmlFile, itemKey .. "#consumableFillLevel", item.consumableFillLevel or 0)
     end
@@ -193,10 +197,16 @@ function Invoice:readFromXML(xmlFile, key)
             iconFilename = getXMLString(xmlFile, itemKey .. "#iconFilename") or "",
             price = getXMLFloat(xmlFile, itemKey .. "#price") or 0,
             vehicleUniqueId = getXMLString(xmlFile, itemKey .. "#vehicleUniqueId") or "",
-            consumableXmlFilename = getXMLString(xmlFile, itemKey .. "#consumableXmlFilename") or "",
             consumableFillTypeIndex = getXMLInt(xmlFile, itemKey .. "#consumableFillTypeIndex") or 0,
             consumableFillLevel = getXMLFloat(xmlFile, itemKey .. "#consumableFillLevel") or 0
         }
+
+        local rawXmlFn = getXMLString(xmlFile, itemKey .. "#consumableXmlFilename") or ""
+        if rawXmlFn ~= "" then
+            item.consumableXmlFilename = NetworkUtil.convertFromNetworkFilename(rawXmlFn)
+        else
+            item.consumableXmlFilename = ""
+        end
 
         table.insert(self.lineItems, item)
         self.totalAmount = self.totalAmount + amount
@@ -272,8 +282,18 @@ function Invoice:writeStream(streamId)
         streamWriteString(streamId, item.name or "")
         streamWriteString(streamId, item.iconFilename or "")
         streamWriteFloat32(streamId, item.price or 0)
-        streamWriteString(streamId, item.vehicleUniqueId or "")
-        streamWriteString(streamId, item.consumableXmlFilename or "")
+
+        local vehicleNetId = 0
+        local uid = item.vehicleUniqueId or ""
+        if uid ~= "" and g_currentMission ~= nil and g_currentMission.vehicleSystem ~= nil then
+            local vehicle = g_currentMission.vehicleSystem:getVehicleByUniqueId(uid)
+            if vehicle ~= nil then
+                vehicleNetId = NetworkUtil.getObjectId(vehicle)
+            end
+        end
+        streamWriteInt32(streamId, vehicleNetId)
+
+        streamWriteString(streamId, NetworkUtil.convertToNetworkFilename(item.consumableXmlFilename or ""))
         streamWriteInt16(streamId, item.consumableFillTypeIndex or 0)
         streamWriteFloat32(streamId, item.consumableFillLevel or 0)
     end
@@ -307,20 +327,40 @@ function Invoice:readStream(streamId)
     for _ = 1, count do
         local workTypeId = streamReadInt16(streamId)
         local amount = streamReadFloat32(streamId)
+
+        local quantity = streamReadFloat32(streamId)
+        local unitType = streamReadInt8(streamId)
+        local fieldId = streamReadInt16(streamId)
+        local fieldArea = streamReadFloat32(streamId)
+        local note = streamReadString(streamId)
+        local vatRate = streamReadFloat32(streamId)
+        local name = streamReadString(streamId)
+        local iconFilename = streamReadString(streamId)
+        local price = streamReadFloat32(streamId)
+
+        local vehicleNetId = streamReadInt32(streamId)
+        local vehicleUniqueId = ""
+        if vehicleNetId ~= 0 then
+            local vehicle = NetworkUtil.getObject(vehicleNetId)
+            if vehicle ~= nil then
+                vehicleUniqueId = vehicle:getUniqueId() or ""
+            end
+        end
+
         local item = {
             workTypeId = workTypeId,
             amount = amount,
-            quantity = streamReadFloat32(streamId),
-            unitType = streamReadInt8(streamId),
-            fieldId = streamReadInt16(streamId),
-            fieldArea = streamReadFloat32(streamId),
-            note = streamReadString(streamId),
-            vatRate = streamReadFloat32(streamId),
-            name = streamReadString(streamId),
-            iconFilename = streamReadString(streamId),
-            price = streamReadFloat32(streamId),
-            vehicleUniqueId = streamReadString(streamId),
-            consumableXmlFilename = streamReadString(streamId),
+            quantity = quantity,
+            unitType = unitType,
+            fieldId = fieldId,
+            fieldArea = fieldArea,
+            note = note,
+            vatRate = vatRate,
+            name = name,
+            iconFilename = iconFilename,
+            price = price,
+            vehicleUniqueId = vehicleUniqueId,
+            consumableXmlFilename = NetworkUtil.convertFromNetworkFilename(streamReadString(streamId)),
             consumableFillTypeIndex = streamReadInt16(streamId),
             consumableFillLevel = streamReadFloat32(streamId)
         }
@@ -328,4 +368,46 @@ function Invoice:readStream(streamId)
         table.insert(self.lineItems, item)
         self.totalAmount = self.totalAmount + amount
     end
+end
+
+---Resolves the display icon for a line item from local store data.
+-- Vehicle items resolve from vehicleUniqueId, consumables from fillTypeIndex.
+-- @param table item Line item
+-- @return string Resolved icon path or empty string
+function Invoice.resolveLocalIcon(item)
+    if item == nil then
+        return ""
+    end
+
+    local uid = item.vehicleUniqueId
+    if uid ~= nil and uid ~= "" then
+        if g_currentMission ~= nil and g_currentMission.vehicleSystem ~= nil then
+            local vehicle = g_currentMission.vehicleSystem:getVehicleByUniqueId(uid)
+            if vehicle ~= nil and vehicle.configFileName ~= nil then
+                local storeItem = g_storeManager:getItemByXMLFilename(vehicle.configFileName)
+                if storeItem ~= nil and storeItem.imageFilename ~= nil and storeItem.imageFilename ~= "" then
+                    return storeItem.imageFilename
+                end
+            end
+        end
+    end
+
+    local xmlFn = item.consumableXmlFilename
+    if xmlFn ~= nil and xmlFn ~= "" then
+        local storeItem = g_storeManager:getItemByXMLFilename(xmlFn)
+        if storeItem ~= nil and storeItem.imageFilename ~= nil and storeItem.imageFilename ~= "" then
+            return storeItem.imageFilename
+        end
+    end
+
+    local fillIdx = item.consumableFillTypeIndex
+    if fillIdx ~= nil and fillIdx > 0 and g_fillTypeManager ~= nil then
+        local fillTypeInfo = g_fillTypeManager:getFillTypeByIndex(fillIdx)
+        if fillTypeInfo ~= nil and fillTypeInfo.hudOverlayFilename ~= nil and fillTypeInfo.hudOverlayFilename ~= "" then
+            return fillTypeInfo.hudOverlayFilename
+        end
+        return ""
+    end
+
+    return item.iconFilename or ""
 end

@@ -34,7 +34,7 @@ end
 -- @param integer streamId Network stream identifier
 -- @param Connection connection Network connection
 function InvoiceConsumableTransferEvent:readStream(streamId, connection)
-    self.xmlFilename     = streamReadString(streamId)
+    self.xmlFilename     = NetworkUtil.convertFromNetworkFilename(streamReadString(streamId))
     self.fillTypeIndex   = streamReadInt16(streamId)
     self.quantity        = streamReadInt16(streamId)
     self.senderFarmId    = streamReadInt32(streamId)
@@ -46,7 +46,7 @@ end
 -- @param integer streamId Network stream identifier
 -- @param Connection connection Network connection
 function InvoiceConsumableTransferEvent:writeStream(streamId, connection)
-    streamWriteString(streamId, self.xmlFilename or "")
+    streamWriteString(streamId, NetworkUtil.convertToNetworkFilename(self.xmlFilename or ""))
     streamWriteInt16(streamId, self.fillTypeIndex or 0)
     streamWriteInt16(streamId, self.quantity or 0)
     streamWriteInt32(streamId, self.senderFarmId or 0)

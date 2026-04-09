@@ -470,6 +470,9 @@ function InvoicesMainDashboard:buildDisplayItems()
                     iconFilename   = item.iconFilename,
                     unit           = item.unit,
                     vatRate        = item.vatRate,
+                    consumableFillTypeIndex = item.consumableFillTypeIndex,
+                    consumableXmlFilename  = item.consumableXmlFilename,
+                    consumableFillLevel    = item.consumableFillLevel,
                     quantity       = 0,
                     totalAmount    = 0,
                     lineIndices    = {},
@@ -724,7 +727,8 @@ end
 
 ---Updates edit fields with values from currently selected display item
 function InvoicesMainDashboard:updateEditFields()
-    if self._suppressRecapQty then return end
+    if self._updatingEditFields then return end
+    self._updatingEditFields = true
 
     local item = nil
     if self.selectedItemIndex >= 1 and self.selectedItemIndex <= #self.displayItems then
@@ -769,6 +773,8 @@ function InvoicesMainDashboard:updateEditFields()
             self.inputVat:setDisabled(true)
         end
     end
+
+    self._updatingEditFields = false
 end
 
 ---Updates price, quantity, VAT and amount text in the currently selected list cell
@@ -918,9 +924,7 @@ function InvoicesMainDashboard:onQtyTextChanged(element, text)
             element:setText(string.format("%.0f", newQty))
         end
 
-        self._suppressRecapQty = true
         self:rebuildConsumableSelection(item.groupKey, newQty)
-        self._suppressRecapQty = false
         return
     end
 
@@ -1030,7 +1034,7 @@ function InvoicesMainDashboard:rebuildConsumableSelection(groupKey, targetQty)
         wt.vehicleUniqueId = obj.uniqueId
         wt.customPrice = obj.unitPrice
         wt.displayOverride = workTypeName .. " (" .. obj.displayName .. ")"
-        wt.iconFilename = obj.iconFilename
+        wt.iconFilename = ""
         wt.consumableXmlFilename = obj.xmlFilename or ""
         wt.consumableFillTypeIndex = obj.fillTypeIndex or 0
         wt.consumableFillLevel = obj.fillLevel or 0
@@ -1122,7 +1126,7 @@ function InvoicesMainDashboard:rebuildVehicleSelection(configFileName, targetQty
         wt.vehicleUniqueId = obj.uniqueId
         wt.customPrice = obj.sellPrice
         wt.displayOverride = workTypeName .. " (" .. obj.name .. ")"
-        wt.iconFilename = obj.iconFilename
+        wt.iconFilename = ""
         wt.configFileName = configFileName
         table.insert(self.selectedWorkItems, wt)
     end
@@ -1413,8 +1417,9 @@ function InvoicesMainDashboard:populateLineItemCell(index, cell)
 
     local manager = g_currentMission.invoicesManager
 
+    local resolvedIcon = Invoice.resolveLocalIcon(item)
     local cellIcon = cell:getDescendantByName("cellIcon")
-    local hasIcon = item.iconFilename ~= nil and item.iconFilename ~= ""
+    local hasIcon = resolvedIcon ~= ""
     if cellIcon ~= nil then
         cellIcon:setVisible(false)
     end
@@ -1458,7 +1463,7 @@ function InvoicesMainDashboard:populateLineItemCell(index, cell)
             setTextBold(false)
             local iconPadding = 22 * g_pixelSizeScaledX
             local numSpaces = math.ceil(iconPadding / spaceWidth)
-            cellIcon:setImageFilename(item.iconFilename)
+            cellIcon:setImageFilename(resolvedIcon)
             cellIcon:setVisible(true)
             name = string.rep(" ", numSpaces) .. baseName
         end
@@ -1840,7 +1845,7 @@ function InvoicesMainDashboard:openVehicleDialog(workType)
                 wt.customPrice = vehicle.sellPrice
                 wt.unit = Invoice.UNIT_PIECE
                 wt.displayOverride = workTypeName .. " (" .. vehicle.name .. ")"
-                wt.iconFilename = vehicle.iconFilename
+                wt.iconFilename = ""
                 wt.configFileName = vehicle.configFileName
                 table.insert(dashSelf.selectedWorkItems, wt)
             end
@@ -1893,9 +1898,12 @@ function InvoicesMainDashboard:openConsumableDialog(workType)
                 wt.customPrice = consumable.sellPrice
                 wt.unit = Invoice.UNIT_PIECE
                 wt.displayOverride = workTypeName .. " (" .. consumable.name .. ")"
-                wt.iconFilename = consumable.iconFilename
+                wt.iconFilename = ""
                 wt.groupKey = consumable.groupKey
                 wt.isConsumable = true
+                wt.consumableXmlFilename = consumable.xmlFilename or ""
+                wt.consumableFillTypeIndex = consumable.fillTypeIndex or 0
+                wt.consumableFillLevel = consumable.fillLevel or 0
                 table.insert(dashSelf.selectedWorkItems, wt)
             end
 

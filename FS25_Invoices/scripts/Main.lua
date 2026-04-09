@@ -249,15 +249,17 @@ local InvoicesI18NTexts = {
     ["invoice_notification_overdue_warning"] = true
 }
 
-local origI18NGetText = I18N.getText
-
----Overrides I18N:getText to redirect mod translation keys to the mod's own locale
+---Resolve mod translation keys without modEnv for Finance tab
+-- @param table self I18N instance
+-- @param function superFunc Original getText function
 -- @param string text Translation key
 -- @param string modEnv Optional mod environment name
 -- @return string text Localized text
-function I18N:getText(text, modEnv)
+local function invoicesGetText(self, superFunc, text, modEnv)
     if modEnv == nil and InvoicesI18NTexts[text] then
-        return origI18NGetText(self, text, modName)
+        return superFunc(self, text, modName)
     end
-    return origI18NGetText(self, text, modEnv)
+    return superFunc(self, text, modEnv)
 end
+
+I18N.getText = Utils.overwrittenFunction(I18N.getText, invoicesGetText)

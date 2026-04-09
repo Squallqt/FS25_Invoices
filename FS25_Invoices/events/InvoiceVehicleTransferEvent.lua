@@ -13,13 +13,13 @@ function InvoiceVehicleTransferEvent.emptyNew()
 end
 
 ---Creates initialized vehicle transfer event
--- @param string vehicleUniqueId Vehicle unique identifier
+-- @param table vehicle Vehicle instance
 -- @param integer senderFarmId Sender farm identifier
 -- @param integer recipientFarmId Recipient farm identifier
 -- @return InvoiceVehicleTransferEvent instance The new event instance
-function InvoiceVehicleTransferEvent.new(vehicleUniqueId, senderFarmId, recipientFarmId)
+function InvoiceVehicleTransferEvent.new(vehicle, senderFarmId, recipientFarmId)
     local self = InvoiceVehicleTransferEvent.emptyNew()
-    self.vehicleUniqueId = vehicleUniqueId
+    self.vehicle         = vehicle
     self.senderFarmId    = senderFarmId
     self.recipientFarmId = recipientFarmId
     return self
@@ -29,7 +29,8 @@ end
 -- @param integer streamId Network stream identifier
 -- @param Connection connection Network connection
 function InvoiceVehicleTransferEvent:readStream(streamId, connection)
-    self.vehicleUniqueId = streamReadString(streamId)
+    local vehicleNetId   = streamReadInt32(streamId)
+    self.vehicle         = NetworkUtil.getObject(vehicleNetId)
     self.senderFarmId    = streamReadInt32(streamId)
     self.recipientFarmId = streamReadInt32(streamId)
     self:run(connection)
@@ -39,7 +40,7 @@ end
 -- @param integer streamId Network stream identifier
 -- @param Connection connection Network connection
 function InvoiceVehicleTransferEvent:writeStream(streamId, connection)
-    streamWriteString(streamId, self.vehicleUniqueId or "")
+    streamWriteInt32(streamId, NetworkUtil.getObjectId(self.vehicle))
     streamWriteInt32(streamId, self.senderFarmId or 0)
     streamWriteInt32(streamId, self.recipientFarmId or 0)
 end
@@ -47,6 +48,12 @@ end
 ---Executes vehicle transfer event
 -- @param Connection connection Network connection
 function InvoiceVehicleTransferEvent:run(connection)
+    local vehicle = self.vehicle
+    if vehicle == nil then
+        Logging.warning("[InvoiceVehicleTransferEvent] vehicle not resolved from network")
+        return
+    end
+
     if not connection:getIsServer() then
         local player = g_currentMission.connectionsToPlayer[connection]
         if player == nil or player.farmId ~= self.senderFarmId then
@@ -59,12 +66,6 @@ function InvoiceVehicleTransferEvent:run(connection)
             return
         end
 
-        local vehicle = g_currentMission.vehicleSystem:getVehicleByUniqueId(self.vehicleUniqueId)
-        if vehicle == nil then
-            Logging.warning("[InvoiceVehicleTransferEvent] Server rejected: vehicle not found (uid=%s)", self.vehicleUniqueId)
-            return
-        end
-
         local ownerFarmId = vehicle.getOwnerFarmId ~= nil and vehicle:getOwnerFarmId() or vehicle.ownerFarmId
         if ownerFarmId ~= self.senderFarmId then
             Logging.warning("[InvoiceVehicleTransferEvent] Server rejected: vehicle not owned by sender farm %d", self.senderFarmId)
@@ -73,11 +74,8 @@ function InvoiceVehicleTransferEvent:run(connection)
 
         vehicle:setOwnerFarmId(self.recipientFarmId, true)
 
-        g_server:broadcastEvent(InvoiceVehicleTransferEvent.new(self.vehicleUniqueId, self.senderFarmId, self.recipientFarmId))
+        g_server:broadcastEvent(InvoiceVehicleTransferEvent.new(vehicle, self.senderFarmId, self.recipientFarmId))
     else
-        local vehicle = g_currentMission.vehicleSystem:getVehicleByUniqueId(self.vehicleUniqueId)
-        if vehicle ~= nil then
-            vehicle:setOwnerFarmId(self.recipientFarmId, true)
-        end
+        vehicle:setOwnerFarmId(self.recipientFarmId, true)
     end
 end

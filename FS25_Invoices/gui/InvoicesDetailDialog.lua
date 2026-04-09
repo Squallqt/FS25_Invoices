@@ -397,9 +397,10 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
         designation = workType and g_i18n:getText(workType.nameKey) or "—"
     end
 
-    -- Icon handling
+    -- Icon handling (resolve locally for multiplayer — sender paths may not exist here)
+    local resolvedIcon = Invoice.resolveLocalIcon(item)
     local cellIcon = cell:getDescendantByName("cellIcon")
-    local hasIcon = item.iconFilename ~= nil and item.iconFilename ~= ""
+    local hasIcon = resolvedIcon ~= ""
     if cellIcon ~= nil then
         cellIcon:setVisible(false)
     end
@@ -477,7 +478,7 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
             local spaceWidth = getTextWidth(textSize, " ")
             local iconPadding = 22 * g_pixelSizeScaledX
             local numSpaces = math.ceil(iconPadding / spaceWidth)
-            cellIcon:setImageFilename(item.iconFilename)
+            cellIcon:setImageFilename(resolvedIcon)
             cellIcon:setVisible(true)
             designation = string.rep(" ", numSpaces) .. baseName
         end

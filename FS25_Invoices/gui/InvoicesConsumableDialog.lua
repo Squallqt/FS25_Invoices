@@ -279,11 +279,14 @@ function InvoicesConsumableDialog:onClickSelect()
             for i = 1, resolveCount do
                 local item = group.items[i]
                 table.insert(selectedItems, {
-                    uniqueId     = item.uniqueId,
-                    name         = item.displayName,
-                    sellPrice    = item.unitPrice,
-                    iconFilename = item.iconFilename,
-                    groupKey     = item.groupKey,
+                    uniqueId      = item.uniqueId,
+                    name          = item.displayName,
+                    sellPrice     = item.unitPrice,
+                    iconFilename  = item.iconFilename,
+                    groupKey      = item.groupKey,
+                    xmlFilename   = item.xmlFilename,
+                    fillTypeIndex = item.fillTypeIndex,
+                    fillLevel     = item.fillLevel,
                 })
             end
         end

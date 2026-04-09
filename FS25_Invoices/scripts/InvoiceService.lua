@@ -572,7 +572,7 @@ function InvoiceService:transferVehicleOwnership(vehicleUniqueId, senderFarmId, 
     end
 
     vehicle:setOwnerFarmId(recipientFarmId, true)
-    g_server:broadcastEvent(InvoiceVehicleTransferEvent.new(vehicleUniqueId, senderFarmId, recipientFarmId))
+    g_server:broadcastEvent(InvoiceVehicleTransferEvent.new(vehicle, senderFarmId, recipientFarmId))
 end
 
 ---Deletes invoice from repository
