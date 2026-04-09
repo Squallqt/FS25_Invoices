@@ -93,7 +93,7 @@ Miscellaneous (per piece)
 ## Installation
 
 ### From ModHub
-Download from the official [Farming Simulator ModHub](https://www.farming-simulator.com/mods).
+Download from the official [Farming Simulator ModHub](https://www.farming-simulator.com/mod.php?mod_id=353530&title=fs2025).
 
 ### Manual Installation
 1. Extract `FS25_Invoices.zip` to your FS25 mods directory
