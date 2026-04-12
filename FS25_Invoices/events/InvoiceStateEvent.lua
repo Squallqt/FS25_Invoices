@@ -82,7 +82,7 @@ function InvoiceStateEvent:run(connection)
             end
             
             manager.service:payInvoice(self.invoiceId, true)
-            g_server:broadcastEvent(self, nil, connection)
+            g_server:broadcastEvent(self)
         else
             manager.service:payInvoice(self.invoiceId, true)
         end
