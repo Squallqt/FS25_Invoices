@@ -7,7 +7,7 @@ Invoice management system for agricultural contractors in Farming Simulator 25.
 [![Multiplayer](https://img.shields.io/badge/multiplayer-supported-success.svg)](#)
 [![Languages](https://img.shields.io/badge/languages-25-blue.svg)](#)
 
-> **v1.1.0.0 — currently in internal testing, ModHub release expected within the week.**
+> **v1.1.0.0 — currently in ModHub testing**
 
 ## Overview
 
