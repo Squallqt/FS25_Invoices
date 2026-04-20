@@ -87,7 +87,7 @@
 
     <!-- Invoice list -->
     <Profile name="invInvoiceList" extends="emptyPanel" with="pivotTopLeft">
-        <size value="1480px 670px"/>
+        <size value="1530px 670px"/>
     </Profile>
 
     <!-- Invoice list item row -->

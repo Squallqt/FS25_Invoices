@@ -260,8 +260,19 @@ function InvoicesFrame:refreshList()
     local hasOutgoing = #self.outgoingInvoices > 0
     if self.invoiceListContainer2 then self.invoiceListContainer2:setVisible(hasOutgoing) end
     if self.emptyListContainer2 then self.emptyListContainer2:setVisible(not hasOutgoing) end
-    
+
+    self:updateSliderVisibility()
     self:updateButtonStates()
+end
+
+function InvoicesFrame:updateSliderVisibility()
+    local maxVisible = math.floor(670 / 32)
+    if self.invoiceSliderBox then
+        self.invoiceSliderBox:setVisible(self.incomingInvoices ~= nil and #self.incomingInvoices > maxVisible)
+    end
+    if self.invoiceSliderBox2 then
+        self.invoiceSliderBox2:setVisible(self.outgoingInvoices ~= nil and #self.outgoingInvoices > maxVisible)
+    end
 end
 
 ---Called when list selection changes

@@ -84,7 +84,7 @@ local function loadedMission()
     local dashboard = InvoicesMainDashboard.new(frame)
     g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesMainDashboard.xml", "InvoicesMainDashboard", dashboard)
 
-    Invoices.addInGameMenuPage(frame, "InvoicesFrame", {0, 0, 1024, 1024}, function() return true end, 1)
+    Invoices.addInGameMenuPage(frame, "InvoicesFrame", {0, 0, 1024, 1024}, function() return true end, "pageMapOverview")
     frame:initialize()
     
     Invoices.frame = frame
@@ -111,7 +111,7 @@ function Invoices.addInGameMenuPage(frame, pageName, uvs, predicateFunc, insertP
         for i = 1, #g_inGameMenu.pagingElement.elements do
             local child = g_inGameMenu.pagingElement.elements[i]
             if child == g_inGameMenu[insertPosition] then
-                targetPosition = i + 1
+                targetPosition = i
                 break
             end
         end
