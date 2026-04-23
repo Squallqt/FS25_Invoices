@@ -10,42 +10,28 @@
         <e k="invoice_col_farm" v="Gazdaság" />
         <e k="invoice_col_amount" v="Összeg" />
         <e k="invoice_col_field" v="Föld" />
-        <e k="invoice_col_area" v="Terület" />
+        <e k="invoice_col_stock" v="Készlet" />
         <e k="invoice_btn_newInvoice" v="Új számla" />
         <e k="invoice_btn_payInvoice" v="Fizetés" />
         <e k="invoice_btn_deleteInvoice" v="Törlés" />
         <e k="invoice_btn_showDetails" v="Részletek" />
-        <e k="invoice_btn_add" v="Hozzáadás" />
-        <e k="invoice_btn_remove" v="Eltávolítás" />
         <e k="invoice_btn_cancel" v="Mégse" />
         <e k="invoice_btn_close" v="Bezárás" />
         <e k="invoice_btn_select" v="Kiválasztás" />
-        <e k="invoice_btn_selectFarm" v="Ügyfelek" />
-        <e k="invoice_btn_next" v="Következő" />
-        <e k="invoice_btn_back" v="Vissza" />
         <e k="invoice_label_from" v="Feladó:" />
         <e k="invoice_label_to" v="Címzett:" />
         <e k="invoice_label_note" v="Megjegyzések:" />
-        <e k="invoice_label_total" v="Összesen:" />
+        <e k="invoice_placeholder_note" v="Megjegyzés vagy hivatkozás hozzáadása" />
         <e k="invoice_dialog_details" v="Számla részletei" />
-        <e k="invoice_dialog_selectField" v="Föld kiválasztása" />
         <e k="invoice_wizard_mainTitle" v="ÚJ SZÁMLA" />
-        <e k="invoice_wizard_step1_subtitle" v="ÜGYFÉL" />
-        <e k="invoice_wizard_step1_label" v="Válassza ki az ügyfél gazdaságát:" />
-        <e k="invoice_wizard_step2_subtitle" v="SZOLGÁLTATÁSOK" />
-        <e k="invoice_wizard_step2_label" v="Válassza ki a munka típusát:" />
-        <e k="invoice_wizard_step3_subtitle" v="FÖLDEK" />
-        <e k="invoice_wizard_step3_label" v="Válassza ki az érintett földeket:" />
-        <e k="invoice_wizard_step4_subtitle" v="ÖSSZEGZÉS" />
+        <e k="invoice_wizard_step1_label" v="Ügyfél" />
+        <e k="invoice_wizard_step2_label" v="Munka" />
+        <e k="invoice_wizard_step3_label" v="Földek" />
         <e k="invoice_btn_sendInvoice" v="Számla küldése" />
-        <e k="invoice_wizard_no_items" v="Nincs szolgáltatás kiválasztva." />
-        <e k="invoice_error_select_work" v="Kérjük, válasszon szolgáltatást." />
         <e k="invoice_wizard_invoice_created" v="Számla sikeresen létrehozva!" />
         <e k="invoice_wizard_invoice_failed" v="Hiba a létrehozás során." />
         <e k="invoice_wizard_client_fields" v="Ügyfél földek" />
         <e k="invoice_wizard_other_fields" v="Egyéb földek" />
-        <e k="invoice_wizard_selection_summary" v="Szolgáltatások:" />
-        <e k="invoice_wizard_field_selection_summary" v="Helyszín:" />
         <e k="invoice_format_field_id" v="Föld %d" />
         <e k="invoice_step4_col_service" v="Leírás" />
         <e k="invoice_step4_col_qty" v="Menny." />
@@ -53,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Összeg" />
         <e k="invoice_step4_from" v="Kibocsátó: %s" />
         <e k="invoice_step4_to" v="Ügyfél: %s" />
-        <e k="invoice_step4_total" v="FIZETENDŐ" />
         <e k="invoice_detail_col_service" v="Leírás" />
         <e k="invoice_detail_col_qty" v="Menny." />
         <e k="invoice_detail_col_unit" v="Egys." />
@@ -61,25 +46,22 @@
         <e k="invoice_detail_col_amount" v="Összeg" />
         <e k="invoice_col_number" v="Számlaszám" />
         <e k="invoice_col_status" v="Állapot" />
-        <e k="invoice_popup_added" v="Hozzáadva: %s" />
-        <e k="invoice_popup_removed" v="Eltávolítva: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
         <e k="invoice_empty_list" v="Nincsenek számlák" />
         <e k="invoice_format_inv_number" v="SZLA-%03d" />
         <e k="invoice_format_services_count" v="%d sor" />
         <e k="invoice_confirm_pay" v="Fizetés megerősítése ide: '%s'?" />
         <e k="invoice_confirm_delete" v="Végleges törlés?" />
+        <e k="invoice_confirm_send" v="Számla küldése: %s, címzett: %s?" />
         <e k="invoice_notification_new" v="Számla érkezett tőle: %s (%s)" />
         <e k="invoice_reminder_single" v="Fizetetlen számla: %s" />
         <e k="invoice_reminder_multiple" v="%d fizetetlen számla összesen: %s" />
         <e k="invoice_format_date" v="%02d/%02d/É%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="N%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Föld %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Föld %s" />
         <e k="invoice_invoices_unit_piece" v="db" />
         <e k="invoice_invoices_unit_hour" v="ó" />
         <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_invoices_unit_liter" v="l" />
         <e k="invoice_work_stoneCollection" v="Kőgyűjtés" />
         <e k="invoice_work_plowing" v="Szántás" />
         <e k="invoice_work_cultivating" v="Kultivátorozás" />
@@ -115,8 +97,8 @@
         <e k="invoice_work_windrowing" v="Rendkezelés" />
         <e k="invoice_work_baling" v="Bálázás" />
         <e k="invoice_work_wrapping" v="Csomagolás" />
-        <e k="invoice_work_buyBales" v="Kereskedés (Vétel)" />
-        <e k="invoice_work_sellBales" v="Eladás (Bála)" />
+        <e k="invoice_work_buyBales" v="Vétel (Alapanyag)" />
+        <e k="invoice_work_consumableSale" v="Eladás (Takarmány / Szalma)" />
         <e k="invoice_work_animalFeeding" v="Etetés" />
         <e k="invoice_work_barnCleaning" v="Istállótakarítás" />
         <e k="invoice_work_animalTransport" v="Állatszállítás" />
@@ -133,9 +115,41 @@
         <e k="invoice_work_treeCutting" v="Fakitermelés" />
         <e k="invoice_work_treeRemoval" v="Rönkszállítás" />
         <e k="invoice_work_goods" v="Készletek" />
+        <e k="invoice_work_products" v="Termékek" />
         <e k="invoice_work_miscellaneous" v="Egyéb" />
-        <e k="finance_invoicePayment" v="Számlafizetés" />
-        <e k="invoice_moneyType" v="Számlázás" />
+        <e k="invoice_step4_col_vat" v="ÁFA %" />
+        <e k="invoice_label_subtotal_ht" v="Részösszeg ÁFA nélkül" />
+        <e k="invoice_label_vat" v="ÁFA" />
+        <e k="invoice_label_na" v="N/A" />
+        <e k="finance_invoiceIncome" v="Számla bevétel" />
+        <e k="finance_invoiceExpense" v="Számla kiadás" />
+        <e k="invoice_label_invoice" v="Számla" />
         <e k="invoice_error_permission_required" v="Művelet farm vezetők számára fenntartva." />
-        <e k="invoice_error_insufficient_funds" v="Nem elegendő egyenleg a számla kifizetéséhez." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="Nem elegendő egyenleg a számla kifizetéséhez." />
+        <e k="invoice_settings_section_title" v="Számlák" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Szimulált ÁFA" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Ha engedélyezve van, a számlák tartalmazzák az ÁFÁ-t. Az ügyfél a bruttó összeget fizeti (adóval), a szolgáltató a nettó összeget kapja (adó nélkül). Ha le van tiltva, az ÁFA 0%-ra van állítva és mindkét fél ugyanazt az összeget cseréli." />
+        <e k="invoice_setting_invoiceReminders" v="Fizetési emlékeztetők" />
+        <e k="invoice_toolTip_invoiceReminders" v="Ha engedélyezve van, 5 percenként emlékeztető értesítés jelenik meg a kifizetetlen számlákról." />
+        <e k="invoice_notification_vat_incl" v="ebből %s : %s" />
+        <e k="invoice_notification_vat_excl" v="ebből %s levonva : %s" />
+        <e k="invoice_notification_penalty_incl" v="%s bírságot tartalmaz" />
+        <e k="invoice_status_overdue" v="Lejárt" />
+        <e k="invoice_label_total_due" v="Fizetendő összeg:" />
+        <e k="invoice_label_total_paid" v="Fizetett összeg:" />
+        <e k="invoice_label_penalty" v="Késedelmi díj" />
+        <e k="invoice_setting_invoicePenalties" v="Késedelmi pótlék" />
+        <e k="invoice_toolTip_invoicePenalties" v="Engedélyezi a késedelmi pótlékot a kifizetetlen számlákon. 1 hónap lejárat után automatikusan havi 5%-os fix pótlék kerül alkalmazásra. Maximum a teljes összeg 25%-a." />
+        <e k="invoice_notification_overdue" v="A(z) %s számla lejárt: %s" />
+        <e k="invoice_notification_overdue_warning" v="Késedelmi pótlék kerül felszámításra." />
+        <e k="invoice_dash_no_fields" v="Nincs szükséges parcella" />
+        <e k="invoice_dialog_selectFillType" v="Termék" />
+        <e k="invoice_col_filltype_name" v="Termék" />
+        <e k="invoice_dialog_selectConsumable" v="Fogyóeszköz" />
+        <e k="invoice_col_consumable_name" v="Tétel" />
+        <e k="invoice_work_vehicleSale" v="Jármű eladása" />
+        <e k="invoice_dialog_selectVehicle" v="Jármu" />
+        <e k="invoice_col_vehicle_name" v="Jármű" />
+        <e k="invoice_error_single_farm" v="Számlák létrehozásához legalább két gazdaság szükséges." />
+    </elements>
 </l10n>

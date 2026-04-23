@@ -1,11 +1,10 @@
---[[
-    InvoicesWizardState.lua
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Singleton wizard state managing multi-step invoice drafting: recipient, work type, fields, and line items.
 InvoicesWizardState = {}
 InvoicesWizardState.instance = nil
 
+---Returns or creates the wizard state singleton
+-- @return InvoicesWizardState instance
 function InvoicesWizardState.getInstance()
     if InvoicesWizardState.instance == nil then
         InvoicesWizardState.instance = InvoicesWizardState.new()
@@ -13,6 +12,8 @@ function InvoicesWizardState.getInstance()
     return InvoicesWizardState.instance
 end
 
+---Creates a new wizard state instance
+-- @return InvoicesWizardState instance
 function InvoicesWizardState.new()
     local self = {}
     setmetatable(self, {__index = InvoicesWizardState})
@@ -22,107 +23,24 @@ function InvoicesWizardState.new()
     return self
 end
 
+---Resets wizard state to initial values
 function InvoicesWizardState:reset()
     self.recipientFarmId = nil
     self.recipientFarmName = nil
-    
-    self.selectedWorkType = nil
     self.selectedWorkTypes = {}
-    
     self.selectedFields = {}
-    
-    self.currentFieldId = nil
-    self.currentFieldArea = nil
-    self.currentQuantity = 1
-    self.currentPrice = 0
-    self.currentNote = ""
-    
     self.lineItems = {}
-    
-    Logging.devInfo("[InvoicesWizardState] State reset")
 end
 
+---Sets the invoice recipient farm
+-- @param integer farmId Recipient farm identifier
+-- @param string farmName Recipient farm name
 function InvoicesWizardState:setRecipient(farmId, farmName)
     self.recipientFarmId = farmId
     self.recipientFarmName = farmName
-    Logging.devInfo("[InvoicesWizardState] Recipient set: %s (id=%d)", farmName, farmId)
 end
 
-function InvoicesWizardState:setWorkType(workType)
-    self.selectedWorkType = workType
-    self.currentFieldId = nil
-    self.currentFieldArea = nil
-    self.currentQuantity = 1
-    self.currentPrice = workType and workType.basePrice or 0
-    self.currentNote = ""
-    Logging.devInfo("[InvoicesWizardState] Work type set: %s", workType and workType.nameKey or "nil")
-end
-
-function InvoicesWizardState:setField(fieldId, fieldArea)
-    self.currentFieldId = fieldId
-    self.currentFieldArea = fieldArea
-end
-
-function InvoicesWizardState:setDetails(quantity, price, note)
-    self.currentQuantity = quantity or 1
-    self.currentPrice = price or 0
-    self.currentNote = note or ""
-end
-
-function InvoicesWizardState:addLineItem()
-    if self.selectedWorkType == nil then
-        Logging.warning("[InvoicesWizardState] Cannot add line item: no work type selected")
-        return false
-    end
-    
-    local workType = self.selectedWorkType
-    local unit = workType.unit
-    local amount = 0
-    local displayName = g_i18n:getText(workType.nameKey)
-    
-    local manager = g_currentMission.invoicesManager
-    local unitStr = manager and g_i18n:getText(manager:getUnitKey(unit)) or ""
-    
-    if unit == Invoice.UNIT_HECTARE then
-        if self.currentFieldArea then
-            amount = self.currentPrice * self.currentFieldArea
-            displayName = string.format("%s (%.2f ha)", displayName, self.currentFieldArea)
-        else
-            Logging.warning("[InvoicesWizardState] Cannot add hectare item: no field selected")
-            return false
-        end
-    else
-        amount = self.currentPrice * self.currentQuantity
-        if unit == Invoice.UNIT_LITER then
-            displayName = string.format("%s (%.0f %s)", displayName, self.currentQuantity, unitStr)
-        else
-            displayName = string.format("%s (%.0f %s)", displayName, self.currentQuantity, unitStr)
-        end
-    end
-    
-    local item = {
-        workTypeId = workType.id,
-        name = displayName,
-        quantity = self.currentQuantity,
-        price = self.currentPrice,
-        unit = unit,
-        fieldId = self.currentFieldId,
-        fieldArea = self.currentFieldArea,
-        amount = amount,
-        note = self.currentNote
-    }
-    
-    table.insert(self.lineItems, item)
-    Logging.devInfo("[InvoicesWizardState] Line item added: %s = %.2f", displayName, amount)
-    
-    self.currentFieldId = nil
-    self.currentFieldArea = nil
-    self.currentQuantity = 1
-    self.currentNote = ""
-    
-    return true
-end
-
+---Builds line items from selected work types and fields
 function InvoicesWizardState:buildAllLineItems()
     local manager = g_currentMission.invoicesManager
 
@@ -135,57 +53,73 @@ function InvoicesWizardState:buildAllLineItems()
     local workTypes = self.selectedWorkTypes or {}
     local fields = self.selectedFields or {}
 
-    for _, workType in ipairs(workTypes) do
-        local adjustedPrice = manager:getAdjustedPrice(workType.id)
+    for i, workType in ipairs(workTypes) do
+        local adjustedPrice = workType.customPrice or manager:getAdjustedPrice(workType.id)
         local unit = workType.unit
-        local displayName = g_i18n:getText(workType.nameKey)
+        local displayName = workType.displayOverride or g_i18n:getText(workType.nameKey)
         local unitKey = manager:getUnitKey(unit)
         local unitStr = g_i18n:getText(unitKey)
+        local vatRate = 0
+        if manager.service:isVatEnabled() then
+            vatRate = manager.service:getVatRateForWorkType(workType.id)
+        end
 
         if unit == Invoice.UNIT_HECTARE then
             for _, field in ipairs(fields) do
-                local amount = adjustedPrice * field.area
-                local fieldName = string.format(g_i18n:getText("invoice_format_field_id"), field.id)
+                local roundedArea = MathUtil.round(field.area, 2)
+                local amount = MathUtil.round(adjustedPrice * roundedArea)
 
                 table.insert(self.lineItems, {
                     workTypeId = workType.id,
-                    name = string.format("%s (%s, %.2f ha)", displayName, fieldName, field.area),
-                    quantity = field.area,
+                    sourceIndex = i,
+                    name = displayName,
+                    quantity = roundedArea,
                     price = adjustedPrice,
                     unit = unit,
                     fieldId = field.id,
-                    fieldArea = field.area,
+                    fieldArea = roundedArea,
                     amount = amount,
-                    note = ""
+                    note = "",
+                    vatRate = vatRate,
+                    iconFilename = workType.iconFilename
                 })
             end
         else
-            local amount = adjustedPrice
+            local defaultQty = (unit == Invoice.UNIT_LITER) and 1000 or 1
+            local customQty = workType.customQuantity or defaultQty
+            local amount
+            if unit == Invoice.UNIT_LITER then
+                amount = MathUtil.round(adjustedPrice * customQty / 1000)
+            else
+                amount = MathUtil.round(adjustedPrice * customQty)
+            end
 
             table.insert(self.lineItems, {
                 workTypeId = workType.id,
-                name = string.format("%s (1 %s)", displayName, unitStr),
-                quantity = 1,
+                sourceIndex = i,
+                name = displayName,
+                quantity = customQty,
                 price = adjustedPrice,
                 unit = unit,
                 fieldId = nil,
                 fieldArea = 0,
                 amount = amount,
-                note = ""
+                note = "",
+                vatRate = vatRate,
+                iconFilename = workType.iconFilename,
+                vehicleUniqueId = workType.vehicleUniqueId,
+                isConsumable = workType.isConsumable,
+                groupKey = workType.groupKey,
+                consumableXmlFilename = workType.consumableXmlFilename,
+                consumableFillTypeIndex = workType.consumableFillTypeIndex,
+                consumableFillLevel = workType.consumableFillLevel
             })
         end
     end
-
-    Logging.devInfo("[InvoicesWizardState] Built %d line items, total: %.2f", #self.lineItems, self:getTotal())
 end
 
-function InvoicesWizardState:removeLineItem(index)
-    if index >= 1 and index <= #self.lineItems then
-        local removed = table.remove(self.lineItems, index)
-        Logging.devInfo("[InvoicesWizardState] Line item removed: %s", removed.name)
-    end
-end
-
+---Calculates the total amount of all line items
+-- @return integer total Sum of all line item amounts
 function InvoicesWizardState:getTotal()
     local total = 0
     for _, item in ipairs(self.lineItems) do
@@ -194,19 +128,14 @@ function InvoicesWizardState:getTotal()
     return total
 end
 
-function InvoicesWizardState:requiresFieldSelection()
-    for _, workType in ipairs(self.selectedWorkTypes or {}) do
-        if workType.unit == Invoice.UNIT_HECTARE then
-            return true
-        end
-    end
-    return false
-end
-
+---Checks if invoice creation is allowed
+-- @return boolean canCreate True if recipient is set and items exist
 function InvoicesWizardState:canCreateInvoice()
     return self.recipientFarmId ~= nil and #self.lineItems > 0
 end
 
+---Creates and sends invoice from wizard state
+-- @return Invoice|nil invoice Created invoice or nil on failure
 function InvoicesWizardState:createInvoice()
     if not self:canCreateInvoice() then
         return nil
@@ -236,7 +165,15 @@ function InvoicesWizardState:createInvoice()
             unitType = item.unit or Invoice.UNIT_PIECE,
             fieldArea = item.fieldArea or 0,
             fieldId = item.fieldId or 0,
-            note = item.note or ""
+            note = item.note or "",
+            vatRate = item.vatRate or 0,
+            name = item.name or "",
+            iconFilename = item.iconFilename or "",
+            price = item.price or 0,
+            vehicleUniqueId = item.vehicleUniqueId or "",
+            consumableXmlFilename = item.consumableXmlFilename or "",
+            consumableFillTypeIndex = item.consumableFillTypeIndex or 0,
+            consumableFillLevel = item.consumableFillLevel or 0
         })
     end
 
@@ -244,8 +181,6 @@ function InvoicesWizardState:createInvoice()
     invoice:populateFromData(0, items, self.recipientFarmId, senderFarmId)
 
     manager:createAndSendInvoice(invoice)
-
-    Logging.devInfo("[InvoicesWizardState] Invoice created and sent to farm %d", self.recipientFarmId)
 
     self:reset()
 

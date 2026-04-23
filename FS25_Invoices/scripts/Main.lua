@@ -1,8 +1,5 @@
---[[
-    Main.lua
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Mod bootstrap: source loading, mission lifecycle hooks, late-join sync dispatch, and InGameMenu registration.
 local modDirectory = g_currentModDirectory
 local modName = g_currentModName
 source(modDirectory .. "scripts/Invoice.lua")
@@ -10,97 +7,97 @@ source(modDirectory .. "scripts/InvoiceRepository.lua")
 source(modDirectory .. "scripts/InvoiceService.lua")
 source(modDirectory .. "scripts/InvoicesManager.lua")
 source(modDirectory .. "scripts/InvoicesWizardState.lua")
+source(modDirectory .. "scripts/InvoiceSettings.lua")
+source(modDirectory .. "scripts/InvoicesConsumablePipeline.lua")
 source(modDirectory .. "events/InvoiceCreateEvent.lua")
 source(modDirectory .. "events/InvoiceStateEvent.lua")
 source(modDirectory .. "events/InvoiceSyncEvent.lua")
+source(modDirectory .. "events/InvoiceSettingsEvent.lua")
+source(modDirectory .. "events/InvoiceVehicleTransferEvent.lua")
+source(modDirectory .. "events/InvoiceConsumableTransferEvent.lua")
+source(modDirectory .. "events/InvoicePenaltySyncEvent.lua")
 source(modDirectory .. "gui/InvoicesListRenderer.lua")
-source(modDirectory .. "gui/WorkTypesRenderer.lua")
-source(modDirectory .. "gui/LineItemsRenderer.lua")
 source(modDirectory .. "gui/InvoicesFrame.lua")
 source(modDirectory .. "gui/InvoicesDetailDialog.lua")
-source(modDirectory .. "gui/InvoicesFieldDialog.lua")
-source(modDirectory .. "gui/InvoicesFarmDialog.lua")
-source(modDirectory .. "gui/InvoicesWizardStep1.lua")
-source(modDirectory .. "gui/InvoicesWizardStep2.lua")
-source(modDirectory .. "gui/InvoicesWizardStep3.lua")
-source(modDirectory .. "gui/InvoicesWizardStep4.lua")
+source(modDirectory .. "gui/InvoicesFillTypeDialog.lua")
+source(modDirectory .. "gui/InvoicesVehicleDialog.lua")
+source(modDirectory .. "gui/InvoicesConsumableDialog.lua")
+source(modDirectory .. "gui/InvoicesMainDashboard.lua")
 
 Invoices = {}
 Invoices.modDirectory = modDirectory
 Invoices.modName = modName
 Invoices.manager = nil
-
-local statName = "invoicePayment"
-if FinanceStats.statNameToIndex[statName] == nil then
-    table.insert(FinanceStats.statNames, statName)
-    FinanceStats.statNameToIndex[statName] = #FinanceStats.statNames
+---Register finance stat entry
+-- @param string statName Name of stat to register
+local function registerFinanceStat(statName)
+    if FinanceStats.statNameToIndex[statName] == nil then
+        table.insert(FinanceStats.statNames, statName)
+        FinanceStats.statNameToIndex[statName] = #FinanceStats.statNames
+    end
 end
 
+registerFinanceStat("invoiceIncome")
+registerFinanceStat("invoiceExpense")
+
+---Load mission lifecycle initiation
 local function loadedMission()
-    Logging.devInfo("[Invoices] loadedMission() called")
-    
-    MoneyType.INVOICE_PAYMENT = MoneyType.register("invoicePayment", "invoice_moneyType")
+    MoneyType.INVOICE_INCOME = MoneyType.register("invoiceIncome", "invoice_label_invoice")
+    MoneyType.INVOICE_EXPENSE = MoneyType.register("invoiceExpense", "invoice_label_invoice")
 
     Invoices.manager = InvoicesManager.new()
     Invoices.manager:initialize()
-    
+
+    Invoices.manager.service:loadVatRates(Invoices.modDirectory .. "data/vatRates.xml")
+
     local savegameFolderPath = g_currentMission.missionInfo.savegameDirectory
     if savegameFolderPath == nil then
         savegameFolderPath = ('%ssavegame%d'):format(getUserProfileAppPath(), g_currentMission.missionInfo.savegameIndex)
     end
     savegameFolderPath = savegameFolderPath .. "/"
     Invoices.manager:loadFromXML(savegameFolderPath)
-    Logging.devInfo("[Invoices] Invoices loaded from savegame")
-    
+
     g_currentMission.invoicesManager = Invoices.manager
-    
-        Invoices.manager.service:initializeReminderSystem()
-    
-    Logging.devInfo("[Invoices] Loading GUI profiles")
+
+    InvoiceSettings:loadDefaultsIfMissing()
+    InvoiceSettings:loadFromXMLFile()
+
+    Invoices.manager.service:initializeReminderSystem()
+
     g_gui:loadProfiles(Invoices.modDirectory .. "gui/guiProfiles.xml")
-    
-    Logging.devInfo("[Invoices] Loading InvoicesFrame")
+
     local frame = InvoicesFrame.new(g_i18n, g_messageCenter)
     g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesFrame.xml", "InvoicesFrame", frame, true)
-    Logging.devInfo("[Invoices] InvoicesFrame loaded")
-    
-    Logging.devInfo("[Invoices] Loading dialogs")
+
     local detailDialog = InvoicesDetailDialog.new(frame)
     g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesDetailDialog.xml", "InvoicesDetailDialog", detailDialog)
-    Logging.devInfo("[Invoices] InvoicesDetailDialog loaded")
-    
-    local fieldDialog = InvoicesFieldDialog.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesFieldDialog.xml", "InvoicesFieldDialog", fieldDialog)
-    Logging.devInfo("[Invoices] InvoicesFieldDialog loaded")
-    
-    local farmDialog = InvoicesFarmDialog.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesFarmDialog.xml", "InvoicesFarmDialog", farmDialog)
-    Logging.devInfo("[Invoices] InvoicesFarmDialog loaded")
-    
-    local wizStep1 = InvoicesWizardStep1.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesWizardStep1.xml", "InvoicesWizardStep1", wizStep1)
-    Logging.devInfo("[Invoices] InvoicesWizardStep1 loaded")
-    
-    local wizStep2 = InvoicesWizardStep2.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesWizardStep2.xml", "InvoicesWizardStep2", wizStep2)
-    Logging.devInfo("[Invoices] InvoicesWizardStep2 loaded")
-    
-    local wizStep3 = InvoicesWizardStep3.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesWizardStep3.xml", "InvoicesWizardStep3", wizStep3)
-    Logging.devInfo("[Invoices] InvoicesWizardStep3 loaded")
-    
-    local wizStep4 = InvoicesWizardStep4.new(frame)
-    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesWizardStep4.xml", "InvoicesWizardStep4", wizStep4)
-    Logging.devInfo("[Invoices] InvoicesWizardStep4 loaded")
 
-    Logging.devInfo("[Invoices] Registering menu in InGameMenu")
-    Invoices.addInGameMenuPage(frame, "InvoicesFrame", {0, 0, 1024, 1024}, function() return true end, 1)
+    local fillTypeDialog = InvoicesFillTypeDialog.new(frame)
+    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesFillTypeDialog.xml", "InvoicesFillTypeDialog", fillTypeDialog)
+
+    local vehicleDialog = InvoicesVehicleDialog.new(frame)
+    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesVehicleDialog.xml", "InvoicesVehicleDialog", vehicleDialog)
+
+    local consumableDialog = InvoicesConsumableDialog.new(frame)
+    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesConsumableDialog.xml", "InvoicesConsumableDialog", consumableDialog)
+
+    local dashboard = InvoicesMainDashboard.new(frame)
+    g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesMainDashboard.xml", "InvoicesMainDashboard", dashboard)
+
+    Invoices.addInGameMenuPage(frame, "InvoicesFrame", {0, 0, 1024, 1024}, function() return true end, "pageMapOverview")
     frame:initialize()
-    Logging.devInfo("[Invoices] Menu registration complete")
     
     Invoices.frame = frame
+
+    InvoiceSettings:injectMenu()
 end
 
+---Add invoice frame to InGameMenu at specified position
+-- @param table frame Frame element to add
+-- @param string pageName Name of the page
+-- @param table uvs UV coordinates
+-- @param function predicateFunc Visibility predicate
+-- @param integer|string insertPosition Insert position (number or page name)
 function Invoices.addInGameMenuPage(frame, pageName, uvs, predicateFunc, insertPosition)
     local targetPosition = 1
 
@@ -114,7 +111,7 @@ function Invoices.addInGameMenuPage(frame, pageName, uvs, predicateFunc, insertP
         for i = 1, #g_inGameMenu.pagingElement.elements do
             local child = g_inGameMenu.pagingElement.elements[i]
             if child == g_inGameMenu[insertPosition] then
-                targetPosition = i + 1
+                targetPosition = i
                 break
             end
         end
@@ -161,9 +158,13 @@ function Invoices.addInGameMenuPage(frame, pageName, uvs, predicateFunc, insertP
     end
 
     g_inGameMenu:rebuildTabList()
-    Logging.devInfo("[Invoices] Menu page registered successfully")
 end
 
+---Send initial invoice state to client on connection
+-- @param table self Mission instance
+-- @param table connection Network connection
+-- @param table user User data
+-- @param table farm Farm data
 local function sendInitialClientState(self, connection, user, farm)
     if g_server == nil then return end
     -- Nil guards for late-join race condition
@@ -176,11 +177,11 @@ local function sendInitialClientState(self, connection, user, farm)
         return
     end
 
-    local invoices = Invoices.manager.repository:getAll()
-    Logging.devInfo("[Invoices] sendInitialClientState() - Syncing %d invoices to new client", #invoices)
     connection:sendEvent(InvoiceSyncEvent.new())
+    connection:sendEvent(InvoiceSettingsEvent.new(g_currentMission.invoiceSettings))
 end
 
+---Save invoices to XML on savegame write
 local function onSaveToXMLFile()
     if not g_currentMission:getIsServer() then return end
 
@@ -190,11 +191,11 @@ local function onSaveToXMLFile()
             savegameFolderPath = ('%ssavegame%d'):format(getUserProfileAppPath(), g_currentMission.missionInfo.savegameIndex)
         end
         savegameFolderPath = savegameFolderPath .. "/"
-        Invoices.manager:saveToXML(savegameFolderPath)
-        Logging.devInfo("[Invoices] Saved to %s", savegameFolderPath)
+        Invoices.manager:saveToXML(savegameFolderPath, g_currentMission.invoiceSettings)
     end
 end
 
+---Initialize invoices mod: register lifecycle hooks and setup
 local function initInvoices()
     Mission00.loadMission00Finished = Utils.appendedFunction(Mission00.loadMission00Finished, loadedMission)
     
@@ -213,6 +214,9 @@ local function initInvoices()
         InvoicesWizardState.instance = nil
         g_currentMission.invoicesFrame = nil
         g_currentMission.invoicesManager = nil
+        g_currentMission.invoiceSettings = nil
+        InvoiceSettings.CONTROLS = {}
+        InvoiceSettings._menuInjected = false
     end)
 end
 
@@ -220,13 +224,37 @@ initInvoices()
 
 -- I18N extension: resolve mod keys without modEnv for Finance tab
 local InvoicesI18NTexts = {
-    ["finance_invoicePayment"] = true,
-    ["invoice_moneyType"] = true,
+    ["finance_invoiceIncome"] = true,
+    ["finance_invoiceExpense"] = true,
+    ["invoice_label_invoice"] = true,
     ["invoice_notification_new"] = true,
     ["invoice_reminder_single"] = true,
-    ["invoice_reminder_multiple"] = true
+    ["invoice_reminder_multiple"] = true,
+    ["invoice_settings_section_title"] = true,
+    ["invoice_setting_invoiceVatSimulated"] = true,
+    ["invoice_toolTip_invoiceVatSimulated"] = true,
+    ["invoice_setting_invoiceReminders"] = true,
+    ["invoice_toolTip_invoiceReminders"] = true,
+    ["invoice_label_vat"] = true,
+    ["invoice_notification_vat_incl"] = true,
+    ["invoice_notification_vat_excl"] = true,
+    ["invoice_notification_penalty_incl"] = true,
+    ["invoice_status_overdue"] = true,
+    ["invoice_label_total_due"] = true,
+    ["invoice_label_penalty"] = true,
+    ["invoice_label_subtotal_ht"] = true,
+    ["invoice_setting_invoicePenalties"] = true,
+    ["invoice_toolTip_invoicePenalties"] = true,
+    ["invoice_notification_overdue"] = true,
+    ["invoice_notification_overdue_warning"] = true
 }
 
+---Resolve mod translation keys without modEnv for Finance tab
+-- @param table self I18N instance
+-- @param function superFunc Original getText function
+-- @param string text Translation key
+-- @param string modEnv Optional mod environment name
+-- @return string text Localized text
 local function invoicesGetText(self, superFunc, text, modEnv)
     if modEnv == nil and InvoicesI18NTexts[text] then
         return superFunc(self, text, modName)
