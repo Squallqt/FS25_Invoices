@@ -10,42 +10,28 @@
         <e k="invoice_col_farm" v="농장" />
         <e k="invoice_col_amount" v="금액" />
         <e k="invoice_col_field" v="밭" />
-        <e k="invoice_col_area" v="면적" />
+        <e k="invoice_col_stock" v="재고" />
         <e k="invoice_btn_newInvoice" v="새 청구서" />
         <e k="invoice_btn_payInvoice" v="지불" />
         <e k="invoice_btn_deleteInvoice" v="삭제" />
         <e k="invoice_btn_showDetails" v="상세" />
-        <e k="invoice_btn_add" v="추가" />
-        <e k="invoice_btn_remove" v="제거" />
         <e k="invoice_btn_cancel" v="취소" />
         <e k="invoice_btn_close" v="닫기" />
         <e k="invoice_btn_select" v="선택" />
-        <e k="invoice_btn_selectFarm" v="고객 선택" />
-        <e k="invoice_btn_next" v="다음" />
-        <e k="invoice_btn_back" v="이전" />
         <e k="invoice_label_from" v="보내는 사람:" />
         <e k="invoice_label_to" v="받는 사람:" />
         <e k="invoice_label_note" v="비고:" />
-        <e k="invoice_label_total" v="합계:" />
+        <e k="invoice_placeholder_note" v="메모 또는 참조 추가" />
         <e k="invoice_dialog_details" v="청구서 상세" />
-        <e k="invoice_dialog_selectField" v="밭 선택" />
         <e k="invoice_wizard_mainTitle" v="새 청구서" />
-        <e k="invoice_wizard_step1_subtitle" v="고객" />
-        <e k="invoice_wizard_step1_label" v="고객 농장을 선택하세요:" />
-        <e k="invoice_wizard_step2_subtitle" v="서비스" />
-        <e k="invoice_wizard_step2_label" v="작업 유형을 선택하세요:" />
-        <e k="invoice_wizard_step3_subtitle" v="밭" />
-        <e k="invoice_wizard_step3_label" v="관련된 밭을 선택하세요:" />
-        <e k="invoice_wizard_step4_subtitle" v="요약" />
+        <e k="invoice_wizard_step1_label" v="고객" />
+        <e k="invoice_wizard_step2_label" v="작업" />
+        <e k="invoice_wizard_step3_label" v="밭" />
         <e k="invoice_btn_sendInvoice" v="청구서 전송" />
-        <e k="invoice_wizard_no_items" v="선택된 서비스 없음." />
-        <e k="invoice_error_select_work" v="서비스를 선택해주세요." />
         <e k="invoice_wizard_invoice_created" v="청구서 생성 완료!" />
         <e k="invoice_wizard_invoice_failed" v="생성 오류." />
         <e k="invoice_wizard_client_fields" v="고객 필드" />
         <e k="invoice_wizard_other_fields" v="기타 필드" />
-        <e k="invoice_wizard_selection_summary" v="서비스:" />
-        <e k="invoice_wizard_field_selection_summary" v="위치:" />
         <e k="invoice_format_field_id" v="%d번 밭" />
         <e k="invoice_step4_col_service" v="설명" />
         <e k="invoice_step4_col_qty" v="수량" />
@@ -53,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="금액" />
         <e k="invoice_step4_from" v="발신: %s" />
         <e k="invoice_step4_to" v="수신: %s" />
-        <e k="invoice_step4_total" v="청구액" />
         <e k="invoice_detail_col_service" v="설명" />
         <e k="invoice_detail_col_qty" v="수량" />
         <e k="invoice_detail_col_unit" v="단위" />
@@ -61,25 +46,22 @@
         <e k="invoice_detail_col_amount" v="금액" />
         <e k="invoice_col_number" v="청구서 번호" />
         <e k="invoice_col_status" v="상태" />
-        <e k="invoice_popup_added" v="추가됨: %s" />
-        <e k="invoice_popup_removed" v="제거됨: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
         <e k="invoice_empty_list" v="청구서 없음" />
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d 줄" />
         <e k="invoice_confirm_pay" v="'%s'에게 지불하시겠습니까?" />
         <e k="invoice_confirm_delete" v="영구 삭제하시겠습니까?" />
+        <e k="invoice_confirm_send" v="%s 청구서를 %s에게 보내시겠습니까?" />
         <e k="invoice_notification_new" v="%s로부터 청구서 수신: %s" />
         <e k="invoice_reminder_single" v="미결제 청구서: %s" />
         <e k="invoice_reminder_multiple" v="%d개의 미결제 청구서 (총 %s)" />
         <e k="invoice_format_date" v="%02d/%02d/Y%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
-        <e k="invoice_format_field" v="%s번 밭 (%.2f ha)" />
         <e k="invoice_format_fieldId" v="%s번 밭" />
         <e k="invoice_invoices_unit_piece" v="개" />
         <e k="invoice_invoices_unit_hour" v="시간" />
         <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_invoices_unit_liter" v="l" />
         <e k="invoice_work_stoneCollection" v="돌 줍기" />
         <e k="invoice_work_plowing" v="쟁기질" />
         <e k="invoice_work_cultivating" v="경작" />
@@ -115,8 +97,8 @@
         <e k="invoice_work_windrowing" v="윈드로잉" />
         <e k="invoice_work_baling" v="베일링" />
         <e k="invoice_work_wrapping" v="랩핑" />
-        <e k="invoice_work_buyBales" v="거래 (구매)" />
-        <e k="invoice_work_sellBales" v="판매 (베일)" />
+        <e k="invoice_work_buyBales" v="구매 (원자재)" />
+        <e k="invoice_work_consumableSale" v="판매 (사료 / 짚)" />
         <e k="invoice_work_animalFeeding" v="먹이 주기" />
         <e k="invoice_work_barnCleaning" v="축사 청소" />
         <e k="invoice_work_animalTransport" v="가축 운송" />
@@ -133,9 +115,41 @@
         <e k="invoice_work_treeCutting" v="나무 자르기" />
         <e k="invoice_work_treeRemoval" v="목재 운송" />
         <e k="invoice_work_goods" v="물품" />
+        <e k="invoice_work_products" v="제품" />
         <e k="invoice_work_miscellaneous" v="기타" />
-        <e k="finance_invoicePayment" v="청구서 지불" />
-        <e k="invoice_moneyType" v="청구" />
+        <e k="invoice_step4_col_vat" v="부가세 %" />
+        <e k="invoice_label_subtotal_ht" v="세금 제외 소계" />
+        <e k="invoice_label_vat" v="부가세" />
+        <e k="invoice_label_na" v="해당 없음" />
+        <e k="finance_invoiceIncome" v="청구서 수입" />
+        <e k="finance_invoiceExpense" v="청구서 지출" />
+        <e k="invoice_label_invoice" v="청구서" />
         <e k="invoice_error_permission_required" v="농장 관리자 전용 작업입니다." />
-        <e k="invoice_error_insufficient_funds" v="이 청구서를 지불하기에 잔액이 부족합니다." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="이 청구서를 지불하기에 잔액이 부족합니다." />
+        <e k="invoice_settings_section_title" v="청구서" />
+        <e k="invoice_setting_invoiceVatSimulated" v="시뮬레이션 부가세" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="활성화하면 청구서에 부가세가 포함됩니다. 고객은 세금 포함 총액을 지불하고, 서비스 제공자는 세금 제외 순액을 받습니다. 비활성화하면 부가세가 0%로 설정되어 양측이 동일한 금액을 교환합니다." />
+        <e k="invoice_setting_invoiceReminders" v="결제 알림" />
+        <e k="invoice_toolTip_invoiceReminders" v="활성화하면 미결제 청구서에 대해 5분마다 알림이 표시됩니다." />
+        <e k="invoice_notification_vat_incl" v="%s : %s 포함" />
+        <e k="invoice_notification_vat_excl" v="공제된 %s : %s" />
+        <e k="invoice_notification_penalty_incl" v="%s 연체료 포함" />
+        <e k="invoice_status_overdue" v="연체" />
+        <e k="invoice_label_total_due" v="납부 총액:" />
+        <e k="invoice_label_total_paid" v="지불 총액:" />
+        <e k="invoice_label_penalty" v="연체료" />
+        <e k="invoice_setting_invoicePenalties" v="연체 벌금" />
+        <e k="invoice_toolTip_invoicePenalties" v="미결제 청구서에 연체 벌금을 활성화합니다. 1개월 연체 후 월 5%의 고정 요율이 자동으로 적용됩니다. 총액의 25%로 제한됩니다." />
+        <e k="invoice_notification_overdue" v="청구서 %s 연체: %s" />
+        <e k="invoice_notification_overdue_warning" v="연체 벌금이 부과됩니다." />
+        <e k="invoice_dash_no_fields" v="필드 불필요" />
+        <e k="invoice_dialog_selectFillType" v="제품" />
+        <e k="invoice_col_filltype_name" v="제품" />
+        <e k="invoice_dialog_selectConsumable" v="소모품" />
+        <e k="invoice_col_consumable_name" v="품목" />
+        <e k="invoice_work_vehicleSale" v="요새 판매" />
+        <e k="invoice_dialog_selectVehicle" v="요새" />
+        <e k="invoice_col_vehicle_name" v="요새" />
+        <e k="invoice_error_single_farm" v="청구서를 작성하려면 최소 2개의 농장이 필요합니다." />
+    </elements>
 </l10n>

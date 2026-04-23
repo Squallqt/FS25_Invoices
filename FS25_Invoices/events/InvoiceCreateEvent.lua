@@ -1,35 +1,44 @@
---[[
-    InvoiceCreateEvent.lua
-    Network event for invoice creation with server-authoritative ID assignment.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- Network event for invoice creation with server-authoritative ID assignment.
 InvoiceCreateEvent = {}
 local InvoiceCreateEvent_mt = Class(InvoiceCreateEvent, Event)
 
 InitEventClass(InvoiceCreateEvent, "InvoiceCreateEvent")
 
+---Creates empty event instance
+-- @return InvoiceCreateEvent instance Empty event
 function InvoiceCreateEvent.emptyNew()
     local self = Event.new(InvoiceCreateEvent_mt)
     return self
 end
 
+---Creates initialized invoice create event
+-- @param Invoice invoice The invoice to create
+-- @return InvoiceCreateEvent instance The new event instance
 function InvoiceCreateEvent.new(invoice)
     local self = InvoiceCreateEvent.emptyNew()
     self.invoice = invoice
     return self
 end
 
+---Reads invoice data from network stream
+-- @param integer streamId Network stream identifier
+-- @param Connection connection Network connection
 function InvoiceCreateEvent:readStream(streamId, connection)
     self.invoice = Invoice.new()
     self.invoice:readStream(streamId)
     self:run(connection)
 end
 
+---Writes invoice data to network stream
+-- @param integer streamId Network stream identifier
+-- @param Connection connection Network connection
 function InvoiceCreateEvent:writeStream(streamId, connection)
     self.invoice:writeStream(streamId)
 end
 
+---Executes invoice creation event
+-- @param Connection connection Network connection
 function InvoiceCreateEvent:run(connection)
     local manager = g_currentMission.invoicesManager
     if manager == nil then
@@ -62,22 +71,41 @@ function InvoiceCreateEvent:run(connection)
             return
         end
         
+        -- Sanitize line items
+        local items = invoice.lineItems or {}
+        if #items > 100 then
+            Logging.warning("[InvoiceCreateEvent] Server rejected CREATE: too many line items (%d)", #items)
+            return
+        end
+        for _, item in ipairs(items) do
+            if (item.amount or 0) < 0 or (item.price or 0) < 0 then
+                Logging.warning("[InvoiceCreateEvent] Server rejected CREATE: negative amount/price")
+                return
+            end
+        end
+        
+        -- Server-authoritative recalculation of totals
         local total = 0
+        local totalHT = 0
+        local totalVAT = 0
         for _, item in ipairs(invoice.lineItems or {}) do
-            total = total + (item.amount or 0)
+            local lineAmount = item.amount or 0
+            local lineVatRate = item.vatRate or 0
+            local lineVAT = 0
+            if lineVatRate > 0 then
+                lineVAT = math.floor(lineAmount * lineVatRate / (1 + lineVatRate) + 0.5)
+            end
+            total = total + lineAmount
+            totalHT = totalHT + (lineAmount - lineVAT)
+            totalVAT = totalVAT + lineVAT
         end
         invoice.totalAmount = total
+        invoice.totalHT = totalHT
+        invoice.vatAmount = totalVAT
         
         manager.service:createAndSendInvoice(self.invoice, true)
         g_server:broadcastEvent(self, nil, connection)
     else
         manager.service:createAndSendInvoice(self.invoice, true)
-    end
-end
-
-function InvoiceCreateEvent.send(invoice)
-    local manager = g_currentMission.invoicesManager
-    if manager then
-        manager:createAndSendInvoice(invoice)
     end
 end

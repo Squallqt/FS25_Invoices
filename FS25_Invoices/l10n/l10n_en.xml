@@ -10,50 +10,35 @@
         <e k="invoice_col_farm" v="Farm" />
         <e k="invoice_col_amount" v="Amount" />
         <e k="invoice_col_field" v="Field" />
-        <e k="invoice_col_area" v="Area" />
+        <e k="invoice_col_stock" v="Stock" />
         <e k="invoice_btn_newInvoice" v="New Invoice" />
         <e k="invoice_btn_payInvoice" v="Pay" />
         <e k="invoice_btn_deleteInvoice" v="Delete" />
         <e k="invoice_btn_showDetails" v="Details" />
-        <e k="invoice_btn_add" v="Add" />
-        <e k="invoice_btn_remove" v="Remove" />
         <e k="invoice_btn_cancel" v="Cancel" />
         <e k="invoice_btn_close" v="Close" />
         <e k="invoice_btn_select" v="Select" />
-        <e k="invoice_btn_selectFarm" v="Select Customer" />
-        <e k="invoice_btn_next" v="Next" />
-        <e k="invoice_btn_back" v="Back" />
         <e k="invoice_label_from" v="From:" />
         <e k="invoice_label_to" v="To:" />
         <e k="invoice_label_note" v="Notes:" />
-        <e k="invoice_label_total" v="Total:" />
+        <e k="invoice_placeholder_note" v="Add a note or reference" />
         <e k="invoice_dialog_details" v="Invoice Details" />
-        <e k="invoice_dialog_selectField" v="Field Selection" />
         <e k="invoice_wizard_mainTitle" v="NEW INVOICE" />
-        <e k="invoice_wizard_step1_subtitle" v="CUSTOMER" />
-        <e k="invoice_wizard_step1_label" v="Select the customer farm:" />
-        <e k="invoice_wizard_step2_subtitle" v="SERVICES" />
-        <e k="invoice_wizard_step2_label" v="Select the type of work:" />
-        <e k="invoice_wizard_step3_subtitle" v="FIELDS" />
-        <e k="invoice_wizard_step3_label" v="Select the fields involved:" />
-        <e k="invoice_wizard_step4_subtitle" v="SUMMARY" />
+        <e k="invoice_wizard_step1_label" v="Customer" />
+        <e k="invoice_wizard_step2_label" v="Work" />
+        <e k="invoice_wizard_step3_label" v="Fields" />
         <e k="invoice_btn_sendInvoice" v="Send Invoice" />
-        <e k="invoice_wizard_no_items" v="No service selected." />
-        <e k="invoice_error_select_work" v="Please select a service." />
         <e k="invoice_wizard_invoice_created" v="Invoice created successfully!" />
         <e k="invoice_wizard_invoice_failed" v="Error creating invoice." />
         <e k="invoice_wizard_client_fields" v="Client Fields" />
         <e k="invoice_wizard_other_fields" v="Other Fields" />
-        <e k="invoice_wizard_selection_summary" v="Services:" />
-        <e k="invoice_wizard_field_selection_summary" v="Location:" />
         <e k="invoice_format_field_id" v="Field %d" />
         <e k="invoice_step4_col_service" v="Description" />
         <e k="invoice_step4_col_qty" v="Qty" />
         <e k="invoice_step4_col_unitprice" v="Price" />
-        <e k="invoice_step4_col_amount" v="Amount" />
+        <e k="invoice_step4_col_amount" v="Amount /1000 l" />
         <e k="invoice_step4_from" v="Issuer: %s" />
         <e k="invoice_step4_to" v="Customer: %s" />
-        <e k="invoice_step4_total" v="TOTAL DUE" />
         <e k="invoice_detail_col_service" v="Description" />
         <e k="invoice_detail_col_qty" v="Qty" />
         <e k="invoice_detail_col_unit" v="Unit" />
@@ -61,25 +46,22 @@
         <e k="invoice_detail_col_amount" v="Amount" />
         <e k="invoice_col_number" v="Invoice #" />
         <e k="invoice_col_status" v="Status" />
-        <e k="invoice_popup_added" v="Added: %s" />
-        <e k="invoice_popup_removed" v="Removed: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
         <e k="invoice_empty_list" v="No invoices" />
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d line(s)" />
         <e k="invoice_confirm_pay" v="Pay %s to %s?" />
         <e k="invoice_confirm_delete" v="Permanently delete this invoice?" />
+        <e k="invoice_confirm_send" v="Send invoice of %s to %s?" />
         <e k="invoice_notification_new" v="Invoice received from %s: %s" />
         <e k="invoice_reminder_single" v="Unpaid invoice: %s" />
         <e k="invoice_reminder_multiple" v="%d unpaid invoices totaling %s" />
         <e k="invoice_format_date" v="%02d/%02d/Y%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Field %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Field %s" />
         <e k="invoice_invoices_unit_piece" v="pc" />
         <e k="invoice_invoices_unit_hour" v="h" />
         <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_invoices_unit_liter" v="l" />
         <e k="invoice_work_stoneCollection" v="Stone Picking" />
         <e k="invoice_work_plowing" v="Plowing" />
         <e k="invoice_work_cultivating" v="Cultivating" />
@@ -115,8 +97,8 @@
         <e k="invoice_work_windrowing" v="Windrowing" />
         <e k="invoice_work_baling" v="Baling" />
         <e k="invoice_work_wrapping" v="Wrapping" />
-        <e k="invoice_work_buyBales" v="Trading (Buying)" />
-        <e k="invoice_work_sellBales" v="Selling (Bales)" />
+        <e k="invoice_work_buyBales" v="Purchase (Raw Material)" />
+        <e k="invoice_work_consumableSale" v="Consumable Sale" />
         <e k="invoice_work_animalFeeding" v="Feeding" />
         <e k="invoice_work_barnCleaning" v="Barn Cleaning" />
         <e k="invoice_work_animalTransport" v="Livestock Transport" />
@@ -133,10 +115,41 @@
         <e k="invoice_work_treeCutting" v="Tree Cutting" />
         <e k="invoice_work_treeRemoval" v="Log Transport" />
         <e k="invoice_work_goods" v="Supplies" />
+        <e k="invoice_work_products" v="Products" />
         <e k="invoice_work_miscellaneous" v="Miscellaneous" />
-        <e k="finance_invoicePayment" v="Invoice Payment" />
-        <e k="invoice_moneyType" v="Invoicing" />
+        <e k="invoice_step4_col_vat" v="VAT %" />
+        <e k="invoice_label_subtotal_ht" v="Subtotal excl. tax" />
+        <e k="invoice_label_vat" v="VAT" />
+        <e k="invoice_label_na" v="N/A" />
+        <e k="finance_invoiceIncome" v="Invoice Income" />
+        <e k="finance_invoiceExpense" v="Invoice Expense" />
+        <e k="invoice_label_invoice" v="Invoice" />
         <e k="invoice_error_permission_required" v="Action reserved for farm managers." />
         <e k="invoice_error_insufficient_funds" v="Insufficient balance to pay this invoice." />
+        <e k="invoice_settings_section_title" v="Invoices" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Simulated VAT" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="When enabled, invoices include VAT. The client pays the gross amount (incl. tax), the provider receives the net amount (excl. tax). When disabled, VAT is set to 0% and both parties exchange the same amount." />
+        <e k="invoice_setting_invoiceReminders" v="Payment Reminders" />
+        <e k="invoice_toolTip_invoiceReminders" v="When enabled, a reminder notification is shown every 5 minutes for unpaid invoices." />
+        <e k="invoice_notification_vat_incl" v="incl. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="of which %s deducted : %s" />
+        <e k="invoice_notification_penalty_incl" v="incl. %s penalty" />
+        <e k="invoice_status_overdue" v="Overdue" />
+        <e k="invoice_label_total_due" v="Total Due:" />
+        <e k="invoice_label_total_paid" v="Total Paid:" />
+        <e k="invoice_label_penalty" v="Late Penalty" />
+        <e k="invoice_setting_invoicePenalties" v="Late Penalties" />
+        <e k="invoice_toolTip_invoicePenalties" v="Enables late penalties on unpaid invoices. After 1 month overdue, a fixed rate of 5% per month is applied automatically. Capped at 25% of the total amount." />
+        <e k="invoice_notification_overdue" v="Invoice %s is overdue: %s" />
+        <e k="invoice_notification_overdue_warning" v="Late penalties will be applied." />
+        <e k="invoice_dash_no_fields" v="No field required" />
+        <e k="invoice_dialog_selectFillType" v="Product" />
+        <e k="invoice_col_filltype_name" v="Product" />
+        <e k="invoice_work_vehicleSale" v="Vehicle Sale" />
+        <e k="invoice_dialog_selectVehicle" v="Vehicle" />
+        <e k="invoice_col_vehicle_name" v="Vehicle" />
+        <e k="invoice_dialog_selectConsumable" v="Consumable" />
+        <e k="invoice_col_consumable_name" v="Item" />
+        <e k="invoice_error_single_farm" v="At least two farms are required to create invoices." />
     </elements>
 </l10n>

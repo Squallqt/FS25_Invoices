@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
+    <GuiElement profile="newLayer"/>
+    <Bitmap profile="dialogFullscreenBg"/>
+
+    <GuiElement profile="fs25_dialogBg" id="dialogElement" size="480px 634px">
+        <ThreePartBitmap profile="fs25_dialogBgMiddle"/>
+        <ThreePartBitmap profile="fs25_dialogBgTop"/>
+        <ThreePartBitmap profile="fs25_dialogBgBottom"/>
+
+        <GuiElement profile="fs25_dialogContentContainer">
+            <BoxLayout profile="ftdMainBox">
+
+                <!-- Title -->
+                <Text profile="ftdMainTitle" text="$l10n_invoice_dialog_selectFillType" id="mainTitleText"/>
+                <GuiElement profile="ftdTitleSepWrapper">
+                    <ThreePartBitmap profile="ftdTitleSep" id="titleSep"/>
+                </GuiElement>
+                <GuiElement profile="ftdTitleSpacer"/>
+
+                <!-- Content area -->
+                <GuiElement profile="ftdContentArea">
+
+                    <GuiElement profile="ftdSelectionZone">
+
+                        <!-- Column headers -->
+                        <BoxLayout profile="ftdHeaderRow">
+                            <GuiElement profile="ftdFillHeaderPad"/>
+                            <Text profile="ftdFillColName" text="$l10n_invoice_col_filltype_name"/>
+                            <Text profile="ftdColPrice" text="$l10n_invoice_step4_col_amount"/>
+                        </BoxLayout>
+                        <Bitmap profile="ftdSepHeaders"/>
+
+                        <!-- List + slider -->
+                        <GuiElement profile="ftdListWrapper">
+                            <SmoothList profile="ftdList" id="listFillTypes" onClick="onFillTypeListClicked">
+                                <ListItem profile="dashSelectListItemFlat" name="fillTypeTemplate">
+                                    <Text profile="ftdCellBrackets" text="[   ]"/>
+                                    <Text profile="ftdCellCheck" name="cellTick" text=" X "/>
+                                    <Bitmap profile="ftdCellIcon" name="cellIcon"/>
+                                    <Text profile="ftdCellName" name="cellName"/>
+                                    <Text profile="ftdCellPrice" name="cellPrice"/>
+                                </ListItem>
+                            </SmoothList>
+                            <ThreePartBitmap profile="dashSliderBox" position="386px 0px" size="6px 416px">
+                                <Slider profile="fs25_listSlider" size="6px 416px" dataElementId="listFillTypes"/>
+                            </ThreePartBitmap>
+                        </GuiElement>
+                    </GuiElement>
+
+                </GuiElement>
+
+            </BoxLayout>
+        </GuiElement>
+
+        <!-- Button bar -->
+        <BoxLayout profile="fs25_dialogButtonBox" size="440px 60px">
+            <Button profile="buttonOK" id="btnSelect" text="$l10n_invoice_btn_select" onClick="onClickSelect" disabled="true"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="dashBtnCancel" text="$l10n_invoice_btn_cancel" onClick="onClickBack"/>
+        </BoxLayout>
+
+    </GuiElement>
+
+    <GUIProfiles>
+
+        <Profile name="ftdMainBox" extends="emptyPanel" with="anchorTopCenter">
+            <size value="400px 534px"/>
+            <flowDirection value="vertical"/>
+            <alignmentX value="left"/>
+            <alignmentY value="top"/>
+            <elementSpacing value="0px"/>
+        </Profile>
+
+        <Profile name="ftdMainTitle" extends="baseReference">
+            <size value="400px 40px"/>
+            <margin value="0px 4px 0px 0px"/>
+            <textSize value="18px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_fs25_colorMainLight"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <Profile name="ftdTitleSepWrapper" extends="emptyPanel">
+            <size value="400px 2dp"/>
+        </Profile>
+
+        <Profile name="ftdTitleSpacer" extends="emptyPanel">
+            <size value="400px 20px"/>
+        </Profile>
+
+        <Profile name="ftdTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
+            <size value="180px 2dp"/>
+        </Profile>
+
+        <!-- Content area -->
+        <Profile name="ftdContentArea" extends="emptyPanel">
+            <size value="400px 469px"/>
+        </Profile>
+
+        <Profile name="ftdSelectionZone" extends="emptyPanel" with="anchorTopLeft">
+            <position value="0px 0px"/>
+            <size value="400px 469px"/>
+        </Profile>
+
+        <!-- Column headers -->
+        <Profile name="ftdHeaderRow" extends="emptyPanel" with="anchorTopLeft">
+            <position value="8px -8px"/>
+            <size value="380px 28px"/>
+            <flowDirection value="horizontal"/>
+            <alignmentY value="middle"/>
+        </Profile>
+        <Profile name="ftdHeaderPad" extends="emptyPanel">
+            <size value="64px 28px"/>
+        </Profile>
+        <Profile name="ftdFillHeaderPad" extends="emptyPanel">
+            <size value="36px 28px"/>
+        </Profile>
+        <Profile name="ftdVehicleHeaderPad" extends="emptyPanel">
+            <size value="36px 28px"/>
+        </Profile>
+        <Profile name="ftdVehiclePriceOffset" extends="emptyPanel">
+            <size value="25px 28px"/>
+        </Profile>
+        <Profile name="ftdColName" extends="baseReference">
+            <size value="208px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="ftdFillColName" extends="baseReference">
+            <size value="236px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="ftdVehicleColName" extends="baseReference">
+            <size value="211px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="ftdColPrice" extends="baseReference">
+            <size value="100px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="ftdColPriceCenter" extends="baseReference">
+            <size value="100px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <!-- Y = -(8 + 28 + 2) = -38 -->
+        <Profile name="ftdSepHeaders" extends="baseReference" with="anchorTopLeft">
+            <position value="8px -38px"/>
+            <size value="392px 1dp"/>
+            <imageColor value="$preset_fs25_colorMainHighlight"/>
+        </Profile>
+
+        <!-- List -->
+        <Profile name="ftdListWrapper" extends="emptyPanel" with="anchorTopLeft">
+            <position value="8px -45px"/>
+            <size value="392px 416px"/>
+        </Profile>
+
+        <Profile name="ftdList" extends="emptyPanel">
+            <size value="380px 416px"/>
+            <position value="0px 0px"/>
+        </Profile>
+
+        <!-- Brackets + check -->
+        <Profile name="ftdCellBrackets" extends="baseReference" with="anchorStretchingYLeft">
+            <position value="2px 0px"/>
+            <size value="32px 32px"/>
+            <textSize value="16px"/>
+            <textBold value="true"/>
+            <textColor value="1 1 1 1"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+            <textOffset value="0px 2px"/>
+        </Profile>
+
+        <Profile name="ftdCellCheck" extends="baseReference" with="anchorStretchingYLeft">
+            <position value="2px 0px"/>
+            <size value="32px 32px"/>
+            <textSize value="16px"/>
+            <textBold value="true"/>
+            <textColor value="$preset_fs25_colorMainHighlight"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <!-- Product icon -->
+        <Profile name="ftdCellIcon" extends="emptyPanel" with="anchorTopLeft">
+            <position value="36px -4px"/>
+            <size value="24px 24px"/>
+            <imageColor value="1 1 1 1"/>
+            <imageSelectedColor value="1 1 1 1"/>
+        </Profile>
+
+        <!-- Cell: product name -->
+        <Profile name="ftdCellName" extends="baseReference" with="anchorStretchingYLeft">
+            <position value="64px 0px"/>
+            <size value="210px 32px"/>
+            <textSize value="13px"/>
+            <textColor value="1 1 1 1"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+            <textLayoutMode value="scrolling"/>
+        </Profile>
+
+        <!-- Cell: price -->
+        <Profile name="ftdCellPrice" extends="baseReference" with="anchorStretchingYLeft">
+            <position value="272px 0px"/>
+            <size value="100px 32px"/>
+            <textSize value="13px"/>
+            <textBold value="true"/>
+            <textColor value="$preset_fs25_colorMainHighlight"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+    </GUIProfiles>
+</GUI>

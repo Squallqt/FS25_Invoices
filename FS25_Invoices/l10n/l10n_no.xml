@@ -10,42 +10,28 @@
         <e k="invoice_col_farm" v="Gård" />
         <e k="invoice_col_amount" v="Beløp" />
         <e k="invoice_col_field" v="Jorde" />
-        <e k="invoice_col_area" v="Areal" />
+        <e k="invoice_col_stock" v="Lager" />
         <e k="invoice_btn_newInvoice" v="Ny faktura" />
         <e k="invoice_btn_payInvoice" v="Betal" />
         <e k="invoice_btn_deleteInvoice" v="Slett" />
         <e k="invoice_btn_showDetails" v="Detaljer" />
-        <e k="invoice_btn_add" v="Legg til" />
-        <e k="invoice_btn_remove" v="Fjern" />
         <e k="invoice_btn_cancel" v="Avbryt" />
         <e k="invoice_btn_close" v="Lukk" />
         <e k="invoice_btn_select" v="Velg" />
-        <e k="invoice_btn_selectFarm" v="Velg kunde" />
-        <e k="invoice_btn_next" v="Neste" />
-        <e k="invoice_btn_back" v="Tilbake" />
         <e k="invoice_label_from" v="Fra:" />
         <e k="invoice_label_to" v="Til:" />
         <e k="invoice_label_note" v="Merknader:" />
-        <e k="invoice_label_total" v="Totalt:" />
+        <e k="invoice_placeholder_note" v="Legg til merknad eller referanse" />
         <e k="invoice_dialog_details" v="Fakturadetails" />
-        <e k="invoice_dialog_selectField" v="Jordevalg" />
         <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
-        <e k="invoice_wizard_step1_subtitle" v="KUNDE" />
-        <e k="invoice_wizard_step1_label" v="Velg kundegård:" />
-        <e k="invoice_wizard_step2_subtitle" v="TJENESTER" />
-        <e k="invoice_wizard_step2_label" v="Velg arbeidstype:" />
-        <e k="invoice_wizard_step3_subtitle" v="JORDER" />
-        <e k="invoice_wizard_step3_label" v="Velg involverte jorder:" />
-        <e k="invoice_wizard_step4_subtitle" v="SAMMENDRAG" />
+        <e k="invoice_wizard_step1_label" v="Kunde" />
+        <e k="invoice_wizard_step2_label" v="Arbeid" />
+        <e k="invoice_wizard_step3_label" v="Jorder" />
         <e k="invoice_btn_sendInvoice" v="Send faktura" />
-        <e k="invoice_wizard_no_items" v="Ingen tjeneste valgt." />
-        <e k="invoice_error_select_work" v="Vennligst velg en tjeneste." />
         <e k="invoice_wizard_invoice_created" v="Faktura opprettet!" />
         <e k="invoice_wizard_invoice_failed" v="Feil ved opprettelse." />
         <e k="invoice_wizard_client_fields" v="Kundefelter" />
         <e k="invoice_wizard_other_fields" v="Andre felter" />
-        <e k="invoice_wizard_selection_summary" v="Tjenester:" />
-        <e k="invoice_wizard_field_selection_summary" v="Sted:" />
         <e k="invoice_format_field_id" v="Jorde %d" />
         <e k="invoice_step4_col_service" v="Beskrivelse" />
         <e k="invoice_step4_col_qty" v="Antall" />
@@ -53,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Beløp" />
         <e k="invoice_step4_from" v="Avsender: %s" />
         <e k="invoice_step4_to" v="Kunde: %s" />
-        <e k="invoice_step4_total" v="Å BETALE" />
         <e k="invoice_detail_col_service" v="Beskrivelse" />
         <e k="invoice_detail_col_qty" v="Antall" />
         <e k="invoice_detail_col_unit" v="Enh." />
@@ -61,29 +46,26 @@
         <e k="invoice_detail_col_amount" v="Beløp" />
         <e k="invoice_col_number" v="Fakturanr" />
         <e k="invoice_col_status" v="Status" />
-        <e k="invoice_popup_added" v="Lagt til: %s" />
-        <e k="invoice_popup_removed" v="Fjernet: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
         <e k="invoice_empty_list" v="Ingen fakturaer" />
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d linje(r)" />
         <e k="invoice_confirm_pay" v="Bekreft betaling til '%s'?" />
         <e k="invoice_confirm_delete" v="Slette permanent?" />
+        <e k="invoice_confirm_send" v="Send faktura på %s til %s?" />
         <e k="invoice_notification_new" v="Faktura fra %s: %s" />
         <e k="invoice_reminder_single" v="Ubetalt faktura: %s" />
         <e k="invoice_reminder_multiple" v="%d ubetalte fakturaer totalt %s" />
         <e k="invoice_format_date" v="%02d/%02d/Å%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="D%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Jorde %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Jorde %s" />
         <e k="invoice_invoices_unit_piece" v="stk" />
         <e k="invoice_invoices_unit_hour" v="t" />
         <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_invoices_unit_liter" v="l" />
         <e k="invoice_work_stoneCollection" v="Steinplukking" />
         <e k="invoice_work_plowing" v="Pløying" />
         <e k="invoice_work_cultivating" v="Harving" />
-        <e k="invoice_work_mulching" v="Mulching" />
+        <e k="invoice_work_mulching" v="Dekking" />
         <e k="invoice_work_rolling" v="Tromling" />
         <e k="invoice_work_harrowing" v="Slodding" />
         <e k="invoice_work_seeding" v="Såing" />
@@ -115,8 +97,8 @@
         <e k="invoice_work_windrowing" v="Raaking" />
         <e k="invoice_work_baling" v="Pressing" />
         <e k="invoice_work_wrapping" v="Pakking" />
-        <e k="invoice_work_buyBales" v="Handel (Kjøp)" />
-        <e k="invoice_work_sellBales" v="Salg (Baller)" />
+        <e k="invoice_work_buyBales" v="Kjøp (Råvare)" />
+        <e k="invoice_work_consumableSale" v="Salg (Fôr / Halm)" />
         <e k="invoice_work_animalFeeding" v="Fôring" />
         <e k="invoice_work_barnCleaning" v="Rengjøring fjøs" />
         <e k="invoice_work_animalTransport" v="Dyretransport" />
@@ -133,9 +115,41 @@
         <e k="invoice_work_treeCutting" v="Hogst" />
         <e k="invoice_work_treeRemoval" v="Tømmertransport" />
         <e k="invoice_work_goods" v="Varer" />
+        <e k="invoice_work_products" v="Produkter" />
         <e k="invoice_work_miscellaneous" v="Diverse" />
-        <e k="finance_invoicePayment" v="Fakturabetaling" />
-        <e k="invoice_moneyType" v="Fakturering" />
+        <e k="invoice_step4_col_vat" v="MVA %" />
+        <e k="invoice_label_subtotal_ht" v="Delsum ekskl. MVA" />
+        <e k="invoice_label_vat" v="MVA" />
+        <e k="invoice_label_na" v="I/T" />
+        <e k="finance_invoiceIncome" v="Fakturainntekt" />
+        <e k="finance_invoiceExpense" v="Fakturautgift" />
+        <e k="invoice_label_invoice" v="Faktura" />
         <e k="invoice_error_permission_required" v="Handling reservert for gårdsledere." />
-        <e k="invoice_error_insufficient_funds" v="Utilstrekkelig saldo til å betale denne fakturaen." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="Utilstrekkelig saldo til å betale denne fakturaen." />
+        <e k="invoice_settings_section_title" v="Fakturaer" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Simulert MVA" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Når aktivert, inkluderer fakturaer MVA. Klienten betaler bruttobeløpet (inkl. skatt), leverandøren mottar nettobeløpet (ekskl. skatt). Når deaktivert, settes MVA til 0% og begge parter utveksler samme beløp." />
+        <e k="invoice_setting_invoiceReminders" v="Betalingspåminnelser" />
+        <e k="invoice_toolTip_invoiceReminders" v="Når aktivert, vises en påminnelsesmelding hvert 5. minutt for ubetalte fakturaer." />
+        <e k="invoice_notification_vat_incl" v="inkl. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="hvorav %s fratrukket : %s" />
+        <e k="invoice_notification_penalty_incl" v="inkl. %s gebyr" />
+        <e k="invoice_status_overdue" v="Forfalt" />
+        <e k="invoice_label_total_due" v="Skyldig beløp:" />
+        <e k="invoice_label_total_paid" v="Betalt beløp:" />
+        <e k="invoice_label_penalty" v="Forsinkelsesgebyr" />
+        <e k="invoice_setting_invoicePenalties" v="Forsinkelsesrenter" />
+        <e k="invoice_toolTip_invoicePenalties" v="Aktiverer forsinkelsesrenter på ubetalte fakturaer. Etter 1 måneds forfall påløper automatisk en fast sats på 5% per måned. Begrenset til 25% av totalbeløpet." />
+        <e k="invoice_notification_overdue" v="Faktura %s er forfalt: %s" />
+        <e k="invoice_notification_overdue_warning" v="Det vil bli beregnet forsinkelsesrenter." />
+        <e k="invoice_dash_no_fields" v="Ingen åker påkrevd" />
+        <e k="invoice_dialog_selectFillType" v="Produkt" />
+        <e k="invoice_col_filltype_name" v="Produkt" />
+        <e k="invoice_dialog_selectConsumable" v="Forbruksartikel" />
+        <e k="invoice_col_consumable_name" v="Vare" />
+        <e k="invoice_work_vehicleSale" v="Kjøretøysalg" />
+        <e k="invoice_dialog_selectVehicle" v="Kjøretøy" />
+        <e k="invoice_col_vehicle_name" v="Kjøretøy" />
+        <e k="invoice_error_single_farm" v="Det kreves minst to gårder for å opprette fakturaer." />
+    </elements>
 </l10n>

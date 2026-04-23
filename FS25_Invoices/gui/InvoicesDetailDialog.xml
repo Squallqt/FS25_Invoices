@@ -1,159 +1,156 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<!--
-    InvoicesDetailDialog.xml - Invoice detail view
--->
 <GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
     <GuiElement profile="newLayer"/>
-    <Bitmap profile="dialogFullscreenBg"/>
+    <Bitmap profile="dialogFullscreenBg" id="dialogBg"/>
 
-    <RoundCorner profile="invDetRoundBgBorder"/>
-    <RoundCorner profile="invDetRoundBg"/>
+    <GuiElement profile="fs25_dialogBg" id="dialogElement" size="900px 700px">
+        <ThreePartBitmap profile="fs25_dialogBgMiddle"/>
+        <ThreePartBitmap profile="fs25_dialogBgTop"/>
+        <ThreePartBitmap profile="fs25_dialogBgBottom"/>
 
-    <RoundCorner profile="invDetTitleBadgeBg" id="titleBadgeBg"/>
-    <ThreePartBitmap profile="invDetTitleSep"/>
-    <Text profile="invDetMainTitle" text="$l10n_invoice_dialog_details" id="mainTitleText"/>
+        <GuiElement profile="fs25_dialogContentContainer">
 
-    <GuiElement profile="invDetRoot" id="dialogElement">
-        <BoxLayout profile="invDetMainBox">
+            <BoxLayout profile="invDetMainBox">
 
-            <!-- Content area -->
-            <GuiElement profile="invDetContentArea">
+                <!-- Dialog title -->
+                <Text profile="invDetMainTitle" text="$l10n_invoice_dialog_details" id="mainTitleText"/>
 
-                <!-- Invoice number (left) + Status badge (right) -->
-                <Text profile="invDetInvNumber" id="textTitle"/>
-                <Text profile="invDetInvStatus" id="textStatus"/>
+                <!-- Title separator -->
+                <GuiElement profile="invDetTitleSepWrapper">
+                    <ThreePartBitmap profile="invDetTitleSep" id="titleSep"/>
+                </GuiElement>
 
-                <!-- Separator after title row -->
-                <Bitmap profile="invDetSepTitle"/>
+                <!-- Main content -->
+                <GuiElement profile="invDetContentArea">
 
-                <!-- From (left) + Date (right) -->
-                <Text profile="invDetFrom" id="textFrom"/>
-                <Text profile="invDetDateVal" id="textDate"/>
+                    <!-- Invoice number + status -->
+                    <Text profile="invDetInvNumber" id="textTitle"/>
+                    <Text profile="invDetInvStatus" id="textStatus"/>
 
-                <!-- To -->
-                <Text profile="invDetTo" id="textTo"/>
+                    <!-- Separator -->
+                    <Bitmap profile="invDetSepTitle"/>
 
-                <!-- Separator before column headers -->
-                <Bitmap profile="invDetSepHeader"/>
+                    <!-- From + date + penalty -->
+                    <Text profile="invDetFrom" id="textFrom"/>
+                    <BoxLayout profile="invDetRightMetaColumn">
+                        <Text profile="invDetDateVal" id="textDate"/>
+                        <GuiElement profile="invDetPenaltyRow">
+                            <RoundCorner profile="invDetPenaltyBarBg" id="penaltyBar"/>
+                            <Text profile="invDetPenaltyBarText" id="textPenaltyBar"/>
+                        </GuiElement>
+                    </BoxLayout>
 
-                <!-- Column headers: 6 columns -->
-                <Text profile="invDetColDesignation" text="$l10n_invoice_detail_col_service"/>
-                <Text profile="invDetColField"       text="$l10n_invoice_col_field"/>
-                <Text profile="invDetColQty"         text="$l10n_invoice_detail_col_qty"/>
-                <Text profile="invDetColUnit"        text="$l10n_invoice_detail_col_unit"/>
-                <Text profile="invDetColUnitPrice"   text="$l10n_invoice_detail_col_unitprice"/>
-                <Text profile="invDetColAmount"      text="$l10n_invoice_detail_col_amount"/>
+                    <!-- To -->
+                    <Text profile="invDetTo" id="textTo"/>
 
-                <!-- Accent separator (green) below headers -->
-                <Bitmap profile="invDetSepAccent"/>
+                    <!-- Separator -->
+                    <Bitmap profile="invDetSepHeader"/>
 
-                <!-- Line items SmoothList -->
-                <SmoothList profile="invDetList" id="listItems">
-                    <ListItem profile="invDetListItem" name="templateItem">
-                        <Text profile="invDetCellDesignation" name="cellDesignation"/>
-                        <Text profile="invDetCellField"       name="cellField"/>
-                        <Text profile="invDetCellQty"         name="cellQty"/>
-                        <Text profile="invDetCellUnit"        name="cellUnit"/>
-                        <Text profile="invDetCellUnitPrice"   name="cellUnitPrice"/>
-                        <Text profile="invDetCellAmount"      name="cellAmount"/>
-                    </ListItem>
-                </SmoothList>
-                <ThreePartBitmap profile="invDetSliderBox" id="sliderBox">
-                    <Slider profile="fs25_listSlider" dataElementId="listItems"/>
-                </ThreePartBitmap>
+                    <!-- Column headers -->
+                    <Text profile="invDetColDesignation" text="$l10n_invoice_detail_col_service"/>
+                    <Text profile="invDetColField"       text="$l10n_invoice_col_field"/>
+                    <Text profile="invDetColQty"         text="$l10n_invoice_detail_col_qty"/>
+                    <Text profile="invDetColUnit"        text="$l10n_invoice_detail_col_unit"/>
+                    <Text profile="invDetColUnitPrice"   text="$l10n_invoice_detail_col_unitprice"/>
+                    <Text profile="invDetColVat"         text="$l10n_invoice_step4_col_vat"/>
+                    <Text profile="invDetColAmount"      text="$l10n_invoice_detail_col_amount"/>
 
-                <!-- Separator after list -->
-                <Bitmap profile="invDetSepBottom"/>
+                    <!-- Accent separator -->
+                    <Bitmap profile="invDetSepAccent"/>
 
-                <!-- Notes section -->
-                <Text profile="invDetNotesLabel" text="$l10n_invoice_label_note"/>
-                <Text profile="invDetNotesValue" id="textNotes"/>
+                    <!-- Line items -->
+                    <SmoothList profile="invDetList" id="listItems" listItemSpacing="0px" listItemLateralSpacing="0px" listSmoothingDisabled="true">
+                        <ListItem profile="invDetListItem" name="templateItem">
+                            <ThreePartBitmap profile="invDetItemGradient" name="alternating"/>
+                            <Text profile="invDetCellDesignation" name="cellDesignation">
+                                <Bitmap profile="invDetCellIcon" name="cellIcon"/>
+                            </Text>
+                            <Text profile="invDetCellField"       name="cellField"/>
+                            <Text profile="invDetCellQty"         name="cellQty"/>
+                            <Text profile="invDetCellUnit"        name="cellUnit"/>
+                            <Text profile="invDetCellUnitPrice"   name="cellUnitPrice"/>
+                            <Text profile="invDetCellVat"         name="cellVat"/>
+                            <Text profile="invDetCellAmount"      name="cellAmount"/>
+                        </ListItem>
+                    </SmoothList>
+                    <ThreePartBitmap profile="invDetSliderBox" id="sliderBox">
+                        <Slider profile="fs25_listSlider" dataElementId="listItems"/>
+                    </ThreePartBitmap>
 
-                <!-- Separator before total -->
-                <Bitmap profile="invDetSepBeforeTotal"/>
+                    <!-- Separator -->
+                    <Bitmap profile="invDetSepBottom"/>
 
-                <!-- TOTAL bar (full width) -->
-                <Bitmap profile="invDetTotalBarBg"/>
-                <Text   profile="invDetTotalLabel" text="$l10n_invoice_label_total" id="textTotalLabel"/>
-                <Text   profile="invDetTotalValue" id="textTotal"/>
+                    <!-- Notes -->
+                    <Text profile="invDetNotesLabel" text="$l10n_invoice_label_note"/>
+                    <Text profile="invDetNotesValue" id="textNotes"/>
 
-            </GuiElement>
+                    <!-- Separator -->
+                    <Bitmap profile="invDetSepBeforeTotal"/>
+
+                    <!-- Total -->
+                    <RoundCorner profile="invDetTotalBarBg"/>
+                    <Text   profile="invDetTotalLabel" text="$l10n_invoice_label_total_due" id="textTotalLabel"/>
+                    <Text   profile="invDetVatHtText"  id="textVatHt"/>
+                    <Text   profile="invDetVatTvaText" id="textVatTva"/>
+                    <Bitmap profile="invDetTotalSepLine" id="totalSep"/>
+                    <Text   profile="invDetTotalValue" id="textTotal"/>
+
+                </GuiElement>
+
+            </BoxLayout>
+
+        </GuiElement>
+
+        <!-- Button bar -->
+        <BoxLayout profile="fs25_dialogButtonBox" size="860px 60px">
+            <Button profile="buttonOK" text="$l10n_invoice_btn_payInvoice" onClick="onClickPay" id="btnPay"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="buttonBack" text="$l10n_invoice_btn_close" onClick="onClickBack"/>
         </BoxLayout>
     </GuiElement>
 
-    <!-- Button bar -->
-    <RoundCorner profile="invDetButtonBarBg"/>
-    <BoxLayout profile="invDetButtonBox" id="buttonsPC">
-        <Button profile="buttonOK" text="$l10n_invoice_btn_payInvoice" onClick="onClickPay" id="btnPay"/>
-        <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
-        <Button profile="buttonBack" text="$l10n_invoice_btn_close" onClick="onClickBack"/>
-    </BoxLayout>
-
     <GUIProfiles>
-        <!-- Root -->
-        <Profile name="invDetRoot" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -20px"/>
-            <size value="800px 500px"/>
-        </Profile>
-        <Profile name="invDetRoundBgBorder" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 3px"/>
-            <size value="806px 592px"/>
-            <color value="$preset_fs25_colorGreyDark"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="invDetRoundBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -20px"/>
-            <size value="800px 540px"/>
-            <color value="0.01 0.01 0.01 1.00"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="invDetTitleBadgeBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 272px"/>
-            <size value="1px 45px"/>
-            <color value="$preset_fs25_colorMainHighlight"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="invDetTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorMiddleCenter">
-            <position value="0px 250px"/>
-            <size value="740px 1px"/>
-        </Profile>
-        <Profile name="invDetMainTitle" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px 272px"/>
-            <size value="716px 45px"/>
-            <textSize value="18px"/>
-            <textBold value="true"/>
-            <textUpperCase value="true"/>
-            <textColor value="$preset_fs25_colorMainDark"/>
-            <textAlignment value="center"/>
-            <textVerticalAlignment value="middle"/>
-        </Profile>
+        <!-- Layout -->
         <Profile name="invDetMainBox" extends="emptyPanel" with="anchorTopCenter">
-            <size value="740px 480px"/>
+            <size value="832px 630px"/>
             <flowDirection value="vertical"/>
             <alignmentX value="left"/>
             <alignmentY value="top"/>
-            <elementSpacing value="10px"/>
-            <margin value="15px 0px 0px 0px"/>
+            <elementSpacing value="0px"/>
         </Profile>
-        <!-- Subtitle -->
-        <Profile name="invDetSubTitle" extends="baseReference">
-            <size value="740px 28px"/>
-            <margin value="0px 0px 10px 0px"/>
+
+        <!-- Title -->
+        <Profile name="invDetMainTitle" extends="baseReference">
+            <size value="832px 40px"/>
+            <margin value="0px 4px 0px 0px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
-            <textColor value="$preset_colorWhite_50"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_fs25_colorMainLight"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <!-- Content area -->
-        <Profile name="invDetContentArea" extends="emptyPanel">
-            <size value="740px 478px"/>
+
+        <!-- Title separator -->
+        <Profile name="invDetTitleSepWrapper" extends="emptyPanel">
+            <size value="832px 2dp"/>
+            <margin value="0px 0px 28px 0px"/>
         </Profile>
 
-        <!-- Invoice number (left) + Status (right) -->
+        <!-- Separator -->
+        <Profile name="invDetTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
+            <size value="200px 2dp"/>
+        </Profile>
+
+        <!-- Content area -->
+        <Profile name="invDetContentArea" extends="emptyPanel">
+            <size value="832px 557px"/>
+        </Profile>
+
+        <!-- Invoice number + status -->
         <Profile name="invDetInvNumber" extends="baseReference" with="anchorTopLeft">
-            <position value="10px 0px"/>
-            <size value="400px 28px"/>
+            <position value="11px 0px"/>
+            <size value="450px 32px"/>
             <textSize value="18px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -162,8 +159,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetInvStatus" extends="baseReference" with="anchorTopLeft">
-            <position value="410px 0px"/>
-            <size value="320px 28px"/>
+            <position value="461px 0px"/>
+            <size value="360px 32px"/>
             <textSize value="16px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -171,26 +168,33 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Separator after title -->
+        <!-- Separator -->
         <Profile name="invDetSepTitle" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -34px"/>
-            <size value="740px 1px"/>
+            <position value="0px -38px"/>
+            <size value="832px 1dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
 
-        <!-- From + Date -->
+        <!-- From + date -->
         <Profile name="invDetFrom" extends="baseReference" with="anchorTopLeft">
-            <position value="10px -42px"/>
-            <size value="350px 24px"/>
+            <position value="11px -47px"/>
+            <size value="394px 27px"/>
             <textSize value="14px"/>
             <textBold value="true"/>
             <textColor value="$preset_colorWhite_50"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
-        <Profile name="invDetDateVal" extends="baseReference" with="anchorTopLeft">
-            <position value="380px -42px"/>
-            <size value="350px 24px"/>
+        <Profile name="invDetRightMetaColumn" extends="emptyPanel" with="anchorTopLeft">
+            <position value="428px -47px"/>
+            <size value="394px 57px"/>
+            <flowDirection value="vertical"/>
+            <alignmentX value="right"/>
+            <alignmentY value="top"/>
+            <elementSpacing value="3px"/>
+        </Profile>
+        <Profile name="invDetDateVal" extends="baseReference">
+            <size value="394px 27px"/>
             <textSize value="14px"/>
             <textBold value="false"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -200,8 +204,8 @@
 
         <!-- To -->
         <Profile name="invDetTo" extends="baseReference" with="anchorTopLeft">
-            <position value="10px -68px"/>
-            <size value="350px 24px"/>
+            <position value="11px -77px"/>
+            <size value="394px 27px"/>
             <textSize value="14px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
@@ -209,16 +213,16 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Separator before columns -->
+        <!-- Separator -->
         <Profile name="invDetSepHeader" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -98px"/>
-            <size value="740px 1px"/>
+            <position value="0px -110px"/>
+            <size value="832px 1dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
         <!-- Column headers -->
         <Profile name="invDetColDesignation" extends="baseReference" with="anchorTopLeft">
-            <position value="10px -104px"/>
-            <size value="190px 22px"/>
+            <position value="11px -117px"/>
+            <size value="214px 25px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -227,8 +231,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetColField" extends="baseReference" with="anchorTopLeft">
-            <position value="210px -104px"/>
-            <size value="78px 22px"/>
+            <position value="236px -117px"/>
+            <size value="88px 25px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -237,8 +241,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetColQty" extends="baseReference" with="anchorTopLeft">
-            <position value="293px -104px"/>
-            <size value="52px 22px"/>
+            <position value="330px -117px"/>
+            <size value="59px 25px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -247,8 +251,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetColUnit" extends="baseReference" with="anchorTopLeft">
-            <position value="350px -104px"/>
-            <size value="52px 22px"/>
+            <position value="394px -117px"/>
+            <size value="59px 25px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -257,8 +261,19 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetColUnitPrice" extends="baseReference" with="anchorTopLeft">
-            <position value="409px -104px"/>
-            <size value="113px 22px"/>
+            <position value="460px -117px"/>
+            <size value="127px 25px"/>
+            <textSize value="12px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <!-- TVA column -->
+        <Profile name="invDetColVat" extends="baseReference" with="anchorTopLeft">
+            <position value="596px -117px"/>
+            <size value="62px 25px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -267,8 +282,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetColAmount" extends="baseReference" with="anchorTopLeft">
-            <position value="530px -104px"/>
-            <size value="200px 22px"/>
+            <position value="664px -117px"/>
+            <size value="148px 25px"/>
             <textSize value="12px"/>
             <textBold value="true"/>
             <textUpperCase value="true"/>
@@ -277,43 +292,57 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Accent separator (green) -->
+        <!-- Accent separator -->
         <Profile name="invDetSepAccent" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -130px"/>
-            <size value="740px 1px"/>
+            <position value="0px -146px"/>
+            <size value="832px 1dp"/>
             <imageColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
-        <!-- Line items list -->
+        <!-- Line items -->
         <Profile name="invDetList" extends="emptyPanel" with="anchorTopLeft">
-            <position value="0px -136px"/>
-            <size value="740px 200px"/>
+            <position value="0px -152px"/>
+            <size value="832px 284px"/>
         </Profile>
         <Profile name="invDetSliderBox" extends="fs25_listSliderBox" with="anchorTopLeft">
-            <position value="751px -136px"/>
-            <size value="6px 200px"/>
+            <position value="826px -152px"/>
+            <size value="6px 284px"/>
         </Profile>
 
         <!-- List row -->
-        <Profile name="invDetListItem" extends="baseReference" with="anchorTopStretchingX alternating">
+        <Profile name="invDetListItem" extends="fs25_calendarListItem">
             <height value="32px"/>
             <imageColor value="$preset_fs25_colorGrey"/>
-            <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
             <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+            <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
+        </Profile>
+
+        <Profile name="invDetItemGradient" extends="fs25_calendarListItemBg">
+            <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+            <startImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
+            <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
         </Profile>
 
         <!-- Row cells -->
+        <Profile name="invDetCellIcon" extends="emptyPanel" with="anchorTopLeft">
+            <position value="0px -6px"/>
+            <size value="20px 20px"/>
+            <imageColor value="1 1 1 1"/>
+            <imageSelectedColor value="1 1 1 1"/>
+        </Profile>
         <Profile name="invDetCellDesignation" extends="baseReference">
-            <position value="10px 0px"/>
-            <size value="190px 32px"/>
+            <position value="11px 0px"/>
+            <size value="214px 32px"/>
             <textSize value="14px"/>
-            <textColor value="1 1 1 1"/>
+            <textBold value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
+            <textLayoutMode value="scrolling"/>
         </Profile>
         <Profile name="invDetCellField" extends="baseReference">
-            <position value="210px 0px"/>
-            <size value="78px 32px"/>
+            <position value="236px 0px"/>
+            <size value="88px 32px"/>
             <textSize value="12px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -321,17 +350,18 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetCellQty" extends="baseReference">
-            <position value="293px 0px"/>
-            <size value="52px 32px"/>
+            <position value="330px 0px"/>
+            <size value="59px 32px"/>
             <textSize value="13px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
             <textAlignment value="center"/>
             <textVerticalAlignment value="middle"/>
+            <textLayoutMode value="scrolling"/>
         </Profile>
         <Profile name="invDetCellUnit" extends="baseReference">
-            <position value="350px 0px"/>
-            <size value="52px 32px"/>
+            <position value="394px 0px"/>
+            <size value="59px 32px"/>
             <textSize value="13px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -339,8 +369,18 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetCellUnitPrice" extends="baseReference">
-            <position value="409px 0px"/>
-            <size value="113px 32px"/>
+            <position value="460px 0px"/>
+            <size value="127px 32px"/>
+            <textSize value="13px"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <!-- TVA cell -->
+        <Profile name="invDetCellVat" extends="baseReference">
+            <position value="596px 0px"/>
+            <size value="62px 32px"/>
             <textSize value="13px"/>
             <textColor value="$preset_colorWhite_50"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
@@ -348,8 +388,8 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetCellAmount" extends="baseReference">
-            <position value="530px 0px"/>
-            <size value="200px 32px"/>
+            <position value="664px 0px"/>
+            <size value="148px 32px"/>
             <textSize value="14px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
@@ -358,16 +398,16 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
 
-        <!-- Separator after list -->
+        <!-- Separator -->
         <Profile name="invDetSepBottom" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -340px"/>
-            <size value="740px 1px"/>
+            <position value="0px -445px"/>
+            <size value="832px 2dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
-        <!-- Notes section -->
+        <!-- Notes -->
         <Profile name="invDetNotesLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="10px -340px"/>
-            <size value="80px 36px"/>
+            <position value="11px -447px"/>
+            <size value="90px 32px"/>
             <textSize value="13px"/>
             <textBold value="true"/>
             <textColor value="$preset_colorWhite_50"/>
@@ -375,58 +415,85 @@
             <textVerticalAlignment value="middle"/>
         </Profile>
         <Profile name="invDetNotesValue" extends="baseReference" with="anchorTopLeft">
-            <position value="95px -340px"/>
-            <size value="635px 36px"/>
+            <position value="104px -447px"/>
+            <size value="717px 32px"/>
             <textSize value="13px"/>
             <textLineHeightScale value="1.3"/>
             <textColor value="$preset_fs25_colorMainLight"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
+            <textLayoutMode value="scrolling"/>
+            <textScrollOnFocusOnly value="false"/>
         </Profile>
 
-        <!-- Separator before total -->
+        <!-- Separator -->
         <Profile name="invDetSepBeforeTotal" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -376px"/>
-            <size value="740px 1px"/>
+            <position value="0px -479px"/>
+            <size value="832px 2dp"/>
             <imageColor value="0.35 0.35 0.35 0.7"/>
         </Profile>
-        <!-- Total bar -->
+        <!-- Penalty -->
+        <Profile name="invDetPenaltyRow" extends="emptyPanel">
+            <size value="394px 27px"/>
+        </Profile>
+        <Profile name="invDetPenaltyBarBg" extends="baseReference">
+            <size value="394px 27px"/>
+            <color value="0.15 0.05 0.05 0.9"/>
+            <cornerSize value="0.3"/>
+        </Profile>
+        <Profile name="invDetPenaltyBarText" extends="baseReference">
+            <size value="394px 27px"/>
+            <textSize value="14px"/>
+            <textBold value="true"/>
+            <textColor value="1.00 0.40 0.35 1"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <!-- Total -->
         <Profile name="invDetTotalBarBg" extends="baseReference" with="anchorTopLeft">
-            <position value="0px -384px"/>
-            <size value="740px 45px"/>
-            <imageColor value="0 0 0 1"/>
+            <position value="0px -485px"/>
+            <size value="832px 72px"/>
+            <color value="0 0 0 0.75"/>
+            <cornerSize value="0.3"/>
         </Profile>
         <Profile name="invDetTotalLabel" extends="baseReference" with="anchorTopLeft">
-            <position value="20px -384px"/>
-            <size value="200px 45px"/>
-            <textSize value="20px"/>
+            <position value="22px -485px"/>
+            <size value="225px 72px"/>
+            <textSize value="22px"/>
             <textBold value="true"/>
             <textColor value="0.6 0.6 0.6 1"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>
         </Profile>
+        <Profile name="invDetVatHtText" extends="baseReference" with="anchorTopLeft">
+            <position value="350px -489px"/>
+            <size value="474px 16px"/>
+            <textSize value="12px"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="invDetVatTvaText" extends="baseReference" with="anchorTopLeft">
+            <position value="350px -505px"/>
+            <size value="474px 16px"/>
+            <textSize value="12px"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="invDetTotalSepLine" extends="baseReference" with="anchorTopLeft">
+            <position value="350px -525px"/>
+            <size value="474px 1dp"/>
+            <imageColor value="0.3 0.3 0.3 0.8"/>
+        </Profile>
         <Profile name="invDetTotalValue" extends="baseReference" with="anchorTopLeft">
-            <position value="400px -384px"/>
-            <size value="320px 45px"/>
-            <textSize value="26px"/>
+            <position value="350px -524px"/>
+            <size value="474px 33px"/>
+            <textSize value="24px"/>
             <textBold value="true"/>
             <textColor value="$preset_fs25_colorMainHighlight"/>
             <textAlignment value="right"/>
             <textVerticalAlignment value="middle"/>
-        </Profile>
-        <!-- Button bar -->
-        <Profile name="invDetButtonBarBg" extends="baseReference" with="anchorMiddleCenter">
-            <position value="0px -270px"/>
-            <size value="800px 40px"/>
-            <color value="0 0 0 1"/>
-            <cornerSize value="0.5"/>
-        </Profile>
-        <Profile name="invDetButtonBox" extends="fs25_dialogButtonBox" with="anchorMiddleCenter">
-            <position value="0px -270px"/>
-            <size value="800px 40px"/>
-            <imageColor value="0 0 0 0"/>
-            <alignmentX value="right"/>
-            <alignmentY value="middle"/>
         </Profile>
     </GUIProfiles>
 </GUI>

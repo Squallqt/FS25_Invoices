@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
+    <GuiElement profile="newLayer"/>
+    <Bitmap profile="dialogFullscreenBg"/>
+
+    <GuiElement profile="fs25_dialogBg" id="dialogElement" size="480px 634px">
+        <ThreePartBitmap profile="fs25_dialogBgMiddle"/>
+        <ThreePartBitmap profile="fs25_dialogBgTop"/>
+        <ThreePartBitmap profile="fs25_dialogBgBottom"/>
+
+        <GuiElement profile="fs25_dialogContentContainer">
+            <BoxLayout profile="ftdMainBox">
+
+                <!-- Title -->
+                <Text profile="ftdMainTitle" text="$l10n_invoice_dialog_selectConsumable" id="mainTitleText"/>
+                <GuiElement profile="ftdTitleSepWrapper">
+                    <ThreePartBitmap profile="ftdTitleSep" id="titleSep"/>
+                </GuiElement>
+                <GuiElement profile="ftdTitleSpacer"/>
+
+                <!-- Content area -->
+                <GuiElement profile="cdContentArea">
+
+                    <GuiElement profile="cdSelectionZone">
+
+                        <!-- Column headers -->
+                        <BoxLayout profile="cdHeaderRow">
+                            <GuiElement profile="cdHeaderPad"/>
+                            <Text profile="cdColName" text="$l10n_invoice_col_consumable_name"/>
+                            <GuiElement profile="cdHeaderGap"/>
+                            <Text profile="cdColStock" text="$l10n_invoice_col_stock"/>
+                            <GuiElement profile="cdHeaderGap"/>
+                            <Text profile="cdColPrice" text="$l10n_invoice_col_amount"/>
+                        </BoxLayout>
+                        <Bitmap profile="ftdSepHeaders"/>
+
+                        <!-- List + slider -->
+                        <GuiElement profile="cdListWrapper">
+                            <SmoothList profile="cdList" id="listFillTypes" onClick="onConsumableListClicked">
+                                <ListItem profile="dashSelectListItemFlat" name="consumableTemplate">
+                                    <Text profile="ftdCellBrackets" text="[   ]"/>
+                                    <Text profile="ftdCellCheck" name="cellTick" text=" X "/>
+                                    <Bitmap profile="ftdCellIcon" name="cellIcon"/>
+                                    <Text profile="cdCellName" name="cellName"/>
+                                    <Text profile="cdCellStock" name="cellStock"/>
+                                    <Text profile="cdCellPrice" name="cellPrice"/>
+                                </ListItem>
+                            </SmoothList>
+                            <ThreePartBitmap profile="dashSliderBox" position="386px 0px" size="6px 384px">
+                                <Slider profile="fs25_listSlider" size="6px 384px" dataElementId="listFillTypes"/>
+                            </ThreePartBitmap>
+                        </GuiElement>
+
+                    </GuiElement>
+
+                </GuiElement>
+
+                <!-- Quantity selector -->
+                <BoxLayout profile="cdQtyRow">
+                    <Text profile="cdQtyLabel" id="qtyLabel" text="$l10n_invoice_step4_col_qty"/>
+                    <MultiTextOption profile="cdQtySelector" id="qtySelector" wrap="false" onClick="onQtySelectorChanged"/>
+                    <Text profile="cdQtyMaxLabel" id="qtyMaxLabel"/>
+                </BoxLayout>
+
+            </BoxLayout>
+        </GuiElement>
+
+        <!-- Button bar -->
+        <BoxLayout profile="fs25_dialogButtonBox" size="440px 60px">
+            <Button profile="buttonOK" id="btnSelect" text="$l10n_invoice_btn_select" onClick="onClickSelect" disabled="true"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="dashBtnCancel" text="$l10n_invoice_btn_cancel" onClick="onClickBack"/>
+        </BoxLayout>
+
+    </GuiElement>
+
+    <GUIProfiles>
+        <!-- Content area -->
+        <Profile name="cdContentArea" extends="emptyPanel">
+            <size value="400px 429px"/>
+        </Profile>
+        <Profile name="cdSelectionZone" extends="emptyPanel" with="anchorTopLeft">
+            <position value="0px 0px"/>
+            <size value="400px 429px"/>
+        </Profile>
+
+        <!-- Columns -->
+        <Profile name="cdHeaderRow" extends="emptyPanel" with="anchorTopLeft">
+            <position value="8px -8px"/>
+            <size value="380px 28px"/>
+            <flowDirection value="horizontal"/>
+            <alignmentY value="middle"/>
+        </Profile>
+        <Profile name="cdHeaderPad" extends="emptyPanel">
+            <size value="36px 28px"/>
+        </Profile>
+        <Profile name="cdHeaderGap" extends="emptyPanel">
+            <size value="2px 28px"/>
+        </Profile>
+        <Profile name="cdColName" extends="baseReference">
+            <size value="192px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="cdColStock" extends="baseReference">
+            <size value="44px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="cdColPrice" extends="baseReference">
+            <size value="96px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <!-- List wrapper -->
+        <Profile name="cdListWrapper" extends="emptyPanel" with="anchorTopLeft">
+            <position value="8px -45px"/>
+            <size value="392px 384px"/>
+        </Profile>
+        <Profile name="cdList" extends="emptyPanel">
+            <size value="380px 384px"/>
+            <position value="0px 0px"/>
+        </Profile>
+
+        <!-- Cell: name -->
+        <Profile name="cdCellName" extends="baseReference" with="anchorStretchingYLeft">
+            <position value="64px 0px"/>
+            <size value="164px 32px"/>
+            <textSize value="13px"/>
+            <textColor value="1 1 1 1"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+            <textLayoutMode value="scrolling"/>
+        </Profile>
+
+        <!-- Cell: stock count -->
+        <Profile name="cdCellStock" extends="baseReference" with="anchorStretchingYLeft">
+            <position value="230px 0px"/>
+            <size value="44px 32px"/>
+            <textSize value="13px"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <!-- Cell: price -->
+        <Profile name="cdCellPrice" extends="baseReference" with="anchorStretchingYLeft">
+            <position value="276px 0px"/>
+            <size value="96px 32px"/>
+            <textSize value="13px"/>
+            <textBold value="true"/>
+            <textColor value="$preset_fs25_colorMainHighlight"/>
+            <textSelectedColor value="$preset_fs25_colorMainDark"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <!-- Qty selector -->
+        <Profile name="cdQtyRow" extends="emptyPanel">
+            <size value="400px 32px"/>
+            <margin value="0px 8px 0px 0px"/>
+            <flowDirection value="horizontal"/>
+            <alignmentX value="center"/>
+            <alignmentY value="middle"/>
+            <elementSpacing value="8px"/>
+        </Profile>
+        <Profile name="cdQtyLabel" extends="baseReference">
+            <size value="40px 32px"/>
+            <textSize value="13px"/>
+            <textBold value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="right"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="cdQtySelector" extends="fs25_multiTextOption">
+            <size value="120px 32px"/>
+        </Profile>
+        <Profile name="cdQtyMaxLabel" extends="baseReference">
+            <size value="50px 32px"/>
+            <textSize value="13px"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+    </GUIProfiles>
+</GUI>

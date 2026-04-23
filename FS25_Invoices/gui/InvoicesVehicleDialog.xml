@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
+    <GuiElement profile="newLayer"/>
+    <Bitmap profile="dialogFullscreenBg"/>
+
+    <GuiElement profile="fs25_dialogBg" id="dialogElement" size="480px 634px">
+        <ThreePartBitmap profile="fs25_dialogBgMiddle"/>
+        <ThreePartBitmap profile="fs25_dialogBgTop"/>
+        <ThreePartBitmap profile="fs25_dialogBgBottom"/>
+
+        <GuiElement profile="fs25_dialogContentContainer">
+            <BoxLayout profile="ftdMainBox">
+
+                <!-- Title -->
+                <Text profile="ftdMainTitle" text="$l10n_invoice_dialog_selectVehicle" id="mainTitleText"/>
+                <GuiElement profile="ftdTitleSepWrapper">
+                    <ThreePartBitmap profile="ftdTitleSep" id="titleSep"/>
+                </GuiElement>
+                <GuiElement profile="ftdTitleSpacer"/>
+
+                <!-- Content area -->
+                <GuiElement profile="ftdContentArea">
+
+                    <GuiElement profile="ftdSelectionZone">
+
+                        <!-- Column headers -->
+                        <Text profile="ftdVehicleColNameAbs" text="$l10n_invoice_col_vehicle_name"/>
+                        <Text profile="ftdVehicleColPriceAbs" text="$l10n_invoice_step4_col_unitprice"/>
+                        <Bitmap profile="ftdSepHeaders"/>
+
+                        <!-- List + slider -->
+                        <GuiElement profile="ftdListWrapper">
+                            <SmoothList profile="ftdList" id="listFillTypes" onClick="onVehicleListClicked">
+                                <ListItem profile="dashSelectListItemFlat" name="fillTypeTemplate">
+                                    <Text profile="ftdCellBrackets" text="[   ]"/>
+                                    <Text profile="ftdCellCheck" name="cellTick" text=" X "/>
+                                    <Bitmap profile="ftdCellIcon" name="cellIcon"/>
+                                    <Text profile="ftdCellName" name="cellName"/>
+                                    <Text profile="ftdCellPrice" name="cellPrice"/>
+                                </ListItem>
+                            </SmoothList>
+                            <ThreePartBitmap profile="dashSliderBox" position="386px 0px" size="6px 416px">
+                                <Slider profile="fs25_listSlider" size="6px 416px" dataElementId="listFillTypes"/>
+                            </ThreePartBitmap>
+                        </GuiElement>
+                    </GuiElement>
+
+                </GuiElement>
+
+            </BoxLayout>
+        </GuiElement>
+
+        <!-- Button bar -->
+        <BoxLayout profile="fs25_dialogButtonBox" size="440px 60px">
+            <Button profile="buttonOK" id="btnSelect" text="$l10n_invoice_btn_select" onClick="onClickSelect" disabled="true"/>
+            <Bitmap profile="fs25_dialogButtonBoxSeparator"/>
+            <Button profile="dashBtnCancel" text="$l10n_invoice_btn_cancel" onClick="onClickBack"/>
+        </BoxLayout>
+
+    </GuiElement>
+
+    <GUIProfiles>
+        <Profile name="ftdVehicleColNameAbs" extends="baseReference" with="anchorTopLeft">
+            <position value="36px -8px"/>
+            <size value="236px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+        <Profile name="ftdVehicleColPriceAbs" extends="baseReference" with="anchorTopLeft">
+            <position value="307px -8px"/>
+            <size value="100px 28px"/>
+            <textSize value="11px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+    </GUIProfiles>
+
+</GUI>
