@@ -7,6 +7,27 @@
         <de>Rechnungen</de>
         <fr>Factures</fr>
         <pl>Faktury</pl>
+        <br>Faturas</br>
+        <cs>发票</cs>
+        <ct>發票</ct>
+        <cz>Faktury</cz>
+        <da>Fakturaer</da>
+        <es>Facturas</es>
+        <fi>Laskut</fi>
+        <hu>Számlák</hu>
+        <id>Faktur</id>
+        <it>Fatture</it>
+        <jp>請求書</jp>
+        <kr>청구서</kr>
+        <nl>Facturen</nl>
+        <no>Fakturaer</no>
+        <pt>Faturas</pt>
+        <ro>Facturi</ro>
+        <ru>Счета</ru>
+        <sv>Fakturor</sv>
+        <tr>Faturalar</tr>
+        <uk>Рахунки</uk>
+        <vn>Hóa đơn</vn>
     </title>
     <description>
         <en><![CDATA[Create, send and manage invoices between farms in multiplayer.
@@ -26,13 +47,12 @@ Features:
 - Pay or delete invoices with automatic financial integration
 - Separate Income and Expense entries in the Finance tab
 - Automatic payment reminders and late fees
-- Savegame persistent, fully synchronized in multiplayer
 - 25 languages supported
 - Compatible with FS25_RedTape: invoice transactions are properly categorized as taxable income and deductible expenses
 
 Important: Only consumables physically present in the world (not stored inside buildings) can be invoiced and transferred. Make sure to eject bales, pallets or bigbags from storage buildings before creating an invoice.
 
-GitHub repository: https://github.com/Squallqt/FS25_Invoices
+Issues & suggestions: https://github.com/Squallqt/FS25_Invoices
 
 Access via the dedicated tab in the InGame Menu (ESC).
 
@@ -70,13 +90,12 @@ Funktionen:
 - Rechnungen bezahlen oder löschen mit automatischer Finanzintegration
 - Getrennte Einnahmen und Ausgaben im Finanz-Tab
 - Automatische Zahlungserinnerungen und Verzugsgebühren
-- Spielstand-persistent, vollständig synchronisiert im Multiplayer
 - 25 Sprachen unterstützt
 - Kompatibel mit FS25_RedTape: Rechnungstransaktionen werden korrekt als steuerpflichtiges Einkommen und abzugsfähige Ausgaben kategorisiert
 
 Wichtig: Nur Verbrauchsmaterialien, die sich physisch in der Welt befinden (nicht in Gebäuden gelagert), können fakturiert und übertragen werden. Stellen Sie sicher, dass Ballen, Paletten oder Bigbags aus Lagergebäuden entnommen werden, bevor Sie eine Rechnung erstellen.
 
-GitHub-Repository: https://github.com/Squallqt/FS25_Invoices
+Issues & Vorschläge: https://github.com/Squallqt/FS25_Invoices
 
 Zugriff über den eigenen Tab im InGame-Menü (ESC).
 
@@ -114,13 +133,12 @@ Fonctionnalités :
 - Règlement ou suppression des factures avec intégration financière automatique
 - Lignes Recettes et Dépenses séparées dans l'onglet Finance
 - Rappels de paiement automatiques et pénalités de retard
-- Sauvegarde persistante et synchronisation complète en multijoueur
 - 25 langues supportées
 - Compatible avec FS25_RedTape : les transactions de factures sont correctement catégorisées comme revenus imposables et dépenses déductibles
 
 Important : Seuls les consommables physiquement présents dans le monde (non stockés dans les bâtiments) peuvent être facturés et transférés. Assurez-vous de sortir les balles, palettes ou bigbags des bâtiments de stockage avant de créer une facture.
 
-Dépôt GitHub : https://github.com/Squallqt/FS25_Invoices
+Issues & suggestions: https://github.com/Squallqt/FS25_Invoices
 
 Accès via l'onglet dédié dans le menu en jeu (ECHAP).
 
@@ -158,13 +176,12 @@ Funkcje:
 - Opłacanie lub usuwanie faktur z automatyczną integracją finansową
 - Oddzielne pozycje Przychody i Wydatki w zakładce Finanse
 - Automatyczne przypomnienia o płatności i kary za opóźnienie
-- Zapis trwały, pełna synchronizacja w trybie wieloosobowym
 - 25 obsługiwanych języków
 - Kompatybilny z FS25_RedTape: transakcje fakturowe są prawidłowo kategoryzowane jako dochód podlegający opodatkowaniu i koszty uzyskania przychodu
 
 Ważne: Tylko materiały eksploatacyjne fizycznie obecne w świecie gry (nie przechowywane w budynkach) mogą być fakturowane i przenoszone. Upewnij się, że bele, palety lub bigbagi zostały wyjęte z budynków magazynowych przed utworzeniem faktury.
 
-Repozytorium GitHub: https://github.com/Squallqt/FS25_Invoices
+Issues & sugestie: https://github.com/Squallqt/FS25_Invoices
 
 Dostęp przez dedykowaną zakładkę w menu gry (ESC).
 
