@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="107">
     <author>Squallqt</author>
-    <version>1.1.0.0</version>
+    <version>1.1.1.0</version>
     <title>
         <en>Invoices</en>
         <de>Rechnungen</de>
@@ -58,6 +58,9 @@ Access via the dedicated tab in the InGame Menu (ESC).
 
 Changelog:
 
+1.1.1.0:
+- Fix vehicle and modded fill type icons not displayed in invoice details on receiving client (multiplayer)
+- Fix title separator now shrinks to text width on Product, Vehicle and Consumable dialogs
 1.1.0.0:
 - Add consumable selection (bales, pallets, bigbags…) with automatic ownership transfer and automatic resale pricing
 - Add vehicle selection with automatic ownership transfer and automatic resale pricing
@@ -101,6 +104,9 @@ Zugriff über den eigenen Tab im InGame-Menü (ESC).
 
 Changelog:
 
+1.1.1.0:
+- Fahrzeug- und gemoddete Fülltyp-Symbole werden nun in den Rechnungsdetails beim empfangenden Spieler korrekt angezeigt (Mehrspielermodus)
+- Titeltrennlinie passt sich jetzt an die Textbreite an in den Dialogen Produkt, Fahrzeug und Verbrauchsmaterial
 1.1.0.0:
 - Verbrauchsmaterialauswahl hinzugefügt (Ballen, Paletten, Bigbags…) mit automatischem Eigentümerwechsel und automatischer Wiederverkaufsbewertung
 - Fahrzeugauswahl hinzugefügt mit automatischem Eigentümerwechsel und automatischer Wiederverkaufsbewertung
@@ -144,6 +150,9 @@ Accès via l'onglet dédié dans le menu en jeu (ECHAP).
 
 Changelog :
 
+1.1.1.0 :
+- Correction de l'affichage des icônes de véhicules et des fill types moddés dans les détails de facture côté client réception (multijoueur)
+- Correction du séparateur de titre qui s'ajuste désormais à la largeur du texte sur les fenêtres Produit, Véhicule et Consommable
 1.1.0.0 :
 - Ajout de la sélection de consommables (balles, palettes, bigbags…) avec transfert automatique de propriétaire et prix de revente automatique
 - Ajout de la sélection de véhicules avec transfert automatique de propriétaire et prix de revente automatique
@@ -187,6 +196,9 @@ Dostęp przez dedykowaną zakładkę w menu gry (ESC).
 
 Changelog:
 
+1.1.1.0:
+- Naprawiono wyświetlanie ikon pojazdów i zmoddowanych typów wypełnień w szczegółach faktury po stronie odbiorcy (tryb wieloosobowy)
+- Separator tytułu dopasowuje się teraz do szerokości tekstu w oknach Produkt, Pojazd i Materiał eksploatacyjny
 1.1.0.0:
 - Dodano wybór materiałów eksploatacyjnych (bele, palety, bigbagi…) z automatycznym przeniesieniem własności i automatyczną wyceną odsprzedaży
 - Dodano wybór pojazdów z automatycznym przeniesieniem własności i automatyczną wyceną odsprzedaży

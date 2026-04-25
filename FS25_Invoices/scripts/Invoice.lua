@@ -280,18 +280,10 @@ function Invoice:writeStream(streamId)
         streamWriteString(streamId, item.note or "")
         streamWriteFloat32(streamId, item.vatRate or 0)
         streamWriteString(streamId, item.name or "")
-        streamWriteString(streamId, item.iconFilename or "")
+        streamWriteString(streamId, NetworkUtil.convertToNetworkFilename(item.iconFilename or ""))
         streamWriteFloat32(streamId, item.price or 0)
 
-        local vehicleNetId = 0
-        local uid = item.vehicleUniqueId or ""
-        if uid ~= "" and g_currentMission ~= nil and g_currentMission.vehicleSystem ~= nil then
-            local vehicle = g_currentMission.vehicleSystem:getVehicleByUniqueId(uid)
-            if vehicle ~= nil then
-                vehicleNetId = NetworkUtil.getObjectId(vehicle)
-            end
-        end
-        streamWriteInt32(streamId, vehicleNetId)
+        streamWriteString(streamId, item.vehicleUniqueId or "")
 
         streamWriteString(streamId, NetworkUtil.convertToNetworkFilename(item.consumableXmlFilename or ""))
         streamWriteInt16(streamId, item.consumableFillTypeIndex or 0)
@@ -335,17 +327,10 @@ function Invoice:readStream(streamId)
         local note = streamReadString(streamId)
         local vatRate = streamReadFloat32(streamId)
         local name = streamReadString(streamId)
-        local iconFilename = streamReadString(streamId)
+        local iconFilename = NetworkUtil.convertFromNetworkFilename(streamReadString(streamId))
         local price = streamReadFloat32(streamId)
 
-        local vehicleNetId = streamReadInt32(streamId)
-        local vehicleUniqueId = ""
-        if vehicleNetId ~= 0 then
-            local vehicle = NetworkUtil.getObject(vehicleNetId)
-            if vehicle ~= nil then
-                vehicleUniqueId = vehicle:getUniqueId() or ""
-            end
-        end
+        local vehicleUniqueId = streamReadString(streamId)
 
         local item = {
             workTypeId = workTypeId,
@@ -379,16 +364,37 @@ function Invoice.resolveLocalIcon(item)
         return ""
     end
 
-    local uid = item.vehicleUniqueId
-    if uid ~= nil and uid ~= "" then
-        if g_currentMission ~= nil and g_currentMission.vehicleSystem ~= nil then
-            local vehicle = g_currentMission.vehicleSystem:getVehicleByUniqueId(uid)
-            if vehicle ~= nil and vehicle.configFileName ~= nil then
-                local storeItem = g_storeManager:getItemByXMLFilename(vehicle.configFileName)
-                if storeItem ~= nil and storeItem.imageFilename ~= nil and storeItem.imageFilename ~= "" then
-                    return storeItem.imageFilename
+    -- Consumable items (palette/bale) take precedence: icon resolves via consumable
+    -- store entry or fillType. vehicleUniqueId on a consumable is reserved for
+    -- ownership transfer at payment, not display.
+    local hasConsumable = (item.consumableXmlFilename ~= nil and item.consumableXmlFilename ~= "")
+        or ((item.consumableFillTypeIndex or 0) > 0)
+
+    if not hasConsumable then
+        local uid = item.vehicleUniqueId
+        if uid ~= nil and uid ~= "" then
+            if g_currentMission ~= nil and g_currentMission.vehicleSystem ~= nil then
+                local vehicle = g_currentMission.vehicleSystem:getVehicleByUniqueId(uid)
+                if vehicle ~= nil and vehicle.configFileName ~= nil then
+                    local storeItem = g_storeManager:getItemByXMLFilename(vehicle.configFileName)
+                    if storeItem ~= nil and storeItem.imageFilename ~= nil and storeItem.imageFilename ~= "" then
+                        return storeItem.imageFilename
+                    end
                 end
             end
+        end
+    end
+
+    -- Pellets fillType bypass: their store icon is a generic white pallet,
+    -- so prefer the fillType hudOverlayFilename (the actual fill type icon).
+    -- Mirrors InvoicesConsumablePipeline.resolveIcon behavior.
+    local fillIdx = item.consumableFillTypeIndex
+    if fillIdx ~= nil and fillIdx > 0 and g_fillTypeManager ~= nil then
+        local fillTypeInfo = g_fillTypeManager:getFillTypeByIndex(fillIdx)
+        if fillTypeInfo ~= nil
+            and (fillTypeInfo.name == "STRAW_PELLETS" or fillTypeInfo.name == "HAY_PELLETS")
+            and fillTypeInfo.hudOverlayFilename ~= nil and fillTypeInfo.hudOverlayFilename ~= "" then
+            return fillTypeInfo.hudOverlayFilename
         end
     end
 
@@ -400,7 +406,6 @@ function Invoice.resolveLocalIcon(item)
         end
     end
 
-    local fillIdx = item.consumableFillTypeIndex
     if fillIdx ~= nil and fillIdx > 0 and g_fillTypeManager ~= nil then
         local fillTypeInfo = g_fillTypeManager:getFillTypeByIndex(fillIdx)
         if fillTypeInfo ~= nil and fillTypeInfo.hudOverlayFilename ~= nil and fillTypeInfo.hudOverlayFilename ~= "" then

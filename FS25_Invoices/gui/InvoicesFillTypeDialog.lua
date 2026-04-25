@@ -58,14 +58,11 @@ function InvoicesFillTypeDialog:resizeTitleSep()
     if self._titleSepHeight == nil then
         self._titleSepHeight = self.titleSep.absSize[2]
     end
-    if self._titleSepBaseWidth == nil then
-        self._titleSepBaseWidth = self.titleSep.absSize[1]
-    end
 
     local text = self.mainTitleText.text or ""
     local textWidth = getTextWidth(self.mainTitleText.textSize, text)
     local padding = 20 * 2 * g_pixelSizeScaledX
-    local newWidth = math.max(self._titleSepBaseWidth, textWidth + padding)
+    local newWidth = textWidth + padding
 
     self.titleSep:setSize(newWidth, self._titleSepHeight)
     if self.titleSep.parent ~= nil and self.titleSep.parent.invalidateLayout ~= nil then

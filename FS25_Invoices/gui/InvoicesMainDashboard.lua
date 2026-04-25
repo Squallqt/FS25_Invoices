@@ -1845,7 +1845,7 @@ function InvoicesMainDashboard:openVehicleDialog(workType)
                 wt.customPrice = vehicle.sellPrice
                 wt.unit = Invoice.UNIT_PIECE
                 wt.displayOverride = workTypeName .. " (" .. vehicle.name .. ")"
-                wt.iconFilename = ""
+                wt.iconFilename = vehicle.iconFilename or ""
                 wt.configFileName = vehicle.configFileName
                 table.insert(dashSelf.selectedWorkItems, wt)
             end
