@@ -283,7 +283,15 @@ function Invoice:writeStream(streamId)
         streamWriteString(streamId, NetworkUtil.convertToNetworkFilename(item.iconFilename or ""))
         streamWriteFloat32(streamId, item.price or 0)
 
-        streamWriteString(streamId, item.vehicleUniqueId or "")
+        local vehicleNetId = 0
+        local uid = item.vehicleUniqueId or ""
+        if uid ~= "" and g_currentMission ~= nil and g_currentMission.vehicleSystem ~= nil then
+            local vehicle = g_currentMission.vehicleSystem:getVehicleByUniqueId(uid)
+            if vehicle ~= nil then
+                vehicleNetId = NetworkUtil.getObjectId(vehicle)
+            end
+        end
+        streamWriteInt32(streamId, vehicleNetId)
 
         streamWriteString(streamId, NetworkUtil.convertToNetworkFilename(item.consumableXmlFilename or ""))
         streamWriteInt16(streamId, item.consumableFillTypeIndex or 0)
@@ -330,7 +338,14 @@ function Invoice:readStream(streamId)
         local iconFilename = NetworkUtil.convertFromNetworkFilename(streamReadString(streamId))
         local price = streamReadFloat32(streamId)
 
-        local vehicleUniqueId = streamReadString(streamId)
+        local vehicleNetId = streamReadInt32(streamId)
+        local vehicleUniqueId = ""
+        if vehicleNetId ~= 0 then
+            local vehicle = NetworkUtil.getObject(vehicleNetId)
+            if vehicle ~= nil then
+                vehicleUniqueId = vehicle:getUniqueId() or ""
+            end
+        end
 
         local item = {
             workTypeId = workTypeId,
