@@ -10,42 +10,28 @@
         <e k="invoice_col_farm" v="Tila" />
         <e k="invoice_col_amount" v="Summa" />
         <e k="invoice_col_field" v="Pelto" />
-        <e k="invoice_col_area" v="Ala" />
+        <e k="invoice_col_stock" v="Varasto" />
         <e k="invoice_btn_newInvoice" v="Uusi lasku" />
         <e k="invoice_btn_payInvoice" v="Maksa" />
         <e k="invoice_btn_deleteInvoice" v="Poista" />
         <e k="invoice_btn_showDetails" v="Tiedot" />
-        <e k="invoice_btn_add" v="Lisää" />
-        <e k="invoice_btn_remove" v="Poista" />
         <e k="invoice_btn_cancel" v="Peruuta" />
         <e k="invoice_btn_close" v="Sulje" />
         <e k="invoice_btn_select" v="Valitse" />
-        <e k="invoice_btn_selectFarm" v="Valitse asiakas" />
-        <e k="invoice_btn_next" v="Seuraava" />
-        <e k="invoice_btn_back" v="Edellinen" />
         <e k="invoice_label_from" v="Lähettäjä:" />
         <e k="invoice_label_to" v="Vastaanottaja:" />
         <e k="invoice_label_note" v="Huomautukset:" />
-        <e k="invoice_label_total" v="Yhteensä:" />
+        <e k="invoice_placeholder_note" v="Lisää huomautus tai viite" />
         <e k="invoice_dialog_details" v="Laskun tiedot" />
-        <e k="invoice_dialog_selectField" v="Pellon valinta" />
         <e k="invoice_wizard_mainTitle" v="UUSI LASKU" />
-        <e k="invoice_wizard_step1_subtitle" v="ASIAKAS" />
-        <e k="invoice_wizard_step1_label" v="Valitse asiakastila:" />
-        <e k="invoice_wizard_step2_subtitle" v="PALVELUT" />
-        <e k="invoice_wizard_step2_label" v="Valitse työn tyyppi:" />
-        <e k="invoice_wizard_step3_subtitle" v="PELLOT" />
-        <e k="invoice_wizard_step3_label" v="Valitse liittyvät pellot:" />
-        <e k="invoice_wizard_step4_subtitle" v="YHTEENVETO" />
+        <e k="invoice_wizard_step1_label" v="Asiakas" />
+        <e k="invoice_wizard_step2_label" v="Työ" />
+        <e k="invoice_wizard_step3_label" v="Pellot" />
         <e k="invoice_btn_sendInvoice" v="Lähetä lasku" />
-        <e k="invoice_wizard_no_items" v="Ei palvelua valittu." />
-        <e k="invoice_error_select_work" v="Valitse palvelu." />
         <e k="invoice_wizard_invoice_created" v="Lasku luotu onnistuneesti!" />
         <e k="invoice_wizard_invoice_failed" v="Virhe luonnissa." />
         <e k="invoice_wizard_client_fields" v="Asiakaskentät" />
         <e k="invoice_wizard_other_fields" v="Muut kentät" />
-        <e k="invoice_wizard_selection_summary" v="Palvelut:" />
-        <e k="invoice_wizard_field_selection_summary" v="Sijainti:" />
         <e k="invoice_format_field_id" v="Pelto %d" />
         <e k="invoice_step4_col_service" v="Kuvaus" />
         <e k="invoice_step4_col_qty" v="Määrä" />
@@ -53,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Summa" />
         <e k="invoice_step4_from" v="Lähettäjä: %s" />
         <e k="invoice_step4_to" v="Asiakas: %s" />
-        <e k="invoice_step4_total" v="MAKSETTAVAA" />
         <e k="invoice_detail_col_service" v="Kuvaus" />
         <e k="invoice_detail_col_qty" v="Määrä" />
         <e k="invoice_detail_col_unit" v="Yks." />
@@ -61,25 +46,22 @@
         <e k="invoice_detail_col_amount" v="Summa" />
         <e k="invoice_col_number" v="Laskunumero" />
         <e k="invoice_col_status" v="Tila" />
-        <e k="invoice_popup_added" v="Lisätty: %s" />
-        <e k="invoice_popup_removed" v="Poistettu: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
         <e k="invoice_empty_list" v="Ei laskuja" />
         <e k="invoice_format_inv_number" v="L-%03d" />
         <e k="invoice_format_services_count" v="%d rivi(ä)" />
         <e k="invoice_confirm_pay" v="Vahvista maksu kohteelle '%s'?" />
         <e k="invoice_confirm_delete" v="Poista lasku pysyvästi?" />
+        <e k="invoice_confirm_send" v="Lähetä lasku %s kohteelle %s?" />
         <e k="invoice_notification_new" v="Lasku saatu: %s - %s" />
         <e k="invoice_reminder_single" v="Maksamaton lasku: %s" />
         <e k="invoice_reminder_multiple" v="%d maksamatonta laskua yhteensä %s" />
         <e k="invoice_format_date" v="%02d.%02d.V%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="P%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Pelto %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Pelto %s" />
         <e k="invoice_invoices_unit_piece" v="kpl" />
         <e k="invoice_invoices_unit_hour" v="h" />
         <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_invoices_unit_liter" v="l" />
         <e k="invoice_work_stoneCollection" v="Kivien keruu" />
         <e k="invoice_work_plowing" v="Kyntö" />
         <e k="invoice_work_cultivating" v="Muokkaus" />
@@ -115,8 +97,8 @@
         <e k="invoice_work_windrowing" v="Karhotus" />
         <e k="invoice_work_baling" v="Paalaus" />
         <e k="invoice_work_wrapping" v="Käärintä" />
-        <e k="invoice_work_buyBales" v="Kauppa (Osto)" />
-        <e k="invoice_work_sellBales" v="Myynti (Paalit)" />
+        <e k="invoice_work_buyBales" v="Osto (Raaka-aine)" />
+        <e k="invoice_work_consumableSale" v="Myynti (Rehu / Olki)" />
         <e k="invoice_work_animalFeeding" v="Ruokinta" />
         <e k="invoice_work_barnCleaning" v="Navetan siivous" />
         <e k="invoice_work_animalTransport" v="Eläinkuljetus" />
@@ -133,9 +115,41 @@
         <e k="invoice_work_treeCutting" v="Hakkuu" />
         <e k="invoice_work_treeRemoval" v="Puunajo" />
         <e k="invoice_work_goods" v="Tarvikkeet" />
+        <e k="invoice_work_products" v="Tuotteet" />
         <e k="invoice_work_miscellaneous" v="Sekalainen" />
-        <e k="finance_invoicePayment" v="Laskun maksu" />
-        <e k="invoice_moneyType" v="Laskutus" />
+        <e k="invoice_step4_col_vat" v="ALV %" />
+        <e k="invoice_label_subtotal_ht" v="Välisumma ilman ALV" />
+        <e k="invoice_label_vat" v="ALV" />
+        <e k="invoice_label_na" v="E/S" />
+        <e k="finance_invoiceIncome" v="Laskutulot" />
+        <e k="finance_invoiceExpense" v="Laskumenot" />
+        <e k="invoice_label_invoice" v="Lasku" />
         <e k="invoice_error_permission_required" v="Toiminto varattu maatilan johtajille." />
-        <e k="invoice_error_insufficient_funds" v="Riittämätön saldo tämän laskun maksamiseen." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="Riittämätön saldo tämän laskun maksamiseen." />
+        <e k="invoice_settings_section_title" v="Laskut" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Simuloitu ALV" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Kun käytössä, laskut sisältävät ALV:n. Asiakas maksaa bruttosumman (vero mukaan lukien), palveluntarjoaja saa nettosumman (vero pois lukien). Kun pois käytöstä, ALV on 0% ja molemmat osapuolet vaihtavat saman summan." />
+        <e k="invoice_setting_invoiceReminders" v="Maksumuistutukset" />
+        <e k="invoice_toolTip_invoiceReminders" v="Kun käytössä, muistutus näytetään 5 minuutin välein maksamattomista laskuista." />
+        <e k="invoice_notification_vat_incl" v="sis. %s : %s" />
+        <e k="invoice_notification_vat_excl" v="josta %s vähennetty : %s" />
+        <e k="invoice_notification_penalty_incl" v="sis. %s sakkoa" />
+        <e k="invoice_status_overdue" v="Myöhässä" />
+        <e k="invoice_label_total_due" v="Maksettava yhteensä:" />
+        <e k="invoice_label_total_paid" v="Maksettu yhteensä:" />
+        <e k="invoice_label_penalty" v="Viivästysmaksu" />
+        <e k="invoice_setting_invoicePenalties" v="Viivästyskorot" />
+        <e k="invoice_toolTip_invoicePenalties" v="Ottaa käyttöön viivästyskoron maksamattomille laskuille. 1 kuukauden erääntymisen jälkeen sovelletaan automaattisesti kiinteää 5% kuukausikorkoa. Enintään 25% kokonaissummasta." />
+        <e k="invoice_notification_overdue" v="Lasku %s on erääntynyt: %s" />
+        <e k="invoice_notification_overdue_warning" v="Viivästyskorkoa tullaan perimään." />
+        <e k="invoice_dash_no_fields" v="Ei vaadittua peltoa" />
+        <e k="invoice_dialog_selectFillType" v="Tuote" />
+        <e k="invoice_col_filltype_name" v="Tuote" />
+        <e k="invoice_dialog_selectConsumable" v="Tarvike" />
+        <e k="invoice_col_consumable_name" v="Tuote" />
+        <e k="invoice_work_vehicleSale" v="Ajoneuvon myynti" />
+        <e k="invoice_dialog_selectVehicle" v="Ajoneuvo" />
+        <e k="invoice_col_vehicle_name" v="Ajoneuvo" />
+        <e k="invoice_error_single_farm" v="Laskujen luomiseen tarvitaan vähintään kaksi maatilaa." />
+    </elements>
 </l10n>

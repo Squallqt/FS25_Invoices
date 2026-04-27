@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vatRates>
+    <groups>
+        <group name="service"   defaultRate="0.20" />
+        <group name="fieldwork" defaultRate="0.10" />
+        <group name="forestry"  defaultRate="0.10" />
+        <group name="product"   defaultRate="0.055" />
+    </groups>
+
+    <workTypes>
+        <workType id="1"  group="fieldwork" />
+        <workType id="2"  group="fieldwork" />
+        <workType id="3"  group="fieldwork" />
+        <workType id="4"  group="fieldwork" />
+        <workType id="5"  group="fieldwork" />
+        <workType id="6"  group="fieldwork" />
+        <workType id="7"  group="fieldwork" />
+        <workType id="8"  group="fieldwork" />
+        <workType id="9"  group="fieldwork" />
+        <workType id="10" group="fieldwork" />
+        <workType id="11" group="fieldwork" />
+        <workType id="12" group="fieldwork" />
+        <workType id="13" group="fieldwork" />
+        <workType id="14" group="fieldwork" />
+        <workType id="15" group="fieldwork" />
+        <workType id="16" group="fieldwork" />
+        <workType id="17" group="fieldwork" />
+        <workType id="18" group="fieldwork" />
+        <workType id="19" group="fieldwork" />
+        <workType id="20" group="fieldwork" />
+        <workType id="21" group="fieldwork" />
+        <workType id="22" group="fieldwork" />
+        <workType id="23" group="fieldwork" />
+        <workType id="24" group="fieldwork" />
+        <workType id="25" group="fieldwork" />
+        <workType id="26" group="fieldwork" />
+        <workType id="27" group="fieldwork" />
+        <workType id="28" group="fieldwork" />
+        <workType id="29" group="fieldwork" />
+        <workType id="30" group="fieldwork" />
+        <workType id="31" group="fieldwork" />
+        <workType id="32" group="fieldwork" />
+        <workType id="33" group="fieldwork" />
+        <workType id="34" group="fieldwork" />
+        <workType id="35" group="fieldwork" />
+        <workType id="36" group="product" />
+        <workType id="37" group="product" />
+        <workType id="38" group="fieldwork" />
+        <workType id="39" group="fieldwork" />
+        <workType id="40" group="fieldwork" />
+        <workType id="41" group="service" />
+        <workType id="42" group="service" />
+        <workType id="43" group="service" />
+        <workType id="44" group="service" />
+        <workType id="45" group="fieldwork" />
+        <workType id="46" group="service" />
+        <workType id="47" group="service" />
+        <workType id="48" group="service" />
+        <workType id="49" group="fieldwork" />
+        <workType id="50" group="forestry" />
+        <workType id="51" group="forestry" />
+        <workType id="52" group="forestry" />
+        <workType id="53" group="product" />
+        <workType id="54" group="service" />
+        <workType id="55" group="product" />
+        <workType id="56" group="service" />
+    </workTypes>
+</vatRates>

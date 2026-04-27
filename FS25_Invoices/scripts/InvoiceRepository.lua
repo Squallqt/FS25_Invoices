@@ -1,14 +1,12 @@
---[[
-    InvoiceRepository.lua
-    CRUD + XML persistence. No business logic. No network.
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- CRUD + XML persistence. No business logic. No network.
 InvoiceRepository = {}
 local InvoiceRepository_mt = Class(InvoiceRepository)
 
-InvoiceRepository.SAVE_VERSION = 2
+InvoiceRepository.SAVE_VERSION = 4
 
+---Create repository instance
+-- @return InvoiceRepository instance Repository for managing invoices
 function InvoiceRepository.new()
     local self = setmetatable({}, InvoiceRepository_mt)
 
@@ -18,17 +16,22 @@ function InvoiceRepository.new()
     return self
 end
 
+---Clear all invoices and reset ID counter
 function InvoiceRepository:clear()
     self.invoices = {}
     self.nextInvoiceId = 1
 end
 
+---Generate next unique invoice ID
+-- @return integer id The generated ID
 function InvoiceRepository:generateId()
     local id = self.nextInvoiceId
     self.nextInvoiceId = self.nextInvoiceId + 1
     return id
 end
 
+---Add invoice to repository
+-- @param Invoice invoice The invoice to add
 function InvoiceRepository:add(invoice)
     if invoice.id == 0 then
         invoice.id = self:generateId()
@@ -36,6 +39,9 @@ function InvoiceRepository:add(invoice)
     table.insert(self.invoices, invoice)
 end
 
+---Retrieve invoice by ID
+-- @param integer id Invoice ID
+-- @return Invoice|nil invoice The invoice or nil if not found
 function InvoiceRepository:getById(id)
     for _, invoice in ipairs(self.invoices) do
         if invoice.id == id then
@@ -45,6 +51,9 @@ function InvoiceRepository:getById(id)
     return nil
 end
 
+---Remove invoice by ID
+-- @param integer id Invoice ID
+-- @return boolean success True if removed, false otherwise
 function InvoiceRepository:removeById(id)
     for i, invoice in ipairs(self.invoices) do
         if invoice.id == id then
@@ -55,6 +64,10 @@ function InvoiceRepository:removeById(id)
     return false
 end
 
+---Update invoice state by ID
+-- @param integer id Invoice ID
+-- @param integer newState New state value
+-- @return boolean success True if updated, false otherwise
 function InvoiceRepository:setState(id, newState)
     local invoice = self:getById(id)
     if invoice then
@@ -64,6 +77,9 @@ function InvoiceRepository:setState(id, newState)
     return false
 end
 
+---Get invoices for a recipient farm
+-- @param integer farmId Farm ID
+-- @return table invoices Invoices where this farm is recipient
 function InvoiceRepository:getByRecipientFarm(farmId)
     local result = {}
     for _, invoice in ipairs(self.invoices) do
@@ -74,6 +90,9 @@ function InvoiceRepository:getByRecipientFarm(farmId)
     return result
 end
 
+---Get invoices for a sender farm
+-- @param integer farmId Farm ID
+-- @return table invoices Invoices where this farm is sender
 function InvoiceRepository:getBySenderFarm(farmId)
     local result = {}
     for _, invoice in ipairs(self.invoices) do
@@ -84,23 +103,34 @@ function InvoiceRepository:getBySenderFarm(farmId)
     return result
 end
 
+---Get all invoices
+-- @return table invoices All invoices in repository
 function InvoiceRepository:getAll()
     return self.invoices
 end
 
+---Get next invoice ID counter
+-- @return integer id Next ID to be assigned
 function InvoiceRepository:getNextInvoiceId()
     return self.nextInvoiceId
 end
 
+---Set next invoice ID counter
+-- @param integer id ID to set
 function InvoiceRepository:setNextInvoiceId(id)
     self.nextInvoiceId = id
 end
 
+---Replace all invoices and set ID counter
+-- @param table invoices Array of invoices
+-- @param integer nextId Next ID counter value
 function InvoiceRepository:replaceAll(invoices, nextId)
     self.invoices = invoices
     self.nextInvoiceId = nextId
 end
 
+---Save invoices to XML file
+-- @param string savegamePath Path to savegame directory
 function InvoiceRepository:saveToXML(savegamePath)
     local filePath = savegamePath .. "invoices.xml"
     local xmlFile = createXMLFile("invoices", filePath, "invoices")
@@ -122,6 +152,37 @@ function InvoiceRepository:saveToXML(savegamePath)
     delete(xmlFile)
 end
 
+---Save invoices and settings to XML file
+-- @param string savegamePath Path to savegame directory
+-- @param table? settings Optional settings table
+function InvoiceRepository:saveToXMLWithSettings(savegamePath, settings)
+    local filePath = savegamePath .. "invoices.xml"
+    local xmlFile = createXMLFile("invoices", filePath, "invoices")
+
+    if xmlFile == nil then
+        Logging.error("[Invoices] Failed to create save file: %s", filePath)
+        return
+    end
+
+    setXMLInt(xmlFile, "invoices#version", InvoiceRepository.SAVE_VERSION)
+    setXMLInt(xmlFile, "invoices#nextId", self.nextInvoiceId)
+
+    for i, invoice in ipairs(self.invoices) do
+        local key = string.format("invoices.invoice(%d)", i - 1)
+        invoice:writeToXML(xmlFile, key)
+    end
+
+    local s = settings or {}
+    setXMLBool(xmlFile, "invoices.settings#vatSimulated", s.invoiceVatSimulated ~= false)
+    setXMLBool(xmlFile, "invoices.settings#reminders", s.invoiceReminders ~= false)
+    setXMLBool(xmlFile, "invoices.settings#penalties", s.invoicePenalties ~= false)
+
+    saveXMLFile(xmlFile)
+    delete(xmlFile)
+end
+
+---Load invoices from XML file
+-- @param string savegamePath Path to savegame directory
 function InvoiceRepository:loadFromXML(savegamePath)
     local filePath = savegamePath .. "invoices.xml"
 
@@ -163,7 +224,7 @@ function InvoiceRepository:loadFromXML(savegamePath)
             end
         end
 
-            if invoice.id >= self.nextInvoiceId then
+        if invoice.id >= self.nextInvoiceId then
             self.nextInvoiceId = invoice.id + 1
         end
 
@@ -174,4 +235,74 @@ function InvoiceRepository:loadFromXML(savegamePath)
 
     Logging.info("[Invoices] Loaded %d invoices from %s (format v%d)", #self.invoices, filePath, version)
     delete(xmlFile)
+end
+
+---Saves settings to existing invoices XML file
+-- @param string savegamePath Path to savegame directory
+-- @param table settings Settings table to persist
+-- @return boolean success True if saved
+function InvoiceRepository:saveSettingsToXML(savegamePath, settings)
+    local filePath = savegamePath .. "invoices.xml"
+    local xmlFile = nil
+
+    if fileExists(filePath) then
+        xmlFile = loadXMLFile("invoices", filePath)
+    else
+        xmlFile = createXMLFile("invoices", filePath, "invoices")
+    end
+
+    if xmlFile == nil then
+        Logging.warning("[Invoices] Failed to save settings to %s", filePath)
+        return false
+    end
+
+    if getXMLInt(xmlFile, "invoices#version") == nil then
+        setXMLInt(xmlFile, "invoices#version", InvoiceRepository.SAVE_VERSION)
+    end
+    if getXMLInt(xmlFile, "invoices#nextId") == nil then
+        setXMLInt(xmlFile, "invoices#nextId", self.nextInvoiceId or 1)
+    end
+
+    local s = settings or {}
+    setXMLBool(xmlFile, "invoices.settings#vatSimulated", s.invoiceVatSimulated ~= false)
+    setXMLBool(xmlFile, "invoices.settings#reminders", s.invoiceReminders ~= false)
+    setXMLBool(xmlFile, "invoices.settings#penalties", s.invoicePenalties ~= false)
+
+    saveXMLFile(xmlFile)
+    delete(xmlFile)
+    return true
+end
+
+---Loads settings from invoices XML file
+-- @param string savegamePath Path to savegame directory
+-- @return table|nil settings Loaded settings or nil
+function InvoiceRepository:loadSettingsFromXML(savegamePath)
+    local filePath = savegamePath .. "invoices.xml"
+    if not fileExists(filePath) then
+        return nil
+    end
+
+    local xmlFile = loadXMLFile("invoices", filePath)
+    if xmlFile == nil then
+        Logging.warning("[Invoices] Failed to load settings from %s", filePath)
+        return nil
+    end
+
+    local hasAny = hasXMLProperty(xmlFile, "invoices.settings#vatSimulated")
+        or hasXMLProperty(xmlFile, "invoices.settings#reminders")
+        or hasXMLProperty(xmlFile, "invoices.settings#penalties")
+
+    if not hasAny then
+        delete(xmlFile)
+        return nil
+    end
+
+    local settings = {
+        invoiceVatSimulated = getXMLBool(xmlFile, "invoices.settings#vatSimulated"),
+        invoiceReminders = getXMLBool(xmlFile, "invoices.settings#reminders"),
+        invoicePenalties = getXMLBool(xmlFile, "invoices.settings#penalties")
+    }
+
+    delete(xmlFile)
+    return settings
 end

@@ -1,16 +1,17 @@
---[[
-    InvoicesListRenderer.lua
-    Author: Squallqt
-]]
-
+-- Copyright © 2026 Squallqt. All rights reserved.
+-- SmoothList data source and delegate rendering invoice rows with status-driven color coding.
 InvoicesListRenderer = {}
 InvoicesListRenderer_mt = Class(InvoicesListRenderer)
 
-InvoicesListRenderer.COLOR_UNPAID = {1.00, 0.66, 0.00, 1}
-InvoicesListRenderer.COLOR_PAID   = {0.40, 0.85, 0.40, 1}
-InvoicesListRenderer.COLOR_UNPAID_SELECTED = {0.45, 0.25, 0.00, 1}
-InvoicesListRenderer.COLOR_PAID_SELECTED   = {0.10, 0.30, 0.10, 1}
+InvoicesListRenderer.COLOR_UNPAID  = {1.00, 0.66, 0.00, 1}
+InvoicesListRenderer.COLOR_PAID    = {0.40, 0.85, 0.40, 1}
+InvoicesListRenderer.COLOR_OVERDUE = {1.00, 0.30, 0.30, 1}
+InvoicesListRenderer.COLOR_UNPAID_SELECTED  = {0.45, 0.25, 0.00, 1}
+InvoicesListRenderer.COLOR_PAID_SELECTED    = {0.10, 0.30, 0.10, 1}
+InvoicesListRenderer.COLOR_OVERDUE_SELECTED = {0.45, 0.10, 0.10, 1}
 
+---Creates new invoice list renderer instance
+-- @return InvoicesListRenderer instance The new renderer instance
 function InvoicesListRenderer.new()
     local self = {}
     setmetatable(self, InvoicesListRenderer_mt)
@@ -23,27 +24,46 @@ function InvoicesListRenderer.new()
     return self
 end
 
+---Sets display mode for farm column
+-- @param string mode "incoming" or "outgoing"
 function InvoicesListRenderer:setMode(mode)
     self.mode = mode or "incoming"
 end
 
+---Sets invoice data and resets selection
+-- @param table data Array of invoices
 function InvoicesListRenderer:setData(data)
     self.data = data or {}
     self.selectedRow = -1
 end
 
+---Returns number of list sections
+-- @return integer count Always 1
 function InvoicesListRenderer:getNumberOfSections()
     return 1
 end
 
+---Returns number of items in a section
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return integer count Number of invoices
 function InvoicesListRenderer:getNumberOfItemsInSection(list, section)
     return #self.data
 end
 
+---Returns section header title
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @return string title Empty string
 function InvoicesListRenderer:getTitleForSectionHeader(list, section)
     return ""
 end
 
+---Populates cell with invoice data and status colors
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index
+-- @param table cell Cell element to populate
 function InvoicesListRenderer:populateCellForItemInSection(list, section, index, cell)
     local invoice = self.data[index]
     if invoice == nil then
@@ -120,13 +140,18 @@ function InvoicesListRenderer:populateCellForItemInSection(list, section, index,
 
     local statusStr = ""
     local isPaid = (invoice.state == Invoice.STATE.PAID)
+    local penaltyAmount = invoice.penaltyAmount or 0
+    local isOverdue = (not isPaid and penaltyAmount > 0)
     if isPaid then
         statusStr = g_i18n:getText("invoice_status_paid")
+    elseif isOverdue then
+        statusStr = g_i18n:getText("invoice_status_overdue")
     else
         statusStr = g_i18n:getText("invoice_status_unpaid")
     end
 
-    local amountStr = g_i18n:formatMoney(invoice.totalAmount or 0)
+    local totalDue = (invoice.totalAmount or 0) + penaltyAmount
+    local amountStr = g_i18n:formatMoney(totalDue)
 
     local cellNumber   = cell:getDescendantByName("cellNumber")
     local cellDate     = cell:getDescendantByName("cellDate")
@@ -152,6 +177,9 @@ function InvoicesListRenderer:populateCellForItemInSection(list, section, index,
         if isPaid then
             cellStatus:setTextColor(unpack(InvoicesListRenderer.COLOR_PAID))
             cellStatus.textSelectedColor = InvoicesListRenderer.COLOR_PAID_SELECTED
+        elseif isOverdue then
+            cellStatus:setTextColor(unpack(InvoicesListRenderer.COLOR_OVERDUE))
+            cellStatus.textSelectedColor = InvoicesListRenderer.COLOR_OVERDUE_SELECTED
         else
             cellStatus:setTextColor(unpack(InvoicesListRenderer.COLOR_UNPAID))
             cellStatus.textSelectedColor = InvoicesListRenderer.COLOR_UNPAID_SELECTED
@@ -162,6 +190,10 @@ function InvoicesListRenderer:populateCellForItemInSection(list, section, index,
     end
 end
 
+---Called when list selection changes
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Selected item index
 function InvoicesListRenderer:onListSelectionChanged(list, section, index)
     self.selectedRow = index
     if self.indexChangedCallback ~= nil then
@@ -169,6 +201,8 @@ function InvoicesListRenderer:onListSelectionChanged(list, section, index)
     end
 end
 
+---Returns currently selected invoice
+-- @return table|nil invoice Selected invoice or nil
 function InvoicesListRenderer:getSelectedInvoice()
     if self.selectedRow > 0 and self.selectedRow <= #self.data then
         return self.data[self.selectedRow]

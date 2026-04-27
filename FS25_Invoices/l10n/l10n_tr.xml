@@ -10,42 +10,28 @@
         <e k="invoice_col_farm" v="Çiftlik" />
         <e k="invoice_col_amount" v="Tutar" />
         <e k="invoice_col_field" v="Tarla" />
-        <e k="invoice_col_area" v="Alan" />
+        <e k="invoice_col_stock" v="Stok" />
         <e k="invoice_btn_newInvoice" v="Yeni Fatura" />
         <e k="invoice_btn_payInvoice" v="Öde" />
         <e k="invoice_btn_deleteInvoice" v="Sil" />
         <e k="invoice_btn_showDetails" v="Detaylar" />
-        <e k="invoice_btn_add" v="Ekle" />
-        <e k="invoice_btn_remove" v="Kaldır" />
         <e k="invoice_btn_cancel" v="İptal" />
         <e k="invoice_btn_close" v="Kapat" />
         <e k="invoice_btn_select" v="Seç" />
-        <e k="invoice_btn_selectFarm" v="Müşteri Seç" />
-        <e k="invoice_btn_next" v="İleri" />
-        <e k="invoice_btn_back" v="Geri" />
         <e k="invoice_label_from" v="Gönderen:" />
         <e k="invoice_label_to" v="Alıcı:" />
         <e k="invoice_label_note" v="Notlar:" />
-        <e k="invoice_label_total" v="Toplam:" />
+        <e k="invoice_placeholder_note" v="Not veya referans ekleyin" />
         <e k="invoice_dialog_details" v="Fatura Detayları" />
-        <e k="invoice_dialog_selectField" v="Tarla Seçimi" />
         <e k="invoice_wizard_mainTitle" v="YENİ FATURA" />
-        <e k="invoice_wizard_step1_subtitle" v="MÜŞTERİ" />
-        <e k="invoice_wizard_step1_label" v="Müşteri çiftliği seçin:" />
-        <e k="invoice_wizard_step2_subtitle" v="HİZMETLER" />
-        <e k="invoice_wizard_step2_label" v="İş tipini seçin:" />
-        <e k="invoice_wizard_step3_subtitle" v="TARLALAR" />
-        <e k="invoice_wizard_step3_label" v="İlgili tarlaları seçin:" />
-        <e k="invoice_wizard_step4_subtitle" v="ÖZET" />
+        <e k="invoice_wizard_step1_label" v="Müşteri" />
+        <e k="invoice_wizard_step2_label" v="İş" />
+        <e k="invoice_wizard_step3_label" v="Tarlalar" />
         <e k="invoice_btn_sendInvoice" v="Faturayı Gönder" />
-        <e k="invoice_wizard_no_items" v="Hizmet seçilmedi." />
-        <e k="invoice_error_select_work" v="Lütfen bir hizmet seçin." />
         <e k="invoice_wizard_invoice_created" v="Fatura başarıyla oluşturuldu!" />
         <e k="invoice_wizard_invoice_failed" v="Oluşturma hatası." />
         <e k="invoice_wizard_client_fields" v="Müşteri alanları" />
         <e k="invoice_wizard_other_fields" v="Diğer alanlar" />
-        <e k="invoice_wizard_selection_summary" v="Hizmetler:" />
-        <e k="invoice_wizard_field_selection_summary" v="Konum:" />
         <e k="invoice_format_field_id" v="Tarla %d" />
         <e k="invoice_step4_col_service" v="Açıklama" />
         <e k="invoice_step4_col_qty" v="Miktar" />
@@ -53,7 +39,6 @@
         <e k="invoice_step4_col_amount" v="Tutar" />
         <e k="invoice_step4_from" v="Gönderen: %s" />
         <e k="invoice_step4_to" v="Müşteri: %s" />
-        <e k="invoice_step4_total" v="ÖDENECEK" />
         <e k="invoice_detail_col_service" v="Açıklama" />
         <e k="invoice_detail_col_qty" v="Miktar" />
         <e k="invoice_detail_col_unit" v="Birim" />
@@ -61,25 +46,22 @@
         <e k="invoice_detail_col_amount" v="Tutar" />
         <e k="invoice_col_number" v="Fatura No" />
         <e k="invoice_col_status" v="Durum" />
-        <e k="invoice_popup_added" v="Eklendi: %s" />
-        <e k="invoice_popup_removed" v="Kaldırıldı: %s" />
-        <e k="invoice_popup_already_selected" v="Already selected: %s" />
         <e k="invoice_empty_list" v="Fatura yok" />
         <e k="invoice_format_inv_number" v="FAT-%03d" />
         <e k="invoice_format_services_count" v="%d satır" />
         <e k="invoice_confirm_pay" v="'%s' kişisine ödeme yapılsın mı?" />
         <e k="invoice_confirm_delete" v="Kalıcı olarak silinsin mi?" />
+        <e k="invoice_confirm_send" v="%s tutarında faturayı %s adresine gönder?" />
         <e k="invoice_notification_new" v="%s kişisinden fatura alındı: %s" />
         <e k="invoice_reminder_single" v="Ödenmemiş fatura: %s" />
         <e k="invoice_reminder_multiple" v="%d ödenmemiş fatura, toplam %s" />
         <e k="invoice_format_date" v="%02d.%02d.Y%d - %02d:%02d" />
         <e k="invoice_format_date_legacy" v="G%d - %02d:%02d" />
-        <e k="invoice_format_field" v="Tarla %s (%.2f ha)" />
         <e k="invoice_format_fieldId" v="Tarla %s" />
         <e k="invoice_invoices_unit_piece" v="ad" />
         <e k="invoice_invoices_unit_hour" v="sa" />
         <e k="invoice_invoices_unit_hectare" v="ha" />
-        <e k="invoice_invoices_unit_liter" v="L" />
+        <e k="invoice_invoices_unit_liter" v="l" />
         <e k="invoice_work_stoneCollection" v="Taş Toplama" />
         <e k="invoice_work_plowing" v="Sürüm (Pulluk)" />
         <e k="invoice_work_cultivating" v="Kültivatör" />
@@ -115,8 +97,8 @@
         <e k="invoice_work_windrowing" v="Namlu Yapma" />
         <e k="invoice_work_baling" v="Balyalama" />
         <e k="invoice_work_wrapping" v="Paketleme" />
-        <e k="invoice_work_buyBales" v="Ticaret (Satın Alma)" />
-        <e k="invoice_work_sellBales" v="Satış (Balya)" />
+        <e k="invoice_work_buyBales" v="Satın Alma (Hammadde)" />
+        <e k="invoice_work_consumableSale" v="Satış (Yem / Saman)" />
         <e k="invoice_work_animalFeeding" v="Yemleme" />
         <e k="invoice_work_barnCleaning" v="Ahır Temizliği" />
         <e k="invoice_work_animalTransport" v="Hayvan Taşıma" />
@@ -133,9 +115,41 @@
         <e k="invoice_work_treeCutting" v="Ağaç Kesimi" />
         <e k="invoice_work_treeRemoval" v="Tomruk Taşıma" />
         <e k="invoice_work_goods" v="Malzemeler" />
+        <e k="invoice_work_products" v="Ürünler" />
         <e k="invoice_work_miscellaneous" v="Çeşitli" />
-        <e k="finance_invoicePayment" v="Fatura Ödemesi" />
-        <e k="invoice_moneyType" v="Faturalandırma" />
+        <e k="invoice_step4_col_vat" v="KDV %" />
+        <e k="invoice_label_subtotal_ht" v="Ara toplam KDV hariç" />
+        <e k="invoice_label_vat" v="KDV" />
+        <e k="invoice_label_na" v="G/D" />
+        <e k="finance_invoiceIncome" v="Fatura geliri" />
+        <e k="finance_invoiceExpense" v="Fatura gideri" />
+        <e k="invoice_label_invoice" v="Fatura" />
         <e k="invoice_error_permission_required" v="İşlem sadece çiftlik yöneticilerine ayrılmıştır." />
-        <e k="invoice_error_insufficient_funds" v="Bu faturayı ödemek için yetersiz bakiye." />    </elements>
+        <e k="invoice_error_insufficient_funds" v="Bu faturayı ödemek için yetersiz bakiye." />
+        <e k="invoice_settings_section_title" v="Faturalar" />
+        <e k="invoice_setting_invoiceVatSimulated" v="Simüle KDV" />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Etkinleştirildiğinde faturalar KDV içerir. Müşteri brüt tutarı (vergi dahil) öder, sağlayıcı net tutarı (vergi hariç) alır. Devre dışı bırakıldığında KDV 0% olarak ayarlanır ve her iki taraf aynı tutarı değiştirir." />
+        <e k="invoice_setting_invoiceReminders" v="Ödeme hatırlatıcıları" />
+        <e k="invoice_toolTip_invoiceReminders" v="Etkinleştirildiğinde, ödenmemiş faturalar için her 5 dakikada bir hatırlatma bildirimi gösterilir." />
+        <e k="invoice_notification_vat_incl" v="dahil %s : %s" />
+        <e k="invoice_notification_vat_excl" v="kesilen %s : %s" />
+        <e k="invoice_notification_penalty_incl" v="%s ceza dahil" />
+        <e k="invoice_status_overdue" v="Gecikmiş" />
+        <e k="invoice_label_total_due" v="Ödenecek toplam:" />
+        <e k="invoice_label_total_paid" v="Ödenen toplam:" />
+        <e k="invoice_label_penalty" v="Gecikme cezası" />
+        <e k="invoice_setting_invoicePenalties" v="Gecikme cezası" />
+        <e k="invoice_toolTip_invoicePenalties" v="Ödenmemiş faturalara gecikme cezası uygular. 1 aylık gecikmenin ardından, aylık %5 sabit oran otomatik olarak uygulanır. Toplam tutarın %25'i ile sınırlıdır." />
+        <e k="invoice_notification_overdue" v="Fatura %s vadesi geçti: %s" />
+        <e k="invoice_notification_overdue_warning" v="Gecikme cezası uygulanacaktır." />
+        <e k="invoice_dash_no_fields" v="Alan gerekmiyor" />
+        <e k="invoice_dialog_selectFillType" v="Ürün" />
+        <e k="invoice_col_filltype_name" v="Ürün" />
+        <e k="invoice_dialog_selectConsumable" v="Sarf malzemesi" />
+        <e k="invoice_col_consumable_name" v="Ürün" />
+        <e k="invoice_work_vehicleSale" v="Araç satışı" />
+        <e k="invoice_dialog_selectVehicle" v="Araç" />
+        <e k="invoice_col_vehicle_name" v="Araç" />
+        <e k="invoice_error_single_farm" v="Fatura oluşturmak için en az iki çiftlik gereklidir." />
+    </elements>
 </l10n>
