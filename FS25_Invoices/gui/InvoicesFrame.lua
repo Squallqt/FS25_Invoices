@@ -129,11 +129,6 @@ function InvoicesFrame:onFrameOpen()
 
     self.currentTab = InvoicesFrame.TAB.INCOMING
 
-    if self.categoryHeaderIcon then
-        local iconPath = Utils.getFilename('images/Icon_black.dds', Invoices.modDirectory)
-        self.categoryHeaderIcon:setImageFilename(iconPath)
-    end
-
     if self.subCategoryPaging and self.subCategoryBox then
         local texts = {}
         for k, tab in pairs(self.subCategoryTabs) do

@@ -310,6 +310,7 @@
 
         <!-- List row -->
         <Profile name="invDetListItem" extends="fs25_calendarListItem">
+            <hideSelection value="true"/>
             <height value="32px"/>
             <imageColor value="$preset_fs25_colorGrey"/>
             <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>

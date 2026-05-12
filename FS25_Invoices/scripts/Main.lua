@@ -66,6 +66,11 @@ local function loadedMission()
 
     g_gui:loadProfiles(Invoices.modDirectory .. "gui/guiProfiles.xml")
 
+    if g_overlayManager ~= nil
+        and (g_overlayManager.textureConfigs == nil or g_overlayManager.textureConfigs.invoices == nil) then
+        g_overlayManager:addTextureConfigFile(Invoices.modDirectory .. "images/menuIcon.xml", "invoices")
+    end
+
     local frame = InvoicesFrame.new(g_i18n, g_messageCenter)
     g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesFrame.xml", "InvoicesFrame", frame, true)
 
@@ -84,7 +89,7 @@ local function loadedMission()
     local dashboard = InvoicesMainDashboard.new(frame)
     g_gui:loadGui(Invoices.modDirectory .. "gui/InvoicesMainDashboard.xml", "InvoicesMainDashboard", dashboard)
 
-    Invoices.addInGameMenuPage(frame, "InvoicesFrame", {0, 0, 1024, 1024}, function() return true end, "pageMapOverview")
+    Invoices.addInGameMenuPage(frame, "InvoicesFrame", function() return true end, "pageMapOverview")
     frame:initialize()
     
     Invoices.frame = frame
@@ -98,7 +103,7 @@ end
 -- @param table uvs UV coordinates
 -- @param function predicateFunc Visibility predicate
 -- @param integer|string insertPosition Insert position (number or page name)
-function Invoices.addInGameMenuPage(frame, pageName, uvs, predicateFunc, insertPosition)
+function Invoices.addInGameMenuPage(frame, pageName, predicateFunc, insertPosition)
     local targetPosition = 1
 
     for k, v in pairs({pageName}) do
@@ -145,8 +150,7 @@ function Invoices.addInGameMenuPage(frame, pageName, uvs, predicateFunc, insertP
 
     g_inGameMenu:registerPage(g_inGameMenu[pageName], nil, predicateFunc)
 
-    local iconFileName = Utils.getFilename('images/menuIcon.dds', Invoices.modDirectory)
-    g_inGameMenu:addPageTab(g_inGameMenu[pageName], iconFileName, GuiUtils.getUVs(uvs))
+    g_inGameMenu:addPageTab(g_inGameMenu[pageName], nil, nil, "invoices.menuIcon")
 
     for i = 1, #g_inGameMenu.pageFrames do
         local child = g_inGameMenu.pageFrames[i]

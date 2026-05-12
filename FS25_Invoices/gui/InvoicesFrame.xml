@@ -5,7 +5,7 @@
         <!-- Header -->
         <GuiElement profile="fs25_menuHeaderPanel" position="-62px 92px">
             <Bitmap profile="fs25_menuHeaderIconBg">
-                <Bitmap profile="invHeaderIcon" id="categoryHeaderIcon"/>
+                <Bitmap profile="invHeaderIcon"/>
             </Bitmap>
             <Text profile="fs25_menuHeaderTitle" id="categoryHeaderText" text="$l10n_invoice_menu_title"/>
             <RoundCorner profile="fs25_shopMoneyBoxBg" id="shopMoneyBoxBg"/>

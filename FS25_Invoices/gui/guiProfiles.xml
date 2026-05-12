@@ -2,10 +2,8 @@
 <GUIProfiles>
 
     <!-- Header icon -->
-    <Profile name="invHeaderIcon" extends="baseReference">
-        <imageUVs value="0 0 1 1"/>
-        <imageColor value="$preset_fs25_colorMainDark"/>
-        <imageSliceId value="noSlice"/>
+    <Profile name="invHeaderIcon" extends="fs25_menuHeaderIcon">
+        <imageSliceId value="invoices.menuIcon"/>
     </Profile>
 
     <!-- Selection dialogs -->

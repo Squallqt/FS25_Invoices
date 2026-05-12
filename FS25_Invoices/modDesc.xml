@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="107">
+<modDesc descVersion="108">
     <author>Squallqt</author>
-    <version>1.1.0.0</version>
+    <version>1.1.1.0</version>
     <title>
         <en>Invoices</en>
         <de>Rechnungen</de>
@@ -27,7 +27,7 @@
         <sv>Fakturor</sv>
         <tr>Faturalar</tr>
         <uk>Рахунки</uk>
-        <vn>Hóa đơn</vn>
+        <vn>Hóa Đơn</vn>
     </title>
     <description>
         <en><![CDATA[Create, send and manage invoices between farms in multiplayer.
@@ -58,6 +58,10 @@ Access via the dedicated tab in the InGame Menu (ESC).
 
 Changelog:
 
+1.1.1.0:
+- Fix title separator display in invoice header
+- Fix recipient-side icons not showing correctly in invoice dialogs
+- Fix menu icon rendering
 1.1.0.0:
 - Add consumable selection (bales, pallets, bigbags…) with automatic ownership transfer and automatic resale pricing
 - Add vehicle selection with automatic ownership transfer and automatic resale pricing
@@ -101,6 +105,10 @@ Zugriff über den eigenen Tab im InGame-Menü (ESC).
 
 Changelog:
 
+1.1.1.0:
+- Titeltrennlinie im Rechnungsheader korrigiert
+- Symbole auf der Empfängerseite werden nun korrekt in den Rechnungsdialogen angezeigt
+- Menü-Icon-Darstellung korrigiert
 1.1.0.0:
 - Verbrauchsmaterialauswahl hinzugefügt (Ballen, Paletten, Bigbags…) mit automatischem Eigentümerwechsel und automatischer Wiederverkaufsbewertung
 - Fahrzeugauswahl hinzugefügt mit automatischem Eigentümerwechsel und automatischer Wiederverkaufsbewertung
@@ -144,6 +152,10 @@ Accès via l'onglet dédié dans le menu en jeu (ECHAP).
 
 Changelog :
 
+1.1.1.0 :
+- Correction de l'affichage du séparateur de titre dans l'en-tête de facture
+- Correction des icônes côté destinataire dans les fenêtres de facture
+- Correction du rendu de l'icône du menu
 1.1.0.0 :
 - Ajout de la sélection de consommables (balles, palettes, bigbags…) avec transfert automatique de propriétaire et prix de revente automatique
 - Ajout de la sélection de véhicules avec transfert automatique de propriétaire et prix de revente automatique
@@ -187,6 +199,10 @@ Dostęp przez dedykowaną zakładkę w menu gry (ESC).
 
 Changelog:
 
+1.1.1.0:
+- Naprawiono separator tytułu w nagłówku faktury
+- Naprawiono ikony po stronie odbiorcy w oknach faktury
+- Naprawiono renderowanie ikony menu
 1.1.0.0:
 - Dodano wybór materiałów eksploatacyjnych (bele, palety, bigbagi…) z automatycznym przeniesieniem własności i automatyczną wyceną odsprzedaży
 - Dodano wybór pojazdów z automatycznym przeniesieniem własności i automatyczną wyceną odsprzedaży
