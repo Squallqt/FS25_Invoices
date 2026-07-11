@@ -49,6 +49,18 @@ function InvoicesManager:deleteInvoice(invoiceId)
     return self.service:deleteInvoice(invoiceId)
 end
 
+---Validates a proposal via service (sender only, server-authoritative)
+-- @param integer invoiceId Invoice identifier
+function InvoicesManager:validateProposal(invoiceId)
+    return self.service:validateProposal(invoiceId)
+end
+
+---Refuses a proposal via service (sender only, server-authoritative)
+-- @param integer invoiceId Invoice identifier
+function InvoicesManager:refuseProposal(invoiceId)
+    return self.service:refuseProposal(invoiceId)
+end
+
 ---Returns all work types
 -- @return table workTypes
 function InvoicesManager:getWorkTypes()
@@ -69,12 +81,6 @@ function InvoicesManager:getUnitKey(unitType)
     return self.service:getUnitKey(unitType)
 end
 
----Returns economic difficulty multiplier
--- @return float multiplier
-function InvoicesManager:getDifficultyMultiplier()
-    return self.service:getDifficultyMultiplier()
-end
-
 ---Returns difficulty-adjusted price for a work type
 -- @param integer workTypeId Work type identifier
 -- @return float price
@@ -82,31 +88,48 @@ function InvoicesManager:getAdjustedPrice(workTypeId)
     return self.service:getAdjustedPrice(workTypeId)
 end
 
----Returns invoice by identifier
--- @param integer id Invoice identifier
--- @return Invoice|nil invoice Invoice instance or nil
-function InvoicesManager:getInvoiceById(id)
-    return self.repository:getById(id)
-end
-
----Returns incoming invoices for farm
+---Returns incoming invoices for farm.
+-- Pending proposals are incoming only for the issuer farm waiting to validate them.
 -- @param integer farmId Farm identifier
 -- @return table invoices Incoming invoices
 function InvoicesManager:getIncomingInvoices(farmId)
-    return self.repository:getByRecipientFarm(farmId)
+    local incoming = {}
+
+    for _, invoice in ipairs(self.repository:getByRecipientFarm(farmId)) do
+        if invoice.state ~= Invoice.STATE.PROPOSED then
+            table.insert(incoming, invoice)
+        end
+    end
+
+    for _, invoice in ipairs(self.repository:getBySenderFarm(farmId)) do
+        if invoice.state == Invoice.STATE.PROPOSED then
+            table.insert(incoming, invoice)
+        end
+    end
+
+    return incoming
 end
 
----Returns outgoing invoices for farm
+---Returns outgoing invoices for farm.
+-- Pending proposals are outgoing only for the requester farm until validated.
 -- @param integer farmId Farm identifier
 -- @return table invoices Outgoing invoices
 function InvoicesManager:getOutgoingInvoices(farmId)
-    return self.repository:getBySenderFarm(farmId)
-end
+    local outgoing = {}
 
----Generates next unique invoice ID
--- @return integer id
-function InvoicesManager:generateId()
-    return self.repository:generateId()
+    for _, invoice in ipairs(self.repository:getBySenderFarm(farmId)) do
+        if invoice.state ~= Invoice.STATE.PROPOSED then
+            table.insert(outgoing, invoice)
+        end
+    end
+
+    for _, invoice in ipairs(self.repository:getByRecipientFarm(farmId)) do
+        if invoice.state == Invoice.STATE.PROPOSED then
+            table.insert(outgoing, invoice)
+        end
+    end
+
+    return outgoing
 end
 
 ---Returns whether player has farmManager permission
@@ -133,14 +156,11 @@ function InvoicesManager:farmHasSufficientBalance(farmId, amount)
     return math.floor(farm.money or 0) >= math.floor(amount)
 end
 
----Saves invoices and optional settings to XML
+---Saves invoices and settings to XML
 -- @param string savegamePath Path to savegame directory
 -- @param table? settings Optional settings to include
 function InvoicesManager:saveToXML(savegamePath, settings)
-    if settings ~= nil then
-        return self.repository:saveToXMLWithSettings(savegamePath, settings)
-    end
-    return self.repository:saveToXML(savegamePath)
+    return self.repository:saveToXMLWithSettings(savegamePath, settings)
 end
 
 ---Loads invoices from XML file

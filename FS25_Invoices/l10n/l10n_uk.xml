@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Рахунки" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="Запас" />
         <e k="invoice_btn_newInvoice" v="Новий рахунок" />
         <e k="invoice_btn_payInvoice" v="Сплатити" />
-        <e k="invoice_btn_deleteInvoice" v="Видалити" />
         <e k="invoice_btn_showDetails" v="Деталі" />
         <e k="invoice_btn_cancel" v="Скасувати" />
         <e k="invoice_btn_close" v="Закрити" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Кому:" />
         <e k="invoice_label_note" v="Примітки:" />
         <e k="invoice_placeholder_note" v="Додати примітку або посилання" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Деталі рахунку" />
+        <e k="invoice_dialog_rename_prompt" v="Введіть назву рядка" />
         <e k="invoice_wizard_mainTitle" v="НОВИЙ РАХУНОК" />
         <e k="invoice_wizard_step1_label" v="Клієнт" />
         <e k="invoice_wizard_step2_label" v="Роботи" />
         <e k="invoice_wizard_step3_label" v="Поля" />
         <e k="invoice_btn_sendInvoice" v="Надіслати рахунок" />
+        <e k="invoice_btn_sendRequest" v="Надіслати запит" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Видалити" />
+        <e k="invoice_action_rename" v="Перейменувати" />
         <e k="invoice_wizard_invoice_created" v="Рахунок створено!" />
         <e k="invoice_wizard_invoice_failed" v="Помилка створення." />
         <e k="invoice_wizard_client_fields" v="Поля клієнта" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Немає рахунків" />
         <e k="invoice_format_inv_number" v="РАХ-%03d" />
         <e k="invoice_format_services_count" v="%d рядк(ів)" />
-        <e k="invoice_confirm_pay" v="Підтвердити оплату '%s'?" />
-        <e k="invoice_confirm_delete" v="Видалити назавжди?" />
+        <e k="invoice_confirm_pay" v="Підтвердити оплату %s для '%s'?" />
+        <e k="invoice_confirm_cancel_invoice" v="Скасувати цей рахунок?" />
+        <e k="invoice_confirm_cancel_proposal" v="Скасувати цей запит на рахунок?" />
         <e k="invoice_confirm_send" v="Надіслати рахунок на %s для %s?" />
         <e k="invoice_notification_new" v="Рахунок отримано від %s: %s" />
         <e k="invoice_reminder_single" v="Неоплачений рахунок: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Техніка" />
         <e k="invoice_col_vehicle_name" v="Техніка" />
         <e k="invoice_error_single_farm" v="Для створення рахунків необхідно щонайменше дві ферми." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Очікує на схвалення" />
+        <e k="invoice_choice_create" v="Виставити рахунок фермі" />
+        <e k="invoice_choice_propose" v="Запросити рахунок" />
+        <e k="invoice_choice_create_button" v="Виставити" />
+        <e k="invoice_choice_propose_button" v="Запросити рахунок" />
+        <e k="invoice_btn_validate" v="Схвалити" />
+        <e k="invoice_btn_refuse" v="Відхилити" />
+        <e k="invoice_wizard_propose_title" v="ЗАПРОСИТИ РАХУНОК" />
+        <e k="invoice_confirm_propose" v="Запросити рахунок на %s для схвалення фермою %s?" />
+        <e k="invoice_propose_sent" v="Запит надіслано!" />
+        <e k="invoice_confirm_validate" v="Схвалити цей запит і зробити його придатним для оплати?" />
+        <e k="invoice_confirm_refuse" v="Відхилити та видалити цей запит?" />
+        <e k="invoice_notification_proposal" v="Отримано запит на рахунок від %s: %s" />
+        <e k="invoice_choice_body" v="Що ви хочете зробити?" />
+        <e k="invoice_choice_create_hint" v="Ви надсилаєте рахунок. Вибрана ферма повинна буде заплатити." />
+        <e k="invoice_choice_propose_hint" v="Вибрана ферма повинна підтвердити. Ви заплатите після підтвердження." />
+        <e k="invoice_reminder_proposal_single" v="Запит на рахунок для схвалення: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d запитів на рахунок для схвалення (разом: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Відправник" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Знижка %" />
+        <e k="invoice_label_discount" v="Знижка" />
     </elements>
 </l10n>

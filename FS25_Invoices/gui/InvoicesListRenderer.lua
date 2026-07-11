@@ -6,9 +6,11 @@ InvoicesListRenderer_mt = Class(InvoicesListRenderer)
 InvoicesListRenderer.COLOR_UNPAID  = {1.00, 0.66, 0.00, 1}
 InvoicesListRenderer.COLOR_PAID    = {0.40, 0.85, 0.40, 1}
 InvoicesListRenderer.COLOR_OVERDUE = {1.00, 0.30, 0.30, 1}
+InvoicesListRenderer.COLOR_PROPOSED = {0.45, 0.70, 1.00, 1}
 InvoicesListRenderer.COLOR_UNPAID_SELECTED  = {0.45, 0.25, 0.00, 1}
 InvoicesListRenderer.COLOR_PAID_SELECTED    = {0.10, 0.30, 0.10, 1}
 InvoicesListRenderer.COLOR_OVERDUE_SELECTED = {0.45, 0.10, 0.10, 1}
+InvoicesListRenderer.COLOR_PROPOSED_SELECTED = {0.10, 0.25, 0.45, 1}
 
 ---Creates new invoice list renderer instance
 -- @return InvoicesListRenderer instance The new renderer instance
@@ -20,6 +22,7 @@ function InvoicesListRenderer.new()
     self.selectedRow = -1
     self.indexChangedCallback = nil
     self.mode = "incoming"
+    self.currentFarmId = -1
 
     return self
 end
@@ -28,6 +31,12 @@ end
 -- @param string mode "incoming" or "outgoing"
 function InvoicesListRenderer:setMode(mode)
     self.mode = mode or "incoming"
+end
+
+---Sets the farm currently viewing the list.
+-- @param integer farmId Farm identifier
+function InvoicesListRenderer:setCurrentFarmId(farmId)
+    self.currentFarmId = farmId or -1
 end
 
 ---Sets invoice data and resets selection
@@ -49,14 +58,6 @@ end
 -- @return integer count Number of invoices
 function InvoicesListRenderer:getNumberOfItemsInSection(list, section)
     return #self.data
-end
-
----Returns section header title
--- @param table list SmoothList element
--- @param integer section Section index
--- @return string title Empty string
-function InvoicesListRenderer:getTitleForSectionHeader(list, section)
-    return ""
 end
 
 ---Populates cell with invoice data and status colors
@@ -88,11 +89,15 @@ function InvoicesListRenderer:populateCellForItemInSection(list, section, index,
     end
 
     local farmName = ""
-    local farmId
-    if self.mode == "incoming" then
+    local farmId = invoice.recipientFarmId
+    if invoice.state == Invoice.STATE.PROPOSED then
+        if self.currentFarmId == invoice.senderFarmId then
+            farmId = invoice.recipientFarmId
+        elseif self.currentFarmId == invoice.recipientFarmId then
+            farmId = invoice.senderFarmId
+        end
+    elseif self.mode == "incoming" then
         farmId = invoice.senderFarmId
-    else
-        farmId = invoice.recipientFarmId
     end
     if farmId then
         local farm = g_farmManager:getFarmById(farmId)
@@ -108,41 +113,47 @@ function InvoicesListRenderer:populateCellForItemInSection(list, section, index,
         servicesStr = g_i18n:getText("invoice_empty_list")
     else
         local manager = g_currentMission.invoicesManager
-        local workTypeNames = {}
-        local uniqueWorkTypes = {}
+        local serviceNames = {}
+        local uniqueServiceNames = {}
         
         if manager and invoice.lineItems then
             for _, lineItem in ipairs(invoice.lineItems) do
-                local workTypeId = lineItem.workTypeId
-                if workTypeId and not uniqueWorkTypes[workTypeId] then
-                    uniqueWorkTypes[workTypeId] = true
-                    local workType = manager.service:getWorkTypeById(workTypeId)
+                local name = lineItem.name
+                if (name == nil or name == "") and lineItem.workTypeId ~= nil then
+                    local workType = manager.service:getWorkTypeById(lineItem.workTypeId)
                     if workType and workType.nameKey then
-                        local name = g_i18n:getText(workType.nameKey)
-                        table.insert(workTypeNames, name)
+                        name = g_i18n:getText(workType.nameKey)
                     end
+                end
+
+                if name ~= nil and name ~= "" and not uniqueServiceNames[name] then
+                    uniqueServiceNames[name] = true
+                    table.insert(serviceNames, name)
                 end
             end
         end
         
-        if #workTypeNames == 0 then
+        if #serviceNames == 0 then
             servicesStr = string.format(g_i18n:getText("invoice_format_services_count"), itemCount)
-        elseif #workTypeNames == 1 then
-            servicesStr = workTypeNames[1]
-        elseif #workTypeNames <= 3 then
-            servicesStr = table.concat(workTypeNames, ", ")
+        elseif #serviceNames == 1 then
+            servicesStr = serviceNames[1]
+        elseif #serviceNames <= 3 then
+            servicesStr = table.concat(serviceNames, ", ")
         else
-            local firstTwo = {workTypeNames[1], workTypeNames[2]}
-            local remaining = #workTypeNames - 2
+            local firstTwo = {serviceNames[1], serviceNames[2]}
+            local remaining = #serviceNames - 2
             servicesStr = string.format("%s, +%d", table.concat(firstTwo, ", "), remaining)
         end
     end
 
     local statusStr = ""
+    local isProposed = (invoice.state == Invoice.STATE.PROPOSED)
     local isPaid = (invoice.state == Invoice.STATE.PAID)
     local penaltyAmount = invoice.penaltyAmount or 0
-    local isOverdue = (not isPaid and penaltyAmount > 0)
-    if isPaid then
+    local isOverdue = (not isPaid and not isProposed and penaltyAmount > 0)
+    if isProposed then
+        statusStr = g_i18n:getText("invoice_status_proposed")
+    elseif isPaid then
         statusStr = g_i18n:getText("invoice_status_paid")
     elseif isOverdue then
         statusStr = g_i18n:getText("invoice_status_overdue")
@@ -153,11 +164,19 @@ function InvoicesListRenderer:populateCellForItemInSection(list, section, index,
     local totalDue = (invoice.totalAmount or 0) + penaltyAmount
     local amountStr = g_i18n:formatMoney(totalDue)
 
+    -- Total discount of the invoice = real reduction (before - after), shown as a negative amount.
+    local discountAmount = Invoice.computeTotalDiscountAmount(invoice.lineItems)
+    local discountStr = "—"
+    if discountAmount > 0 then
+        discountStr = "-" .. g_i18n:formatMoney(discountAmount, 0, true, false)
+    end
+
     local cellNumber   = cell:getDescendantByName("cellNumber")
     local cellDate     = cell:getDescendantByName("cellDate")
     local cellFarm     = cell:getDescendantByName("cellFarm")
     local cellServices = cell:getDescendantByName("cellServices")
     local cellStatus   = cell:getDescendantByName("cellStatus")
+    local cellDiscount = cell:getDescendantByName("cellDiscount")
     local cellAmount   = cell:getDescendantByName("cellAmount")
 
     if cellNumber then
@@ -174,7 +193,10 @@ function InvoicesListRenderer:populateCellForItemInSection(list, section, index,
     end
     if cellStatus then
         cellStatus:setText(statusStr)
-        if isPaid then
+        if isProposed then
+            cellStatus:setTextColor(unpack(InvoicesListRenderer.COLOR_PROPOSED))
+            cellStatus.textSelectedColor = InvoicesListRenderer.COLOR_PROPOSED_SELECTED
+        elseif isPaid then
             cellStatus:setTextColor(unpack(InvoicesListRenderer.COLOR_PAID))
             cellStatus.textSelectedColor = InvoicesListRenderer.COLOR_PAID_SELECTED
         elseif isOverdue then
@@ -184,6 +206,9 @@ function InvoicesListRenderer:populateCellForItemInSection(list, section, index,
             cellStatus:setTextColor(unpack(InvoicesListRenderer.COLOR_UNPAID))
             cellStatus.textSelectedColor = InvoicesListRenderer.COLOR_UNPAID_SELECTED
         end
+    end
+    if cellDiscount then
+        cellDiscount:setText(discountStr)
     end
     if cellAmount then
         cellAmount:setText(amountStr)

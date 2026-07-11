@@ -48,63 +48,57 @@ function InvoiceCreateEvent:run(connection)
     if not connection:getIsServer() then
         local invoice = self.invoice
         if invoice.senderFarmId == nil or invoice.senderFarmId < 1 then
-            Logging.warning("[InvoiceCreateEvent] Server rejected CREATE: invalid senderFarmId")
             return
         end
         if invoice.recipientFarmId == nil or invoice.recipientFarmId < 1 then
-            Logging.warning("[InvoiceCreateEvent] Server rejected CREATE: invalid recipientFarmId")
             return
         end
         if invoice.senderFarmId == invoice.recipientFarmId then
-            Logging.warning("[InvoiceCreateEvent] Server rejected CREATE: sender == recipient")
             return
         end
-        
+
+        -- Only NEW (normal invoice) or PROPOSED (proposal) may be created.
+        local isProposal = (invoice.state == Invoice.STATE.PROPOSED)
+        if invoice.state ~= Invoice.STATE.NEW and not isProposal then
+            return
+        end
+
         if not g_currentMission:getHasPlayerPermission("farmManager", connection) then
-            Logging.warning("[InvoiceCreateEvent] Server rejected CREATE: player lacks farmManager permission")
             return
         end
-        
+
+        -- Normal invoice: the issuer (sender) creates it. Proposal: the payer (recipient) creates it.
+        local requiredFarmId = isProposal and invoice.recipientFarmId or invoice.senderFarmId
         local player = g_currentMission.connectionsToPlayer[connection]
-        if player == nil or player.farmId ~= invoice.senderFarmId then
-            Logging.warning("[InvoiceCreateEvent] Server rejected CREATE: player farmId mismatch")
+        if player == nil or player.farmId ~= requiredFarmId then
             return
         end
-        
+
         -- Sanitize line items
         local items = invoice.lineItems or {}
         if #items > 100 then
-            Logging.warning("[InvoiceCreateEvent] Server rejected CREATE: too many line items (%d)", #items)
             return
         end
         for _, item in ipairs(items) do
             if (item.amount or 0) < 0 or (item.price or 0) < 0 then
-                Logging.warning("[InvoiceCreateEvent] Server rejected CREATE: negative amount/price")
                 return
             end
+            -- Server-authoritative discount: clamp to [0,1] and rebuild the line
+            -- amount from price/quantity/discount so the client cannot forge the total.
+            item.discountRate = Invoice.sanitizeDiscountRate(item.discountRate)
+            item.amount = Invoice.computeLineAmount(item.price, item.quantity, item.unitType, item.discountRate)
         end
-        
+
         -- Server-authoritative recalculation of totals
-        local total = 0
-        local totalHT = 0
-        local totalVAT = 0
-        for _, item in ipairs(invoice.lineItems or {}) do
-            local lineAmount = item.amount or 0
-            local lineVatRate = item.vatRate or 0
-            local lineVAT = 0
-            if lineVatRate > 0 then
-                lineVAT = math.floor(lineAmount * lineVatRate / (1 + lineVatRate) + 0.5)
-            end
-            total = total + lineAmount
-            totalHT = totalHT + (lineAmount - lineVAT)
-            totalVAT = totalVAT + lineVAT
-        end
+        local total, totalHT, totalVAT = Invoice.computeTotals(invoice.lineItems or {})
         invoice.totalAmount = total
         invoice.totalHT = totalHT
         invoice.vatAmount = totalVAT
         
-        manager.service:createAndSendInvoice(self.invoice, true)
-        g_server:broadcastEvent(self, nil, connection)
+        invoice.id = 0
+        if manager.service:createAndSendInvoice(invoice, true) then
+            g_server:broadcastEvent(InvoiceCreateEvent.new(invoice))
+        end
     else
         manager.service:createAndSendInvoice(self.invoice, true)
     end

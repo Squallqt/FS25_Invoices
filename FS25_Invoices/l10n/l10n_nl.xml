@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Facturatie" />
@@ -13,8 +13,7 @@
         <e k="invoice_col_stock" v="Voorraad" />
         <e k="invoice_btn_newInvoice" v="Nieuwe factuur" />
         <e k="invoice_btn_payInvoice" v="Betalen" />
-        <e k="invoice_btn_deleteInvoice" v="Verwijderen" />
-        <e k="invoice_btn_showDetails" v="Details" />
+        <e k="invoice_btn_showDetails" v="Factuurdetails" />
         <e k="invoice_btn_cancel" v="Annuleren" />
         <e k="invoice_btn_close" v="Sluiten" />
         <e k="invoice_btn_select" v="Selecteren" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Aan:" />
         <e k="invoice_label_note" v="Opmerkingen:" />
         <e k="invoice_placeholder_note" v="Opmerking of referentie toevoegen" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Factuurdetails" />
+        <e k="invoice_dialog_rename_prompt" v="Voer de regelbenaming in" />
         <e k="invoice_wizard_mainTitle" v="NIEUWE FACTUUR" />
         <e k="invoice_wizard_step1_label" v="Klant" />
         <e k="invoice_wizard_step2_label" v="Werk" />
         <e k="invoice_wizard_step3_label" v="Velden" />
-        <e k="invoice_btn_sendInvoice" v="Verstuur factuur" />
+        <e k="invoice_btn_sendInvoice" v="Factuur versturen" />
+        <e k="invoice_btn_sendRequest" v="Aanvraag versturen" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Verwijderen" />
+        <e k="invoice_action_rename" v="Hernoemen" />
         <e k="invoice_wizard_invoice_created" v="Factuur succesvol aangemaakt!" />
         <e k="invoice_wizard_invoice_failed" v="Fout bij aanmaken." />
         <e k="invoice_wizard_client_fields" v="Klantvelden" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Geen facturen" />
         <e k="invoice_format_inv_number" v="FAC-%03d" />
         <e k="invoice_format_services_count" v="%d regel(s)" />
-        <e k="invoice_confirm_pay" v="Betaling aan '%s' bevestigen?" />
-        <e k="invoice_confirm_delete" v="Definitief verwijderen?" />
+        <e k="invoice_confirm_pay" v="Betaling van %s aan '%s' bevestigen?" />
+        <e k="invoice_confirm_cancel_invoice" v="Deze factuur annuleren?" />
+        <e k="invoice_confirm_cancel_proposal" v="Deze factuuraanvraag annuleren?" />
         <e k="invoice_confirm_send" v="Factuur van %s naar %s verzenden?" />
         <e k="invoice_notification_new" v="Factuur ontvangen van %s: %s" />
         <e k="invoice_reminder_single" v="Onbetaalde factuur: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Voertuig" />
         <e k="invoice_col_vehicle_name" v="Voertuig" />
         <e k="invoice_error_single_farm" v="Er zijn minimaal twee boerderijen nodig om facturen aan te maken." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Wacht op bevestiging" />
+        <e k="invoice_choice_create" v="Bedrijf factureren" />
+        <e k="invoice_choice_propose" v="Factuur aanvragen" />
+        <e k="invoice_choice_create_button" v="Factureren" />
+        <e k="invoice_choice_propose_button" v="Factuur aanvragen" />
+        <e k="invoice_btn_validate" v="Bevestigen" />
+        <e k="invoice_btn_refuse" v="Weigeren" />
+        <e k="invoice_wizard_propose_title" v="FACTUUR AANVRAGEN" />
+        <e k="invoice_confirm_propose" v="Een factuur van %s aanvragen ter goedkeuring door %s?" />
+        <e k="invoice_propose_sent" v="Aanvraag verzonden!" />
+        <e k="invoice_confirm_validate" v="Deze aanvraag bevestigen en betaalbaar maken?" />
+        <e k="invoice_confirm_refuse" v="Deze aanvraag weigeren en verwijderen?" />
+        <e k="invoice_notification_proposal" v="Factuuraanvraag ontvangen van %s: %s" />
+        <e k="invoice_choice_body" v="Wat wilt u doen?" />
+        <e k="invoice_choice_create_hint" v="U verstuurt een factuur. Het geselecteerde bedrijf moet betalen." />
+        <e k="invoice_choice_propose_hint" v="Het geselecteerde bedrijf moet bevestigen. U betaalt na bevestiging." />
+        <e k="invoice_reminder_proposal_single" v="Factuuraanvraag te bevestigen: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d factuuraanvragen te bevestigen (totaal: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Afzender" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Korting %" />
+        <e k="invoice_label_discount" v="Korting" />
     </elements>
 </l10n>

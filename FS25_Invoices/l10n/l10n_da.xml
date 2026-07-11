@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Fakturering" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="Lager" />
         <e k="invoice_btn_newInvoice" v="Ny Faktura" />
         <e k="invoice_btn_payInvoice" v="Betal" />
-        <e k="invoice_btn_deleteInvoice" v="Slet" />
         <e k="invoice_btn_showDetails" v="Detaljer" />
         <e k="invoice_btn_cancel" v="Annuller" />
         <e k="invoice_btn_close" v="Luk" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Til:" />
         <e k="invoice_label_note" v="Bemærkninger:" />
         <e k="invoice_placeholder_note" v="Tilføj en bemærkning eller reference" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Fakturadetaljer" />
+        <e k="invoice_dialog_rename_prompt" v="Indtast linjebetegnelsen" />
         <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
         <e k="invoice_wizard_step1_label" v="Kunde" />
         <e k="invoice_wizard_step2_label" v="Arbejde" />
         <e k="invoice_wizard_step3_label" v="Marker" />
-        <e k="invoice_btn_sendInvoice" v="Send Faktura" />
+        <e k="invoice_btn_sendInvoice" v="Send faktura" />
+        <e k="invoice_btn_sendRequest" v="Send anmodning" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Fjern" />
+        <e k="invoice_action_rename" v="Omdøb" />
         <e k="invoice_wizard_invoice_created" v="Faktura oprettet!" />
         <e k="invoice_wizard_invoice_failed" v="Fejl ved oprettelse." />
         <e k="invoice_wizard_client_fields" v="Kundefelter" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Ingen fakturaer" />
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d linje(r)" />
-        <e k="invoice_confirm_pay" v="Bekræft betaling til '%s'?" />
-        <e k="invoice_confirm_delete" v="Slet faktura permanent?" />
+        <e k="invoice_confirm_pay" v="Bekræft betaling af %s til '%s'?" />
+        <e k="invoice_confirm_cancel_invoice" v="Annuller denne faktura?" />
+        <e k="invoice_confirm_cancel_proposal" v="Annuller denne fakturaanmodning?" />
         <e k="invoice_confirm_send" v="Send faktura på %s til %s?" />
         <e k="invoice_notification_new" v="Faktura fra %s: %s" />
         <e k="invoice_reminder_single" v="Ubetalt faktura: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Køretøj" />
         <e k="invoice_col_vehicle_name" v="Køretøj" />
         <e k="invoice_error_single_farm" v="Der kræves mindst to gårde for at oprette fakturaer." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Afventer godkendelse" />
+        <e k="invoice_choice_create" v="Fakturer en gård" />
+        <e k="invoice_choice_propose" v="Anmod om en faktura" />
+        <e k="invoice_choice_create_button" v="Fakturer" />
+        <e k="invoice_choice_propose_button" v="Anmod faktura" />
+        <e k="invoice_btn_validate" v="Godkend" />
+        <e k="invoice_btn_refuse" v="Afvis" />
+        <e k="invoice_wizard_propose_title" v="ANMOD OM EN FAKTURA" />
+        <e k="invoice_confirm_propose" v="Anmod om en faktura på %s til godkendelse af %s?" />
+        <e k="invoice_propose_sent" v="Anmodning sendt!" />
+        <e k="invoice_confirm_validate" v="Godkend denne anmodning og gør den betalbar?" />
+        <e k="invoice_confirm_refuse" v="Afvis og slet denne anmodning?" />
+        <e k="invoice_notification_proposal" v="Fakturaanmodning modtaget fra %s: %s" />
+        <e k="invoice_choice_body" v="Hvad vil du gøre?" />
+        <e k="invoice_choice_create_hint" v="Du sender en faktura. Den valgte gård skal betale." />
+        <e k="invoice_choice_propose_hint" v="Den valgte gård skal godkende. Du betaler efter godkendelse." />
+        <e k="invoice_reminder_proposal_single" v="Fakturaanmodning til godkendelse: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d fakturaanmodninger til godkendelse (i alt: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Udsteder" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Rabat %" />
+        <e k="invoice_label_discount" v="Rabat" />
     </elements>
 </l10n>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Facturación" />
@@ -8,7 +8,7 @@
         <e k="invoice_status_paid" v="Pagada" />
         <e k="invoice_col_date" v="Fecha" />
         <e k="invoice_col_farm" v="Granja" />
-        <e k="invoice_col_amount" v="Importe" />
+        <e k="invoice_col_amount" v="Monto" />
         <e k="invoice_col_field" v="Campo" />
         <e k="invoice_col_stock" v="Existencias" />
         <e k="invoice_btn_newInvoice" v="Nueva factura" />
@@ -23,7 +23,7 @@
         <e k="invoice_placeholder_note" v="Añadir nota o referencia" />
         <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Detalles de la factura" />
-        <e k="invoice_dialog_rename_prompt" v="Introduzca la designación de la línea" />
+        <e k="invoice_dialog_rename_prompt" v="Ingrese la designación de la línea" />
         <e k="invoice_wizard_mainTitle" v="NUEVA FACTURA" />
         <e k="invoice_wizard_step1_label" v="Cliente" />
         <e k="invoice_wizard_step2_label" v="Trabajo" />
@@ -41,14 +41,14 @@
         <e k="invoice_step4_col_service" v="Descripción" />
         <e k="invoice_step4_col_qty" v="Cant." />
         <e k="invoice_step4_col_unitprice" v="Precio" />
-        <e k="invoice_step4_col_amount" v="Importe" />
+        <e k="invoice_step4_col_amount" v="Monto" />
         <e k="invoice_step4_from" v="Emisor: %s" />
         <e k="invoice_step4_to" v="Cliente: %s" />
         <e k="invoice_detail_col_service" v="Descripción" />
         <e k="invoice_detail_col_qty" v="Cant." />
         <e k="invoice_detail_col_unit" v="Ud." />
         <e k="invoice_detail_col_unitprice" v="Precio" />
-        <e k="invoice_detail_col_amount" v="Importe" />
+        <e k="invoice_detail_col_amount" v="Monto" />
         <e k="invoice_col_number" v="Nº Factura" />
         <e k="invoice_col_status" v="Estado" />
         <e k="invoice_empty_list" v="Sin facturas" />
@@ -75,17 +75,17 @@
         <e k="invoice_work_rolling" v="Rodillo" />
         <e k="invoice_work_harrowing" v="Gradado" />
         <e k="invoice_work_seeding" v="Siembra" />
-        <e k="invoice_work_seedingPotato" v="Plantación (Patatas)" />
+        <e k="invoice_work_seedingPotato" v="Plantación (Papas)" />
         <e k="invoice_work_seedingSugarcane" v="Plantación (Caña)" />
         <e k="invoice_work_seedingRice" v="Siembra (Arroz)" />
         <e k="invoice_work_seedingRoot" v="Siembra (Raíces)" />
         <e k="invoice_work_pruning" v="Poda" />
         <e k="invoice_work_spraying" v="Fumigación" />
-        <e k="invoice_work_organicFertilizer" v="Abonado (Orgánico)" />
-        <e k="invoice_work_mineralFertilizer" v="Abonado" />
+        <e k="invoice_work_organicFertilizer" v="Fertilización (Orgánica)" />
+        <e k="invoice_work_mineralFertilizer" v="Fertilización" />
         <e k="invoice_work_mechanicalWeeding" v="Escarificado" />
         <e k="invoice_work_harvestGrain" v="Cosecha (Cereal)" />
-        <e k="invoice_work_harvestPotato" v="Cosecha (Patatas)" />
+        <e k="invoice_work_harvestPotato" v="Cosecha (Papas)" />
         <e k="invoice_work_harvestSugarbeet" v="Cosecha (Remolacha)" />
         <e k="invoice_work_harvestSugarcane" v="Cosecha (Caña)" />
         <e k="invoice_work_harvestCotton" v="Cosecha (Algodón)" />
@@ -93,8 +93,8 @@
         <e k="invoice_work_harvestOlive" v="Cosecha (Aceitunas)" />
         <e k="invoice_work_harvestRice" v="Cosecha (Arroz)" />
         <e k="invoice_work_harvestSpinach" v="Cosecha (Espinacas)" />
-        <e k="invoice_work_harvestPeas" v="Cosecha (Guisantes)" />
-        <e k="invoice_work_harvestGreenBeans" v="Cosecha (Judías)" />
+        <e k="invoice_work_harvestPeas" v="Cosecha (Arvejas)" />
+        <e k="invoice_work_harvestGreenBeans" v="Cosecha (Ejotes)" />
         <e k="invoice_work_harvestVegetables" v="Cosecha (Hortalizas)" />
         <e k="invoice_work_harvestOnion" v="Cosecha (Cebollas)" />
         <e k="invoice_work_chaffing" v="Picado" />
@@ -134,20 +134,20 @@
         <e k="invoice_error_insufficient_funds" v="Saldo insuficiente para pagar esta factura." />
         <e k="invoice_settings_section_title" v="Facturas" />
         <e k="invoice_setting_invoiceVatSimulated" v="IVA simulado" />
-        <e k="invoice_toolTip_invoiceVatSimulated" v="Cuando está activado, las facturas incluyen IVA. El cliente paga el importe bruto (con impuesto), el proveedor recibe el importe neto (sin impuesto). Cuando está desactivado, el IVA se fija en 0% y ambas partes intercambian el mismo importe." />
+        <e k="invoice_toolTip_invoiceVatSimulated" v="Cuando está activado, las facturas incluyen IVA. El cliente paga el monto bruto (con impuesto), el proveedor recibe el monto neto (sin impuesto). Cuando está desactivado, el IVA se fija en 0% y ambas partes intercambian el mismo monto." />
         <e k="invoice_setting_invoiceReminders" v="Recordatorios de pago" />
-        <e k="invoice_toolTip_invoiceReminders" v="Cuando está activado, se muestra una notificación de recordatorio cada 5 minutos para facturas impagadas." />
+        <e k="invoice_toolTip_invoiceReminders" v="Cuando está activado, se muestra una notificación de recordatorio cada 5 minutos para facturas impagas." />
         <e k="invoice_notification_vat_incl" v="con %s : %s" />
         <e k="invoice_notification_vat_excl" v="del cual %s deducido : %s" />
         <e k="invoice_notification_penalty_incl" v="incl. %s de penalización" />
         <e k="invoice_status_overdue" v="Vencida" />
         <e k="invoice_label_total_due" v="Total a pagar:" />
         <e k="invoice_label_total_paid" v="Total pagado:" />
-        <e k="invoice_label_penalty" v="Penalización por demora" />
-        <e k="invoice_setting_invoicePenalties" v="Penalizaciones por retraso" />
-        <e k="invoice_toolTip_invoicePenalties" v="Activa penalizaciones por retraso en facturas impagadas. Después de 1 mes de vencimiento, se aplica automáticamente una tasa fija del 5% mensual. Limitadas al 25% del importe total." />
+        <e k="invoice_label_penalty" v="Penalización por mora" />
+        <e k="invoice_setting_invoicePenalties" v="Penalizaciones por atraso" />
+        <e k="invoice_toolTip_invoicePenalties" v="Activa penalizaciones por atraso en facturas impagas. Después de 1 mes de vencimiento, se aplica automáticamente una tasa fija del 5% mensual. Limitadas al 25% del monto total." />
         <e k="invoice_notification_overdue" v="Factura %s vencida: %s" />
-        <e k="invoice_notification_overdue_warning" v="Se aplicarán penalizaciones por retraso." />
+        <e k="invoice_notification_overdue_warning" v="Se aplicarán penalizaciones por atraso." />
         <e k="invoice_dash_no_fields" v="Sin parcela requerida" />
         <e k="invoice_dialog_selectFillType" v="Producto" />
         <e k="invoice_col_filltype_name" v="Producto" />

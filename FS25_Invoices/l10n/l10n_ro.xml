@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Facturare" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="Stoc" />
         <e k="invoice_btn_newInvoice" v="Factură nouă" />
         <e k="invoice_btn_payInvoice" v="Plătește" />
-        <e k="invoice_btn_deleteInvoice" v="Șterge" />
         <e k="invoice_btn_showDetails" v="Detalii" />
         <e k="invoice_btn_cancel" v="Anulează" />
         <e k="invoice_btn_close" v="Închide" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Către:" />
         <e k="invoice_label_note" v="Observații:" />
         <e k="invoice_placeholder_note" v="Adăugați o observație sau referință" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Detalii factură" />
+        <e k="invoice_dialog_rename_prompt" v="Introduceți denumirea liniei" />
         <e k="invoice_wizard_mainTitle" v="FACTURĂ NOUĂ" />
         <e k="invoice_wizard_step1_label" v="Client" />
         <e k="invoice_wizard_step2_label" v="Lucrări" />
         <e k="invoice_wizard_step3_label" v="Terenuri" />
         <e k="invoice_btn_sendInvoice" v="Trimite factura" />
+        <e k="invoice_btn_sendRequest" v="Trimite cererea" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Elimină" />
+        <e k="invoice_action_rename" v="Redenumește" />
         <e k="invoice_wizard_invoice_created" v="Factură creată cu succes!" />
         <e k="invoice_wizard_invoice_failed" v="Eroare la creare." />
         <e k="invoice_wizard_client_fields" v="Câmpuri client" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Fără facturi" />
         <e k="invoice_format_inv_number" v="FAC-%03d" />
         <e k="invoice_format_services_count" v="%d rând(uri)" />
-        <e k="invoice_confirm_pay" v="Confirmați plata către '%s'?" />
-        <e k="invoice_confirm_delete" v="Ștergeți definitiv?" />
+        <e k="invoice_confirm_pay" v="Confirmați plata de %s către '%s'?" />
+        <e k="invoice_confirm_cancel_invoice" v="Anulezi această factură?" />
+        <e k="invoice_confirm_cancel_proposal" v="Anulezi această cerere de factură?" />
         <e k="invoice_confirm_send" v="Trimiteți factura de %s către %s?" />
         <e k="invoice_notification_new" v="Factură de la %s: %s" />
         <e k="invoice_reminder_single" v="Factură neplătită: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Vehicul" />
         <e k="invoice_col_vehicle_name" v="Vehicul" />
         <e k="invoice_error_single_farm" v="Sunt necesare cel puțin două ferme pentru a crea facturi." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Așteaptă aprobare" />
+        <e k="invoice_choice_create" v="Facturează o fermă" />
+        <e k="invoice_choice_propose" v="Solicită o factură" />
+        <e k="invoice_choice_create_button" v="Facturează" />
+        <e k="invoice_choice_propose_button" v="Solicită factură" />
+        <e k="invoice_btn_validate" v="Aprobă" />
+        <e k="invoice_btn_refuse" v="Refuză" />
+        <e k="invoice_wizard_propose_title" v="SOLICITĂ O FACTURĂ" />
+        <e k="invoice_confirm_propose" v="Solicitați o factură de %s spre aprobare de %s?" />
+        <e k="invoice_propose_sent" v="Cerere trimisă!" />
+        <e k="invoice_confirm_validate" v="Aprobi această cerere și o faci plătibilă?" />
+        <e k="invoice_confirm_refuse" v="Refuzi și ștergi această cerere?" />
+        <e k="invoice_notification_proposal" v="Cerere de factură primită de la %s: %s" />
+        <e k="invoice_choice_body" v="Ce doriți să faceți?" />
+        <e k="invoice_choice_create_hint" v="Trimiteți o factură. Ferma selectată va trebui să plătească." />
+        <e k="invoice_choice_propose_hint" v="Ferma selectată trebuie să aprobe. Veți plăti după aprobare." />
+        <e k="invoice_reminder_proposal_single" v="Cerere de factură de aprobat: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d cereri de factură de aprobat (total: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Emitent" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Reducere %" />
+        <e k="invoice_label_discount" v="Reducere" />
     </elements>
 </l10n>

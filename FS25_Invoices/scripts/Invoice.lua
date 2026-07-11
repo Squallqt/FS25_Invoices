@@ -7,17 +7,110 @@ Invoice.STATE = {
     NEW       = 1,
     SENT      = 2,
     PAID      = 3,
-    CANCELLED = 4
+    CANCELLED = 4,
+    PROPOSED  = 5
 }
-
--- Savegame v1 compatibility aliases
-Invoice.STATE_UNPAID = Invoice.STATE.NEW
-Invoice.STATE_PAID   = Invoice.STATE.PAID
 
 Invoice.UNIT_PIECE = 1
 Invoice.UNIT_HOUR = 2
 Invoice.UNIT_HECTARE = 3
 Invoice.UNIT_LITER = 4
+
+---Computes the gross (tax-inclusive) line total before discount.
+-- Mirrors the wizard/input pricing: liter goods are priced per 1000 l, everything else per unit.
+-- @param number price Unit price
+-- @param number quantity Quantity
+-- @param integer unitType Unit type constant
+-- @return number gross Rounded gross amount before discount
+function Invoice.computeLineGross(price, quantity, unitType)
+    price = price or 0
+    quantity = quantity or 0
+    if unitType == Invoice.UNIT_LITER then
+        return MathUtil.round(price * quantity / 1000)
+    end
+    return MathUtil.round(price * quantity)
+end
+
+---Clamps a discount rate to the valid [0, 1] range. Invalid (nil/NaN) becomes 0.
+-- @param number rate Discount rate (0.10 = 10%)
+-- @return number rate Sanitized rate in [0, 1]
+function Invoice.sanitizeDiscountRate(rate)
+    rate = tonumber(rate)
+    if rate == nil or rate ~= rate then
+        return 0
+    end
+    if rate < 0 then return 0 end
+    if rate > 1 then return 1 end
+    return rate
+end
+
+---Computes the final (post-discount) gross line amount.
+-- The discount is applied to the gross before VAT extraction, so VAT ends up
+-- computed on the discounted base (rebate before tax).
+-- @param number price Unit price
+-- @param number quantity Quantity
+-- @param integer unitType Unit type constant
+-- @param number discountRate Discount rate (0.10 = 10%)
+-- @return number amount Rounded amount after discount
+function Invoice.computeLineAmount(price, quantity, unitType, discountRate)
+    local gross = Invoice.computeLineGross(price, quantity, unitType)
+    local rate = Invoice.sanitizeDiscountRate(discountRate)
+    return MathUtil.round(gross * (1 - rate))
+end
+
+---Aggregates invoice totals from tax-inclusive line amounts.
+-- VAT is extracted per line from the discounted amount.
+-- @param table lineItems Raw line items
+-- @param function? iteratorFactory Optional iterator factory, defaults to ipairs
+-- @return number totalAmount Total incl. tax
+-- @return number totalHT Total excl. tax
+-- @return number vatAmount Total VAT
+function Invoice.computeTotals(lineItems, iteratorFactory)
+    local totalAmount, totalHT, vatAmount = 0, 0, 0
+    iteratorFactory = iteratorFactory or ipairs
+
+    for _, item in iteratorFactory(lineItems) do
+        local lineAmount = item.amount or 0
+        local lineVatRate = item.vatRate or 0
+        local lineVAT = 0
+        if lineVatRate > 0 then
+            lineVAT = math.floor(lineAmount * lineVatRate / (1 + lineVatRate) + 0.5)
+        end
+
+        totalAmount = totalAmount + lineAmount
+        totalHT = totalHT + (lineAmount - lineVAT)
+        vatAmount = vatAmount + lineVAT
+    end
+
+    return totalAmount, totalHT, vatAmount
+end
+
+---Computes the actual money reduction of a line: amount before discount minus after.
+-- Uses the same pricing logic as the rest of the mod (liter goods per 1000 l).
+-- Never negative.
+-- @param table item Line item
+-- @return number discount Reduction in currency (>= 0)
+function Invoice.computeLineDiscountAmount(item)
+    if item == nil then return 0 end
+    local unitType = item.unitType or item.unit or Invoice.UNIT_PIECE
+    local grossBefore = Invoice.computeLineGross(item.price or 0, item.quantity or 0, unitType)
+    local discount = grossBefore - (item.amount or 0)
+    if discount < 0 then
+        return 0
+    end
+    return discount
+end
+
+---Sums the actual money reduction over all line items.
+-- @param table lineItems Raw line items
+-- @return number total Total reduction in currency (>= 0)
+function Invoice.computeTotalDiscountAmount(lineItems)
+    local total = 0
+    for _, item in ipairs(lineItems or {}) do
+        total = total + Invoice.computeLineDiscountAmount(item)
+    end
+    return total
+end
 
 ---Create invoice instance
 -- @param table? customMt Optional custom metatable
@@ -57,22 +150,14 @@ function Invoice:populateFromData(id, items, recipientFarmId, senderFarmId)
     self.recipientFarmId = recipientFarmId
     self.lineItems = items
     
-    self.totalAmount = 0
-    self.vatAmount = 0
-    self.totalHT = 0
-    for _, item in pairs(items) do
-        local lineAmount = item.amount or 0
-        local lineVatRate = item.vatRate or 0
-        local lineVAT = 0
-        if lineVatRate > 0 then
-            lineVAT = math.floor(lineAmount * lineVatRate / (1 + lineVatRate) + 0.5)
-        end
-        local lineHT = lineAmount - lineVAT
-        self.totalAmount = self.totalAmount + lineAmount
-        self.vatAmount = self.vatAmount + lineVAT
-        self.totalHT = self.totalHT + lineHT
-    end
+    self.totalAmount, self.totalHT, self.vatAmount = Invoice.computeTotals(items, pairs)
     
+    self:stampCreatedNow()
+end
+
+---Stamps createdAt/createdDay from the current synced environment time.
+-- Shared by initial creation and proposal validation (resets the overdue clock to now).
+function Invoice:stampCreatedNow()
     if g_currentMission and g_currentMission.environment then
         local env = g_currentMission.environment
         local currentDay = env.currentDay or 0
@@ -122,7 +207,7 @@ function Invoice:writeToXML(xmlFile, key)
     setXMLInt(xmlFile, key .. ".createdAt#year", self.createdAt.year or 0)
     setXMLInt(xmlFile, key .. "#createdDay", self.createdDay or 0)
     setXMLInt(xmlFile, key .. "#penaltyAmount", self.penaltyAmount or 0)
-    
+
     for i, item in ipairs(self.lineItems) do
         local itemKey = string.format("%s.lineItems.item(%d)", key, i - 1)
         setXMLInt(xmlFile, itemKey .. "#workTypeId", item.workTypeId or 0)
@@ -133,6 +218,7 @@ function Invoice:writeToXML(xmlFile, key)
         setXMLFloat(xmlFile, itemKey .. "#fieldArea", item.fieldArea or 0)
         setXMLString(xmlFile, itemKey .. "#note", item.note or "")
         setXMLFloat(xmlFile, itemKey .. "#vatRate", item.vatRate or 0)
+        setXMLFloat(xmlFile, itemKey .. "#discountRate", item.discountRate or 0)
         setXMLString(xmlFile, itemKey .. "#name", item.name or "")
         setXMLString(xmlFile, itemKey .. "#iconFilename", item.iconFilename or "")
         setXMLFloat(xmlFile, itemKey .. "#price", item.price or 0)
@@ -156,8 +242,8 @@ function Invoice:readFromXML(xmlFile, key)
     self.recipientFarmId = getXMLInt(xmlFile, key .. "#recipientFarmId") or 0
     self.state = getXMLInt(xmlFile, key .. "#state") or Invoice.STATE.NEW
 
-    -- Validate state bounds
-    if self.state < Invoice.STATE.NEW or self.state > Invoice.STATE.CANCELLED then
+    -- Validate state bounds (PROPOSED=5 is the highest valid state)
+    if self.state < Invoice.STATE.NEW or self.state > Invoice.STATE.PROPOSED then
         Logging.warning("[Invoices] Invalid state %d for invoice %d, defaulting to NEW", self.state, self.id)
         self.state = Invoice.STATE.NEW
     end
@@ -193,6 +279,7 @@ function Invoice:readFromXML(xmlFile, key)
             fieldArea = getXMLFloat(xmlFile, itemKey .. "#fieldArea") or 0,
             note = getXMLString(xmlFile, itemKey .. "#note") or "",
             vatRate = getXMLFloat(xmlFile, itemKey .. "#vatRate") or 0,
+            discountRate = getXMLFloat(xmlFile, itemKey .. "#discountRate") or 0,
             name = getXMLString(xmlFile, itemKey .. "#name") or "",
             iconFilename = getXMLString(xmlFile, itemKey .. "#iconFilename") or "",
             price = getXMLFloat(xmlFile, itemKey .. "#price") or 0,
@@ -279,6 +366,7 @@ function Invoice:writeStream(streamId)
         streamWriteFloat32(streamId, item.fieldArea or 0)
         streamWriteString(streamId, item.note or "")
         streamWriteFloat32(streamId, item.vatRate or 0)
+        streamWriteFloat32(streamId, item.discountRate or 0)
         streamWriteString(streamId, item.name or "")
         streamWriteString(streamId, NetworkUtil.convertToNetworkFilename(item.iconFilename or ""))
         streamWriteFloat32(streamId, item.price or 0)
@@ -334,6 +422,7 @@ function Invoice:readStream(streamId)
         local fieldArea = streamReadFloat32(streamId)
         local note = streamReadString(streamId)
         local vatRate = streamReadFloat32(streamId)
+        local discountRate = streamReadFloat32(streamId)
         local name = streamReadString(streamId)
         local iconFilename = NetworkUtil.convertFromNetworkFilename(streamReadString(streamId))
         local price = streamReadFloat32(streamId)
@@ -356,6 +445,7 @@ function Invoice:readStream(streamId)
             fieldArea = fieldArea,
             note = note,
             vatRate = vatRate,
+            discountRate = discountRate,
             name = name,
             iconFilename = iconFilename,
             price = price,

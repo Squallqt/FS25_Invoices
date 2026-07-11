@@ -46,7 +46,6 @@ end
 function InvoiceSettingsEvent:run(connection)
     if not connection:getIsServer() then
         if not g_currentMission:getHasPlayerPermission("farmManager", connection) then
-            Logging.warning("[InvoiceSettingsEvent] Server rejected: player lacks farmManager permission")
             return
         end
 

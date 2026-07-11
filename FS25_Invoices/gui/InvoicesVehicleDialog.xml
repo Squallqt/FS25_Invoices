@@ -32,8 +32,9 @@
                         <GuiElement profile="ftdListWrapper">
                             <SmoothList profile="ftdList" id="listFillTypes" onClick="onVehicleListClicked">
                                 <ListItem profile="dashSelectListItemFlat" name="fillTypeTemplate">
-                                    <Text profile="ftdCellBrackets" text="[   ]"/>
-                                    <Text profile="ftdCellCheck" name="cellTick" text=" X "/>
+                                    <Text profile="invSelectionDot" name="cellDot" text="·"/>
+                                    <Text profile="invSelectionPrefix" name="cellPrefix"/>
+                                    <Bitmap profile="invSelectionCheck" name="cellCheck"/>
                                     <Bitmap profile="ftdCellIcon" name="cellIcon"/>
                                     <Text profile="ftdCellName" name="cellName"/>
                                     <Text profile="ftdCellPrice" name="cellPrice"/>

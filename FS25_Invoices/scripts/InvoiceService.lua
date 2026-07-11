@@ -80,9 +80,7 @@ function InvoiceService.new(repository)
     self.reminderTimer = 0
     self.reminderActive = false
     self.reminderFarmId = nil
-    self.firstReminderSent = false
     self.initialCheckDone = false
-    self.lastNotifiedFarmId = nil
 
     self.vatGroups = {}
     self.workTypeGroups = {}
@@ -130,7 +128,6 @@ function InvoiceService:loadVatRates(xmlPath)
     end
 
     delete(xmlFile)
-    Logging.info("[InvoiceService] VAT rates loaded: %d groups, %d work type mappings", groupCount, wtCount)
 end
 
 ---Returns whether VAT simulation is enabled
@@ -204,7 +201,10 @@ function InvoiceService:processPenalties()
     local penaltyUpdates = {}
 
     for _, invoice in ipairs(allInvoices) do
-        if invoice.state ~= Invoice.STATE.PAID and invoice.state ~= Invoice.STATE.CANCELLED then
+        -- PROPOSED invoices are not yet payable: no penalty accrual until validated.
+        if invoice.state ~= Invoice.STATE.PAID
+            and invoice.state ~= Invoice.STATE.CANCELLED
+            and invoice.state ~= Invoice.STATE.PROPOSED then
             local createdDay = invoice.createdDay or 0
             local elapsedDays = currentDay - createdDay
             if createdDay >= 0 and elapsedDays > 0 then
@@ -343,10 +343,15 @@ function InvoiceService:getAdjustedPrice(workTypeId)
     return MathUtil.round(workType.basePrice * self:getDifficultyMultiplier(), 2)
 end
 
----Creates invoice, assigns ID, and broadcasts event
+---Creates invoice, assigns server ID, and broadcasts event
 -- @param table invoice Invoice to create
 -- @param boolean noEventSend If true skip network broadcast
 function InvoiceService:createAndSendInvoice(invoice, noEventSend)
+    if g_server == nil and not (noEventSend == true) then
+        g_client:getServerConnection():sendEvent(InvoiceCreateEvent.new(invoice))
+        return true
+    end
+
     if invoice.id == 0 then
         invoice.id = self.repository:generateId()
     else
@@ -354,17 +359,23 @@ function InvoiceService:createAndSendInvoice(invoice, noEventSend)
             self.repository:setNextInvoiceId(invoice.id + 1)
         end
     end
-    self.repository:add(invoice)
-    self:notifyNewInvoice(invoice)
-    self:notifyUI()
-    
-    if not (noEventSend == true) then
-        if g_server ~= nil then
-            g_server:broadcastEvent(InvoiceCreateEvent.new(invoice))
-        else
-            g_client:getServerConnection():sendEvent(InvoiceCreateEvent.new(invoice))
-        end
+    if not self.repository:add(invoice) then
+        return false
     end
+
+    if invoice.state == Invoice.STATE.PROPOSED then
+        -- Notify the sender (issuer) that a proposal awaits their validation.
+        self:notifyNewProposal(invoice)
+    else
+        self:notifyNewInvoice(invoice)
+    end
+    self:notifyUI()
+
+    if not (noEventSend == true) then
+        g_server:broadcastEvent(InvoiceCreateEvent.new(invoice))
+    end
+
+    return true
 end
 
 ---Pays invoice, transfers money, and broadcasts event
@@ -385,6 +396,36 @@ function InvoiceService:payInvoice(invoiceId, noEventSend)
     end
 end
 
+---Builds payment confirmation dialog text
+-- @param table invoice Invoice to pay
+-- @param table? i18n Internationalization context
+-- @return string text Formatted confirmation text
+function InvoiceService:buildPaymentConfirmText(invoice, i18n)
+    local penaltyAmount = invoice.penaltyAmount or 0
+    local totalDue = invoice.totalAmount + penaltyAmount
+    local senderFarm = g_farmManager:getFarmById(invoice.senderFarmId)
+    local farmName = senderFarm and senderFarm.name or ""
+    local text = string.format(i18n:getText("invoice_confirm_pay"),
+                               g_i18n:formatMoney(totalDue),
+                               farmName)
+
+    local details = {}
+    if (invoice.vatAmount or 0) > 0 then
+        local vatStr = g_i18n:formatMoney(invoice.vatAmount, 0, true, false)
+        local vatLabel = g_i18n:getText("invoice_label_vat")
+        table.insert(details, string.format(g_i18n:getText("invoice_notification_vat_incl"), vatLabel, vatStr))
+    end
+    if penaltyAmount > 0 then
+        local penStr = g_i18n:formatMoney(penaltyAmount, 0, true, false)
+        table.insert(details, string.format(g_i18n:getText("invoice_notification_penalty_incl"), penStr))
+    end
+    if #details > 0 then
+        text = text .. "\n(" .. table.concat(details, ", ") .. ")"
+    end
+
+    return text
+end
+
 ---Deletes invoice and broadcasts event
 -- @param integer invoiceId Invoice identifier
 -- @param boolean noEventSend If true skip network broadcast
@@ -399,13 +440,57 @@ function InvoiceService:deleteInvoice(invoiceId, noEventSend)
     end
 end
 
--- Server-authoritative create (called by network events)
----Applies incoming invoice on server side
--- @param table invoice Invoice to add
-function InvoiceService:applyCreateAuthoritative(invoice)
-    self.repository:add(invoice)
+---Validates a proposal, turning it into a normal unpaid invoice, and broadcasts event
+-- @param integer invoiceId Invoice identifier
+-- @param boolean noEventSend If true skip network broadcast
+function InvoiceService:validateProposal(invoiceId, noEventSend)
+    if g_server == nil and not (noEventSend == true) then
+        g_client:getServerConnection():sendEvent(InvoiceStateEvent.new(invoiceId, InvoiceStateEvent.ACTION_VALIDATE))
+        return
+    end
+    if not self:executeValidate(invoiceId) then
+        return
+    end
+    if not (noEventSend == true) then
+        g_server:broadcastEvent(InvoiceStateEvent.new(invoiceId, InvoiceStateEvent.ACTION_VALIDATE))
+    end
+end
+
+---Executes proposal validation: state PROPOSED -> NEW, resets date to now
+-- @param integer invoiceId Invoice identifier
+-- @return boolean success True if validated
+function InvoiceService:executeValidate(invoiceId)
+    local invoice = self.repository:getById(invoiceId)
+    if invoice == nil then
+        return false
+    end
+    if invoice.state ~= Invoice.STATE.PROPOSED then
+        return false
+    end
+
+    -- Reset the creation date to now so a long-pending proposal is not instantly overdue.
+    invoice:stampCreatedNow()
+    invoice.penaltyAmount = 0
+    self.repository:setState(invoiceId, Invoice.STATE.NEW)
+
+    -- It is now a real unpaid invoice: notify the payer (recipient) and start reminders.
     self:notifyNewInvoice(invoice)
     self:notifyUI()
+    return true
+end
+
+---Refuses a proposal (deletes it) and broadcasts event
+-- @param integer invoiceId Invoice identifier
+-- @param boolean noEventSend If true skip network broadcast
+function InvoiceService:refuseProposal(invoiceId, noEventSend)
+    if g_server == nil and not (noEventSend == true) then
+        g_client:getServerConnection():sendEvent(InvoiceStateEvent.new(invoiceId, InvoiceStateEvent.ACTION_REFUSE))
+        return
+    end
+    self:executeDelete(invoiceId)
+    if not (noEventSend == true) then
+        g_server:broadcastEvent(InvoiceStateEvent.new(invoiceId, InvoiceStateEvent.ACTION_REFUSE))
+    end
 end
 
 ---Executes payment with money transfer (server-authoritative)
@@ -415,11 +500,15 @@ end
 function InvoiceService:executePayment(invoiceId, isAuthoritative)
     local invoice = self.repository:getById(invoiceId)
     if invoice == nil then
-        Logging.warning("[InvoiceService] executePayment: invoice %d not found", invoiceId)
         return false
     end
 
     if invoice.state == Invoice.STATE.PAID then
+        return false
+    end
+
+    -- A proposal must be validated by its sender before it becomes payable.
+    if invoice.state == Invoice.STATE.PROPOSED then
         return false
     end
 
@@ -429,7 +518,6 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
     if isAuthoritative and g_server ~= nil then
         local recipientFarm = g_farmManager:getFarmById(invoice.recipientFarmId)
         if recipientFarm == nil or math.floor(recipientFarm.money) < math.floor(totalDue) then
-            Logging.warning("[InvoiceService] executePayment: insufficient balance (%.2f < %.2f)", recipientFarm and recipientFarm.money or 0, totalDue)
             return false
         end
     end
@@ -445,10 +533,6 @@ function InvoiceService:executePayment(invoiceId, isAuthoritative)
             local vatAmount = invoice.vatAmount or 0
 
             local hasPaymentDetails = (vatAmount > 0) or (penaltyAmount > 0)
-
-            local localPlayer = g_localPlayer
-            local localIsRecipient = localPlayer ~= nil and localPlayer.farmId == invoice.recipientFarmId
-            local localIsSender = localPlayer ~= nil and localPlayer.farmId == invoice.senderFarmId
 
             g_currentMission:addMoney(
                 -totalDue,
@@ -621,6 +705,8 @@ end
 -- @param table invoice Newly created invoice
 function InvoiceService:notifyNewInvoice(invoice)
     if invoice == nil then return end
+    -- A proposal is not a payable invoice yet: handled by notifyNewProposal instead.
+    if invoice.state == Invoice.STATE.PROPOSED then return end
     if g_localPlayer == nil then return end
 
     local localFarmId = g_localPlayer.farmId
@@ -632,8 +718,24 @@ function InvoiceService:notifyNewInvoice(invoice)
     local text = string.format(g_i18n:getText("invoice_notification_new"), senderName, amountStr)
 
     g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_CRITICAL, text)
-    
+
     self:activateReminder()
+end
+
+---Shows proposal notification to the sender (issuer) farm player who must validate it
+-- @param table invoice Newly created proposal (state PROPOSED)
+function InvoiceService:notifyNewProposal(invoice)
+    if invoice == nil then return end
+    if g_localPlayer == nil then return end
+    -- Only the issuer (sender) is concerned: they decide to validate or refuse.
+    if g_localPlayer.farmId ~= invoice.senderFarmId then return end
+
+    local recipientFarm = g_farmManager:getFarmById(invoice.recipientFarmId)
+    local recipientName = recipientFarm and recipientFarm.name or "?"
+    local amountStr = g_i18n:formatMoney(invoice.totalAmount or 0)
+    local text = string.format(g_i18n:getText("invoice_notification_proposal"), recipientName, amountStr)
+
+    g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_CRITICAL, text)
 end
 
 ---Initializes reminder system and subscribes to farm changes
@@ -670,7 +772,6 @@ function InvoiceService:activateReminder(farmId)
         self.reminderActive = true
         self.reminderFarmId = targetFarmId
         self.reminderTimer = InvoiceService.REMINDER_FIRST_DELAY
-        self.firstReminderSent = false
     end
 end
 
@@ -687,7 +788,6 @@ function InvoiceService:cleanupReminderSystem()
     self.reminderActive = false
     self.reminderFarmId = nil
     self.initialCheckDone = false
-    self.lastNotifiedFarmId = nil
     g_messageCenter:unsubscribe(MessageType.PLAYER_FARM_CHANGED, self)
     g_currentMission:removeUpdateable(self)
 end
@@ -696,7 +796,6 @@ end
 function InvoiceService:onPlayerFarmChanged()
     self:deactivateReminder()
     self.initialCheckDone = false
-    self.lastNotifiedFarmId = nil
 end
 
 ---Checks if any invoice in the list has a penalty
@@ -740,6 +839,18 @@ function InvoiceService:buildReminderText(unpaidInvoices, totalAmount)
     return text
 end
 
+---Builds reminder notification text for proposals awaiting sender validation
+-- @param table proposals Array of PROPOSED invoices
+-- @param integer totalAmount Sum of proposal amounts
+-- @return string text Formatted notification text
+function InvoiceService:buildProposalReminderText(proposals, totalAmount)
+    local amountStr = g_i18n:formatMoney(totalAmount or 0)
+    if #proposals == 1 then
+        return string.format(g_i18n:getText("invoice_reminder_proposal_single"), amountStr)
+    end
+    return string.format(g_i18n:getText("invoice_reminder_proposal_multiple"), #proposals, amountStr)
+end
+
 -- Handles initial connection check (PLAYER_FARM_CHANGED not fired on first join)
 ---Called each frame to process penalties and reminders
 -- @param float dt Delta time in milliseconds
@@ -760,7 +871,6 @@ function InvoiceService:update(dt)
         if g_localPlayer ~= nil and g_localPlayer.farmId ~= FarmManager.SPECTATOR_FARM_ID then
             self.initialCheckDone = true
             local currentFarmId = g_localPlayer.farmId
-            self.lastNotifiedFarmId = currentFarmId
             
             local unpaidInvoices = self:getUnpaidInvoicesForFarm(currentFarmId)
             if #unpaidInvoices > 0 then
@@ -768,11 +878,20 @@ function InvoiceService:update(dt)
                 for _, invoice in ipairs(unpaidInvoices) do
                     totalAmount = totalAmount + (invoice.totalAmount or 0) + (invoice.penaltyAmount or 0)
                 end
-
                 local text = self:buildReminderText(unpaidInvoices, totalAmount)
                 g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_CRITICAL, text)
-
                 self:activateReminder(currentFarmId)
+            end
+
+            -- Also notify the sender farm if they have proposals waiting for validation.
+            local pendingProposals = self:getPendingProposalsForSenderFarm(currentFarmId)
+            if #pendingProposals > 0 then
+                local totalAmount = 0
+                for _, invoice in ipairs(pendingProposals) do
+                    totalAmount = totalAmount + (invoice.totalAmount or 0)
+                end
+                local text = self:buildProposalReminderText(pendingProposals, totalAmount)
+                g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_CRITICAL, text)
             end
         end
         return
@@ -791,25 +910,47 @@ function InvoiceService:update(dt)
     end
     
     self.reminderTimer = self.reminderTimer - dt
-    
+
     if self.reminderTimer <= 0 then
         local unpaidInvoices = self:getUnpaidInvoicesForFarm(self.reminderFarmId)
-        
+
         if #unpaidInvoices > 0 then
             local totalAmount = 0
             for _, invoice in ipairs(unpaidInvoices) do
                 totalAmount = totalAmount + (invoice.totalAmount or 0) + (invoice.penaltyAmount or 0)
             end
-
             local text = self:buildReminderText(unpaidInvoices, totalAmount)
             g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_CRITICAL, text)
-
-            self.firstReminderSent = true
             self.reminderTimer = InvoiceService.REMINDER_INTERVAL
         else
             self:deactivateReminder()
         end
+
+        -- Periodic check for proposals waiting validation (sender side).
+        local pendingProposals = self:getPendingProposalsForSenderFarm(self.reminderFarmId)
+        if #pendingProposals > 0 then
+            local totalAmount = 0
+            for _, invoice in ipairs(pendingProposals) do
+                totalAmount = totalAmount + (invoice.totalAmount or 0)
+            end
+            local text = self:buildProposalReminderText(pendingProposals, totalAmount)
+            g_currentMission:addIngameNotification(FSBaseMission.INGAME_NOTIFICATION_CRITICAL, text)
+        end
     end
+end
+
+---Returns PROPOSED invoices that the sender farm must validate
+-- @param integer farmId Sender farm identifier
+-- @return table proposals Array of PROPOSED invoices
+function InvoiceService:getPendingProposalsForSenderFarm(farmId)
+    local proposals = {}
+    local invoices = self.repository:getBySenderFarm(farmId)
+    for _, invoice in ipairs(invoices) do
+        if invoice.state == Invoice.STATE.PROPOSED then
+            table.insert(proposals, invoice)
+        end
+    end
+    return proposals
 end
 
 ---Returns unpaid invoices for a recipient farm
@@ -820,10 +961,13 @@ function InvoiceService:getUnpaidInvoicesForFarm(farmId)
     local invoices = self.repository:getByRecipientFarm(farmId)
     
     for _, invoice in ipairs(invoices) do
-        if invoice.state ~= Invoice.STATE.PAID and invoice.state ~= Invoice.STATE.CANCELLED then
+        -- PROPOSED invoices are not yet payable: excluded from reminders/unpaid totals.
+        if invoice.state ~= Invoice.STATE.PAID
+            and invoice.state ~= Invoice.STATE.CANCELLED
+            and invoice.state ~= Invoice.STATE.PROPOSED then
             table.insert(unpaidInvoices, invoice)
         end
     end
-    
+
     return unpaidInvoices
 end

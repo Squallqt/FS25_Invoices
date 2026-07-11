@@ -8,6 +8,9 @@ InvoicesFrame.TAB = {
     OUTGOING = 2
 }
 
+InvoicesFrame.SCREEN_EDGE_SLIDER_MARGIN_X = 0
+InvoicesFrame.NATIVE_DOCKED_SLIDER_OFFSET_Y = 10
+
 ---Creates new invoices frame instance
 -- @param table i18n Internationalization context
 -- @param table messageCenter Message center instance
@@ -27,6 +30,10 @@ function InvoicesFrame.new(i18n, messageCenter)
     
     self.incomingInvoices = {}
     self.outgoingInvoices = {}
+    self.invoiceSort = {
+        [InvoicesFrame.TAB.INCOMING] = {column = "number", asc = false},
+        [InvoicesFrame.TAB.OUTGOING] = {column = "number", asc = false}
+    }
     
     return self
 end
@@ -51,6 +58,9 @@ function InvoicesFrame:onGuiSetupFinished()
     self.listRenderer2.indexChangedCallback = function(index)
         self:onSelectionChanged(index)
     end
+
+    self:bindSortHeaders(InvoicesFrame.TAB.INCOMING, self.incomingSortHeaders, self.incomingSortIcons)
+    self:bindSortHeaders(InvoicesFrame.TAB.OUTGOING, self.outgoingSortHeaders, self.outgoingSortIcons)
 end
 
 ---Initializes frame buttons, tabs, and menu button info
@@ -84,7 +94,7 @@ function InvoicesFrame:initialize()
     }
     
     self.btnDelete = {
-        text = self.i18n:getText("invoice_btn_deleteInvoice"),
+        text = self.i18n:getText("invoice_btn_cancel"),
         inputAction = InputAction.MENU_CANCEL,
         disabled = true,
         callback = function() self:onClickDelete() end
@@ -148,7 +158,15 @@ function InvoicesFrame:onFrameOpen()
         v:setVisible(k == self.currentTab)
     end
 
+    -- Reset sort to default (number desc) every time the menu is opened.
+    self.invoiceSort = {
+        [InvoicesFrame.TAB.INCOMING] = {column = "number", asc = false},
+        [InvoicesFrame.TAB.OUTGOING] = {column = "number", asc = false}
+    }
+    self:bindSortHeaders(InvoicesFrame.TAB.INCOMING, self.incomingSortHeaders, self.incomingSortIcons)
+    self:bindSortHeaders(InvoicesFrame.TAB.OUTGOING, self.outgoingSortHeaders, self.outgoingSortIcons)
     self:refreshList()
+    self:updateScreenEdgeSliders()
 
     self:setMenuButtonInfoDirty()
 end
@@ -158,6 +176,11 @@ function InvoicesFrame:onFrameClose()
     InvoicesFrame:superClass().onFrameClose(self)
     g_messageCenter:unsubscribeAll(self)
     g_currentMission.invoicesFrame = nil
+end
+
+function InvoicesFrame:update(dt)
+    InvoicesFrame:superClass().update(self, dt)
+    self:updateScreenEdgeSliders()
 end
 
 ---Switches to incoming invoices tab
@@ -180,8 +203,191 @@ function InvoicesFrame:updateSubCategoryPages()
         v:setVisible(k == self.currentTab)
     end
     
+    self:updateSortHeaders(self.currentTab)
     self:refreshList()
     self:setMenuButtonInfoDirty()
+end
+
+function InvoicesFrame:bindSortHeaders(tab, headers, icons)
+    local sort = self.invoiceSort[tab]
+    for index, header in ipairs(headers or {}) do
+        header.onClickCallback = function()
+            self:onClickInvoiceSort(tab, header)
+        end
+
+        local icon = icons ~= nil and icons[index] or nil
+        if icon ~= nil then
+            icon:setImageSlice(nil, "invoices.sortArrowDown")
+            icon:setVisible(false)
+        end
+
+        if header.columnName == sort.column then
+            sort.header = header
+            header.sortingOrder = sort.asc and TableHeaderElement.SORTING_ASC or TableHeaderElement.SORTING_DESC
+        else
+            header:disableSorting()
+        end
+    end
+
+    self:updateSortHeaders(tab)
+end
+
+function InvoicesFrame:getSortControls(tab)
+    if tab == InvoicesFrame.TAB.INCOMING then
+        return self.incomingSortHeaders, self.incomingSortIcons
+    end
+
+    return self.outgoingSortHeaders, self.outgoingSortIcons
+end
+
+function InvoicesFrame:updateSortHeaders(tab)
+    local sort = self.invoiceSort[tab]
+    local headers, icons = self:getSortControls(tab)
+
+    for index, header in ipairs(headers or {}) do
+        local selected = header.columnName == sort.column
+        header:setSelected(selected)
+
+        local icon = icons ~= nil and icons[index] or nil
+        if icon ~= nil then
+            icon:setVisible(selected)
+            if selected then
+                local sliceId = sort.asc and "invoices.sortArrowUp" or "invoices.sortArrowDown"
+                icon:setImageSlice(nil, sliceId)
+                self:positionSortIcon(header, icon)
+            end
+        end
+    end
+end
+
+function InvoicesFrame:positionSortIcon(header, icon)
+    local textX = header:getTextPositionX()
+    local textWidth = header:getTextWidth()
+
+    if header.textAlignment == RenderText.ALIGN_CENTER then
+        textX = textX - textWidth * 0.5
+    elseif header.textAlignment == RenderText.ALIGN_RIGHT then
+        textX = textX - textWidth
+    end
+
+    local gap = 6 * g_pixelSizeX
+    local x = textX - icon.absSize[1] - gap
+    local y = header.absPosition[2] + (header.absSize[2] - icon.absSize[2]) * 0.5
+    icon:setAbsolutePosition(x, y)
+end
+
+function InvoicesFrame:onClickInvoiceSort(tab, header)
+    local sort = self.invoiceSort[tab]
+
+    if sort.header ~= header then
+        if sort.header ~= nil then
+            sort.header:disableSorting()
+        end
+        sort.header = header
+        header:disableSorting()
+    end
+
+    local sortingOrder = header:toggleSorting()
+    if sortingOrder == TableHeaderElement.SORTING_OFF then
+        sortingOrder = header:toggleSorting()
+    end
+
+    sort.column = header.columnName
+    sort.asc = sortingOrder == TableHeaderElement.SORTING_ASC
+    self:updateSortHeaders(tab)
+    self:refreshList()
+end
+
+function InvoicesFrame:sortInvoicesForTab(invoices, tab)
+    local sort = self.invoiceSort[tab]
+    table.sort(invoices, function(a, b)
+        local valueA = self:getInvoiceSortValue(a, tab, sort.column)
+        local valueB = self:getInvoiceSortValue(b, tab, sort.column)
+        local sortAsc = valueA < valueB
+        if valueA == valueB then
+            local idA = a.id or 0
+            local idB = b.id or 0
+            if idA == idB then
+                return false
+            end
+            sortAsc = idA < idB
+        end
+        if sort.asc then
+            return sortAsc
+        end
+        return not sortAsc
+    end)
+end
+
+function InvoicesFrame:getDisplayFarmIdForTab(invoice, tab, currentFarmId)
+    local viewerFarmId = currentFarmId or self:getCurrentFarmId()
+
+    if invoice ~= nil and invoice.state == Invoice.STATE.PROPOSED then
+        if viewerFarmId == invoice.senderFarmId then
+            return invoice.recipientFarmId
+        end
+        if viewerFarmId == invoice.recipientFarmId then
+            return invoice.senderFarmId
+        end
+    end
+
+    if tab == InvoicesFrame.TAB.INCOMING then
+        return invoice.senderFarmId
+    end
+
+    return invoice.recipientFarmId
+end
+
+function InvoicesFrame:getInvoiceSortValue(invoice, tab, column)
+    if column == "number" then
+        return invoice.id or 0
+    elseif column == "date" then
+        local createdAt = invoice.createdAt or {}
+        return (((createdAt.year or 0) * 100 + (createdAt.period or 0)) * 100 + (createdAt.day or 0)) * 10000 + (createdAt.hour or 0) * 100 + (createdAt.minute or 0)
+    elseif column == "farm" then
+        local farmId = self:getDisplayFarmIdForTab(invoice, tab)
+        local farm = farmId ~= nil and g_farmManager:getFarmById(farmId) or nil
+        return string.lower(tostring(farm ~= nil and farm.name or ""))
+    elseif column == "services" then
+        return string.lower(tostring(self:getInvoiceServiceSortText(invoice)))
+    elseif column == "status" then
+        if invoice.state == Invoice.STATE.PROPOSED then
+            return 3
+        end
+        if invoice.state == Invoice.STATE.PAID then
+            return 2
+        end
+
+        return (invoice.penaltyAmount or 0) > 0 and 1 or 0
+    end
+
+    if column == "discount" then
+        return Invoice.computeTotalDiscountAmount(invoice.lineItems)
+    end
+
+    if column == "amount" then
+        return (invoice.totalAmount or 0) + (invoice.penaltyAmount or 0)
+    end
+
+    return 0
+end
+
+function InvoicesFrame:getInvoiceServiceSortText(invoice)
+    local manager = g_currentMission.invoicesManager
+    local service = manager ~= nil and manager.service or nil
+    for _, lineItem in ipairs(invoice.lineItems or {}) do
+        local name = lineItem.name
+        if (name == nil or name == "") and service ~= nil and lineItem.workTypeId ~= nil then
+            local workType = service:getWorkTypeById(lineItem.workTypeId)
+            name = workType ~= nil and workType.nameKey ~= nil and g_i18n:getText(workType.nameKey) or name
+        end
+
+        if name ~= nil and name ~= "" then
+            return name
+        end
+    end
+
+    return ""
 end
 
 ---Called when player money changes
@@ -222,10 +428,12 @@ function InvoicesFrame:refreshList()
         self.listRenderer2:setData({})
         if self.listInvoices then self.listInvoices:reloadData() end
         if self.listInvoices2 then self.listInvoices2:reloadData() end
+        self:refreshInvoiceSliders()
         if self.invoiceListContainer then self.invoiceListContainer:setVisible(false) end
         if self.emptyListContainer then self.emptyListContainer:setVisible(true) end
         if self.invoiceListContainer2 then self.invoiceListContainer2:setVisible(false) end
         if self.emptyListContainer2 then self.emptyListContainer2:setVisible(true) end
+        self:updateSliderVisibility()
         return
     end
     
@@ -233,20 +441,19 @@ function InvoicesFrame:refreshList()
     self.incomingInvoices = manager:getIncomingInvoices(currentFarmId)
     self.outgoingInvoices = manager:getOutgoingInvoices(currentFarmId)
     
-    local sortFunc = function(a, b)
-        return a.id > b.id
-    end
-    
-    table.sort(self.incomingInvoices, sortFunc)
-    table.sort(self.outgoingInvoices, sortFunc)
+    self:sortInvoicesForTab(self.incomingInvoices, InvoicesFrame.TAB.INCOMING)
+    self:sortInvoicesForTab(self.outgoingInvoices, InvoicesFrame.TAB.OUTGOING)
     
     self.listRenderer:setMode("incoming")
+    self.listRenderer:setCurrentFarmId(currentFarmId)
     self.listRenderer:setData(self.incomingInvoices)
     self.listRenderer2:setMode("outgoing")
+    self.listRenderer2:setCurrentFarmId(currentFarmId)
     self.listRenderer2:setData(self.outgoingInvoices)
     
     if self.listInvoices then self.listInvoices:reloadData() end
     if self.listInvoices2 then self.listInvoices2:reloadData() end
+    self:refreshInvoiceSliders()
     
     local hasIncoming = #self.incomingInvoices > 0
     if self.invoiceListContainer then self.invoiceListContainer:setVisible(hasIncoming) end
@@ -260,13 +467,46 @@ function InvoicesFrame:refreshList()
     self:updateButtonStates()
 end
 
+function InvoicesFrame:refreshInvoiceSliders()
+    if self.invoiceSlider ~= nil and self.listInvoices ~= nil then
+        self.invoiceSlider:onBindUpdate(self.listInvoices)
+    end
+    if self.invoiceSlider2 ~= nil and self.listInvoices2 ~= nil then
+        self.invoiceSlider2:onBindUpdate(self.listInvoices2)
+    end
+end
+
 function InvoicesFrame:updateSliderVisibility()
-    local maxVisible = math.floor(670 / 32)
     if self.invoiceSliderBox then
-        self.invoiceSliderBox:setVisible(self.incomingInvoices ~= nil and #self.incomingInvoices > maxVisible)
+        self.invoiceSliderBox:setVisible(self.currentTab == InvoicesFrame.TAB.INCOMING)
     end
     if self.invoiceSliderBox2 then
-        self.invoiceSliderBox2:setVisible(self.outgoingInvoices ~= nil and #self.outgoingInvoices > maxVisible)
+        self.invoiceSliderBox2:setVisible(self.currentTab == InvoicesFrame.TAB.OUTGOING)
+    end
+end
+
+function InvoicesFrame:updateScreenEdgeSliders()
+    local sliderBoxes = {
+        self.invoiceSliderBox,
+        self.invoiceSliderBox2
+    }
+
+    for _, sliderBox in ipairs(sliderBoxes) do
+        if sliderBox ~= nil
+            and sliderBox.absPosition ~= nil
+            and sliderBox.absSize ~= nil
+            and sliderBox.absSize[1] ~= nil then
+            sliderBox:updateAbsolutePosition()
+
+            local x = 1 - sliderBox.absSize[1] - InvoicesFrame.SCREEN_EDGE_SLIDER_MARGIN_X
+            local y = sliderBox.absPosition[2] + InvoicesFrame.NATIVE_DOCKED_SLIDER_OFFSET_Y * (g_pixelSizeScaledY or 0)
+
+            sliderBox:setAbsolutePosition(x, y)
+
+            for _, child in ipairs(sliderBox.elements) do
+                child:updateAbsolutePosition()
+            end
+        end
     end
 end
 
@@ -288,6 +528,18 @@ function InvoicesFrame:getCurrentFarmId()
     return -1
 end
 
+function InvoicesFrame:canCancelInvoice(invoice, farmId)
+    if invoice == nil then
+        return false
+    end
+
+    if invoice.state == Invoice.STATE.PROPOSED then
+        return farmId == invoice.recipientFarmId
+    end
+
+    return invoice.state == Invoice.STATE.NEW and farmId == invoice.senderFarmId
+end
+
 ---Updates button enabled/disabled states based on selection
 function InvoicesFrame:updateButtonStates()
     if self.btnNewInvoice == nil then
@@ -298,17 +550,25 @@ function InvoicesFrame:updateButtonStates()
     local isSpectator = currentFarmId == FarmManager.SPECTATOR_FARM_ID or currentFarmId < 1
     
     self.btnNewInvoice.disabled = isSpectator
-    
+
     local canPay = self.currentTab == InvoicesFrame.TAB.INCOMING and
-                   self.selectedInvoice ~= nil and 
-                   self.selectedInvoice.state == Invoice.STATE.NEW and 
+                   self.selectedInvoice ~= nil and
+                   self.selectedInvoice.state == Invoice.STATE.NEW and
+                   currentFarmId == self.selectedInvoice.recipientFarmId and
                    not isSpectator
-    self.btnPay.disabled = not canPay
+    local canValidate = self.currentTab == InvoicesFrame.TAB.INCOMING and
+                        self.selectedInvoice ~= nil and
+                        self.selectedInvoice.state == Invoice.STATE.PROPOSED and
+                        currentFarmId == self.selectedInvoice.senderFarmId and
+                        not isSpectator
+    self.btnPay.text = self.i18n:getText(canValidate and "invoice_btn_validate" or "invoice_btn_payInvoice")
+    self.btnPay.disabled = not (canPay or canValidate)
     
-    local canDelete = self.currentTab == InvoicesFrame.TAB.OUTGOING and
-                      self.selectedInvoice ~= nil and 
+    local canCancel = self.currentTab == InvoicesFrame.TAB.OUTGOING and
+                      self:canCancelInvoice(self.selectedInvoice, currentFarmId) and
                       not isSpectator
-    self.btnDelete.disabled = not canDelete
+    self.btnDelete.text = self.i18n:getText("invoice_btn_cancel")
+    self.btnDelete.disabled = not canCancel
     
     self.btnDetails.disabled = self.selectedInvoice == nil
     
@@ -340,9 +600,8 @@ function InvoicesFrame:onClickNewInvoice()
             return
         end
     end
-    local state = InvoicesWizardState.getInstance()
-    state:reset()
-    g_gui:showDialog("InvoicesMainDashboard")
+    -- Intermediate choice: create a normal invoice, or propose an invoice to be validated.
+    g_gui:showDialog("InvoicesChoiceDialog")
 end
 
 ---Shows payment confirmation dialog for selected invoice
@@ -360,30 +619,19 @@ function InvoicesFrame:onClickPay()
     end
     local invoice = self.selectedInvoice
     local currentFarmId = self:getCurrentFarmId()
+    if invoice.state == Invoice.STATE.PROPOSED then
+        if currentFarmId ~= invoice.senderFarmId then
+            return
+        end
+        YesNoDialog.show(self.onValidateConfirmed, self, self.i18n:getText("invoice_confirm_validate"))
+        return
+    end
     local totalDue = invoice.totalAmount + (invoice.penaltyAmount or 0)
     if not manager:farmHasSufficientBalance(currentFarmId, totalDue) then
         InfoDialog.show(g_i18n:getText("invoice_error_insufficient_funds"))
         return
     end
-    local senderFarm = g_farmManager:getFarmById(invoice.senderFarmId)
-    local farmName = senderFarm and senderFarm.name or ""
-    local text = string.format(self.i18n:getText("invoice_confirm_pay"),
-                               g_i18n:formatMoney(totalDue),
-                               farmName)
-
-    local details = {}
-    if (invoice.vatAmount or 0) > 0 then
-        local vatStr = g_i18n:formatMoney(invoice.vatAmount, 0, true, false)
-        local vatLabel = g_i18n:getText("invoice_label_vat")
-        table.insert(details, string.format(g_i18n:getText("invoice_notification_vat_incl"), vatLabel, vatStr))
-    end
-    if (invoice.penaltyAmount or 0) > 0 then
-        local penStr = g_i18n:formatMoney(invoice.penaltyAmount, 0, true, false)
-        table.insert(details, string.format(g_i18n:getText("invoice_notification_penalty_incl"), penStr))
-    end
-    if #details > 0 then
-        text = text .. "\n(" .. table.concat(details, ", ") .. ")"
-    end
+    local text = manager.service:buildPaymentConfirmText(invoice, self.i18n)
 
     YesNoDialog.show(self.onPayConfirmed, self, text)
 end
@@ -395,6 +643,17 @@ function InvoicesFrame:onPayConfirmed(confirmed)
         local manager = g_currentMission.invoicesManager
         if manager then
             manager:payInvoice(self.selectedInvoice.id)
+        end
+    end
+end
+
+---Handles proposal validation confirmation result
+-- @param boolean confirmed True if user confirmed
+function InvoicesFrame:onValidateConfirmed(confirmed)
+    if confirmed and self.selectedInvoice then
+        local manager = g_currentMission.invoicesManager
+        if manager then
+            manager:validateProposal(self.selectedInvoice.id)
         end
     end
 end
@@ -412,7 +671,13 @@ function InvoicesFrame:onClickDelete()
         InfoDialog.show(g_i18n:getText("invoice_error_permission_required"))
         return
     end
-    local text = self.i18n:getText("invoice_confirm_delete")
+    if not self:canCancelInvoice(self.selectedInvoice, self:getCurrentFarmId()) then
+        return
+    end
+    local confirmKey = self.selectedInvoice.state == Invoice.STATE.PROPOSED
+        and "invoice_confirm_cancel_proposal"
+        or "invoice_confirm_cancel_invoice"
+    local text = self.i18n:getText(confirmKey)
     YesNoDialog.show(self.onDeleteConfirmed, self, text)
 end
 

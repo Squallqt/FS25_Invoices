@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Laskutus" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="Varasto" />
         <e k="invoice_btn_newInvoice" v="Uusi lasku" />
         <e k="invoice_btn_payInvoice" v="Maksa" />
-        <e k="invoice_btn_deleteInvoice" v="Poista" />
         <e k="invoice_btn_showDetails" v="Tiedot" />
         <e k="invoice_btn_cancel" v="Peruuta" />
         <e k="invoice_btn_close" v="Sulje" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Vastaanottaja:" />
         <e k="invoice_label_note" v="Huomautukset:" />
         <e k="invoice_placeholder_note" v="Lisää huomautus tai viite" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Laskun tiedot" />
+        <e k="invoice_dialog_rename_prompt" v="Anna rivin nimitys" />
         <e k="invoice_wizard_mainTitle" v="UUSI LASKU" />
         <e k="invoice_wizard_step1_label" v="Asiakas" />
         <e k="invoice_wizard_step2_label" v="Työ" />
         <e k="invoice_wizard_step3_label" v="Pellot" />
         <e k="invoice_btn_sendInvoice" v="Lähetä lasku" />
+        <e k="invoice_btn_sendRequest" v="Lähetä pyyntö" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Poista" />
+        <e k="invoice_action_rename" v="Nimeä uudelleen" />
         <e k="invoice_wizard_invoice_created" v="Lasku luotu onnistuneesti!" />
         <e k="invoice_wizard_invoice_failed" v="Virhe luonnissa." />
         <e k="invoice_wizard_client_fields" v="Asiakaskentät" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Ei laskuja" />
         <e k="invoice_format_inv_number" v="L-%03d" />
         <e k="invoice_format_services_count" v="%d rivi(ä)" />
-        <e k="invoice_confirm_pay" v="Vahvista maksu kohteelle '%s'?" />
-        <e k="invoice_confirm_delete" v="Poista lasku pysyvästi?" />
+        <e k="invoice_confirm_pay" v="Vahvista maksu %s kohteelle '%s'?" />
+        <e k="invoice_confirm_cancel_invoice" v="Peruutetaanko tämä lasku?" />
+        <e k="invoice_confirm_cancel_proposal" v="Peruutetaanko tämä laskupyyntö?" />
         <e k="invoice_confirm_send" v="Lähetä lasku %s kohteelle %s?" />
         <e k="invoice_notification_new" v="Lasku saatu: %s - %s" />
         <e k="invoice_reminder_single" v="Maksamaton lasku: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Ajoneuvo" />
         <e k="invoice_col_vehicle_name" v="Ajoneuvo" />
         <e k="invoice_error_single_farm" v="Laskujen luomiseen tarvitaan vähintään kaksi maatilaa." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Odottaa hyväksyntää" />
+        <e k="invoice_choice_create" v="Laskuta tilaa" />
+        <e k="invoice_choice_propose" v="Pyydä lasku" />
+        <e k="invoice_choice_create_button" v="Laskuta" />
+        <e k="invoice_choice_propose_button" v="Pyydä lasku" />
+        <e k="invoice_btn_validate" v="Hyväksy" />
+        <e k="invoice_btn_refuse" v="Hylkää" />
+        <e k="invoice_wizard_propose_title" v="PYYDÄ LASKU" />
+        <e k="invoice_confirm_propose" v="Pyydetäänkö %s lasku %s hyväksyttäväksi?" />
+        <e k="invoice_propose_sent" v="Pyyntö lähetetty!" />
+        <e k="invoice_confirm_validate" v="Hyväksy tämä pyyntö ja tee siitä maksettava?" />
+        <e k="invoice_confirm_refuse" v="Hylkää ja poista tämä pyyntö?" />
+        <e k="invoice_notification_proposal" v="Laskupyyntö vastaanotettu kohteelta %s: %s" />
+        <e k="invoice_choice_body" v="Mitä haluat tehdä?" />
+        <e k="invoice_choice_create_hint" v="Lähetät laskun. Valitun tilan on maksettava." />
+        <e k="invoice_choice_propose_hint" v="Valitun tilan on hyväksyttävä. Maksat hyväksynnän jälkeen." />
+        <e k="invoice_reminder_proposal_single" v="Laskupyyntö hyväksyttäväksi: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d laskupyyntöä hyväksyttäväksi (yhteensä: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Lähettäjä" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Alennus %" />
+        <e k="invoice_label_discount" v="Alennus" />
     </elements>
 </l10n>

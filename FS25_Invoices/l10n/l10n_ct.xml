@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="發票管理" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="庫存" />
         <e k="invoice_btn_newInvoice" v="新發票" />
         <e k="invoice_btn_payInvoice" v="支付" />
-        <e k="invoice_btn_deleteInvoice" v="刪除" />
         <e k="invoice_btn_showDetails" v="詳情" />
         <e k="invoice_btn_cancel" v="取消" />
         <e k="invoice_btn_close" v="關閉" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="致:" />
         <e k="invoice_label_note" v="備註:" />
         <e k="invoice_placeholder_note" v="新增備註或參考" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="發票詳情" />
+        <e k="invoice_dialog_rename_prompt" v="請輸入項目名稱" />
         <e k="invoice_wizard_mainTitle" v="新發票" />
         <e k="invoice_wizard_step1_label" v="客戶" />
         <e k="invoice_wizard_step2_label" v="工作" />
         <e k="invoice_wizard_step3_label" v="田地" />
         <e k="invoice_btn_sendInvoice" v="發送發票" />
+        <e k="invoice_btn_sendRequest" v="發送請求" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="移除" />
+        <e k="invoice_action_rename" v="重新命名" />
         <e k="invoice_wizard_invoice_created" v="發票建立成功！" />
         <e k="invoice_wizard_invoice_failed" v="建立失敗。" />
         <e k="invoice_wizard_client_fields" v="客戶田地" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="無發票" />
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d 行" />
-        <e k="invoice_confirm_pay" v="確認支付給 '%s'？" />
-        <e k="invoice_confirm_delete" v="永久刪除？" />
+        <e k="invoice_confirm_pay" v="確認支付 %s 給 '%s'？" />
+        <e k="invoice_confirm_cancel_invoice" v="取消此發票？" />
+        <e k="invoice_confirm_cancel_proposal" v="取消此發票請求？" />
         <e k="invoice_confirm_send" v="發送 %s 的發票給 %s？" />
         <e k="invoice_notification_new" v="收到來自 %s 的發票: %s" />
         <e k="invoice_reminder_single" v="未付款發票: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="車輛" />
         <e k="invoice_col_vehicle_name" v="車輛" />
         <e k="invoice_error_single_farm" v="創建發票至少需要兩個農場。" />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="等待審批" />
+        <e k="invoice_choice_create" v="向農場開票" />
+        <e k="invoice_choice_propose" v="請求發票" />
+        <e k="invoice_choice_create_button" v="開票" />
+        <e k="invoice_choice_propose_button" v="請求發票" />
+        <e k="invoice_btn_validate" v="批准" />
+        <e k="invoice_btn_refuse" v="拒絕" />
+        <e k="invoice_wizard_propose_title" v="請求發票" />
+        <e k="invoice_confirm_propose" v="請求一張 %s 的發票，請 %s 審批？" />
+        <e k="invoice_propose_sent" v="請求已傳送！" />
+        <e k="invoice_confirm_validate" v="批准此請求並使其可付款？" />
+        <e k="invoice_confirm_refuse" v="拒絕並刪除此請求？" />
+        <e k="invoice_notification_proposal" v="收到來自 %s 的發票請求：%s" />
+        <e k="invoice_choice_body" v="您想做什麼？" />
+        <e k="invoice_choice_create_hint" v="您發送發票。所選農場將需要付款。" />
+        <e k="invoice_choice_propose_hint" v="所選農場必須確認。確認後由您付款。" />
+        <e k="invoice_reminder_proposal_single" v="待審批的發票請求：%s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d 條待審批的發票請求（總計：%s）" />
+        <e k="invoice_wizard_step1_label_proposal" v="開票方" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="折扣 %" />
+        <e k="invoice_label_discount" v="折扣" />
     </elements>
 </l10n>

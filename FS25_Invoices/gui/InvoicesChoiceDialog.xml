@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
+    <GuiElement profile="newLayer"/>
+    <Bitmap profile="dialogFullscreenBg"/>
+
+    <GuiElement profile="invChoiceDialogBg" id="dialogElement">
+        <ThreePartBitmap profile="fs25_dialogBgMiddle"/>
+        <ThreePartBitmap profile="fs25_dialogBgTop"/>
+        <ThreePartBitmap profile="fs25_dialogBgBottom"/>
+
+        <GuiElement profile="fs25_dialogContentContainer">
+            <Bitmap profile="fs25_dialogCircle" id="dialogCircle">
+                <Bitmap profile="fs25_dialogQuestion" id="iconInfoElement"/>
+            </Bitmap>
+
+            <Text profile="invChoiceDialogTitleText" text="" id="dialogTextElement"/>
+            <ThreePartBitmap profile="invChoiceDialogTitleSep" id="titleSep"/>
+
+            <GuiElement profile="invChoiceOptionsBox">
+                <RoundCorner profile="invChoiceOptionCard" position="0px 0px"/>
+                <RoundCorner profile="invChoiceOptionAccent" position="0px 0px"/>
+                <Text profile="invChoiceOptionLabel" position="22px -8px" text="$l10n_invoice_choice_create"/>
+                <Text profile="invChoiceDialogHintText" position="22px -32px" text="" id="choiceCreateHintText"/>
+                <Button profile="invChoiceCardHitbox" position="0px 0px" size="700px 60px" text="" onClick="onClickCreate"/>
+
+                <RoundCorner profile="invChoiceOptionCard" position="0px -76px"/>
+                <RoundCorner profile="invChoiceOptionAccent" position="0px -76px"/>
+                <Text profile="invChoiceOptionLabel" position="22px -84px" text="$l10n_invoice_choice_propose"/>
+                <Text profile="invChoiceDialogHintText" position="22px -108px" text="" id="choiceProposeHintText"/>
+                <Button profile="invChoiceCardHitbox" position="0px -76px" size="700px 60px" text="" onClick="onClickPropose"/>
+            </GuiElement>
+        </GuiElement>
+
+        <BoxLayout profile="fs25_dialogButtonBox" size="760px 60px">
+            <Button profile="buttonOK"            text="$l10n_invoice_choice_create_button"  onClick="onClickCreate"/>
+            <Bitmap  profile="fs25_dialogButtonBoxSeparator" size="2dp 18px"/>
+            <Button profile="invChoiceBtnPropose" text="$l10n_invoice_choice_propose_button" onClick="onClickPropose"/>
+            <Bitmap  profile="fs25_dialogButtonBoxSeparator" size="2dp 18px"/>
+            <Button profile="dashBtnCancel"       text="$l10n_invoice_btn_cancel"     onClick="onClickBack"/>
+        </BoxLayout>
+    </GuiElement>
+
+    <GUIProfiles>
+        <Profile name="invChoiceDialogBg" extends="fs25_dialogBg">
+            <size value="780px 460px"/>
+        </Profile>
+
+        <Profile name="invChoiceDialogTitleText" extends="fs25_dialogText">
+            <position value="0px -132px"/>
+            <size value="720px 28px"/>
+            <textSize value="17px"/>
+            <textBold value="true"/>
+            <textAlignment value="center"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <Profile name="invChoiceDialogTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
+            <position value="0px -164px"/>
+            <size value="190px 2dp"/>
+        </Profile>
+
+        <Profile name="invChoiceOptionsBox" extends="emptyPanel" with="anchorTopCenter">
+            <position value="0px -188px"/>
+            <size value="700px 136px"/>
+        </Profile>
+
+        <Profile name="invChoiceOptionCard" extends="baseReference" with="anchorTopLeft">
+            <size value="700px 60px"/>
+            <color value="0 0 0 0.28"/>
+            <cornerSize value="0.25"/>
+        </Profile>
+
+        <Profile name="invChoiceOptionAccent" extends="baseReference" with="anchorTopLeft">
+            <size value="4px 60px"/>
+            <color value="$preset_fs25_colorMainHighlight"/>
+            <cornerSize value="0"/>
+        </Profile>
+
+        <Profile name="invChoiceOptionLabel" extends="fs25_dialogText">
+            <size value="660px 22px"/>
+            <textSize value="16px"/>
+            <textBold value="true"/>
+            <textUpperCase value="true"/>
+            <textColor value="$preset_colorWhite"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="middle"/>
+        </Profile>
+
+        <Profile name="invChoiceDialogHintText" extends="fs25_dialogText">
+            <size value="660px 34px"/>
+            <textSize value="15px"/>
+            <textBold value="false"/>
+            <textColor value="$preset_colorWhite_50"/>
+            <textAlignment value="left"/>
+            <textVerticalAlignment value="top"/>
+            <textWrapWidth value="650"/>
+            <textLineHeightScale value="1.12"/>
+        </Profile>
+
+        <Profile name="invChoiceBtnPropose" extends="buttonActivate"/>
+
+        <Profile name="invChoiceCardHitbox" extends="baseReference" with="anchorTopLeft">
+            <handleFocus value="true"/>
+            <hideKeyboardGlyph value="true"/>
+            <addTouchArea value="false"/>
+            <textColor value="0 0 0 0"/>
+            <textSelectedColor value="0 0 0 0"/>
+            <textFocusedColor value="0 0 0 0"/>
+            <textHighlightedColor value="0 0 0 0"/>
+            <textDisabledColor value="0 0 0 0"/>
+            <imageColor value="0 0 0 0"/>
+            <imageSelectedColor value="0 0 0 0"/>
+            <imageFocusedColor value="0 0 0 0"/>
+            <imageHighlightedColor value="0 0 0 0"/>
+            <imageDisabledColor value="0 0 0 0"/>
+            <iconColor value="0 0 0 0"/>
+            <iconSelectedColor value="0 0 0 0"/>
+            <iconFocusedColor value="0 0 0 0"/>
+            <iconHighlightedColor value="0 0 0 0"/>
+            <iconDisabledColor value="0 0 0 0"/>
+            <startImageColor value="0 0 0 0"/>
+            <startImageSelectedColor value="0 0 0 0"/>
+            <startImageFocusedColor value="0 0 0 0"/>
+            <startImageHighlightedColor value="0 0 0 0"/>
+            <startImageDisabledColor value="0 0 0 0"/>
+            <middleImageColor value="0 0 0 0"/>
+            <middleImageSelectedColor value="0 0 0 0"/>
+            <middleImageFocusedColor value="0 0 0 0"/>
+            <middleImageHighlightedColor value="0 0 0 0"/>
+            <middleImageDisabledColor value="0 0 0 0"/>
+            <endImageColor value="0 0 0 0"/>
+            <endImageSelectedColor value="0 0 0 0"/>
+            <endImageFocusedColor value="0 0 0 0"/>
+            <endImageHighlightedColor value="0 0 0 0"/>
+            <endImageDisabledColor value="0 0 0 0"/>
+        </Profile>
+    </GUIProfiles>
+</GUI>

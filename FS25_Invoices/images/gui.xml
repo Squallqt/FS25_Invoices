@@ -1,0 +1,12 @@
+<texture>
+    <meta>
+        <filename>gui.dds</filename>
+        <size width="256" height="256"/>
+    </meta>
+    <slices>
+        <slice id="menuIcon" uvs="0px 0px 192px 192px"/>
+        <slice id="selectionCheck" uvs="192px 0px 64px 64px"/>
+        <slice id="sortArrowUp" uvs="192px 64px 32px 32px"/>
+        <slice id="sortArrowDown" uvs="224px 64px 32px 32px"/>
+    </slices>
+</texture>

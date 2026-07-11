@@ -38,8 +38,9 @@
                         <GuiElement profile="cdListWrapper">
                             <SmoothList profile="cdList" id="listFillTypes" onClick="onConsumableListClicked">
                                 <ListItem profile="dashSelectListItemFlat" name="consumableTemplate">
-                                    <Text profile="ftdCellBrackets" text="[   ]"/>
-                                    <Text profile="ftdCellCheck" name="cellTick" text=" X "/>
+                                    <Text profile="invSelectionDot" name="cellDot" text="·"/>
+                                    <Text profile="invSelectionPrefix" name="cellPrefix"/>
+                                    <Bitmap profile="invSelectionCheck" name="cellCheck"/>
                                     <Bitmap profile="ftdCellIcon" name="cellIcon"/>
                                     <Text profile="cdCellName" name="cellName"/>
                                     <Text profile="cdCellStock" name="cellStock"/>
@@ -57,7 +58,7 @@
 
                 <!-- Quantity selector -->
                 <BoxLayout profile="cdQtyRow">
-                    <Text profile="cdQtyLabel" id="qtyLabel" text="$l10n_invoice_step4_col_qty"/>
+                    <Text profile="cdQtyLabel" text="$l10n_invoice_step4_col_qty"/>
                     <MultiTextOption profile="cdQtySelector" id="qtySelector" wrap="false" onClick="onQtySelectorChanged"/>
                     <Text profile="cdQtyMaxLabel" id="qtyMaxLabel"/>
                 </BoxLayout>
@@ -137,10 +138,10 @@
 
         <!-- Cell: name -->
         <Profile name="cdCellName" extends="baseReference" with="anchorStretchingYLeft">
-            <position value="64px 0px"/>
-            <size value="164px 32px"/>
+            <position value="68px 0px"/>
+            <size value="158px 32px"/>
             <textSize value="13px"/>
-            <textColor value="1 1 1 1"/>
+            <textColor value="$preset_colorWhite"/>
             <textSelectedColor value="$preset_fs25_colorMainDark"/>
             <textAlignment value="left"/>
             <textVerticalAlignment value="middle"/>

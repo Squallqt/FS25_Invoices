@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Faturalandırma" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="Stok" />
         <e k="invoice_btn_newInvoice" v="Yeni Fatura" />
         <e k="invoice_btn_payInvoice" v="Öde" />
-        <e k="invoice_btn_deleteInvoice" v="Sil" />
         <e k="invoice_btn_showDetails" v="Detaylar" />
         <e k="invoice_btn_cancel" v="İptal" />
         <e k="invoice_btn_close" v="Kapat" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Alıcı:" />
         <e k="invoice_label_note" v="Notlar:" />
         <e k="invoice_placeholder_note" v="Not veya referans ekleyin" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Fatura Detayları" />
+        <e k="invoice_dialog_rename_prompt" v="Satır adını girin" />
         <e k="invoice_wizard_mainTitle" v="YENİ FATURA" />
         <e k="invoice_wizard_step1_label" v="Müşteri" />
         <e k="invoice_wizard_step2_label" v="İş" />
         <e k="invoice_wizard_step3_label" v="Tarlalar" />
-        <e k="invoice_btn_sendInvoice" v="Faturayı Gönder" />
+        <e k="invoice_btn_sendInvoice" v="Fatura gönder" />
+        <e k="invoice_btn_sendRequest" v="Talep gönder" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Kaldır" />
+        <e k="invoice_action_rename" v="Yeniden adlandır" />
         <e k="invoice_wizard_invoice_created" v="Fatura başarıyla oluşturuldu!" />
         <e k="invoice_wizard_invoice_failed" v="Oluşturma hatası." />
         <e k="invoice_wizard_client_fields" v="Müşteri alanları" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Fatura yok" />
         <e k="invoice_format_inv_number" v="FAT-%03d" />
         <e k="invoice_format_services_count" v="%d satır" />
-        <e k="invoice_confirm_pay" v="'%s' kişisine ödeme yapılsın mı?" />
-        <e k="invoice_confirm_delete" v="Kalıcı olarak silinsin mi?" />
+        <e k="invoice_confirm_pay" v="%s tutarı '%s' kişisine ödensin mi?" />
+        <e k="invoice_confirm_cancel_invoice" v="Bu fatura iptal edilsin mi?" />
+        <e k="invoice_confirm_cancel_proposal" v="Bu fatura talebi iptal edilsin mi?" />
         <e k="invoice_confirm_send" v="%s tutarında faturayı %s adresine gönder?" />
         <e k="invoice_notification_new" v="%s kişisinden fatura alındı: %s" />
         <e k="invoice_reminder_single" v="Ödenmemiş fatura: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Araç" />
         <e k="invoice_col_vehicle_name" v="Araç" />
         <e k="invoice_error_single_farm" v="Fatura oluşturmak için en az iki çiftlik gereklidir." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Onay bekleniyor" />
+        <e k="invoice_choice_create" v="Bir çiftliği faturalandır" />
+        <e k="invoice_choice_propose" v="Fatura talep et" />
+        <e k="invoice_choice_create_button" v="Faturalandır" />
+        <e k="invoice_choice_propose_button" v="Fatura talep et" />
+        <e k="invoice_btn_validate" v="Onayla" />
+        <e k="invoice_btn_refuse" v="Reddet" />
+        <e k="invoice_wizard_propose_title" v="FATURA TALEP ET" />
+        <e k="invoice_confirm_propose" v="%s tutarında bir fatura %s tarafından onaylanmak üzere talep edilsin mi?" />
+        <e k="invoice_propose_sent" v="Talep gönderildi!" />
+        <e k="invoice_confirm_validate" v="Bu talebi onaylayıp ödenebilir hale getireyim mi?" />
+        <e k="invoice_confirm_refuse" v="Bu talebi reddedip sileyim mi?" />
+        <e k="invoice_notification_proposal" v="%s adresinden fatura talebi alındı: %s" />
+        <e k="invoice_choice_body" v="Ne yapmak istiyorsunuz?" />
+        <e k="invoice_choice_create_hint" v="Bir fatura gönderirsiniz. Seçilen çiftlik ödeme yapmalıdır." />
+        <e k="invoice_choice_propose_hint" v="Seçilen çiftlik onaylamalıdır. Onaydan sonra ödeme yaparsınız." />
+        <e k="invoice_reminder_proposal_single" v="Onaylanacak fatura talebi: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d onaylanacak fatura talebi (toplam: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Düzenleyen" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="İndirim %" />
+        <e k="invoice_label_discount" v="İndirim" />
     </elements>
 </l10n>

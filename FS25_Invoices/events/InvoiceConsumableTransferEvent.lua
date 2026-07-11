@@ -58,13 +58,11 @@ end
 function InvoiceConsumableTransferEvent:run(connection)
     if not connection:getIsServer() then
         if not g_currentMission:getHasPlayerPermission("farmManager", connection) then
-            Logging.warning("[InvoiceConsumableTransferEvent] Server rejected: player lacks farmManager permission")
             return
         end
 
         local player = g_currentMission.connectionsToPlayer[connection]
         if player == nil or player.farmId ~= self.senderFarmId then
-            Logging.warning("[InvoiceConsumableTransferEvent] Server rejected: connection farmId mismatch")
             return
         end
 

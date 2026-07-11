@@ -1,22 +1,54 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Singleton wizard state managing multi-step invoice drafting: recipient, work type, fields, and line items.
+-- Mode-scoped wizard state managing multi-step invoice drafts: recipient, work type, fields, and line items.
 InvoicesWizardState = {}
-InvoicesWizardState.instance = nil
 
----Returns or creates the wizard state singleton
--- @return InvoicesWizardState instance
-function InvoicesWizardState.getInstance()
-    if InvoicesWizardState.instance == nil then
-        InvoicesWizardState.instance = InvoicesWizardState.new()
+-- Wizard modes. "create": the player issues a normal invoice (player = sender).
+-- "proposal": the player proposes an invoice they will pay (player = recipient), to be
+-- validated by the selected farm (= sender/issuer). In both modes recipientFarmId stores
+-- the farm selected in the list; roles are resolved at createInvoice time.
+InvoicesWizardState.MODE_CREATE = "create"
+InvoicesWizardState.MODE_PROPOSAL = "proposal"
+
+InvoicesWizardState.instances = {}
+InvoicesWizardState.activeMode = InvoicesWizardState.MODE_CREATE
+
+---Normalizes unknown modes to the default invoice creation draft.
+-- @param string? mode Requested wizard mode
+-- @return string mode Normalized wizard mode
+function InvoicesWizardState.normalizeMode(mode)
+    if mode == InvoicesWizardState.MODE_PROPOSAL then
+        return InvoicesWizardState.MODE_PROPOSAL
     end
-    return InvoicesWizardState.instance
+    return InvoicesWizardState.MODE_CREATE
+end
+
+---Returns or creates the wizard state for the active/requested mode.
+-- @param string? mode Optional mode to activate before returning the draft
+-- @return InvoicesWizardState instance
+function InvoicesWizardState.getInstance(mode)
+    mode = InvoicesWizardState.normalizeMode(mode or InvoicesWizardState.activeMode)
+    InvoicesWizardState.activeMode = mode
+
+    if InvoicesWizardState.instances[mode] == nil then
+        InvoicesWizardState.instances[mode] = InvoicesWizardState.new(mode)
+    end
+
+    return InvoicesWizardState.instances[mode]
+end
+
+---Clears all preserved drafts.
+function InvoicesWizardState.resetAll()
+    InvoicesWizardState.instances = {}
+    InvoicesWizardState.activeMode = InvoicesWizardState.MODE_CREATE
 end
 
 ---Creates a new wizard state instance
+-- @param string? mode Wizard mode for this draft
 -- @return InvoicesWizardState instance
-function InvoicesWizardState.new()
+function InvoicesWizardState.new(mode)
     local self = {}
     setmetatable(self, {__index = InvoicesWizardState})
+    self.mode = InvoicesWizardState.normalizeMode(mode)
     
     self:reset()
     
@@ -30,6 +62,13 @@ function InvoicesWizardState:reset()
     self.selectedWorkTypes = {}
     self.selectedFields = {}
     self.lineItems = {}
+    self.mode = InvoicesWizardState.normalizeMode(self.mode)
+end
+
+---Returns whether the wizard is in proposal mode
+-- @return boolean isProposal
+function InvoicesWizardState:isProposalMode()
+    return self.mode == InvoicesWizardState.MODE_PROPOSAL
 end
 
 ---Sets the invoice recipient farm
@@ -54,45 +93,68 @@ function InvoicesWizardState:buildAllLineItems()
     local fields = self.selectedFields or {}
 
     for i, workType in ipairs(workTypes) do
-        local adjustedPrice = workType.customPrice or manager:getAdjustedPrice(workType.id)
+        local adjustedPrice = workType.customPrice ~= nil and workType.customPrice or manager:getAdjustedPrice(workType.id)
         local unit = workType.unit
-        local displayName = workType.displayOverride or g_i18n:getText(workType.nameKey)
+        local customLabel = workType.customLabel
+        local displayName
+        if customLabel ~= nil and customLabel ~= "" then
+            displayName = customLabel
+        else
+            displayName = workType.displayOverride or g_i18n:getText(workType.nameKey)
+        end
         local unitKey = manager:getUnitKey(unit)
         local unitStr = g_i18n:getText(unitKey)
         local vatRate = 0
         if manager.service:isVatEnabled() then
-            vatRate = manager.service:getVatRateForWorkType(workType.id)
+            if workType.customVatRate ~= nil then
+                vatRate = workType.customVatRate
+            else
+                vatRate = manager.service:getVatRateForWorkType(workType.id)
+            end
         end
 
-        if unit == Invoice.UNIT_HECTARE then
-            for _, field in ipairs(fields) do
-                local roundedArea = MathUtil.round(field.area, 2)
-                local amount = MathUtil.round(adjustedPrice * roundedArea)
+        -- Per-line commercial discount (0..1). Defaults to 0 when not set by the user.
+        local discountRate = Invoice.sanitizeDiscountRate(workType.customDiscountRate)
 
-                table.insert(self.lineItems, {
-                    workTypeId = workType.id,
-                    sourceIndex = i,
-                    name = displayName,
-                    quantity = roundedArea,
-                    price = adjustedPrice,
-                    unit = unit,
-                    fieldId = field.id,
-                    fieldArea = roundedArea,
-                    amount = amount,
-                    note = "",
-                    vatRate = vatRate,
-                    iconFilename = workType.iconFilename
-                })
+        if unit == Invoice.UNIT_HECTARE then
+            local excluded = workType.excludedFields or {}
+            for _, field in ipairs(fields) do
+                local isExcluded = false
+                for _, exId in ipairs(excluded) do
+                    if exId == field.id then
+                        isExcluded = true
+                        break
+                    end
+                end
+                if not isExcluded then
+                    local roundedArea = MathUtil.round(field.area, 2)
+                    local amount = Invoice.computeLineAmount(adjustedPrice, roundedArea, unit, discountRate)
+
+                    -- Per-field label takes priority so each field row can be renamed independently
+                    local fieldLabel = workType.customLabelByField and workType.customLabelByField[field.id]
+                    local lineName = (fieldLabel ~= nil and fieldLabel ~= "") and fieldLabel or displayName
+
+                    table.insert(self.lineItems, {
+                        workTypeId = workType.id,
+                        sourceIndex = i,
+                        name = lineName,
+                        quantity = roundedArea,
+                        price = adjustedPrice,
+                        unit = unit,
+                        fieldId = field.id,
+                        fieldArea = roundedArea,
+                        amount = amount,
+                        note = "",
+                        vatRate = vatRate,
+                        discountRate = discountRate,
+                        iconFilename = workType.iconFilename
+                    })
+                end
             end
         else
             local defaultQty = (unit == Invoice.UNIT_LITER) and 1000 or 1
-            local customQty = workType.customQuantity or defaultQty
-            local amount
-            if unit == Invoice.UNIT_LITER then
-                amount = MathUtil.round(adjustedPrice * customQty / 1000)
-            else
-                amount = MathUtil.round(adjustedPrice * customQty)
-            end
+            local customQty = workType.customQuantity ~= nil and workType.customQuantity or defaultQty
+            local amount = Invoice.computeLineAmount(adjustedPrice, customQty, unit, discountRate)
 
             table.insert(self.lineItems, {
                 workTypeId = workType.id,
@@ -106,6 +168,7 @@ function InvoicesWizardState:buildAllLineItems()
                 amount = amount,
                 note = "",
                 vatRate = vatRate,
+                discountRate = discountRate,
                 iconFilename = workType.iconFilename,
                 vehicleUniqueId = workType.vehicleUniqueId,
                 isConsumable = workType.isConsumable,
@@ -116,16 +179,6 @@ function InvoicesWizardState:buildAllLineItems()
             })
         end
     end
-end
-
----Calculates the total amount of all line items
--- @return integer total Sum of all line item amounts
-function InvoicesWizardState:getTotal()
-    local total = 0
-    for _, item in ipairs(self.lineItems) do
-        total = total + (item.amount or 0)
-    end
-    return total
 end
 
 ---Checks if invoice creation is allowed
@@ -146,39 +199,65 @@ function InvoicesWizardState:createInvoice()
         return nil
     end
 
-    local senderFarmId = 0
+    local playerFarmId = 0
     if g_currentMission.getFarmId ~= nil then
-        senderFarmId = g_currentMission:getFarmId()
+        playerFarmId = g_currentMission:getFarmId()
     else
         local farm = g_farmManager:getFarmByUserId(g_currentMission.playerUserId)
         if farm then
-            senderFarmId = farm.farmId
+            playerFarmId = farm.farmId
         end
+    end
+
+    -- Resolve invoice roles from the wizard mode.
+    -- create:   player issues the invoice -> sender = player,        recipient = selected farm
+    -- proposal: player proposes to pay    -> sender = selected farm, recipient = player
+    local isProposal = self:isProposalMode()
+    local invSenderFarmId, invRecipientFarmId
+    if isProposal then
+        invSenderFarmId    = self.recipientFarmId
+        invRecipientFarmId = playerFarmId
+    else
+        invSenderFarmId    = playerFarmId
+        invRecipientFarmId = self.recipientFarmId
+    end
+
+    -- Payment always flows recipient -> sender; the two must differ.
+    if invSenderFarmId == nil or invRecipientFarmId == nil or invSenderFarmId == invRecipientFarmId then
+        return nil
     end
 
     local items = {}
     for _, item in ipairs(self.lineItems) do
         table.insert(items, {
-            workTypeId = item.workTypeId or 0,
-            amount = item.amount or 0,
-            quantity = item.quantity or 0,
-            unitType = item.unit or Invoice.UNIT_PIECE,
-            fieldArea = item.fieldArea or 0,
-            fieldId = item.fieldId or 0,
-            note = item.note or "",
-            vatRate = item.vatRate or 0,
-            name = item.name or "",
-            iconFilename = item.iconFilename or "",
-            price = item.price or 0,
-            vehicleUniqueId = item.vehicleUniqueId or "",
-            consumableXmlFilename = item.consumableXmlFilename or "",
-            consumableFillTypeIndex = item.consumableFillTypeIndex or 0,
-            consumableFillLevel = item.consumableFillLevel or 0
-        })
+                workTypeId = item.workTypeId or 0,
+                amount = item.amount or 0,
+                quantity = item.quantity or 0,
+                unitType = item.unit or Invoice.UNIT_PIECE,
+                fieldArea = item.fieldArea or 0,
+                fieldId = item.fieldId or 0,
+                note = item.note or "",
+                vatRate = item.vatRate or 0,
+                discountRate = item.discountRate or 0,
+                name = item.name or "",
+                iconFilename = item.iconFilename or "",
+                price = item.price or 0,
+                vehicleUniqueId = item.vehicleUniqueId or "",
+                consumableXmlFilename = item.consumableXmlFilename or "",
+                consumableFillTypeIndex = item.consumableFillTypeIndex or 0,
+                consumableFillLevel = item.consumableFillLevel or 0
+            })
+    end
+
+    if #items == 0 then
+        return nil
     end
 
     local invoice = Invoice.new()
-    invoice:populateFromData(0, items, self.recipientFarmId, senderFarmId)
+    invoice:populateFromData(0, items, invRecipientFarmId, invSenderFarmId)
+    if isProposal then
+        invoice.state = Invoice.STATE.PROPOSED
+    end
 
     manager:createAndSendInvoice(invoice)
 

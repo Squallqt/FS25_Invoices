@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="請求管理" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="在庫" />
         <e k="invoice_btn_newInvoice" v="新規請求書" />
         <e k="invoice_btn_payInvoice" v="支払う" />
-        <e k="invoice_btn_deleteInvoice" v="削除" />
         <e k="invoice_btn_showDetails" v="詳細" />
         <e k="invoice_btn_cancel" v="キャンセル" />
         <e k="invoice_btn_close" v="閉じる" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="請求先:" />
         <e k="invoice_label_note" v="備考:" />
         <e k="invoice_placeholder_note" v="備考または参照を追加" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="請求書詳細" />
+        <e k="invoice_dialog_rename_prompt" v="行の名称を入力してください" />
         <e k="invoice_wizard_mainTitle" v="新しい請求書" />
         <e k="invoice_wizard_step1_label" v="顧客" />
         <e k="invoice_wizard_step2_label" v="作業" />
         <e k="invoice_wizard_step3_label" v="畑" />
-        <e k="invoice_btn_sendInvoice" v="送信" />
+        <e k="invoice_btn_sendInvoice" v="請求書を送信" />
+        <e k="invoice_btn_sendRequest" v="依頼を送信" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="削除" />
+        <e k="invoice_action_rename" v="名前変更" />
         <e k="invoice_wizard_invoice_created" v="請求書を作成しました！" />
         <e k="invoice_wizard_invoice_failed" v="作成エラー。" />
         <e k="invoice_wizard_client_fields" v="顧客フィールド" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="請求書なし" />
         <e k="invoice_format_inv_number" v="請求-%03d" />
         <e k="invoice_format_services_count" v="%d 件" />
-        <e k="invoice_confirm_pay" v="'%s' への支払いを確定しますか？" />
-        <e k="invoice_confirm_delete" v="完全に削除しますか？" />
+        <e k="invoice_confirm_pay" v="%s を '%s' に支払いますか？" />
+        <e k="invoice_confirm_cancel_invoice" v="この請求書をキャンセルしますか？" />
+        <e k="invoice_confirm_cancel_proposal" v="この請求依頼をキャンセルしますか？" />
         <e k="invoice_confirm_send" v="%s の請求書を %s に送信しますか？" />
         <e k="invoice_notification_new" v="%s から請求書を受信: %s" />
         <e k="invoice_reminder_single" v="未払い請求書: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="車両" />
         <e k="invoice_col_vehicle_name" v="車両" />
         <e k="invoice_error_single_farm" v="請求書を作成するには、少なくとも2つの農場が必要です。" />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="承認待ち" />
+        <e k="invoice_choice_create" v="農場に請求" />
+        <e k="invoice_choice_propose" v="請求書を依頼" />
+        <e k="invoice_choice_create_button" v="請求" />
+        <e k="invoice_choice_propose_button" v="請求書を依頼" />
+        <e k="invoice_btn_validate" v="承認" />
+        <e k="invoice_btn_refuse" v="拒否" />
+        <e k="invoice_wizard_propose_title" v="請求書を依頼" />
+        <e k="invoice_confirm_propose" v="%s の請求書を %s に承認依頼しますか？" />
+        <e k="invoice_propose_sent" v="依頼を送信しました！" />
+        <e k="invoice_confirm_validate" v="この依頼を承認して支払可能にしますか？" />
+        <e k="invoice_confirm_refuse" v="この依頼を拒否して削除しますか？" />
+        <e k="invoice_notification_proposal" v="%s から請求書の依頼を受け取りました：%s" />
+        <e k="invoice_choice_body" v="何をしますか？" />
+        <e k="invoice_choice_create_hint" v="請求書を送信します。選択した農場が支払います。" />
+        <e k="invoice_choice_propose_hint" v="選択した農場が承認する必要があります。承認後に支払います。" />
+        <e k="invoice_reminder_proposal_single" v="承認待ちの請求書依頼：%s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d 件の承認待ち請求書依頼（合計：%s）" />
+        <e k="invoice_wizard_step1_label_proposal" v="発行者" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="割引 %" />
+        <e k="invoice_label_discount" v="割引" />
     </elements>
 </l10n>

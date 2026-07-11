@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Számlázás" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="Készlet" />
         <e k="invoice_btn_newInvoice" v="Új számla" />
         <e k="invoice_btn_payInvoice" v="Fizetés" />
-        <e k="invoice_btn_deleteInvoice" v="Törlés" />
         <e k="invoice_btn_showDetails" v="Részletek" />
         <e k="invoice_btn_cancel" v="Mégse" />
         <e k="invoice_btn_close" v="Bezárás" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Címzett:" />
         <e k="invoice_label_note" v="Megjegyzések:" />
         <e k="invoice_placeholder_note" v="Megjegyzés vagy hivatkozás hozzáadása" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Számla részletei" />
+        <e k="invoice_dialog_rename_prompt" v="Adja meg a sor megnevezését" />
         <e k="invoice_wizard_mainTitle" v="ÚJ SZÁMLA" />
         <e k="invoice_wizard_step1_label" v="Ügyfél" />
         <e k="invoice_wizard_step2_label" v="Munka" />
         <e k="invoice_wizard_step3_label" v="Földek" />
         <e k="invoice_btn_sendInvoice" v="Számla küldése" />
+        <e k="invoice_btn_sendRequest" v="Kérés küldése" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Eltávolítás" />
+        <e k="invoice_action_rename" v="Átnevezés" />
         <e k="invoice_wizard_invoice_created" v="Számla sikeresen létrehozva!" />
         <e k="invoice_wizard_invoice_failed" v="Hiba a létrehozás során." />
         <e k="invoice_wizard_client_fields" v="Ügyfél földek" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Nincsenek számlák" />
         <e k="invoice_format_inv_number" v="SZLA-%03d" />
         <e k="invoice_format_services_count" v="%d sor" />
-        <e k="invoice_confirm_pay" v="Fizetés megerősítése ide: '%s'?" />
-        <e k="invoice_confirm_delete" v="Végleges törlés?" />
+        <e k="invoice_confirm_pay" v="%s fizetésének megerősítése ide: '%s'?" />
+        <e k="invoice_confirm_cancel_invoice" v="Visszavonja ezt a számlát?" />
+        <e k="invoice_confirm_cancel_proposal" v="Visszavonja ezt a számlakérést?" />
         <e k="invoice_confirm_send" v="Számla küldése: %s, címzett: %s?" />
         <e k="invoice_notification_new" v="Számla érkezett tőle: %s (%s)" />
         <e k="invoice_reminder_single" v="Fizetetlen számla: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Jármu" />
         <e k="invoice_col_vehicle_name" v="Jármű" />
         <e k="invoice_error_single_farm" v="Számlák létrehozásához legalább két gazdaság szükséges." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Jóváhagyásra vár" />
+        <e k="invoice_choice_create" v="Gazdaság számlázása" />
+        <e k="invoice_choice_propose" v="Számla kérése" />
+        <e k="invoice_choice_create_button" v="Számlázás" />
+        <e k="invoice_choice_propose_button" v="Számla kérése" />
+        <e k="invoice_btn_validate" v="Jóváhagyás" />
+        <e k="invoice_btn_refuse" v="Elutasítás" />
+        <e k="invoice_wizard_propose_title" v="SZÁMLÁT KÉRNI" />
+        <e k="invoice_confirm_propose" v="Kéri a(z) %s összegű számlát, hogy %s jóváhagyja?" />
+        <e k="invoice_propose_sent" v="Kérés elküldve!" />
+        <e k="invoice_confirm_validate" v="Jóváhagyja ezt a kérést és fizethetővé teszi?" />
+        <e k="invoice_confirm_refuse" v="Elutasítja és törli ezt a kérést?" />
+        <e k="invoice_notification_proposal" v="Számlakérés érkezett %s-tól: %s" />
+        <e k="invoice_choice_body" v="Mit szeretne tenni?" />
+        <e k="invoice_choice_create_hint" v="Ön számlát küld. A kiválasztott gazdaságnak fizetnie kell." />
+        <e k="invoice_choice_propose_hint" v="A kiválasztott gazdaságnak jóvá kell hagynia. Ön a jóváhagyás után fizet." />
+        <e k="invoice_reminder_proposal_single" v="Jóváhagyandó számlakérés: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d jóváhagyandó számlakérés (összesen: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Kiállító" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Kedvezmény %" />
+        <e k="invoice_label_discount" v="Kedvezmény" />
     </elements>
 </l10n>

@@ -2,20 +2,6 @@
 -- Unified pipeline: collect, normalize, and group all consumables (pallets, bigBags, bales).
 InvoicesConsumablePipeline = {}
 
--- Resolution
-
----Resolves fill type index from raw value (number or string)
--- @param any fillTypeRaw Fill type as index or name
--- @return integer|nil fillTypeIndex
-function InvoicesConsumablePipeline.resolveFillType(fillTypeRaw)
-    if fillTypeRaw == nil then return nil end
-    if type(fillTypeRaw) == "number" then return fillTypeRaw end
-    if type(fillTypeRaw) == "string" and g_fillTypeManager ~= nil then
-        return g_fillTypeManager:getFillTypeIndexByName(fillTypeRaw)
-    end
-    return nil
-end
-
 ---Builds display name from fill type, level, and container prefix
 -- @param integer? fillTypeIndex Fill type index
 -- @param float? fillLevel Current fill level
@@ -160,15 +146,19 @@ function InvoicesConsumablePipeline.collectFromVehicles(playerFarmId)
                     local fillTypeIndex = nil
                     local totalFillLevel = 0
                     local totalCapacity = 0
+                    local isPreFilled = false
 
                     if vehicle.getFillUnits ~= nil and vehicle.getFillUnitFillLevel ~= nil and vehicle.getFillUnitCapacity ~= nil then
                         local fillUnits = vehicle:getFillUnits()
                         if fillUnits ~= nil then
-                            for fillUnitIndex, _ in ipairs(fillUnits) do
+                            for fillUnitIndex, fu in ipairs(fillUnits) do
                                 local fl = vehicle:getFillUnitFillLevel(fillUnitIndex) or 0
                                 local fc = vehicle:getFillUnitCapacity(fillUnitIndex) or 0
                                 totalFillLevel = totalFillLevel + fl
                                 totalCapacity = totalCapacity + fc
+                                if (fu.startFillLevel or 0) > 0 then
+                                    isPreFilled = true
+                                end
                                 if fillTypeIndex == nil and fl > 0 and vehicle.getFillUnitFillType ~= nil then
                                     local ft = vehicle:getFillUnitFillType(fillUnitIndex)
                                     if ft ~= nil and ft > 0 then
@@ -186,24 +176,26 @@ function InvoicesConsumablePipeline.collectFromVehicles(playerFarmId)
                     local displayName  = InvoicesConsumablePipeline.resolveName(fillTypeIndex, totalFillLevel, storeItemName, containerPrefix)
                     local iconFilename = InvoicesConsumablePipeline.resolveIcon(fillTypeIndex, xmlFilename)
 
-                    local basePrice = storeItem and storeItem.price or 0
                     local unitPrice
-                    if basePrice > 0 and totalCapacity > 0 and totalFillLevel > 0 then
-                        unitPrice = math.floor(basePrice * (totalFillLevel / totalCapacity))
-                    elseif basePrice > 0 then
-                        unitPrice = math.floor(basePrice)
+                    if isPreFilled then
+                        -- Input pallet (seeds, chemicals): pre-filled by store → use store purchase price
+                        local basePrice = storeItem and storeItem.price or 0
+                        if basePrice > 0 and totalCapacity > 0 then
+                            unitPrice = math.floor(basePrice * (totalFillLevel / totalCapacity))
+                        else
+                            unitPrice = InvoicesConsumablePipeline.computePrice(fillTypeIndex, totalFillLevel, nil)
+                        end
                     else
-                        unitPrice = InvoicesConsumablePipeline.computePrice(fillTypeIndex, totalFillLevel, math.floor(vehicle:getSellPrice()))
+                        -- Output pallet (milk, cheese, etc.): filled by player production → use market price
+                        unitPrice = InvoicesConsumablePipeline.computePrice(fillTypeIndex, totalFillLevel, nil)
                     end
 
                     local groupKey     = InvoicesConsumablePipeline.computeGroupKey(xmlFilename, fillTypeIndex, totalFillLevel)
 
                     table.insert(items, {
-                        sourceType    = "vehicle",
                         xmlFilename   = xmlFilename,
                         fillTypeIndex = fillTypeIndex,
                         fillLevel     = totalFillLevel,
-                        capacity      = totalCapacity,
                         ownerFarmId   = playerFarmId,
                         displayName   = displayName,
                         iconFilename  = iconFilename,
@@ -251,11 +243,9 @@ function InvoicesConsumablePipeline.collectFromBales(playerFarmId)
                 if uid == nil then uid = "bale_" .. tostring(object.rootNode or 0) end
 
                 table.insert(items, {
-                    sourceType    = "bale",
                     xmlFilename   = xmlFilename,
                     fillTypeIndex = fillTypeIndex,
                     fillLevel     = fillLevel,
-                    capacity      = fillLevel,
                     ownerFarmId   = playerFarmId,
                     displayName   = displayName,
                     iconFilename  = iconFilename,

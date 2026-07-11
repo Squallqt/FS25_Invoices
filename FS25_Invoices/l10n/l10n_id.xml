@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Tagihan" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="Stok" />
         <e k="invoice_btn_newInvoice" v="Faktur Baru" />
         <e k="invoice_btn_payInvoice" v="Bayar" />
-        <e k="invoice_btn_deleteInvoice" v="Hapus" />
         <e k="invoice_btn_showDetails" v="Rincian" />
         <e k="invoice_btn_cancel" v="Batal" />
         <e k="invoice_btn_close" v="Tutup" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Kepada:" />
         <e k="invoice_label_note" v="Catatan:" />
         <e k="invoice_placeholder_note" v="Tambahkan catatan atau referensi" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Rincian Faktur" />
+        <e k="invoice_dialog_rename_prompt" v="Masukkan nama baris" />
         <e k="invoice_wizard_mainTitle" v="FAKTUR BARU" />
         <e k="invoice_wizard_step1_label" v="Pelanggan" />
         <e k="invoice_wizard_step2_label" v="Pekerjaan" />
         <e k="invoice_wizard_step3_label" v="Ladang" />
-        <e k="invoice_btn_sendInvoice" v="Kirim Faktur" />
+        <e k="invoice_btn_sendInvoice" v="Kirim faktur" />
+        <e k="invoice_btn_sendRequest" v="Kirim permintaan" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Hapus" />
+        <e k="invoice_action_rename" v="Ubah nama" />
         <e k="invoice_wizard_invoice_created" v="Faktur berhasil dibuat!" />
         <e k="invoice_wizard_invoice_failed" v="Gagal membuat." />
         <e k="invoice_wizard_client_fields" v="Bidang klien" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Tidak ada faktur" />
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d baris" />
-        <e k="invoice_confirm_pay" v="Konfirmasi pembayaran ke '%s'?" />
-        <e k="invoice_confirm_delete" v="Hapus permanen?" />
+        <e k="invoice_confirm_pay" v="Konfirmasi pembayaran %s ke '%s'?" />
+        <e k="invoice_confirm_cancel_invoice" v="Batalkan faktur ini?" />
+        <e k="invoice_confirm_cancel_proposal" v="Batalkan permintaan faktur ini?" />
         <e k="invoice_confirm_send" v="Kirim faktur %s ke %s?" />
         <e k="invoice_notification_new" v="Faktur diterima dari %s: %s" />
         <e k="invoice_reminder_single" v="Faktur belum dibayar: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Kendaraan" />
         <e k="invoice_col_vehicle_name" v="Kendaraan" />
         <e k="invoice_error_single_farm" v="Diperlukan minimal dua pertanian untuk membuat faktur." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Menunggu persetujuan" />
+        <e k="invoice_choice_create" v="Tagih pertanian" />
+        <e k="invoice_choice_propose" v="Minta faktur" />
+        <e k="invoice_choice_create_button" v="Tagih" />
+        <e k="invoice_choice_propose_button" v="Minta faktur" />
+        <e k="invoice_btn_validate" v="Setujui" />
+        <e k="invoice_btn_refuse" v="Tolak" />
+        <e k="invoice_wizard_propose_title" v="MINTA FAKTUR" />
+        <e k="invoice_confirm_propose" v="Minta faktur sebesar %s untuk disetujui oleh %s?" />
+        <e k="invoice_propose_sent" v="Permintaan dikirim!" />
+        <e k="invoice_confirm_validate" v="Setujui permintaan ini dan jadikan dapat dibayar?" />
+        <e k="invoice_confirm_refuse" v="Tolak dan hapus permintaan ini?" />
+        <e k="invoice_notification_proposal" v="Permintaan faktur diterima dari %s: %s" />
+        <e k="invoice_choice_body" v="Apa yang ingin Anda lakukan?" />
+        <e k="invoice_choice_create_hint" v="Anda mengirim faktur. Pertanian yang dipilih harus membayar." />
+        <e k="invoice_choice_propose_hint" v="Pertanian yang dipilih harus menyetujui. Anda membayar setelah disetujui." />
+        <e k="invoice_reminder_proposal_single" v="Permintaan faktur untuk disetujui: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d permintaan faktur untuk disetujui (total: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Penerbit" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Diskon %" />
+        <e k="invoice_label_discount" v="Diskon" />
     </elements>
 </l10n>

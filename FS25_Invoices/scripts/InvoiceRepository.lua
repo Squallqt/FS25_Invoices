@@ -3,7 +3,8 @@
 InvoiceRepository = {}
 local InvoiceRepository_mt = Class(InvoiceRepository)
 
-InvoiceRepository.SAVE_VERSION = 4
+-- v5: adds PROPOSED state. No structural change; old saves (states 1-4) load unchanged.
+InvoiceRepository.SAVE_VERSION = 5
 
 ---Create repository instance
 -- @return InvoiceRepository instance Repository for managing invoices
@@ -35,8 +36,12 @@ end
 function InvoiceRepository:add(invoice)
     if invoice.id == 0 then
         invoice.id = self:generateId()
+    elseif self:getById(invoice.id) ~= nil then
+        Logging.warning("[Invoices] InvoiceRepository:add: duplicate invoice id %d", invoice.id)
+        return false
     end
     table.insert(self.invoices, invoice)
+    return true
 end
 
 ---Retrieve invoice by ID
@@ -129,29 +134,6 @@ function InvoiceRepository:replaceAll(invoices, nextId)
     self.nextInvoiceId = nextId
 end
 
----Save invoices to XML file
--- @param string savegamePath Path to savegame directory
-function InvoiceRepository:saveToXML(savegamePath)
-    local filePath = savegamePath .. "invoices.xml"
-    local xmlFile = createXMLFile("invoices", filePath, "invoices")
-
-    if xmlFile == nil then
-        Logging.error("[Invoices] Failed to create save file: %s", filePath)
-        return
-    end
-
-    setXMLInt(xmlFile, "invoices#version", InvoiceRepository.SAVE_VERSION)
-    setXMLInt(xmlFile, "invoices#nextId", self.nextInvoiceId)
-
-    for i, invoice in ipairs(self.invoices) do
-        local key = string.format("invoices.invoice(%d)", i - 1)
-        invoice:writeToXML(xmlFile, key)
-    end
-
-    saveXMLFile(xmlFile)
-    delete(xmlFile)
-end
-
 ---Save invoices and settings to XML file
 -- @param string savegamePath Path to savegame directory
 -- @param table? settings Optional settings table
@@ -233,7 +215,6 @@ function InvoiceRepository:loadFromXML(savegamePath)
         i = i + 1
     end
 
-    Logging.info("[Invoices] Loaded %d invoices from %s (format v%d)", #self.invoices, filePath, version)
     delete(xmlFile)
 end
 

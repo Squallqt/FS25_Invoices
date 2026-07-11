@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Fakturace" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="Sklad" />
         <e k="invoice_btn_newInvoice" v="Nová faktura" />
         <e k="invoice_btn_payInvoice" v="Zaplatit" />
-        <e k="invoice_btn_deleteInvoice" v="Smazat" />
         <e k="invoice_btn_showDetails" v="Podrobnosti" />
         <e k="invoice_btn_cancel" v="Zrušit" />
         <e k="invoice_btn_close" v="Zavřít" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Pro:" />
         <e k="invoice_label_note" v="Poznámky:" />
         <e k="invoice_placeholder_note" v="Přidat poznámku nebo odkaz" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Detaily faktury" />
+        <e k="invoice_dialog_rename_prompt" v="Zadejte označení řádku" />
         <e k="invoice_wizard_mainTitle" v="NOVÁ FAKTURA" />
         <e k="invoice_wizard_step1_label" v="Klient" />
         <e k="invoice_wizard_step2_label" v="Práce" />
         <e k="invoice_wizard_step3_label" v="Pole" />
         <e k="invoice_btn_sendInvoice" v="Odeslat fakturu" />
+        <e k="invoice_btn_sendRequest" v="Odeslat žádost" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Odebrat" />
+        <e k="invoice_action_rename" v="Přejmenovat" />
         <e k="invoice_wizard_invoice_created" v="Faktura úspěšně vytvořena!" />
         <e k="invoice_wizard_invoice_failed" v="Chyba při vytváření." />
         <e k="invoice_wizard_client_fields" v="Pole klienta" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Žádné faktury" />
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d řádek/ky" />
-        <e k="invoice_confirm_pay" v="Potvrdit platbu pro '%s'?" />
-        <e k="invoice_confirm_delete" v="Trvale smazat?" />
+        <e k="invoice_confirm_pay" v="Potvrdit platbu %s pro '%s'?" />
+        <e k="invoice_confirm_cancel_invoice" v="Zrušit tuto fakturu?" />
+        <e k="invoice_confirm_cancel_proposal" v="Zrušit tuto žádost o fakturu?" />
         <e k="invoice_confirm_send" v="Odeslat fakturu ve výši %s na %s?" />
         <e k="invoice_notification_new" v="Faktura od %s: %s" />
         <e k="invoice_reminder_single" v="Nezaplacená faktura: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Vozidlo" />
         <e k="invoice_col_vehicle_name" v="Vozidlo" />
         <e k="invoice_error_single_farm" v="K vytváření faktur jsou potřeba alespoň dvě hospodářství." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Čeká na schválení" />
+        <e k="invoice_choice_create" v="Fakturovat hospodářství" />
+        <e k="invoice_choice_propose" v="Požádat o fakturu" />
+        <e k="invoice_choice_create_button" v="Fakturovat" />
+        <e k="invoice_choice_propose_button" v="Požádat o fakturu" />
+        <e k="invoice_btn_validate" v="Schválit" />
+        <e k="invoice_btn_refuse" v="Odmítnout" />
+        <e k="invoice_wizard_propose_title" v="POŽÁDAT O FAKTURU" />
+        <e k="invoice_confirm_propose" v="Požádat o fakturu ve výši %s ke schválení farmou %s?" />
+        <e k="invoice_propose_sent" v="Žádost odeslána!" />
+        <e k="invoice_confirm_validate" v="Schválit tuto žádost a učinit ji splatnou?" />
+        <e k="invoice_confirm_refuse" v="Odmítnout a smazat tuto žádost?" />
+        <e k="invoice_notification_proposal" v="Přijata žádost o fakturu od %s: %s" />
+        <e k="invoice_choice_body" v="Co chcete udělat?" />
+        <e k="invoice_choice_create_hint" v="Odešlete fakturu. Vybrané hospodářství bude muset zaplatit." />
+        <e k="invoice_choice_propose_hint" v="Vybrané hospodářství ji musí schválit. Zaplatíte po schválení." />
+        <e k="invoice_reminder_proposal_single" v="Žádost o fakturu ke schválení: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d žádostí o fakturu ke schválení (celkem: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Vydavatel" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Sleva %" />
+        <e k="invoice_label_discount" v="Sleva" />
     </elements>
 </l10n>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Fakturering" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="Lager" />
         <e k="invoice_btn_newInvoice" v="Ny faktura" />
         <e k="invoice_btn_payInvoice" v="Betala" />
-        <e k="invoice_btn_deleteInvoice" v="Radera" />
         <e k="invoice_btn_showDetails" v="Detaljer" />
         <e k="invoice_btn_cancel" v="Avbryt" />
         <e k="invoice_btn_close" v="Stäng" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Till:" />
         <e k="invoice_label_note" v="Anteckningar:" />
         <e k="invoice_placeholder_note" v="Lägg till anteckning eller referens" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Fakturadetaljer" />
+        <e k="invoice_dialog_rename_prompt" v="Ange radens beteckning" />
         <e k="invoice_wizard_mainTitle" v="NY FAKTURA" />
         <e k="invoice_wizard_step1_label" v="Kund" />
         <e k="invoice_wizard_step2_label" v="Arbete" />
         <e k="invoice_wizard_step3_label" v="Fält" />
         <e k="invoice_btn_sendInvoice" v="Skicka faktura" />
+        <e k="invoice_btn_sendRequest" v="Skicka begäran" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Ta bort" />
+        <e k="invoice_action_rename" v="Byt namn" />
         <e k="invoice_wizard_invoice_created" v="Faktura skapad!" />
         <e k="invoice_wizard_invoice_failed" v="Fel vid skapande." />
         <e k="invoice_wizard_client_fields" v="Kundfält" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Inga fakturor" />
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d rad(er)" />
-        <e k="invoice_confirm_pay" v="Bekräfta betalning till '%s'?" />
-        <e k="invoice_confirm_delete" v="Radera permanent?" />
+        <e k="invoice_confirm_pay" v="Bekräfta betalning av %s till '%s'?" />
+        <e k="invoice_confirm_cancel_invoice" v="Avbryta denna faktura?" />
+        <e k="invoice_confirm_cancel_proposal" v="Avbryta denna fakturabegäran?" />
         <e k="invoice_confirm_send" v="Skicka faktura på %s till %s?" />
         <e k="invoice_notification_new" v="Faktura från %s: %s" />
         <e k="invoice_reminder_single" v="Obetald faktura: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Fordon" />
         <e k="invoice_col_vehicle_name" v="Fordon" />
         <e k="invoice_error_single_farm" v="Det krävs minst två gårdar för att skapa fakturor." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Inväntar godkännande" />
+        <e k="invoice_choice_create" v="Fakturera en gård" />
+        <e k="invoice_choice_propose" v="Begär en faktura" />
+        <e k="invoice_choice_create_button" v="Fakturera" />
+        <e k="invoice_choice_propose_button" v="Begär faktura" />
+        <e k="invoice_btn_validate" v="Godkänn" />
+        <e k="invoice_btn_refuse" v="Avvisa" />
+        <e k="invoice_wizard_propose_title" v="BEGÄR EN FAKTURA" />
+        <e k="invoice_confirm_propose" v="Begär en faktura på %s för godkännande av %s?" />
+        <e k="invoice_propose_sent" v="Begäran skickad!" />
+        <e k="invoice_confirm_validate" v="Godkänn denna begäran och gör den betalbar?" />
+        <e k="invoice_confirm_refuse" v="Avvisa och radera denna begäran?" />
+        <e k="invoice_notification_proposal" v="Fakturabegäran mottagen från %s: %s" />
+        <e k="invoice_choice_body" v="Vad vill du göra?" />
+        <e k="invoice_choice_create_hint" v="Du skickar en faktura. Den valda gården måste betala." />
+        <e k="invoice_choice_propose_hint" v="Den valda gården måste godkänna. Du betalar efter godkännande." />
+        <e k="invoice_reminder_proposal_single" v="Fakturabegäran att godkänna: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d fakturabegäranden att godkänna (totalt: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Utfärdare" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Rabatt %" />
+        <e k="invoice_label_discount" v="Rabatt" />
     </elements>
 </l10n>

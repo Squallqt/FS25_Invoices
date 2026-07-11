@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Fakturowanie" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="Zapas" />
         <e k="invoice_btn_newInvoice" v="Nowa faktura" />
         <e k="invoice_btn_payInvoice" v="Zapłać" />
-        <e k="invoice_btn_deleteInvoice" v="Usuń" />
         <e k="invoice_btn_showDetails" v="Szczegóły" />
         <e k="invoice_btn_cancel" v="Anuluj" />
         <e k="invoice_btn_close" v="Zamknij" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Do:" />
         <e k="invoice_label_note" v="Uwagi:" />
         <e k="invoice_placeholder_note" v="Dodaj uwagę lub odniesienie" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Szczegóły faktury" />
+        <e k="invoice_dialog_rename_prompt" v="Wprowadź oznaczenie linii" />
         <e k="invoice_wizard_mainTitle" v="NOWA FAKTURA" />
         <e k="invoice_wizard_step1_label" v="Klient" />
         <e k="invoice_wizard_step2_label" v="Prace" />
         <e k="invoice_wizard_step3_label" v="Pola" />
         <e k="invoice_btn_sendInvoice" v="Wyślij fakturę" />
+        <e k="invoice_btn_sendRequest" v="Wyślij prośbę" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Usuń" />
+        <e k="invoice_action_rename" v="Zmień nazwę" />
         <e k="invoice_wizard_invoice_created" v="Faktura utworzona!" />
         <e k="invoice_wizard_invoice_failed" v="Błąd tworzenia." />
         <e k="invoice_wizard_client_fields" v="Pola klienta" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Brak faktur" />
         <e k="invoice_format_inv_number" v="FAK-%03d" />
         <e k="invoice_format_services_count" v="%d linii" />
-        <e k="invoice_confirm_pay" v="Potwierdzić płatność dla '%s'?" />
-        <e k="invoice_confirm_delete" v="Usunąć trwale?" />
+        <e k="invoice_confirm_pay" v="Potwierdzić płatność %s dla '%s'?" />
+        <e k="invoice_confirm_cancel_invoice" v="Anulować tę fakturę?" />
+        <e k="invoice_confirm_cancel_proposal" v="Anulować tę prośbę o fakturę?" />
         <e k="invoice_confirm_send" v="Wysłać fakturę na %s do %s?" />
         <e k="invoice_notification_new" v="Faktura od %s: %s" />
         <e k="invoice_reminder_single" v="Nieopłacona faktura: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Pojazd" />
         <e k="invoice_col_vehicle_name" v="Pojazd" />
         <e k="invoice_error_single_farm" v="Do tworzenia faktur wymagane są co najmniej dwa gospodarstwa." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Oczekuje na zatwierdzenie" />
+        <e k="invoice_choice_create" v="Fakturuj gospodarstwo" />
+        <e k="invoice_choice_propose" v="Poproś o fakturę" />
+        <e k="invoice_choice_create_button" v="Fakturuj" />
+        <e k="invoice_choice_propose_button" v="Poproś o fakturę" />
+        <e k="invoice_btn_validate" v="Zatwierdź" />
+        <e k="invoice_btn_refuse" v="Odrzuć" />
+        <e k="invoice_wizard_propose_title" v="POPROŚ O FAKTURĘ" />
+        <e k="invoice_confirm_propose" v="Poprosić o fakturę na %s do zatwierdzenia przez %s?" />
+        <e k="invoice_propose_sent" v="Prośba wysłana!" />
+        <e k="invoice_confirm_validate" v="Zatwierdzić tę prośbę i uczynić ją płatną?" />
+        <e k="invoice_confirm_refuse" v="Odrzucić i usunąć tę prośbę?" />
+        <e k="invoice_notification_proposal" v="Otrzymano prośbę o fakturę od %s: %s" />
+        <e k="invoice_choice_body" v="Co chcesz zrobić?" />
+        <e k="invoice_choice_create_hint" v="Wysyłasz fakturę. Wybrane gospodarstwo będzie musiało zapłacić." />
+        <e k="invoice_choice_propose_hint" v="Wybrane gospodarstwo musi ją zatwierdzić. Zapłacisz po zatwierdzeniu." />
+        <e k="invoice_reminder_proposal_single" v="Prośba o fakturę do zatwierdzenia: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d próśb o fakturę do zatwierdzenia (łącznie: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Wystawca" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Rabat %" />
+        <e k="invoice_label_discount" v="Rabat" />
     </elements>
 </l10n>

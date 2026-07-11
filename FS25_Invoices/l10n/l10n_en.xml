@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Invoicing" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="Stock" />
         <e k="invoice_btn_newInvoice" v="New Invoice" />
         <e k="invoice_btn_payInvoice" v="Pay" />
-        <e k="invoice_btn_deleteInvoice" v="Delete" />
         <e k="invoice_btn_showDetails" v="Details" />
         <e k="invoice_btn_cancel" v="Cancel" />
         <e k="invoice_btn_close" v="Close" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="To:" />
         <e k="invoice_label_note" v="Notes:" />
         <e k="invoice_placeholder_note" v="Add a note or reference" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Invoice Details" />
+        <e k="invoice_dialog_rename_prompt" v="Enter the line designation" />
         <e k="invoice_wizard_mainTitle" v="NEW INVOICE" />
         <e k="invoice_wizard_step1_label" v="Customer" />
         <e k="invoice_wizard_step2_label" v="Work" />
         <e k="invoice_wizard_step3_label" v="Fields" />
-        <e k="invoice_btn_sendInvoice" v="Send Invoice" />
+        <e k="invoice_btn_sendInvoice" v="Send invoice" />
+        <e k="invoice_btn_sendRequest" v="Send request" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Remove" />
+        <e k="invoice_action_rename" v="Rename" />
         <e k="invoice_wizard_invoice_created" v="Invoice created successfully!" />
         <e k="invoice_wizard_invoice_failed" v="Error creating invoice." />
         <e k="invoice_wizard_client_fields" v="Client Fields" />
@@ -50,7 +55,8 @@
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d line(s)" />
         <e k="invoice_confirm_pay" v="Pay %s to %s?" />
-        <e k="invoice_confirm_delete" v="Permanently delete this invoice?" />
+        <e k="invoice_confirm_cancel_invoice" v="Cancel this invoice?" />
+        <e k="invoice_confirm_cancel_proposal" v="Cancel this invoice request?" />
         <e k="invoice_confirm_send" v="Send invoice of %s to %s?" />
         <e k="invoice_notification_new" v="Invoice received from %s: %s" />
         <e k="invoice_reminder_single" v="Unpaid invoice: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectConsumable" v="Consumable" />
         <e k="invoice_col_consumable_name" v="Item" />
         <e k="invoice_error_single_farm" v="At least two farms are required to create invoices." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="Awaiting approval" />
+        <e k="invoice_choice_create" v="Invoice a farm" />
+        <e k="invoice_choice_propose" v="Request an invoice" />
+        <e k="invoice_choice_create_button" v="Invoice" />
+        <e k="invoice_choice_propose_button" v="Request invoice" />
+        <e k="invoice_btn_validate" v="Approve" />
+        <e k="invoice_btn_refuse" v="Decline" />
+        <e k="invoice_wizard_propose_title" v="REQUEST AN INVOICE" />
+        <e k="invoice_confirm_propose" v="Request an invoice of %s to be approved by %s?" />
+        <e k="invoice_propose_sent" v="Request sent!" />
+        <e k="invoice_confirm_validate" v="Approve this request and make it payable?" />
+        <e k="invoice_confirm_refuse" v="Decline and delete this request?" />
+        <e k="invoice_notification_proposal" v="Invoice request received from %s: %s" />
+        <e k="invoice_choice_body" v="What do you want to do?" />
+        <e k="invoice_choice_create_hint" v="You send an invoice. The selected farm will pay." />
+        <e k="invoice_choice_propose_hint" v="The selected farm must approve it. You will pay after approval." />
+        <e k="invoice_reminder_proposal_single" v="Invoice request to validate: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d invoice requests to validate (total: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Issuer" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Discount %" />
+        <e k="invoice_label_discount" v="Discount" />
     </elements>
 </l10n>

@@ -6,67 +6,12 @@
         <imageSliceId value="invoices.menuIcon"/>
     </Profile>
 
-    <!-- Selection dialogs -->
-    <Profile name="invSelectFieldDialog" extends="fs25_dialogBg">
-        <size value="560px 780px"/>
-    </Profile>
-
-    <Profile name="invSelectMainBox" extends="emptyPanel">
-        <size value="520px 710px"/>
-        <flowDirection value="vertical"/>
-        <elementSpacing value="10px"/>
-    </Profile>
-
-    <Profile name="invSelectListSection" extends="emptyPanel">
-        <size value="520px 660px"/>
-    </Profile>
-
-    <Profile name="invSelectHeader" extends="emptyPanel">
-        <size value="500px 40px"/>
-        <imageColor value="0 0 0 0.35"/>
-    </Profile>
-
-    <Profile name="invSelectHeaderCell" extends="fs25_statisticsHeaderText">
-        <size value="200px 40px"/>
-        <textSize value="16px"/>
-        <textBold value="false"/>
-        <textColor value="0.5 0.5 0.5 1"/>
-        <textAlignment value="center"/>
-        <textVerticalAlignment value="middle"/>
-    </Profile>
-
-    <Profile name="invSelectList" extends="emptyPanel">
-        <size value="500px 600px"/>
-    </Profile>
-
-    <Profile name="invSelectListItem" extends="invTableItem">
-        <size value="500px 40px"/>
-    </Profile>
-
-    <!-- Table -->
-    <Profile name="invTableItem" extends="baseReference" with="anchorTopStretchingX">
-        <height value="40px"/>
-        <imageColor value="$preset_fs25_colorGrey"/>
-        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-    </Profile>
-
-    <Profile name="invTableCell" extends="baseReference">
-        <textSize value="16px"/>
-        <textColor value="$preset_fs25_colorMainLight"/>
-        <textSelectedColor value="$preset_fs25_colorMainDark"/>
-        <textAlignment value="left"/>
-        <textVerticalAlignment value="middle"/>
-    </Profile>
-
-    <Profile name="invTableCellCenter" extends="invTableCell">
-        <textAlignment value="center"/>
-    </Profile>
-
     <!-- Column headers -->
     <Profile name="invColumnHeaderBtn" extends="baseReference" with="anchorTopLeft">
-        <imageColor value="0 0 0 0"/>
+        <imageColor value="$preset_colorTransparent"/>
         <textFocusedColor value="$preset_fs25_colorMainHighlight"/>
         <textHighlightedColor value="$preset_fs25_colorMainHighlight"/>
+        <textSelectedColor value="$preset_fs25_colorMainHighlight"/>
         <textSize value="16px"/>
         <textBold value="true"/>
         <textUpperCase value="true"/>
@@ -76,8 +21,10 @@
         <textDisabledColor value="$preset_colorDisabled"/>
     </Profile>
 
-    <Profile name="invColumnHeaderBtnCenter" extends="invColumnHeaderBtn">
-        <textAlignment value="center"/>
+    <Profile name="invSortArrowIcon" extends="emptyPanel" with="anchorTopLeft">
+        <size value="16px 16px"/>
+        <imageSliceId value="invoices.sortArrowDown"/>
+        <imageColor value="$preset_fs25_colorMainHighlight"/>
     </Profile>
 
     <!-- Content area -->
@@ -85,15 +32,13 @@
 
     <!-- Invoice list -->
     <Profile name="invInvoiceList" extends="emptyPanel" with="pivotTopLeft">
-        <size value="1530px 670px"/>
+        <size value="100% 672px"/>
     </Profile>
 
     <!-- Invoice list item row -->
     <Profile name="invInvoiceListItem" extends="fs25_calendarListItem">
         <height value="32px"/>
-        <imageColor value="$preset_fs25_colorGrey"/>
         <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-        <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
     </Profile>
 
     <Profile name="invListItemGradient" extends="fs25_calendarListItemBg">
@@ -114,11 +59,11 @@
     </Profile>
 
     <Profile name="invRowCellDim" extends="invRowCellLeft">
-        <textColor value="0.6 0.6 0.6 1"/>
         <textSelectedColor value="$preset_fs25_colorMainDark"/>
         <textSize value="14px"/>
         <textAlignment value="center"/>
         <textVerticalAlignment value="middle"/>
+        <textLayoutMode value="scrolling"/>
     </Profile>
 
     <Profile name="invRowCellCenter" extends="invRowCellLeft">
@@ -139,30 +84,83 @@
     </Profile>
 
     <!-- List slider -->
-    <Profile name="invSliderBox" extends="fs25_listSliderBox" with="anchorTopRight">
-        <width value="6px"/>
-        <height value="670px"/>
+    <Profile name="invSliderDockedBg" extends="fs25_sliderDockedBg" with="anchorTopRight"/>
+    <Profile name="invSliderDockedBox" extends="fs25_sliderDockedBox"/>
+    <Profile name="invSliderDocked" extends="fs25_helpLineSlider">
+        <startImageColor value="$preset_fs25_colorMainHighlight"/>
+        <sliderImageColor value="$preset_fs25_colorMainHighlight"/>
+        <endImageColor value="$preset_fs25_colorMainHighlight"/>
+    </Profile>
+
+    <!-- Total block -->
+    <Profile name="invTotalVatHtText" extends="baseReference">
+        <size value="416px 14px"/>
+        <textSize value="12px"/>
+        <textColor value="$preset_colorWhite_50"/>
+        <textAlignment value="right"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+
+    <Profile name="invTotalDiscountText" extends="baseReference">
+        <size value="416px 14px"/>
+        <textSize value="12px"/>
+        <textColor value="$preset_colorWhite_50"/>
+        <textAlignment value="right"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+
+    <Profile name="invTotalVatText" extends="baseReference">
+        <size value="416px 14px"/>
+        <textSize value="12px"/>
+        <textColor value="$preset_colorWhite_50"/>
+        <textAlignment value="right"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+
+    <Profile name="invTotalSepBox" extends="emptyPanel">
+        <size value="416px 8px"/>
+        <margin value="0px 1px 0px -1px"/>
+        <flowDirection value="horizontal"/>
+        <alignmentX value="right"/>
+        <alignmentY value="middle"/>
+    </Profile>
+
+    <Profile name="invTotalSepLine" extends="baseReference">
+        <size value="416px 1dp"/>
+        <imageColor value="$preset_fs25_colorGreyLight_50"/>
+    </Profile>
+
+    <Profile name="invTotalValueRow" extends="emptyPanel">
+        <size value="416px 29px"/>
+        <flowDirection value="horizontal"/>
+        <alignmentX value="right"/>
+        <alignmentY value="center"/>
+    </Profile>
+
+    <Profile name="invTotalValueAnchor" extends="emptyPanel">
+        <size value="416px 29px"/>
+        <flowDirection value="horizontal"/>
+        <alignmentX value="right"/>
+        <alignmentY value="center"/>
+    </Profile>
+
+    <Profile name="invTotalValue" extends="baseReference">
+        <size value="416px 29px"/>
+        <textSize value="24px"/>
+        <textBold value="true"/>
+        <textColor value="$preset_fs25_colorMainHighlight"/>
+        <textAlignment value="right"/>
+        <textVerticalAlignment value="middle"/>
     </Profile>
 
     <!-- Dashboard -->
-    <Profile name="dashSelectListItem" extends="fs25_calendarListItem">
-        <height value="32px"/>
-        <imageColor value="$preset_fs25_colorGrey"/>
-        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-        <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
-    </Profile>
-
-    <Profile name="dashSelectGradient" extends="fs25_calendarListItemBg">
-        <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-        <startImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-        <endImageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-    </Profile>
-
     <Profile name="dashSelectListItemFlat" extends="baseReference" with="anchorTopStretchingX alternating">
         <height value="32px"/>
-        <imageColor value="$preset_fs25_colorGrey"/>
+        <imageColor value="$preset_colorTransparent"/>
+        <alternateBackgroundColor value="$preset_colorTransparent"/>
         <imageSelectedColor value="$preset_fs25_colorMainHighlight"/>
-        <alternateBackgroundColor value="$preset_fs25_colorGreyDark_50"/>
+        <imageFocusedColor value="$preset_fs25_colorMainHighlight"/>
+        <imageHighlightedColor value="$preset_fs25_colorMainHighlight"/>
     </Profile>
 
     <Profile name="dashSliderBox" extends="fs25_listSliderBox" with="anchorTopLeft"/>
@@ -171,12 +169,141 @@
         <inputAction value="MENU_BACK"/>
     </Profile>
 
+    <Profile name="dashBtnRemove" extends="buttonOK">
+        <inputAction value="MENU_CANCEL"/>
+    </Profile>
+
+    <Profile name="dashBtnRename" extends="buttonOK">
+        <inputAction value="MENU_EXTRA_1"/>
+    </Profile>
+
+    <!-- Fill type / vehicle selection dialogs -->
+    <Profile name="ftdMainBox" extends="emptyPanel" with="anchorTopCenter">
+        <size value="400px 534px"/>
+        <flowDirection value="vertical"/>
+        <alignmentX value="left"/>
+        <alignmentY value="top"/>
+        <elementSpacing value="0px"/>
+    </Profile>
+
+    <Profile name="ftdMainTitle" extends="baseReference">
+        <size value="400px 40px"/>
+        <margin value="0px 4px 0px 0px"/>
+        <textSize value="18px"/>
+        <textBold value="true"/>
+        <textUpperCase value="true"/>
+        <textColor value="$preset_fs25_colorMainLight"/>
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+
+    <Profile name="ftdTitleSepWrapper" extends="emptyPanel">
+        <size value="400px 2dp"/>
+    </Profile>
+
+    <Profile name="ftdTitleSpacer" extends="emptyPanel">
+        <size value="400px 20px"/>
+    </Profile>
+
+    <Profile name="ftdTitleSep" extends="fs25_lineSeparatorTopHighlighted" with="anchorTopCenter">
+        <size value="180px 2dp"/>
+    </Profile>
+
+    <Profile name="ftdContentArea" extends="emptyPanel">
+        <size value="400px 469px"/>
+    </Profile>
+
+    <Profile name="ftdSelectionZone" extends="emptyPanel" with="anchorTopLeft">
+        <position value="0px 0px"/>
+        <size value="400px 469px"/>
+    </Profile>
+
+    <Profile name="ftdSepHeaders" extends="baseReference" with="anchorTopLeft">
+        <position value="8px -38px"/>
+        <size value="392px 1dp"/>
+        <imageColor value="$preset_fs25_colorMainHighlight"/>
+    </Profile>
+
+    <Profile name="ftdListWrapper" extends="emptyPanel" with="anchorTopLeft">
+        <position value="8px -45px"/>
+        <size value="392px 416px"/>
+    </Profile>
+
+    <Profile name="ftdList" extends="emptyPanel">
+        <size value="380px 416px"/>
+        <position value="0px 0px"/>
+    </Profile>
+
+    <Profile name="ftdCellIcon" extends="emptyPanel" with="anchorTopLeft">
+        <position value="36px -2px"/>
+        <size value="28px 28px"/>
+        <imageColor value="$preset_colorWhite"/>
+        <imageSelectedColor value="$preset_colorWhite"/>
+    </Profile>
+
+    <Profile name="ftdCellName" extends="baseReference" with="anchorStretchingYLeft">
+        <position value="68px 0px"/>
+        <size value="202px 32px"/>
+        <textSize value="13px"/>
+        <textColor value="$preset_colorWhite"/>
+        <textSelectedColor value="$preset_fs25_colorMainDark"/>
+        <textAlignment value="left"/>
+        <textVerticalAlignment value="middle"/>
+        <textLayoutMode value="scrolling"/>
+    </Profile>
+
+    <Profile name="ftdCellPrice" extends="baseReference" with="anchorStretchingYLeft">
+        <position value="272px 0px"/>
+        <size value="100px 32px"/>
+        <textSize value="13px"/>
+        <textBold value="true"/>
+        <textColor value="$preset_fs25_colorMainHighlight"/>
+        <textSelectedColor value="$preset_fs25_colorMainDark"/>
+        <textAlignment value="right"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+
+    <!-- Unselected dot: dim middle dot, always visible when item is not selected -->
+    <Profile name="invSelectionDot" extends="baseReference" with="anchorStretchingYLeft">
+        <position value="2px 0px"/>
+        <size value="32px 32px"/>
+        <textSize value="18px"/>
+        <textColor value="$preset_colorDisabled"/>
+        <textSelectedColor value="$preset_fs25_colorMainDark"/>
+        <textDisabledColor value="$preset_colorDisabled"/>
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+
+    <!-- Selection count badge: green xN, overlays the dot when item is selected -->
+    <Profile name="invSelectionPrefix" extends="baseReference" with="anchorStretchingYLeft">
+        <position value="2px 0px"/>
+        <size value="32px 32px"/>
+        <textSize value="13px"/>
+        <textBold value="true"/>
+        <textColor value="$preset_fs25_colorMainHighlight"/>
+        <textSelectedColor value="$preset_fs25_colorMainDark"/>
+        <textDisabledColor value="$preset_colorDisabled"/>
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+
+    <Profile name="invSelectionCheck" extends="emptyPanel" with="anchorStretchingYLeft">
+        <position value="4px 0px"/>
+        <size value="24px 24px"/>
+        <imageSliceId value="invoices.selectionCheck"/>
+        <imageColor value="$preset_fs25_colorMainHighlight"/>
+        <imageSelectedColor value="0 0 0 1"/>
+        <imageFocusedColor value="0 0 0 1"/>
+        <imageHighlightedColor value="0 0 0 1"/>
+    </Profile>
+
     <!-- Empty state -->
     <Profile name="invEmptyStateText" extends="baseReference" with="anchorTopLeft">
         <size value="400px 40px"/>
         <textSize value="18px"/>
         <textBold value="false"/>
-        <textColor value="0.45 0.45 0.45 1"/>
+        <textColor value="$preset_fs25_colorGreyText"/>
         <textAlignment value="center"/>
         <textVerticalAlignment value="middle"/>
     </Profile>

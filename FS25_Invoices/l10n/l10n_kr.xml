@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="청구서" />
@@ -13,7 +13,6 @@
         <e k="invoice_col_stock" v="재고" />
         <e k="invoice_btn_newInvoice" v="새 청구서" />
         <e k="invoice_btn_payInvoice" v="지불" />
-        <e k="invoice_btn_deleteInvoice" v="삭제" />
         <e k="invoice_btn_showDetails" v="상세" />
         <e k="invoice_btn_cancel" v="취소" />
         <e k="invoice_btn_close" v="닫기" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="받는 사람:" />
         <e k="invoice_label_note" v="비고:" />
         <e k="invoice_placeholder_note" v="메모 또는 참조 추가" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="청구서 상세" />
+        <e k="invoice_dialog_rename_prompt" v="라인 명칭을 입력하세요" />
         <e k="invoice_wizard_mainTitle" v="새 청구서" />
         <e k="invoice_wizard_step1_label" v="고객" />
         <e k="invoice_wizard_step2_label" v="작업" />
         <e k="invoice_wizard_step3_label" v="밭" />
         <e k="invoice_btn_sendInvoice" v="청구서 전송" />
+        <e k="invoice_btn_sendRequest" v="요청 전송" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="제거" />
+        <e k="invoice_action_rename" v="이름 변경" />
         <e k="invoice_wizard_invoice_created" v="청구서 생성 완료!" />
         <e k="invoice_wizard_invoice_failed" v="생성 오류." />
         <e k="invoice_wizard_client_fields" v="고객 필드" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="청구서 없음" />
         <e k="invoice_format_inv_number" v="INV-%03d" />
         <e k="invoice_format_services_count" v="%d 줄" />
-        <e k="invoice_confirm_pay" v="'%s'에게 지불하시겠습니까?" />
-        <e k="invoice_confirm_delete" v="영구 삭제하시겠습니까?" />
+        <e k="invoice_confirm_pay" v="%s을(를) '%s'에게 지불하시겠습니까?" />
+        <e k="invoice_confirm_cancel_invoice" v="이 청구서를 취소하시겠습니까?" />
+        <e k="invoice_confirm_cancel_proposal" v="이 청구 요청을 취소하시겠습니까?" />
         <e k="invoice_confirm_send" v="%s 청구서를 %s에게 보내시겠습니까?" />
         <e k="invoice_notification_new" v="%s로부터 청구서 수신: %s" />
         <e k="invoice_reminder_single" v="미결제 청구서: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="요새" />
         <e k="invoice_col_vehicle_name" v="요새" />
         <e k="invoice_error_single_farm" v="청구서를 작성하려면 최소 2개의 농장이 필요합니다." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="승인 대기 중" />
+        <e k="invoice_choice_create" v="농장에 청구" />
+        <e k="invoice_choice_propose" v="청구서 요청" />
+        <e k="invoice_choice_create_button" v="청구" />
+        <e k="invoice_choice_propose_button" v="청구서 요청" />
+        <e k="invoice_btn_validate" v="승인" />
+        <e k="invoice_btn_refuse" v="거절" />
+        <e k="invoice_wizard_propose_title" v="청구서 요청" />
+        <e k="invoice_confirm_propose" v="%s의 청구서를 %s에게 승인 요청하시겠습니까?" />
+        <e k="invoice_propose_sent" v="요청이 전송되었습니다!" />
+        <e k="invoice_confirm_validate" v="이 요청을 승인하여 지불 가능하게 하시겠습니까?" />
+        <e k="invoice_confirm_refuse" v="이 요청을 거절하고 삭제하시겠습니까?" />
+        <e k="invoice_notification_proposal" v="%s 에서 청구서 요청을 받았습니다: %s" />
+        <e k="invoice_choice_body" v="무엇을 하시겠습니까?" />
+        <e k="invoice_choice_create_hint" v="청구서를 보냅니다. 선택한 농장이 지불합니다." />
+        <e k="invoice_choice_propose_hint" v="선택한 농장이 승인해야 합니다. 승인 후 지불합니다." />
+        <e k="invoice_reminder_proposal_single" v="승인 대기 중인 청구서 요청: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d개의 승인 대기 청구서 요청 (합계: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="발행자" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="할인 %" />
+        <e k="invoice_label_discount" v="할인" />
     </elements>
 </l10n>

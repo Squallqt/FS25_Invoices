@@ -16,12 +16,19 @@ InvoicesDetailDialog.CONTROLS = {
     TEXT_NOTES = "textNotes",
     TEXT_TOTAL_LABEL = "textTotalLabel",
     TEXT_TOTAL = "textTotal",
+    TOTAL_RIGHT_COLUMN = "totalRightColumn",
     TEXT_VAT_HT  = "textVatHt",
-    TEXT_VAT_TVA = "textVatTva",
+    TEXT_DISCOUNT = "textDiscount",
+    TEXT_VAT = "textVat",
     TOTAL_SEP    = "totalSep",
     PENALTY_BAR  = "penaltyBar",
     TEXT_PENALTY_BAR = "textPenaltyBar",
     BTN_PAY = "btnPay",
+    BTN_VALIDATE = "btnValidate",
+    SEP_VALIDATE_REFUSE = "sepValidateRefuse",
+    BTN_REFUSE = "btnRefuse",
+    SEP_CLOSE = "sepClose",
+    BUTTON_BOX = "buttonBox",
 }
 
 InvoicesDetailDialog.PENALTY_BAR_OFFSET = 28
@@ -30,6 +37,10 @@ InvoicesDetailDialog.COLOR_UNPAID  = {1.00, 0.66, 0.00, 1}
 InvoicesDetailDialog.COLOR_PAID    = {0.40, 0.85, 0.40, 1}
 InvoicesDetailDialog.COLOR_OVERDUE = {1.00, 0.30, 0.30, 1}
 InvoicesDetailDialog.COLOR_PENALTY = {1.00, 0.40, 0.35, 1}
+InvoicesDetailDialog.COLOR_PROPOSED = {0.45, 0.70, 1.00, 1}
+
+InvoicesDetailDialog.SECONDARY_CANCEL = 1
+InvoicesDetailDialog.SECONDARY_REFUSE = 2
 
 ---Creates new invoice detail dialog instance
 -- @param table target Parent target element
@@ -58,21 +69,7 @@ end
 
 ---Resizes title separator to match title text width
 function InvoicesDetailDialog:resizeTitleSep()
-    if self.titleSep == nil or self.mainTitleText == nil then return end
-
-    if self._titleSepHeight == nil then
-        self._titleSepHeight = self.titleSep.absSize[2]
-    end
-
-    local text = self.mainTitleText.text or ""
-    local textWidth = getTextWidth(self.mainTitleText.textSize, text)
-    local padding = 20 * 2 * g_pixelSizeScaledX
-    local newWidth = textWidth + padding
-
-    self.titleSep:setSize(newWidth, self._titleSepHeight)
-    if self.titleSep.parent ~= nil and self.titleSep.parent.invalidateLayout ~= nil then
-        self.titleSep.parent:invalidateLayout()
-    end
+    InvoicesGuiUtils.resizeTitleSeparator(self.mainTitleText, self.titleSep)
 end
 
 ---Resizes penalty bar to fit penalty text
@@ -106,27 +103,34 @@ end
 
 ---Resizes total separator to fit VAT and total amounts
 -- @param string htText Formatted HT amount text
--- @param string tvaText Formatted TVA amount text
+-- @param string vatText Formatted VAT amount text
 -- @param string totalText Formatted total amount text
-function InvoicesDetailDialog:resizeTotalSep(htText, tvaText, totalText)
-    if self.totalSep == nil or self.textVatHt == nil then return end
+function InvoicesDetailDialog:resizeTotalSep(htText, vatText, totalText)
+    self._sepOrigX, self._sepOrigW = InvoicesGuiUtils.resizeTotalSeparator(
+        self.totalSep,
+        self.textVatHt,
+        self.textVat,
+        self.textTotal,
+        htText,
+        vatText,
+        totalText,
+        self._sepOrigX,
+        self._sepOrigW
+    )
+end
 
-    if self._sepOrigX == nil then
-        self._sepOrigX = self.totalSep.position[1]
-        self._sepOrigW = self.totalSep.size[1]
-    end
-
-    local textSize = self.textVatHt.textSize
-    local htWidth = getTextWidth(textSize, htText)
-    local tvaWidth = self.textVatTva ~= nil and getTextWidth(self.textVatTva.textSize, tvaText) or 0
-    local totalWidth = self.textTotal ~= nil and getTextWidth(self.textTotal.textSize, totalText or self.textTotal.text or "") or 0
-    totalWidth = totalWidth + (20 * g_pixelSizeScaledX)
-    local maxTextWidth = math.max(htWidth, tvaWidth, totalWidth)
-
-    local newW = math.min(maxTextWidth, self._sepOrigW)
-    local newX = self._sepOrigX + self._sepOrigW - newW
-    self.totalSep:setPosition(newX, self.totalSep.position[2])
-    self.totalSep:setSize(newW, self.totalSep.size[2])
+---Shows or hides the Discount line in the total breakdown (HT / Discount / VAT).
+-- The BoxLayout reflows so the Discount line never leaves a gap when hidden.
+-- @param number discountAmount Total discount in currency (>= 0); the line shows only when > 0
+function InvoicesDetailDialog:layoutTotalBreakdown(discountAmount)
+    InvoicesGuiUtils.layoutTotalBreakdown(
+        self.totalRightColumn,
+        self.textVatHt,
+        self.textVat,
+        self.textDiscount,
+        discountAmount,
+        {0.5, 0.5, 0.5, 1}
+    )
 end
 
 ---Called when dialog opens, resets invoice state
@@ -135,6 +139,7 @@ function InvoicesDetailDialog:onOpen()
     self.invoice = nil
     self.items = {}
     self.displayItems = {}
+    self.pendingSecondaryAction = nil
     self:resizeTitleSep()
 end
 
@@ -153,13 +158,17 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
             self.textTitle:setText(invNumber)
         end
 
+        local isProposed = (invoice.state == Invoice.STATE.PROPOSED)
         local isPaid = (invoice.state == Invoice.STATE.PAID)
         local penaltyAmount = invoice.penaltyAmount or 0
-        local isOverdue = (not isPaid and penaltyAmount > 0)
+        local isOverdue = (not isPaid and not isProposed and penaltyAmount > 0)
         if self.textStatus then
             local statusText
             local color
-            if isPaid then
+            if isProposed then
+                statusText = g_i18n:getText("invoice_status_proposed")
+                color = InvoicesDetailDialog.COLOR_PROPOSED
+            elseif isPaid then
                 statusText = g_i18n:getText("invoice_status_paid")
                 color = InvoicesDetailDialog.COLOR_PAID
             elseif isOverdue then
@@ -218,33 +227,33 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
             end
         end
 
-        if self.textVatHt ~= nil and self.textVatTva ~= nil then
+        if self.textVatHt ~= nil and self.textVat ~= nil then
             local vatAmount = invoice.vatAmount or 0
+            -- Discount shown in the footer = real reduction of the invoiced amount.
+            local discountAmount = Invoice.computeTotalDiscountAmount(invoice.lineItems)
+
+            local htValue, vatValue
             if vatAmount > 0 then
                 local totalHT = invoice.totalHT or invoice.totalAmount
-                local htText = string.format("%s :  %s", g_i18n:getText("invoice_label_subtotal_ht"), g_i18n:formatMoney(totalHT, 0, true, false))
-                local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_label_vat"), g_i18n:formatMoney(vatAmount, 0, true, false))
-                self.textVatHt:setText(htText)
-                self.textVatTva:setText(tvaText)
-                self.textVatTva:setTextColor(0.5, 0.5, 0.5, 1)
-                self.textVatHt:setVisible(true)
-                self.textVatTva:setVisible(true)
-                if self.totalSep ~= nil then
-                    self.totalSep:setVisible(true)
-                    self:resizeTotalSep(htText, tvaText, totalText)
-                end
+                htValue = g_i18n:formatMoney(totalHT, 0, true, false)
+                vatValue = g_i18n:formatMoney(vatAmount, 0, true, false)
             else
-                local htText = string.format("%s :  %s", g_i18n:getText("invoice_label_subtotal_ht"), g_i18n:getText("invoice_label_na"))
-                local tvaText = string.format("%s :  %s", g_i18n:getText("invoice_label_vat"), g_i18n:getText("invoice_label_na"))
-                self.textVatHt:setText(htText)
-                self.textVatTva:setText(tvaText)
-                self.textVatTva:setTextColor(0.5, 0.5, 0.5, 1)
-                self.textVatHt:setVisible(true)
-                self.textVatTva:setVisible(true)
-                if self.totalSep ~= nil then
-                    self.totalSep:setVisible(true)
-                    self:resizeTotalSep(htText, tvaText, totalText)
-                end
+                htValue = g_i18n:getText("invoice_label_na")
+                vatValue = g_i18n:getText("invoice_label_na")
+            end
+            local htText = string.format("%s :  %s", g_i18n:getText("invoice_label_subtotal_ht"), htValue)
+            local vatText = string.format("%s :  %s", g_i18n:getText("invoice_label_vat"), vatValue)
+            self.textVatHt:setText(htText)
+            self.textVat:setText(vatText)
+            self.textVat:setTextColor(0.5, 0.5, 0.5, 1)
+            self.textVatHt:setVisible(true)
+            self.textVat:setVisible(true)
+
+            self:layoutTotalBreakdown(discountAmount)
+
+            if self.totalSep ~= nil then
+                self.totalSep:setVisible(true)
+                self:resizeTotalSep(htText, vatText, totalText)
             end
         end
 
@@ -279,10 +288,41 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
         end
     end
 
+    local isProposalInvoice = (invoice ~= nil and invoice.state == Invoice.STATE.PROPOSED)
+    local currentFarmId = self:getCurrentFarmId()
+    local viewerIsSender = (invoice ~= nil and currentFarmId == invoice.senderFarmId)
+    local viewerIsRecipient = (invoice ~= nil and currentFarmId == invoice.recipientFarmId)
+    local secondaryAction, secondaryTextKey = self:getSecondaryActionInfo(currentFarmId)
+    local showPay = self.isIncoming and viewerIsRecipient
+
     if self.btnPay then
-        self.btnPay:setVisible(true)
-        local canPay = (invoice ~= nil and self.isIncoming and invoice.state ~= Invoice.STATE.PAID)
+        -- Visible only for incoming invoices of the recipient farm. Grayed when not yet payable.
+        self.btnPay:setVisible(showPay)
+        local canPay = showPay and not isProposalInvoice
+            and invoice ~= nil and invoice.state == Invoice.STATE.NEW
         self.btnPay:setDisabled(not canPay)
+    end
+
+    -- Validate is sender-only; the secondary button is resolved as cancel/refuse below.
+    local showValidate = isProposalInvoice and viewerIsSender
+    if self.btnValidate then
+        self.btnValidate:setVisible(showValidate)
+    end
+    if self.sepValidateRefuse then
+        self.sepValidateRefuse:setVisible(showValidate and secondaryAction ~= nil)
+    end
+    if self.btnRefuse then
+        self.btnRefuse:setVisible(secondaryAction ~= nil)
+        if secondaryTextKey ~= nil then
+            self.btnRefuse:setText(g_i18n:getText(secondaryTextKey))
+        end
+    end
+    -- Visible only when at least one action button is shown.
+    if self.sepClose then
+        self.sepClose:setVisible(showPay or showValidate or secondaryAction ~= nil)
+    end
+    if self.buttonBox ~= nil and self.buttonBox.invalidateLayout ~= nil then
+        self.buttonBox:invalidateLayout()
     end
 
     if self.listItems then
@@ -309,6 +349,7 @@ function InvoicesDetailDialog:buildDisplayItems()
                     iconFilename = item.iconFilename,
                     unitType     = item.unitType,
                     vatRate      = item.vatRate,
+                    discountRate = item.discountRate,
                     fieldId      = 0,
                     fieldArea    = 0,
                     quantity     = 0,
@@ -331,7 +372,7 @@ function InvoicesDetailDialog:buildDisplayItems()
 
     for _, gk in ipairs(consumableOrder) do
         local group = consumableGroups[gk]
-        group.price = group.quantity > 0 and math.floor(group.amount / group.quantity) or 0
+        -- Keep the base unit price captured at creation (not the discounted amount / qty).
         table.insert(self.displayItems, group)
     end
 end
@@ -360,22 +401,6 @@ function InvoicesDetailDialog:getNumberOfItemsInSection(list, section)
     return #self.displayItems
 end
 
----Returns title for given section header
--- @param table list SmoothList element
--- @param integer section Section index
--- @return string title Empty string
-function InvoicesDetailDialog:getTitleForSectionHeader(list, section)
-    return nil
-end
-
----Returns height for given section header
--- @param table list SmoothList element
--- @param integer section Section index
--- @return float height Always 0
-function InvoicesDetailDialog:getSectionHeaderHeight(list, section)
-    return 0
-end
-
 ---Populates a list cell with line item data including icon, designation, quantity, unit, VAT and amount
 -- @param table list SmoothList element
 -- @param integer section Section index
@@ -387,7 +412,6 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
 
     local manager = g_currentMission.invoicesManager
     local workType = manager and manager:getWorkTypeById(item.workTypeId)
-    local amount = item.amount or 0
 
     -- Use persisted name (with product in parentheses), fallback to workType nameKey
     local designation
@@ -412,75 +436,23 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
         fieldStr = "—"
     end
 
-    local qtyStr = ""
-    local unitStr = ""
-    local unitPriceStr = ""
-
-    if item.unitType == Invoice.UNIT_HECTARE then
-        local area = item.fieldArea or 0
-        qtyStr = string.format("%.2f", area)
-        unitStr = g_i18n:getText("invoice_invoices_unit_hectare")
-        if item.price ~= nil and item.price > 0 then
-            unitPriceStr = g_i18n:formatMoney(item.price)
-        elseif area > 0 then
-            unitPriceStr = g_i18n:formatMoney(amount / area)
-        end
-    elseif item.unitType == Invoice.UNIT_LITER then
-        local qty = item.quantity or 0
-        qtyStr = string.format("%.0f", qty)
-        unitStr = g_i18n:getText("invoice_invoices_unit_liter")
-        if item.price ~= nil and item.price > 0 then
-            unitPriceStr = g_i18n:formatMoney(item.price)
-        elseif qty > 0 then
-            unitPriceStr = g_i18n:formatMoney(amount * 1000 / qty)
-        end
-    elseif item.unitType == Invoice.UNIT_HOUR then
-        local qty = item.quantity or 0
-        qtyStr = string.format("%.2f", qty)
-        unitStr = g_i18n:getText("invoice_invoices_unit_hour")
-        if item.price ~= nil and item.price > 0 then
-            unitPriceStr = g_i18n:formatMoney(item.price)
-        elseif qty > 0 then
-            unitPriceStr = g_i18n:formatMoney(amount / qty)
-        end
-    else
-        local qty = math.max(1, item.quantity or 1)
-        qtyStr = string.format("%d", qty)
-        unitStr = g_i18n:getText("invoice_invoices_unit_piece")
-        if item.price ~= nil and item.price > 0 then
-            unitPriceStr = g_i18n:formatMoney(item.price)
-        elseif qty > 0 then
-            unitPriceStr = g_i18n:formatMoney(amount / qty)
-        end
-    end
-
-    local amountStr = g_i18n:formatMoney(amount)
-
-    local vatRate = item.vatRate or 0
-    local vatStr = g_i18n:getText("invoice_label_na")
-    if vatRate > 0 then
-        vatStr = string.format("%.1f%%", vatRate * 100)
-    end
+    local lineValues = InvoicesGuiUtils.formatLineItemValues(item, {
+        unitField = "unitType",
+        useFieldAreaForHectare = true,
+        minPieceQuantity = true,
+        rebuildUnitPriceFromAmount = true,
+        pieceQuantityFormat = "%d",
+        zeroVatText = g_i18n:getText("invoice_label_na"),
+        useDefaultMoneyFormat = true
+    })
 
     local cellDesignation = cell:getDescendantByName("cellDesignation")
     if cellDesignation ~= nil then
         if hasIcon and cellIcon ~= nil then
-            local baseName = designation
-            local parenStart = string.find(designation, "%(")
-            if parenStart ~= nil then
-                local inner = string.sub(designation, parenStart + 1, #designation - 1)
-                if inner ~= "" then
-                    baseName = inner
-                end
-            end
-            local textSize = 14 * g_pixelSizeScaledY
-            setTextBold(false)
-            local spaceWidth = getTextWidth(textSize, " ")
-            local iconPadding = 22 * g_pixelSizeScaledX
-            local numSpaces = math.ceil(iconPadding / spaceWidth)
+            local baseName = InvoicesGuiUtils.getParenthesizedDisplayName(designation)
             cellIcon:setImageFilename(resolvedIcon)
             cellIcon:setVisible(true)
-            designation = string.rep(" ", numSpaces) .. baseName
+            designation = InvoicesGuiUtils.getIconPaddedText(baseName, 14 * g_pixelSizeScaledY, false)
         end
         cellDesignation:setText(designation)
     end
@@ -489,15 +461,17 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
     local cellQty         = cell:getDescendantByName("cellQty")
     local cellUnit        = cell:getDescendantByName("cellUnit")
     local cellUnitPrice   = cell:getDescendantByName("cellUnitPrice")
+    local cellDiscount    = cell:getDescendantByName("cellDiscount")
     local cellVat         = cell:getDescendantByName("cellVat")
     local cellAmount      = cell:getDescendantByName("cellAmount")
 
     if cellField       then cellField:setText(fieldStr) end
-    if cellQty         then cellQty:setText(qtyStr) end
-    if cellUnit        then cellUnit:setText(unitStr) end
-    if cellUnitPrice   then cellUnitPrice:setText(unitPriceStr) end
-    if cellVat         then cellVat:setText(vatStr) end
-    if cellAmount      then cellAmount:setText(amountStr) end
+    if cellQty         then cellQty:setText(lineValues.qty) end
+    if cellUnit        then cellUnit:setText(lineValues.unit) end
+    if cellUnitPrice   then cellUnitPrice:setText(lineValues.unitPrice) end
+    if cellDiscount    then cellDiscount:setText(lineValues.discount) end
+    if cellVat         then cellVat:setText(lineValues.vat) end
+    if cellAmount      then cellAmount:setText(lineValues.amount) end
 end
 
 ---Called when list selection changes
@@ -528,25 +502,7 @@ function InvoicesDetailDialog:onClickPay()
         InfoDialog.show(g_i18n:getText("invoice_error_insufficient_funds"))
         return
     end
-    local senderFarm = g_farmManager:getFarmById(self.invoice.senderFarmId)
-    local farmName = senderFarm and senderFarm.name or ""
-    local confirmText = string.format(g_i18n:getText("invoice_confirm_pay"),
-                                     g_i18n:formatMoney(totalDue),
-                                     farmName)
-
-    local details = {}
-    if (self.invoice.vatAmount or 0) > 0 then
-        local vatStr = g_i18n:formatMoney(self.invoice.vatAmount, 0, true, false)
-        local vatLabel = g_i18n:getText("invoice_label_vat")
-        table.insert(details, string.format(g_i18n:getText("invoice_notification_vat_incl"), vatLabel, vatStr))
-    end
-    if (self.invoice.penaltyAmount or 0) > 0 then
-        local penStr = g_i18n:formatMoney(self.invoice.penaltyAmount, 0, true, false)
-        table.insert(details, string.format(g_i18n:getText("invoice_notification_penalty_incl"), penStr))
-    end
-    if #details > 0 then
-        confirmText = confirmText .. "\n(" .. table.concat(details, ", ") .. ")"
-    end
+    local confirmText = manager.service:buildPaymentConfirmText(self.invoice, g_i18n)
 
     YesNoDialog.show(self.onPayConfirmed, self, confirmText)
 end
@@ -558,6 +514,111 @@ function InvoicesDetailDialog:onPayConfirmed(confirmed)
         local manager = g_currentMission.invoicesManager
         if manager then
             manager:payInvoice(self.invoice.id)
+            self:close()
+        end
+    end
+end
+
+---Returns the current player's farm ID
+-- @return integer farmId Player farm id or -1
+function InvoicesDetailDialog:getCurrentFarmId()
+    if g_localPlayer ~= nil and g_localPlayer.farmId ~= nil then
+        return g_localPlayer.farmId
+    end
+    if g_farmManager ~= nil and g_currentMission ~= nil then
+        local farm = g_farmManager:getFarmByUserId(g_currentMission.playerUserId)
+        if farm ~= nil then
+            return farm.farmId
+        end
+    end
+    return -1
+end
+
+---Returns the available negative action for the current viewer, if any.
+-- @param integer? currentFarmId Current viewer farm id
+-- @return integer|nil action Secondary action identifier
+-- @return string|nil textKey Button localization key
+-- @return string|nil confirmKey Confirmation localization key
+function InvoicesDetailDialog:getSecondaryActionInfo(currentFarmId)
+    if self.invoice == nil then
+        return nil, nil, nil
+    end
+
+    currentFarmId = currentFarmId or self:getCurrentFarmId()
+    if self.invoice.state == Invoice.STATE.PROPOSED then
+        if currentFarmId == self.invoice.senderFarmId then
+            return InvoicesDetailDialog.SECONDARY_REFUSE, "invoice_btn_refuse", "invoice_confirm_refuse"
+        end
+        if currentFarmId == self.invoice.recipientFarmId then
+            return InvoicesDetailDialog.SECONDARY_CANCEL, "invoice_btn_cancel", "invoice_confirm_cancel_proposal"
+        end
+    elseif self.invoice.state == Invoice.STATE.NEW and currentFarmId == self.invoice.senderFarmId then
+        return InvoicesDetailDialog.SECONDARY_CANCEL, "invoice_btn_cancel", "invoice_confirm_cancel_invoice"
+    end
+
+    return nil, nil, nil
+end
+
+---Handles validate button click for a proposal (issuer/sender only)
+function InvoicesDetailDialog:onClickValidate()
+    if self.invoice == nil or self.invoice.state ~= Invoice.STATE.PROPOSED then
+        return
+    end
+    local manager = g_currentMission.invoicesManager
+    if manager == nil then return end
+    if not manager:getHasFarmManagerPermission() then
+        InfoDialog.show(g_i18n:getText("invoice_error_permission_required"))
+        return
+    end
+    -- Authority is enforced server-side; this is the UI guard.
+    if self:getCurrentFarmId() ~= self.invoice.senderFarmId then
+        return
+    end
+    YesNoDialog.show(self.onValidateConfirmed, self, g_i18n:getText("invoice_confirm_validate"))
+end
+
+---Callback for validate confirmation dialog
+-- @param boolean confirmed True if user confirmed validation
+function InvoicesDetailDialog:onValidateConfirmed(confirmed)
+    if confirmed and self.invoice then
+        local manager = g_currentMission.invoicesManager
+        if manager then
+            manager:validateProposal(self.invoice.id)
+            self:close()
+        end
+    end
+end
+
+---Handles the negative action button click (cancel/refuse)
+function InvoicesDetailDialog:onClickRefuse()
+    local action, _, confirmKey = self:getSecondaryActionInfo()
+    if action == nil then
+        return
+    end
+    local manager = g_currentMission.invoicesManager
+    if manager == nil then return end
+    if not manager:getHasFarmManagerPermission() then
+        InfoDialog.show(g_i18n:getText("invoice_error_permission_required"))
+        return
+    end
+    self.pendingSecondaryAction = action
+    YesNoDialog.show(self.onSecondaryActionConfirmed, self, g_i18n:getText(confirmKey))
+end
+
+---Callback for negative action confirmation dialog
+-- @param boolean confirmed True if user confirmed the action
+function InvoicesDetailDialog:onSecondaryActionConfirmed(confirmed)
+    local action = self.pendingSecondaryAction
+    self.pendingSecondaryAction = nil
+
+    if confirmed and self.invoice and action ~= nil then
+        local manager = g_currentMission.invoicesManager
+        if manager then
+            if action == InvoicesDetailDialog.SECONDARY_REFUSE then
+                manager:refuseProposal(self.invoice.id)
+            else
+                manager:deleteInvoice(self.invoice.id)
+            end
             self:close()
         end
     end

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
     <elements>
         <e k="invoice_menu_title" v="Faturação" />
@@ -10,10 +10,9 @@
         <e k="invoice_col_farm" v="Quinta" />
         <e k="invoice_col_amount" v="Valor" />
         <e k="invoice_col_field" v="Campo" />
-        <e k="invoice_col_stock" v="Stock" />
+        <e k="invoice_col_stock" v="Existências" />
         <e k="invoice_btn_newInvoice" v="Nova Fatura" />
         <e k="invoice_btn_payInvoice" v="Pagar" />
-        <e k="invoice_btn_deleteInvoice" v="Eliminar" />
         <e k="invoice_btn_showDetails" v="Detalhes" />
         <e k="invoice_btn_cancel" v="Cancelar" />
         <e k="invoice_btn_close" v="Fechar" />
@@ -22,12 +21,18 @@
         <e k="invoice_label_to" v="Para:" />
         <e k="invoice_label_note" v="Observações:" />
         <e k="invoice_placeholder_note" v="Adicionar nota ou referência" />
+        <!-- Dialogs -->
         <e k="invoice_dialog_details" v="Detalhes da Fatura" />
+        <e k="invoice_dialog_rename_prompt" v="Insira a designação da linha" />
         <e k="invoice_wizard_mainTitle" v="NOVA FATURA" />
         <e k="invoice_wizard_step1_label" v="Cliente" />
         <e k="invoice_wizard_step2_label" v="Trabalho" />
         <e k="invoice_wizard_step3_label" v="Campos" />
-        <e k="invoice_btn_sendInvoice" v="Enviar Fatura" />
+        <e k="invoice_btn_sendInvoice" v="Enviar fatura" />
+        <e k="invoice_btn_sendRequest" v="Enviar pedido" />
+        <!-- Wizard actions -->
+        <e k="invoice_action_remove" v="Remover" />
+        <e k="invoice_action_rename" v="Renomear" />
         <e k="invoice_wizard_invoice_created" v="Fatura criada com sucesso!" />
         <e k="invoice_wizard_invoice_failed" v="Erro ao criar." />
         <e k="invoice_wizard_client_fields" v="Campos do cliente" />
@@ -49,8 +54,9 @@
         <e k="invoice_empty_list" v="Sem faturas" />
         <e k="invoice_format_inv_number" v="FAT-%03d" />
         <e k="invoice_format_services_count" v="%d linha(s)" />
-        <e k="invoice_confirm_pay" v="Confirmar pagamento para '%s'?" />
-        <e k="invoice_confirm_delete" v="Eliminar permanentemente?" />
+        <e k="invoice_confirm_pay" v="Confirmar pagamento de %s para '%s'?" />
+        <e k="invoice_confirm_cancel_invoice" v="Cancelar esta fatura?" />
+        <e k="invoice_confirm_cancel_proposal" v="Cancelar este pedido de fatura?" />
         <e k="invoice_confirm_send" v="Enviar fatura de %s para %s?" />
         <e k="invoice_notification_new" v="Fatura recebida de %s: %s" />
         <e k="invoice_reminder_single" v="Fatura não paga: %s" />
@@ -151,5 +157,28 @@
         <e k="invoice_dialog_selectVehicle" v="Veículo" />
         <e k="invoice_col_vehicle_name" v="Veículo" />
         <e k="invoice_error_single_farm" v="São necessárias pelo menos duas fazendas para criar faturas." />
+        <!-- Invoice proposals -->
+        <e k="invoice_status_proposed" v="A aguardar validação" />
+        <e k="invoice_choice_create" v="Faturar uma quinta" />
+        <e k="invoice_choice_propose" v="Solicitar uma fatura" />
+        <e k="invoice_choice_create_button" v="Faturar" />
+        <e k="invoice_choice_propose_button" v="Solicitar fatura" />
+        <e k="invoice_btn_validate" v="Validar" />
+        <e k="invoice_btn_refuse" v="Recusar" />
+        <e k="invoice_wizard_propose_title" v="SOLICITAR UMA FATURA" />
+        <e k="invoice_confirm_propose" v="Solicitar uma fatura de %s para validação de %s?" />
+        <e k="invoice_propose_sent" v="Pedido enviado!" />
+        <e k="invoice_confirm_validate" v="Validar este pedido e torná-lo pagável?" />
+        <e k="invoice_confirm_refuse" v="Recusar e eliminar este pedido?" />
+        <e k="invoice_notification_proposal" v="Solicitação de fatura recebida de %s: %s" />
+        <e k="invoice_choice_body" v="O que pretende fazer?" />
+        <e k="invoice_choice_create_hint" v="A sua quinta envia uma fatura. A quinta selecionada terá de pagar." />
+        <e k="invoice_choice_propose_hint" v="A quinta selecionada terá de validar. A sua quinta pagará após a validação." />
+        <e k="invoice_reminder_proposal_single" v="Pedido de fatura a validar: %s" />
+        <e k="invoice_reminder_proposal_multiple" v="%d pedidos de fatura a validar (total: %s)" />
+        <e k="invoice_wizard_step1_label_proposal" v="Emissor" />
+        <!-- Commercial discount -->
+        <e k="invoice_step4_col_discount" v="Desconto %" />
+        <e k="invoice_label_discount" v="Desconto" />
     </elements>
 </l10n>

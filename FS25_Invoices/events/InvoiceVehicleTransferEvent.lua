@@ -57,18 +57,15 @@ function InvoiceVehicleTransferEvent:run(connection)
     if not connection:getIsServer() then
         local player = g_currentMission.connectionsToPlayer[connection]
         if player == nil or player.farmId ~= self.senderFarmId then
-            Logging.warning("[InvoiceVehicleTransferEvent] Server rejected: connection farmId mismatch (claimed=%d)", self.senderFarmId or -1)
             return
         end
 
         if not g_currentMission:getHasPlayerPermission("farmManager", connection) then
-            Logging.warning("[InvoiceVehicleTransferEvent] Server rejected: player lacks farmManager permission")
             return
         end
 
         local ownerFarmId = vehicle.getOwnerFarmId ~= nil and vehicle:getOwnerFarmId() or vehicle.ownerFarmId
         if ownerFarmId ~= self.senderFarmId then
-            Logging.warning("[InvoiceVehicleTransferEvent] Server rejected: vehicle not owned by sender farm %d", self.senderFarmId)
             return
         end
 
