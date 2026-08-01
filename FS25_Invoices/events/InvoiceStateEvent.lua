@@ -1,5 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Network event for pay/delete with server-authoritative money transfers.
+---Network event for server-authoritative invoice actions
 InvoiceStateEvent = {}
 local InvoiceStateEvent_mt = Class(InvoiceStateEvent, Event)
 
@@ -11,7 +11,7 @@ InvoiceStateEvent.ACTION_VALIDATE = 3
 InvoiceStateEvent.ACTION_REFUSE = 4
 
 ---Creates empty event instance
--- @return InvoiceStateEvent instance Empty event
+-- @return InvoiceStateEvent Empty event instance
 function InvoiceStateEvent.emptyNew()
     local self = Event.new(InvoiceStateEvent_mt)
     return self
@@ -20,7 +20,7 @@ end
 ---Creates initialized invoice state event
 -- @param integer invoiceId Invoice identifier
 -- @param integer action Action to perform
--- @return InvoiceStateEvent instance The new event instance
+-- @return InvoiceStateEvent New event instance
 function InvoiceStateEvent.new(invoiceId, action)
     local self = InvoiceStateEvent.emptyNew()
     self.invoiceId = invoiceId

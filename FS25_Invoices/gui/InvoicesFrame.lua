@@ -1,5 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- InGameMenu tab frame: incoming/outgoing invoice lists with pay, delete, and detail navigation.
+---InGameMenu frame for incoming and outgoing invoices
 InvoicesFrame = {}
 InvoicesFrame._mt = Class(InvoicesFrame, TabbedMenuFrameElement)
 
@@ -14,7 +14,7 @@ InvoicesFrame.NATIVE_DOCKED_SLIDER_OFFSET_Y = 10
 ---Creates new invoices frame instance
 -- @param table i18n Internationalization context
 -- @param table messageCenter Message center instance
--- @return InvoicesFrame instance The new frame instance
+-- @return InvoicesFrame New frame instance
 function InvoicesFrame.new(i18n, messageCenter)
     local self = InvoicesFrame:superClass().new(nil, InvoicesFrame._mt)
     
@@ -124,7 +124,7 @@ function InvoicesFrame:initialize()
 end
 
 ---Returns menu button info for the current tab
--- @return table buttonInfo Array of button definitions
+-- @return table Button definitions
 function InvoicesFrame:getMenuButtonInfo()
     if self.menuButtonInfo == nil then
         return {}
@@ -178,6 +178,8 @@ function InvoicesFrame:onFrameClose()
     g_currentMission.invoicesFrame = nil
 end
 
+---Updates screen-edge slider positions
+-- @param number dt Elapsed time in milliseconds
 function InvoicesFrame:update(dt)
     InvoicesFrame:superClass().update(self, dt)
     self:updateScreenEdgeSliders()
@@ -208,6 +210,10 @@ function InvoicesFrame:updateSubCategoryPages()
     self:setMenuButtonInfoDirty()
 end
 
+---Binds sortable headers and icons for an invoice tab
+-- @param integer tab Invoice tab identifier
+-- @param table headers Table header elements
+-- @param table icons Sort icon elements
 function InvoicesFrame:bindSortHeaders(tab, headers, icons)
     local sort = self.invoiceSort[tab]
     for index, header in ipairs(headers or {}) do
@@ -232,6 +238,10 @@ function InvoicesFrame:bindSortHeaders(tab, headers, icons)
     self:updateSortHeaders(tab)
 end
 
+---Returns sort controls for an invoice tab
+-- @param integer tab Invoice tab identifier
+-- @return table Table header elements
+-- @return table Sort icon elements
 function InvoicesFrame:getSortControls(tab)
     if tab == InvoicesFrame.TAB.INCOMING then
         return self.incomingSortHeaders, self.incomingSortIcons
@@ -240,6 +250,8 @@ function InvoicesFrame:getSortControls(tab)
     return self.outgoingSortHeaders, self.outgoingSortIcons
 end
 
+---Updates sort header and icon states
+-- @param integer tab Invoice tab identifier
 function InvoicesFrame:updateSortHeaders(tab)
     local sort = self.invoiceSort[tab]
     local headers, icons = self:getSortControls(tab)
@@ -260,6 +272,9 @@ function InvoicesFrame:updateSortHeaders(tab)
     end
 end
 
+---Positions a sort icon beside its header text
+-- @param table header Table header element
+-- @param table icon Sort icon element
 function InvoicesFrame:positionSortIcon(header, icon)
     local textX = header:getTextPositionX()
     local textWidth = header:getTextWidth()
@@ -276,6 +291,9 @@ function InvoicesFrame:positionSortIcon(header, icon)
     icon:setAbsolutePosition(x, y)
 end
 
+---Handles an invoice sort header click
+-- @param integer tab Invoice tab identifier
+-- @param table header Table header element
 function InvoicesFrame:onClickInvoiceSort(tab, header)
     local sort = self.invoiceSort[tab]
 
@@ -298,6 +316,9 @@ function InvoicesFrame:onClickInvoiceSort(tab, header)
     self:refreshList()
 end
 
+---Sorts invoices using the active tab sort definition
+-- @param table invoices Invoice array
+-- @param integer tab Invoice tab identifier
 function InvoicesFrame:sortInvoicesForTab(invoices, tab)
     local sort = self.invoiceSort[tab]
     table.sort(invoices, function(a, b)
@@ -319,6 +340,11 @@ function InvoicesFrame:sortInvoicesForTab(invoices, tab)
     end)
 end
 
+---Returns the counterparty farm shown for an invoice tab
+-- @param table invoice Invoice data
+-- @param integer tab Invoice tab identifier
+-- @param integer? currentFarmId Viewing farm identifier
+-- @return integer Counterparty farm identifier
 function InvoicesFrame:getDisplayFarmIdForTab(invoice, tab, currentFarmId)
     local viewerFarmId = currentFarmId or self:getCurrentFarmId()
 
@@ -338,6 +364,11 @@ function InvoicesFrame:getDisplayFarmIdForTab(invoice, tab, currentFarmId)
     return invoice.recipientFarmId
 end
 
+---Returns an invoice value for a sort column
+-- @param table invoice Invoice data
+-- @param integer tab Invoice tab identifier
+-- @param string column Sort column name
+-- @return number|string Sort value
 function InvoicesFrame:getInvoiceSortValue(invoice, tab, column)
     if column == "number" then
         return invoice.id or 0
@@ -372,6 +403,9 @@ function InvoicesFrame:getInvoiceSortValue(invoice, tab, column)
     return 0
 end
 
+---Returns invoice service text for sorting
+-- @param table invoice Invoice data
+-- @return string Service text
 function InvoicesFrame:getInvoiceServiceSortText(invoice)
     local manager = g_currentMission.invoicesManager
     local service = manager ~= nil and manager.service or nil
@@ -467,6 +501,7 @@ function InvoicesFrame:refreshList()
     self:updateButtonStates()
 end
 
+---Refreshes invoice list slider bindings
 function InvoicesFrame:refreshInvoiceSliders()
     if self.invoiceSlider ~= nil and self.listInvoices ~= nil then
         self.invoiceSlider:onBindUpdate(self.listInvoices)
@@ -476,6 +511,7 @@ function InvoicesFrame:refreshInvoiceSliders()
     end
 end
 
+---Updates slider visibility for the active tab
 function InvoicesFrame:updateSliderVisibility()
     if self.invoiceSliderBox then
         self.invoiceSliderBox:setVisible(self.currentTab == InvoicesFrame.TAB.INCOMING)
@@ -485,6 +521,7 @@ function InvoicesFrame:updateSliderVisibility()
     end
 end
 
+---Docks invoice sliders to the screen edge
 function InvoicesFrame:updateScreenEdgeSliders()
     local sliderBoxes = {
         self.invoiceSliderBox,
@@ -519,7 +556,7 @@ function InvoicesFrame:onSelectionChanged(index)
 end
 
 ---Returns the current player farm ID
--- @return integer farmId
+-- @return integer Current farm identifier or -1
 function InvoicesFrame:getCurrentFarmId()
     local farm = g_farmManager:getFarmByUserId(g_currentMission.playerUserId)
     if farm then
@@ -528,6 +565,10 @@ function InvoicesFrame:getCurrentFarmId()
     return -1
 end
 
+---Returns whether a farm can cancel an invoice
+-- @param table? invoice Invoice data
+-- @param integer farmId Farm identifier
+-- @return boolean True when cancellation is allowed
 function InvoicesFrame:canCancelInvoice(invoice, farmId)
     if invoice == nil then
         return false
@@ -600,7 +641,6 @@ function InvoicesFrame:onClickNewInvoice()
             return
         end
     end
-    -- Intermediate choice: create a normal invoice, or propose an invoice to be validated.
     g_gui:showDialog("InvoicesChoiceDialog")
 end
 

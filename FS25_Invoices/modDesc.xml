@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="110">
+<modDesc descVersion="111">
     <author>Squallqt</author>
-    <version>1.2.0.0</version>
+    <version>1.2.1.0</version>
     <title>
         <en>Invoices</en>
         <de>Rechnungen</de>
@@ -27,6 +27,9 @@ Access via the dedicated tab in the InGame Menu (ESC).
 
 Changelog:
 
+1.2.1.0:
+- Fixed field area on hectare-based invoicing: enlarged or trimmed fields now bill their measured worked area. Thanks to jordan-picard for reporting this issue in GitHub Issue #13
+- Improved multiplayer safety: invoices are now only synced from the host, preventing corrupted or tampered invoice data on clients. Thanks to KeilerHirsch: https://github.com/KeilerHirsch
 1.2.0.0:
 - Fixed pallet pricing: output pallets (milk, cheese, etc.) now use the current market price instead of the store purchase price
 - Added invoice proposals: propose an invoice you will pay, to be approved by the issuing farm
@@ -56,7 +59,10 @@ Changelog:
 - Fixed price and quantity input fields
 - Existing invoices from v1.0 are fully preserved on update
 1.0.0.0:
-- Initial release]]></en>
+- Initial release
+
+© 2026 Squallqt. All rights reserved.
+Please download this mod only from the official Farming Simulator ModHub and keep the original link. Reuploading, redistribution, modification or copying of this mod or any of its files, in whole or in part, is not permitted without the author's written consent.]]></en>
         <de><![CDATA[Erstellen, versenden, schlagen Sie Rechnungen vor und verfolgen Sie Rechnungen zwischen Betrieben im Mehrspielermodus.
 
 Ideal für Lohnunternehmen und strukturierte MP-Server: Invoices ermöglicht die Abrechnung von Feldarbeit, Transport, Forstarbeit, Tierpflege und Direktverkäufen zwischen Betrieben.
@@ -76,6 +82,9 @@ Zugriff über den eigenen Tab im InGame-Menü (ESC).
 
 Changelog:
 
+1.2.1.0:
+- Feldfläche bei Abrechnung pro Hektar korrigiert: vergrößerte oder verkleinerte Felder verwenden nun ihre gemessene bearbeitete Fläche. Vielen Dank an jordan-picard für den Hinweis in GitHub Issue #13
+- Mehrspieler-Sicherheit verbessert: Rechnungen werden jetzt nur noch vom Host synchronisiert, was beschädigte oder manipulierte Rechnungsdaten auf Clients verhindert. Vielen Dank an KeilerHirsch: https://github.com/KeilerHirsch
 1.2.0.0:
 - Palettenpreise korrigiert: Ausgabepaletten (Milch, Käse usw.) verwenden nun den aktuellen Marktpreis statt des Einkaufspreises
 - Rechnungsvorschläge hinzugefügt: eine zu zahlende Rechnung vorschlagen, die vom ausstellenden Betrieb bestätigt werden muss
@@ -105,7 +114,10 @@ Changelog:
 - Eingabefelder für Preis und Menge korrigiert
 - Bestehende Rechnungen aus v1.0 bleiben beim Update vollständig erhalten
 1.0.0.0:
-- Erstveröffentlichung]]></de>
+- Erstveröffentlichung
+
+© 2026 Squallqt. Alle Rechte vorbehalten.
+Bitte lade diesen Mod ausschließlich aus dem offiziellen Farming Simulator ModHub herunter und behalte den originalen Link bei. Das erneute Hochladen, die Weitergabe, Veränderung oder das Kopieren dieses Mods oder seiner Dateien, ganz oder teilweise, ist ohne die schriftliche Zustimmung des Autors nicht gestattet.]]></de>
         <fr><![CDATA[Créez, envoyez, proposez et suivez des factures entre fermes en multijoueur.
 
 Idéal pour les serveurs RP et les parties orientées ETA, Invoices permet de facturer les travaux des champs, le transport, la foresterie, les soins aux animaux et les ventes directes entre fermes.
@@ -125,6 +137,9 @@ Accès via l'onglet dédié dans le menu en jeu (ECHAP).
 
 Changelog :
 
+1.2.1.0 :
+- Correction de la surface des parcelles pour la facturation à l'hectare : les parcelles agrandies ou réduites sont désormais facturées sur leur surface travaillée mesurée. Merci à jordan-picard pour le signalement dans l'issue GitHub #13
+- Sécurité multijoueur améliorée : les factures ne sont désormais synchronisées que depuis l'hôte, ce qui empêche des données de facture corrompues ou falsifiées sur les clients. Merci à KeilerHirsch : https://github.com/KeilerHirsch
 1.2.0.0 :
 - Correction du prix des palettes : les palettes de production (lait, fromage, etc.) utilisent désormais le prix du marché actuel au lieu du prix d'achat en boutique
 - Ajout des propositions de facture : proposer une facture que vous paierez, à valider par la ferme émettrice
@@ -154,7 +169,10 @@ Changelog :
 - Correction de la saisie dans les champs prix et quantité
 - Les factures créées en v1.0 sont intégralement conservées lors de la mise à jour
 1.0.0.0 :
-- Publication initiale]]></fr>
+- Publication initiale
+
+© 2026 Squallqt. Tous droits réservés.
+Merci de télécharger ce mod uniquement depuis le ModHub officiel de Farming Simulator et de conserver le lien original. La remise en ligne, la redistribution, la modification ou la copie de ce mod ou de l'un de ses fichiers, en tout ou partie, ne sont pas autorisées sans l'accord écrit de l'auteur.]]></fr>
     </description>
     <iconFilename>icon_Invoices.dds</iconFilename>
     <multiplayer supported="true" />

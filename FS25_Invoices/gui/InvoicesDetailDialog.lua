@@ -1,5 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Detail view dialog rendering line items, VAT breakdown, penalty bar, status label, and pay action.
+---Dialog for displaying invoice details and actions
 InvoicesDetailDialog = {}
 local InvoicesDetailDialog_mt = Class(InvoicesDetailDialog, MessageDialog)
 
@@ -45,7 +45,7 @@ InvoicesDetailDialog.SECONDARY_REFUSE = 2
 ---Creates new invoice detail dialog instance
 -- @param table target Parent target element
 -- @param table? customMt Optional custom metatable
--- @return InvoicesDetailDialog instance The new dialog instance
+-- @return InvoicesDetailDialog New dialog instance
 function InvoicesDetailDialog.new(target, customMt)
     local self = MessageDialog.new(target, customMt or InvoicesDetailDialog_mt)
     return self
@@ -119,7 +119,7 @@ function InvoicesDetailDialog:resizeTotalSep(htText, vatText, totalText)
     )
 end
 
----Shows or hides the Discount line in the total breakdown (HT / Discount / VAT).
+---Shows or hides the discount line in the total breakdown
 -- The BoxLayout reflows so the Discount line never leaves a gap when hidden.
 -- @param number discountAmount Total discount in currency (>= 0); the line shows only when > 0
 function InvoicesDetailDialog:layoutTotalBreakdown(discountAmount)
@@ -229,7 +229,6 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
 
         if self.textVatHt ~= nil and self.textVat ~= nil then
             local vatAmount = invoice.vatAmount or 0
-            -- Discount shown in the footer = real reduction of the invoiced amount.
             local discountAmount = Invoice.computeTotalDiscountAmount(invoice.lineItems)
 
             local htValue, vatValue
@@ -296,7 +295,6 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
     local showPay = self.isIncoming and viewerIsRecipient
 
     if self.btnPay then
-        -- Visible only for incoming invoices of the recipient farm. Grayed when not yet payable.
         self.btnPay:setVisible(showPay)
         local canPay = showPay and not isProposalInvoice
             and invoice ~= nil and invoice.state == Invoice.STATE.NEW
@@ -317,7 +315,6 @@ function InvoicesDetailDialog:setInvoice(invoice, isIncoming)
             self.btnRefuse:setText(g_i18n:getText(secondaryTextKey))
         end
     end
-    -- Visible only when at least one action button is shown.
     if self.sepClose then
         self.sepClose:setVisible(showPay or showValidate or secondaryAction ~= nil)
     end
@@ -388,7 +385,7 @@ function InvoicesDetailDialog:updateSliderVisibility()
 end
 
 ---Returns number of list sections
--- @return integer count Always 1
+-- @return integer Number of sections
 function InvoicesDetailDialog:getNumberOfSections()
     return 1
 end
@@ -396,7 +393,7 @@ end
 ---Returns number of items in given section
 -- @param table list SmoothList element
 -- @param integer section Section index
--- @return integer count Number of display items
+-- @return integer Number of display items
 function InvoicesDetailDialog:getNumberOfItemsInSection(list, section)
     return #self.displayItems
 end
@@ -413,7 +410,6 @@ function InvoicesDetailDialog:populateCellForItemInSection(list, section, index,
     local manager = g_currentMission.invoicesManager
     local workType = manager and manager:getWorkTypeById(item.workTypeId)
 
-    -- Use persisted name (with product in parentheses), fallback to workType nameKey
     local designation
     if item.name ~= nil and item.name ~= "" then
         designation = item.name
@@ -520,7 +516,7 @@ function InvoicesDetailDialog:onPayConfirmed(confirmed)
 end
 
 ---Returns the current player's farm ID
--- @return integer farmId Player farm id or -1
+-- @return integer Player farm identifier or -1
 function InvoicesDetailDialog:getCurrentFarmId()
     if g_localPlayer ~= nil and g_localPlayer.farmId ~= nil then
         return g_localPlayer.farmId
@@ -534,11 +530,11 @@ function InvoicesDetailDialog:getCurrentFarmId()
     return -1
 end
 
----Returns the available negative action for the current viewer, if any.
+---Returns the available negative action for the current viewer
 -- @param integer? currentFarmId Current viewer farm id
--- @return integer|nil action Secondary action identifier
--- @return string|nil textKey Button localization key
--- @return string|nil confirmKey Confirmation localization key
+-- @return integer|nil Secondary action identifier or nil
+-- @return string|nil Button localization key or nil
+-- @return string|nil Confirmation localization key or nil
 function InvoicesDetailDialog:getSecondaryActionInfo(currentFarmId)
     if self.invoice == nil then
         return nil, nil, nil

@@ -1,10 +1,10 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Lightweight facade. Owns Repository + Service, exposed on g_currentMission.
+---Invoice repository and service facade
 InvoicesManager = {}
 local InvoicesManager_mt = Class(InvoicesManager)
 
 ---Creates new invoices manager instance
--- @return InvoicesManager instance The new manager instance
+-- @return InvoicesManager New manager instance
 function InvoicesManager.new()
     local self = setmetatable({}, InvoicesManager_mt)
 
@@ -33,6 +33,7 @@ end
 
 ---Creates and sends invoice via service
 -- @param table invoice Invoice to create
+-- @return boolean True when the invoice is created
 function InvoicesManager:createAndSendInvoice(invoice)
     return self.service:createAndSendInvoice(invoice)
 end
@@ -62,36 +63,36 @@ function InvoicesManager:refuseProposal(invoiceId)
 end
 
 ---Returns all work types
--- @return table workTypes
+-- @return table Work type definitions
 function InvoicesManager:getWorkTypes()
     return self.service:getWorkTypes()
 end
 
 ---Returns work type by identifier
 -- @param integer id Work type identifier
--- @return table|nil workType
+-- @return table|nil Work type definition or nil
 function InvoicesManager:getWorkTypeById(id)
     return self.service:getWorkTypeById(id)
 end
 
 ---Returns i18n key for a unit type
 -- @param integer unitType Unit type constant
--- @return string key
+-- @return string Unit localization key
 function InvoicesManager:getUnitKey(unitType)
     return self.service:getUnitKey(unitType)
 end
 
 ---Returns difficulty-adjusted price for a work type
 -- @param integer workTypeId Work type identifier
--- @return float price
+-- @return float Adjusted price
 function InvoicesManager:getAdjustedPrice(workTypeId)
     return self.service:getAdjustedPrice(workTypeId)
 end
 
----Returns incoming invoices for farm.
+---Returns incoming invoices for a farm
 -- Pending proposals are incoming only for the issuer farm waiting to validate them.
 -- @param integer farmId Farm identifier
--- @return table invoices Incoming invoices
+-- @return table Incoming invoices
 function InvoicesManager:getIncomingInvoices(farmId)
     local incoming = {}
 
@@ -110,10 +111,10 @@ function InvoicesManager:getIncomingInvoices(farmId)
     return incoming
 end
 
----Returns outgoing invoices for farm.
+---Returns outgoing invoices for a farm
 -- Pending proposals are outgoing only for the requester farm until validated.
 -- @param integer farmId Farm identifier
--- @return table invoices Outgoing invoices
+-- @return table Outgoing invoices
 function InvoicesManager:getOutgoingInvoices(farmId)
     local outgoing = {}
 
@@ -133,7 +134,7 @@ function InvoicesManager:getOutgoingInvoices(farmId)
 end
 
 ---Returns whether player has farmManager permission
--- @return boolean hasPermission
+-- @return boolean True when the player has farm manager permission
 function InvoicesManager:getHasFarmManagerPermission()
     if g_currentMission == nil or g_currentMission.getHasPlayerPermission == nil then
         return true
@@ -144,7 +145,7 @@ end
 ---Returns whether a farm can afford a given amount
 -- @param integer farmId Farm identifier
 -- @param integer amount Amount to check
--- @return boolean hasFunds
+-- @return boolean True when the farm has sufficient funds
 function InvoicesManager:farmHasSufficientBalance(farmId, amount)
     if g_farmManager == nil then
         return false

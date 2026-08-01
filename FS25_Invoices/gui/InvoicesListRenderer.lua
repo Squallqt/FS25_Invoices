@@ -1,5 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- SmoothList data source and delegate rendering invoice rows with status-driven color coding.
+---SmoothList data source and delegate for invoice rows
 InvoicesListRenderer = {}
 InvoicesListRenderer_mt = Class(InvoicesListRenderer)
 
@@ -13,7 +13,7 @@ InvoicesListRenderer.COLOR_OVERDUE_SELECTED = {0.45, 0.10, 0.10, 1}
 InvoicesListRenderer.COLOR_PROPOSED_SELECTED = {0.10, 0.25, 0.45, 1}
 
 ---Creates new invoice list renderer instance
--- @return InvoicesListRenderer instance The new renderer instance
+-- @return InvoicesListRenderer New renderer instance
 function InvoicesListRenderer.new()
     local self = {}
     setmetatable(self, InvoicesListRenderer_mt)
@@ -33,7 +33,7 @@ function InvoicesListRenderer:setMode(mode)
     self.mode = mode or "incoming"
 end
 
----Sets the farm currently viewing the list.
+---Sets the farm currently viewing the list
 -- @param integer farmId Farm identifier
 function InvoicesListRenderer:setCurrentFarmId(farmId)
     self.currentFarmId = farmId or -1
@@ -47,7 +47,7 @@ function InvoicesListRenderer:setData(data)
 end
 
 ---Returns number of list sections
--- @return integer count Always 1
+-- @return integer Number of sections
 function InvoicesListRenderer:getNumberOfSections()
     return 1
 end
@@ -55,7 +55,7 @@ end
 ---Returns number of items in a section
 -- @param table list SmoothList element
 -- @param integer section Section index
--- @return integer count Number of invoices
+-- @return integer Number of invoices
 function InvoicesListRenderer:getNumberOfItemsInSection(list, section)
     return #self.data
 end
@@ -164,7 +164,6 @@ function InvoicesListRenderer:populateCellForItemInSection(list, section, index,
     local totalDue = (invoice.totalAmount or 0) + penaltyAmount
     local amountStr = g_i18n:formatMoney(totalDue)
 
-    -- Total discount of the invoice = real reduction (before - after), shown as a negative amount.
     local discountAmount = Invoice.computeTotalDiscountAmount(invoice.lineItems)
     local discountStr = "—"
     if discountAmount > 0 then
@@ -227,7 +226,7 @@ function InvoicesListRenderer:onListSelectionChanged(list, section, index)
 end
 
 ---Returns currently selected invoice
--- @return table|nil invoice Selected invoice or nil
+-- @return table|nil Selected invoice or nil
 function InvoicesListRenderer:getSelectedInvoice()
     if self.selectedRow > 0 and self.selectedRow <= #self.data then
         return self.data[self.selectedRow]

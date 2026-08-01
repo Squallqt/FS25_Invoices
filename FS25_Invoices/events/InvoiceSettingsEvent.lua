@@ -1,12 +1,12 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Network event propagating VAT, reminder, and penalty flag changes from client to server and broadcast.
+---Network event for invoice setting synchronization
 InvoiceSettingsEvent = {}
 local InvoiceSettingsEvent_mt = Class(InvoiceSettingsEvent, Event)
 
 InitEventClass(InvoiceSettingsEvent, "InvoiceSettingsEvent")
 
 ---Creates empty event instance
--- @return InvoiceSettingsEvent instance Empty event
+-- @return InvoiceSettingsEvent Empty event instance
 function InvoiceSettingsEvent.emptyNew()
     local self = Event.new(InvoiceSettingsEvent_mt)
     return self
@@ -14,7 +14,7 @@ end
 
 ---Creates initialized settings event
 -- @param table settings Settings configuration table
--- @return InvoiceSettingsEvent instance The new event instance
+-- @return InvoiceSettingsEvent New event instance
 function InvoiceSettingsEvent.new(settings)
     local self = InvoiceSettingsEvent.emptyNew()
     self.settings = settings or {}

@@ -1,6 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Intermediate choice dialog shown before creation: create a normal invoice, or propose
--- an invoice (to be validated by the selected farm). Sets the wizard mode then opens the dashboard.
+---Dialog for choosing invoice creation mode
 InvoicesChoiceDialog = {}
 local InvoicesChoiceDialog_mt = Class(InvoicesChoiceDialog, MessageDialog)
 
@@ -32,7 +31,7 @@ InvoicesChoiceDialog.CONTROLS = {
 ---Creates new choice dialog instance
 -- @param table target Parent target element
 -- @param table? customMt Optional custom metatable
--- @return InvoicesChoiceDialog instance The new dialog instance
+-- @return InvoicesChoiceDialog New dialog instance
 function InvoicesChoiceDialog.new(target, customMt)
     local self = MessageDialog.new(target, customMt or InvoicesChoiceDialog_mt)
     return self

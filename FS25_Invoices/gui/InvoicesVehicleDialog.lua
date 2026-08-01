@@ -1,6 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Modal dialog for multi-select vehicle picking with resale price display.
--- Flat list - one row per vehicle, selection by uniqueId. Consumables are excluded.
+---Dialog for selecting vehicles
 InvoicesVehicleDialog = {}
 local InvoicesVehicleDialog_mt = Class(InvoicesVehicleDialog, InvoicesSelectionDialogBase)
 
@@ -11,6 +10,10 @@ InvoicesVehicleDialog.CONTROLS = {
     TITLE_SEP       = "titleSep",
 }
 
+---Creates a vehicle selection dialog
+-- @param table target Parent target
+-- @param table? customMt Custom metatable
+-- @return InvoicesVehicleDialog Vehicle dialog instance
 function InvoicesVehicleDialog.new(target, customMt)
     local self = InvoicesVehicleDialog:superClass().new(target, customMt or InvoicesVehicleDialog_mt)
     self.vehicles = {}
@@ -19,10 +22,18 @@ function InvoicesVehicleDialog.new(target, customMt)
     return self
 end
 
+---Returns the vehicle key used to restore selection
+-- @param table item Vehicle item
+-- @param integer index Item index
+-- @return string Vehicle unique identifier
 function InvoicesVehicleDialog:getInitialSelectionKey(item, index)
     return item.uniqueId
 end
 
+---Returns the vehicle selection key
+-- @param table item Vehicle item
+-- @param integer index Item index
+-- @return string Vehicle unique identifier
 function InvoicesVehicleDialog:getItemSelectionKey(item, index)
     return item.uniqueId
 end
@@ -65,10 +76,16 @@ function InvoicesVehicleDialog:loadVehicles()
     self:reloadSelectionList()
 end
 
+---Handles a vehicle list click
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index
 function InvoicesVehicleDialog:onVehicleListClicked(list, section, index)
     self:onSelectionListClicked(list, section, index)
 end
 
+---Builds selected vehicle records
+-- @return table Selected vehicles
 function InvoicesVehicleDialog:buildSelectedItems()
     local selectedItems = {}
     for _, item in ipairs(self.vehicles) do

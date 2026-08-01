@@ -1,5 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Mod bootstrap: source loading, mission lifecycle hooks, late-join sync dispatch, and InGameMenu registration.
+---Invoice mod bootstrap and mission integration
 local modDirectory = g_currentModDirectory
 local modName = g_currentModName
 source(modDirectory .. "scripts/Invoice.lua")
@@ -60,7 +60,7 @@ local function loadGuiAssets()
     end
 end
 
----Load mission lifecycle initiation
+---Initializes invoice services after mission loading
 local function loadedMission()
     MoneyType.INVOICE_INCOME = MoneyType.register("invoiceIncome", "invoice_label_invoice")
     MoneyType.INVOICE_EXPENSE = MoneyType.register("invoiceExpense", "invoice_label_invoice")
@@ -109,14 +109,14 @@ local function applyTabListAlignmentFix()
 end
 
 ---Check whether the invoices InGameMenu page should be enabled
--- @return boolean isEnabled True when the page is safe to show
+-- @return boolean True when the page is safe to show
 local function getIsInvoicesPageEnabled()
     return true
 end
 
 ---Find the desired InGameMenu position before Map Overview
 -- @param table inGameMenu InGameMenu instance
--- @return integer position Target page position
+-- @return integer Target page position
 local function getInvoicesPagePosition(inGameMenu)
     local position = 1
 
@@ -133,9 +133,9 @@ local function getInvoicesPagePosition(inGameMenu)
     return position
 end
 
----Add invoice frame to InGameMenu using the same controller for pageFrames and PagingElement
--- @param table inGameMenu InGameMenu instance
--- @return table|nil frame Registered frame, or nil on failure
+---Adds the invoice frame to the InGameMenu
+-- @param table? inGameMenu InGameMenu instance or nil to use the active menu
+-- @return table|nil Registered frame or nil on failure
 function Invoices.addInGameMenuPage(inGameMenu)
     inGameMenu = inGameMenu or g_inGameMenu or g_gui.screenControllers[InGameMenu]
 
@@ -224,9 +224,9 @@ function Invoices.addInGameMenuPage(inGameMenu)
     return frame
 end
 
----Load and register invoice GUI when InGameMenu has finished map setup
+---Loads and registers invoice GUI after InGameMenu map setup
 -- @param table inGameMenu InGameMenu instance
--- @return table|nil frame Registered frame, or nil
+-- @return table|nil Registered frame or nil on failure
 function Invoices.loadInGameMenuGui(inGameMenu)
     if inGameMenu == nil then
         Logging.warning("[Invoices] Cannot load InGameMenu GUI: inGameMenu is nil")
@@ -269,14 +269,14 @@ function Invoices.loadInGameMenuGui(inGameMenu)
     return frame
 end
 
----Send initial invoice state to client on connection
+---Sends the initial invoice state to a joining client
 -- @param table self Mission instance
--- @param table connection Network connection
+-- @param Connection connection Client connection
 -- @param table user User data
 -- @param table farm Farm data
 local function sendInitialClientState(self, connection, user, farm)
     if g_server == nil then return end
-    -- Nil guards for late-join race condition
+    -- The connection and manager may still be unavailable during late-join setup.
     if connection == nil then
         return
     end
@@ -288,7 +288,7 @@ local function sendInitialClientState(self, connection, user, farm)
     connection:sendEvent(InvoiceSettingsEvent.new(g_currentMission.invoiceSettings))
 end
 
----Save invoices to XML on savegame write
+---Saves invoices during savegame serialization
 local function onSaveToXMLFile()
     if not g_currentMission:getIsServer() then return end
 
@@ -302,7 +302,7 @@ local function onSaveToXMLFile()
     end
 end
 
----Initialize invoices mod: register lifecycle hooks and setup
+---Registers invoice mission lifecycle hooks
 local function initInvoices()
     Mission00.loadMission00Finished = Utils.appendedFunction(Mission00.loadMission00Finished, loadedMission)
 
@@ -314,7 +314,6 @@ local function initInvoices()
     
     FSBaseMission.sendInitialClientState = Utils.appendedFunction(FSBaseMission.sendInitialClientState, sendInitialClientState)
     
-    -- Cleanup on mission end
     BaseMission.delete = Utils.appendedFunction(BaseMission.delete, function()
         if Invoices.manager then
             Invoices.manager.service:cleanupReminderSystem()
@@ -361,12 +360,12 @@ local InvoicesI18NTexts = {
     ["invoice_notification_overdue_warning"] = true
 }
 
----Resolve selected mod translation keys without modEnv
+---Resolves invoice translations without an explicit mod environment
 -- @param table self I18N instance
 -- @param function superFunc Original getText function
 -- @param string text Translation key
--- @param string modEnv Optional mod environment name
--- @return string text Localized text
+-- @param string? modEnv Mod environment name or nil for invoice keys
+-- @return string Localized text
 local function invoicesGetText(self, superFunc, text, modEnv)
     if modEnv == nil and InvoicesI18NTexts[text] then
         return superFunc(self, text, modName)

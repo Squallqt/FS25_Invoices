@@ -1,6 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Modal dialog for consumable selection (bales, pallets, bigBags).
--- Delegates all scanning/normalizing to InvoicesConsumablePipeline.
+---Dialog for selecting consumables
 InvoicesConsumableDialog = {}
 local InvoicesConsumableDialog_mt = Class(InvoicesConsumableDialog, InvoicesSelectionDialogBase)
 
@@ -13,6 +12,10 @@ InvoicesConsumableDialog.CONTROLS = {
     QTY_MAX_LABEL   = "qtyMaxLabel",
 }
 
+---Creates a consumable selection dialog
+-- @param table target Parent target
+-- @param table? customMt Custom metatable
+-- @return InvoicesConsumableDialog Consumable dialog instance
 function InvoicesConsumableDialog.new(target, customMt)
     local self = InvoicesConsumableDialog:superClass().new(target, customMt or InvoicesConsumableDialog_mt)
     self.consumableGroups = {}
@@ -22,19 +25,27 @@ function InvoicesConsumableDialog.new(target, customMt)
     return self
 end
 
+---Clears selected consumable quantities
 function InvoicesConsumableDialog:resetSelectionState()
     self.quantityMap = {}
     self._selectedGroupIndex = 1
 end
 
+---Returns selected quantities by consumable group
+-- @return table Quantity map
 function InvoicesConsumableDialog:getSelectionMap()
     return self.quantityMap or {}
 end
 
+---Returns whether a selected quantity is active
+-- @param number? value Selected quantity
+-- @return boolean True when the quantity is positive
 function InvoicesConsumableDialog:isSelectionValueActive(value)
     return value ~= nil and value > 0
 end
 
+---Restores consumable quantities from selected object identifiers
+-- @param table uniqueIdMap Selected object identifiers
 function InvoicesConsumableDialog:applyInitialSelection(uniqueIdMap)
     for _, group in ipairs(self.consumableGroups) do
         local count = 0
@@ -62,15 +73,29 @@ function InvoicesConsumableDialog:loadConsumables()
     self:reloadSelectionList()
 end
 
+---Returns indicator values for a consumable group
+-- @param table group Consumable group
+-- @param integer index Group index
+-- @return string Dot text
+-- @return string Quantity prefix
+-- @return boolean Checkmark visibility
 function InvoicesConsumableDialog:getSelectionIndicatorState(group, index)
     local qty = self.quantityMap[group.groupKey] or 0
     return qty > 0 and "" or "·", qty > 1 and string.format("x%d", qty) or "", qty == 1
 end
 
+---Populates consumable stock in a list cell
+-- @param table group Consumable group
+-- @param integer index Group index
+-- @param table cell List cell
 function InvoicesConsumableDialog:populateAdditionalCellFields(group, index, cell)
     self:setCellText(cell, "cellStock", tostring(group.ownedCount))
 end
 
+---Returns the average price of a consumable group
+-- @param table group Consumable group
+-- @param integer index Group index
+-- @return number Average item price
 function InvoicesConsumableDialog:getItemPrice(group, index)
     if group.ownedCount <= 0 then return 0 end
 
@@ -81,10 +106,15 @@ function InvoicesConsumableDialog:getItemPrice(group, index)
     return math.floor(total / group.ownedCount)
 end
 
+---Stores the selected consumable group index
+-- @param integer index Group index
 function InvoicesConsumableDialog:onSelectionIndexChanged(index)
     self._selectedGroupIndex = index
 end
 
+---Toggles the full quantity of a consumable group
+-- @param table group Consumable group
+-- @param integer index Group index
 function InvoicesConsumableDialog:toggleItemSelection(group, index)
     local key = group.groupKey
     local currentQty = self.quantityMap[key] or 0
@@ -96,10 +126,16 @@ function InvoicesConsumableDialog:toggleItemSelection(group, index)
     self._selectedGroupIndex = index
 end
 
+---Handles a consumable list click
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Group index
 function InvoicesConsumableDialog:onConsumableListClicked(list, section, index)
     self:onSelectionListClicked(list, section, index)
 end
 
+---Builds selected consumable item records
+-- @return table Selected consumable items
 function InvoicesConsumableDialog:buildSelectedItems()
     local selectedItems = {}
     for _, group in ipairs(self.consumableGroups) do
@@ -124,10 +160,13 @@ function InvoicesConsumableDialog:buildSelectedItems()
     return selectedItems
 end
 
+---Updates consumable quantity controls
 function InvoicesConsumableDialog:updateSelectionControls()
     self:updateQtyControls()
 end
 
+---Returns the selected consumable group
+-- @return table|nil Selected group or nil
 function InvoicesConsumableDialog:getSelectedGroup()
     local index = self._selectedGroupIndex
     if index ~= nil and index >= 1 and index <= #self.consumableGroups then

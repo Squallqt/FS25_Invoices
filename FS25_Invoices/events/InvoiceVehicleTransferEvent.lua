@@ -1,12 +1,12 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Network event for vehicle ownership transfer upon invoice payment.
+---Network event for vehicle ownership transfer
 InvoiceVehicleTransferEvent = {}
 local InvoiceVehicleTransferEvent_mt = Class(InvoiceVehicleTransferEvent, Event)
 
 InitEventClass(InvoiceVehicleTransferEvent, "InvoiceVehicleTransferEvent")
 
 ---Creates empty event instance
--- @return InvoiceVehicleTransferEvent instance Empty event
+-- @return InvoiceVehicleTransferEvent Empty event instance
 function InvoiceVehicleTransferEvent.emptyNew()
     local self = Event.new(InvoiceVehicleTransferEvent_mt)
     return self
@@ -16,7 +16,7 @@ end
 -- @param table vehicle Vehicle instance
 -- @param integer senderFarmId Sender farm identifier
 -- @param integer recipientFarmId Recipient farm identifier
--- @return InvoiceVehicleTransferEvent instance The new event instance
+-- @return InvoiceVehicleTransferEvent New event instance
 function InvoiceVehicleTransferEvent.new(vehicle, senderFarmId, recipientFarmId)
     local self = InvoiceVehicleTransferEvent.emptyNew()
     self.vehicle         = vehicle

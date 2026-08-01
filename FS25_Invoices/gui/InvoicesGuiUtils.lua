@@ -1,5 +1,5 @@
 -- Copyright 2026 Squallqt. All rights reserved.
--- Shared GUI helpers for invoice dialogs.
+---Shared GUI helpers for invoice dialogs
 InvoicesGuiUtils = {}
 
 ---Resizes a title separator to match the text element width
@@ -58,7 +58,7 @@ function InvoicesGuiUtils.resizeTotalSeparator(separatorElement, htElement, vatE
     return originalX, originalWidth
 end
 
----Shows or hides the discount line in a total breakdown and refreshes its layout.
+---Shows or hides the discount line in a total breakdown
 -- @param table totalRightColumn GUI BoxLayout containing the total breakdown rows
 -- @param table htElement HT text element; layout is skipped when absent
 -- @param table vatElement VAT text element; layout is skipped when absent
@@ -109,6 +109,10 @@ local function formatRatePercent(rate, decimals, fallbackText)
     return fallbackText
 end
 
+---Formats display values for an invoice line item
+-- @param table item Invoice line item
+-- @param table? options Formatting options
+-- @return table Formatted display values
 function InvoicesGuiUtils.formatLineItemValues(item, options)
     options = options or {}
     local unitField = options.unitField or "unitType"
@@ -154,6 +158,9 @@ function InvoicesGuiUtils.formatLineItemValues(item, options)
     }
 end
 
+---Returns the parenthesized portion of a display name
+-- @param string? text Display name
+-- @return string Parenthesized text or the original text
 function InvoicesGuiUtils.getParenthesizedDisplayName(text)
     text = text or ""
     local parenStart = string.find(text, "%(")
@@ -166,6 +173,11 @@ function InvoicesGuiUtils.getParenthesizedDisplayName(text)
     return text
 end
 
+---Adds text padding for a leading icon
+-- @param string? text Display text
+-- @param number textSize Text size
+-- @param boolean? measureBold True to measure bold text
+-- @return string Padded text
 function InvoicesGuiUtils.getIconPaddedText(text, textSize, measureBold)
     setTextBold(measureBold == true)
     local spaceWidth = getTextWidth(textSize, " ")
