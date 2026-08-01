@@ -145,7 +145,7 @@
         <e k="invoice_label_total_paid" v="Zapłacono:" />
         <e k="invoice_label_penalty" v="Kara za zwłokę" />
         <e k="invoice_setting_invoicePenalties" v="Kary za zwłokę" />
-        <e k="invoice_toolTip_invoicePenalties" v="Włącza kary za zwłokę na nieopłaconych fakturach. Po 1 miesiącu przeterminowania automatycznie naliczana jest stała stawka 5% miesięcznie. Ograniczone do 25% kwoty całkowitej." />
+        <e k="invoice_toolTip_invoicePenalties" v="Włącza kary za zwłokę na nieopłaconych fakturach. Termin płatności wynosi 1 miesiąc. Od pierwszego dnia zwłoki automatycznie naliczane jest 5% za każdy rozpoczęty miesiąc. Ograniczone do 25% kwoty całkowitej." />
         <e k="invoice_notification_overdue" v="Faktura %s jest zaległa: %s" />
         <e k="invoice_notification_overdue_warning" v="Zostaną naliczone kary za zwłokę." />
         <e k="invoice_dash_no_fields" v="Nie wymaga działki" />

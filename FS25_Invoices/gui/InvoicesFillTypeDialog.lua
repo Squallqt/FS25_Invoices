@@ -1,5 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Modal dialog for multi-select fill type picking with market price display and edit mode support.
+---Dialog for selecting fill types
 InvoicesFillTypeDialog = {}
 local InvoicesFillTypeDialog_mt = Class(InvoicesFillTypeDialog, InvoicesSelectionDialogBase)
 
@@ -15,6 +15,10 @@ InvoicesFillTypeDialog.EXTRA_FILL_TYPES = {
     CHAFF = true,
 }
 
+---Creates a fill type selection dialog
+-- @param table target Parent target
+-- @param table? customMt Custom metatable
+-- @return InvoicesFillTypeDialog Fill type dialog instance
 function InvoicesFillTypeDialog.new(target, customMt)
     local self = InvoicesFillTypeDialog:superClass().new(target, customMt or InvoicesFillTypeDialog_mt)
     self.fillTypes = {}
@@ -56,14 +60,24 @@ function InvoicesFillTypeDialog:loadFillTypes()
     self:reloadSelectionList()
 end
 
+---Returns the price per thousand liters for a fill type
+-- @param table item Fill type item
+-- @param integer index Item index
+-- @return number Price per thousand liters
 function InvoicesFillTypeDialog:getItemPrice(item, index)
     return (item.pricePerLiter or 0) * 1000
 end
 
+---Handles a fill type list click
+-- @param table list SmoothList element
+-- @param integer section Section index
+-- @param integer index Item index
 function InvoicesFillTypeDialog:onFillTypeListClicked(list, section, index)
     self:onSelectionListClicked(list, section, index)
 end
 
+---Builds the selected fill type array
+-- @return table Selected fill types
 function InvoicesFillTypeDialog:buildSelectedItems()
     local selectedItems = {}
     for idx, _ in pairs(self.selectedMap) do

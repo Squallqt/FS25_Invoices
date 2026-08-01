@@ -145,7 +145,7 @@
         <e k="invoice_label_total_paid" v="Tổng đã trả:" />
         <e k="invoice_label_penalty" v="Phạt trả chậm" />
         <e k="invoice_setting_invoicePenalties" v="Phạt trễ hạn" />
-        <e k="invoice_toolTip_invoicePenalties" v="Bật phạt trễ hạn trên các hóa đơn chưa thanh toán. Sau 1 tháng quá hạn, tỷ lệ phạt cố định 5% mỗi tháng được áp dụng tự động. Giới hạn ở mức 25% tổng số tiền." />
+        <e k="invoice_toolTip_invoicePenalties" v="Bật phạt trễ hạn trên các hóa đơn chưa thanh toán. Thời hạn thanh toán là 1 tháng. Từ ngày trễ hạn đầu tiên, mức phạt 5% được tự động áp dụng cho mỗi tháng bắt đầu. Giới hạn ở mức 25% tổng số tiền." />
         <e k="invoice_notification_overdue" v="Hóa đơn %s quá hạn: %s" />
         <e k="invoice_notification_overdue_warning" v="Phạt trễ hạn sẽ được áp dụng." />
         <e k="invoice_dash_no_fields" v="Không cần thửa đất" />

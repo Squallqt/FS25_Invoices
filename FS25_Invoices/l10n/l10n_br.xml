@@ -145,7 +145,7 @@
         <e k="invoice_label_total_paid" v="Total pago:" />
         <e k="invoice_label_penalty" v="Multa por atraso" />
         <e k="invoice_setting_invoicePenalties" v="Multas por atraso" />
-        <e k="invoice_toolTip_invoicePenalties" v="Ativa multas por atraso em faturas não pagas. Após 1 mês de vencimento, uma taxa fixa de 5% ao mês é aplicada automaticamente. Limitadas a 25% do valor total." />
+        <e k="invoice_toolTip_invoicePenalties" v="Ativa multas por atraso em faturas não pagas. O prazo de pagamento é de 1 mês. A partir do primeiro dia de atraso, são aplicados automaticamente 5% por cada mês iniciado. Limitadas a 25% do valor total." />
         <e k="invoice_notification_overdue" v="Fatura %s vencida: %s" />
         <e k="invoice_notification_overdue_warning" v="Multas por atraso serão aplicadas." />
         <e k="invoice_dash_no_fields" v="Nenhuma parcela necessária" />

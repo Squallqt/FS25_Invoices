@@ -2,10 +2,11 @@
 
 Invoice management system for agricultural contractors in Farming Simulator 25.
 
-[![Version](https://img.shields.io/badge/version-1.2.0.0-blue.svg)](https://github.com/Squallqt/FS25_Invoices/releases)
+[![Version](https://img.shields.io/badge/version-1.2.1.0-blue.svg)](https://www.farming-simulator.com/mod.php?mod_id=353530&title=fs2025)
 [![FS25](https://img.shields.io/badge/FS25-compatible-green.svg)](https://farming-simulator.com/)
 [![Multiplayer](https://img.shields.io/badge/multiplayer-supported-success.svg)](#)
 [![Languages](https://img.shields.io/badge/languages-27-blue.svg)](#)
+[![License](https://img.shields.io/badge/license-proprietary-red.svg)](LICENSE)
 
 Bill other farms for your services, create invoices for purchases your farm must pay, sell vehicles and consumables directly via invoice, and track payments. Available in singleplayer and multiplayer.
 
@@ -18,7 +19,7 @@ Bill other farms for your services, create invoices for purchases your farm must
 - **Vehicle & consumable sales** with automatic ownership transfer on payment and resale pricing
 - **Product sales** listing all fill types at current market price (including chopped straw)
 - **VAT system**: 4 configurable rate groups, editable per line, with Net / VAT / Gross breakdown
-- **Late payment penalties**: 5%/month after a 1-month grace period, capped at 25%
+- **Late payment penalties**: due after 1 month, then 5% per started overdue month from the first overdue day, capped at 25%
 - **Automatic payment reminders** for unpaid invoices
 - **FS25_RedTape integration**: invoice payments categorized as taxable income and deductible expenses
 - **Full multiplayer sync**: server-authoritative transfers, late-join support, savegame persistence
@@ -53,9 +54,14 @@ Download from the official [Farming Simulator ModHub](https://www.farming-simula
 |---|---|---|
 | VAT simulation | On | Calculates VAT per line; sender receives HT amount only |
 | Payment reminders | On | Periodic notifications for unpaid incoming invoices |
-| Late payment penalties | On | Monthly penalty accrual after grace period |
+| Late payment penalties | On | Due after 1 month, then 5% per started overdue month, capped at 25% |
 
 ## Changelog
+
+### v1.2.1.0
+- Fixed payment due dates and late fees: invoices are due after one in-game month, then accrue 5% per started overdue month from the first overdue day, capped at 25%
+- Fixed field area on hectare-based invoicing: enlarged or trimmed fields now bill their measured worked area. Thanks to [**jordan-picard**](https://github.com/jordan-picard) for reporting this issue in [GitHub Issue #13](https://github.com/Squallqt/FS25_Invoices/issues/13)
+- Improved multiplayer safety: invoices are now only synced from the host, preventing corrupted or tampered invoice data on clients. Thanks to [**KeilerHirsch**](https://github.com/KeilerHirsch)
 
 ### v1.2.0.0
 - Fixed pallet pricing: output pallets (milk, cheese, etc.) now use the current market price instead of the store purchase price
@@ -93,9 +99,19 @@ Download from the official [Farming Simulator ModHub](https://www.farming-simula
 
 ## Support
 
-- **Issues & suggestions**: [GitHub Issues](https://github.com/Squallqt/FS25_Invoices/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/Squallqt/FS25_Invoices/discussions)
+- [GitHub Issues](https://github.com/Squallqt/FS25_Invoices/issues)
+- [GitHub Discussions](https://github.com/Squallqt/FS25_Invoices/discussions)
 
 ## License
 
-All Rights Reserved © 2026 Squallqt. Not affiliated with or endorsed by GIANTS Software GmbH.
+Copyright © 2026 Squallqt. All rights reserved.
+
+This project is proprietary software and is not distributed under an
+open-source license.
+
+Downloading an official release for private use with Farming Simulator 25 is
+permitted. Copying, modifying, converting, redistributing, reuploading,
+commercializing, or reusing any part of this project requires prior written
+authorization.
+
+See the [LICENSE](LICENSE) file for the complete terms.

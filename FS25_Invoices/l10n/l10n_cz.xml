@@ -145,7 +145,7 @@
         <e k="invoice_label_total_paid" v="Celkem uhrazeno:" />
         <e k="invoice_label_penalty" v="Penále za prodlení" />
         <e k="invoice_setting_invoicePenalties" v="Penále za prodlení" />
-        <e k="invoice_toolTip_invoicePenalties" v="Aktivuje penále za prodlení u nezaplacených faktur. Po 1 měsíci po splatnosti je automaticky účtována pevná sazba 5% měsíčně. Omezeno na 25% celkové částky." />
+        <e k="invoice_toolTip_invoicePenalties" v="Aktivuje penále za prodlení u nezaplacených faktur. Splatnost je 1 měsíc. Od prvního dne prodlení se automaticky účtuje 5% za každý započatý měsíc. Omezeno na 25% celkové částky." />
         <e k="invoice_notification_overdue" v="Faktura %s je po splatnosti: %s" />
         <e k="invoice_notification_overdue_warning" v="Budou účtovány penále za prodlení." />
         <e k="invoice_dash_no_fields" v="Žádná parcela není vyžadována" />

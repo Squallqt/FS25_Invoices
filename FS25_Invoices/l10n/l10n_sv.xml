@@ -145,7 +145,7 @@
         <e k="invoice_label_total_paid" v="Betalt:" />
         <e k="invoice_label_penalty" v="Förseningsavgift" />
         <e k="invoice_setting_invoicePenalties" v="Dröjsmålsränta" />
-        <e k="invoice_toolTip_invoicePenalties" v="Aktiverar dröjsmålsränta på obetalda fakturor. Efter 1 månads förfallotid tillämpas automatiskt en fast sats på 5% per månad. Begränsad till 25% av det totala beloppet." />
+        <e k="invoice_toolTip_invoicePenalties" v="Aktiverar dröjsmålsränta på obetalda fakturor. Betalningsfristen är 1 månad. Från den första förseningsdagen tillämpas automatiskt 5% för varje påbörjad månad. Begränsad till 25% av det totala beloppet." />
         <e k="invoice_notification_overdue" v="Faktura %s är förfallen: %s" />
         <e k="invoice_notification_overdue_warning" v="Dröjsmålsränta kommer att debiteras." />
         <e k="invoice_dash_no_fields" v="Inget fält krävs" />

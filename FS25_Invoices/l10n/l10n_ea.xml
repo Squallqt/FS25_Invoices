@@ -145,7 +145,7 @@
         <e k="invoice_label_total_paid" v="Total pagado:" />
         <e k="invoice_label_penalty" v="Penalización por mora" />
         <e k="invoice_setting_invoicePenalties" v="Penalizaciones por atraso" />
-        <e k="invoice_toolTip_invoicePenalties" v="Activa penalizaciones por atraso en facturas impagas. Después de 1 mes de vencimiento, se aplica automáticamente una tasa fija del 5% mensual. Limitadas al 25% del monto total." />
+        <e k="invoice_toolTip_invoicePenalties" v="Activa penalizaciones por atraso en facturas impagas. El plazo de pago es de 1 mes. Desde el primer día de atraso, se aplica automáticamente un 5% por cada mes iniciado. Limitadas al 25% del monto total." />
         <e k="invoice_notification_overdue" v="Factura %s vencida: %s" />
         <e k="invoice_notification_overdue_warning" v="Se aplicarán penalizaciones por atraso." />
         <e k="invoice_dash_no_fields" v="Sin parcela requerida" />

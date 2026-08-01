@@ -1,13 +1,12 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Network event: broadcasts consumable ownership transfer to clients.
--- Business logic lives in InvoicesConsumablePipeline.transferByCriteria().
+---Network event for consumable ownership transfer
 InvoiceConsumableTransferEvent = {}
 local InvoiceConsumableTransferEvent_mt = Class(InvoiceConsumableTransferEvent, Event)
 
 InitEventClass(InvoiceConsumableTransferEvent, "InvoiceConsumableTransferEvent")
 
 ---Creates empty event instance
--- @return InvoiceConsumableTransferEvent instance Empty event
+-- @return InvoiceConsumableTransferEvent Empty event instance
 function InvoiceConsumableTransferEvent.emptyNew()
     local self = Event.new(InvoiceConsumableTransferEvent_mt)
     return self
@@ -19,7 +18,7 @@ end
 -- @param integer quantity Quantity to transfer
 -- @param integer senderFarmId Sender farm identifier
 -- @param integer recipientFarmId Recipient farm identifier
--- @return InvoiceConsumableTransferEvent instance The new event instance
+-- @return InvoiceConsumableTransferEvent New event instance
 function InvoiceConsumableTransferEvent.new(xmlFilename, fillTypeIndex, quantity, senderFarmId, recipientFarmId)
     local self = InvoiceConsumableTransferEvent.emptyNew()
     self.xmlFilename     = xmlFilename

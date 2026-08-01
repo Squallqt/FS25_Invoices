@@ -145,7 +145,7 @@
         <e k="invoice_label_total_paid" v="지불 총액:" />
         <e k="invoice_label_penalty" v="연체료" />
         <e k="invoice_setting_invoicePenalties" v="연체 벌금" />
-        <e k="invoice_toolTip_invoicePenalties" v="미결제 청구서에 연체 벌금을 활성화합니다. 1개월 연체 후 월 5%의 고정 요율이 자동으로 적용됩니다. 총액의 25%로 제한됩니다." />
+        <e k="invoice_toolTip_invoicePenalties" v="미결제 청구서에 연체료를 적용합니다. 결제 기한은 1개월입니다. 연체 첫날부터 매 연체월이 시작될 때마다 5%가 자동으로 부과됩니다. 총액의 25%로 제한됩니다." />
         <e k="invoice_notification_overdue" v="청구서 %s 연체: %s" />
         <e k="invoice_notification_overdue_warning" v="연체 벌금이 부과됩니다." />
         <e k="invoice_dash_no_fields" v="필드 불필요" />

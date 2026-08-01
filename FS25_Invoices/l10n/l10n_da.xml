@@ -145,7 +145,7 @@
         <e k="invoice_label_total_paid" v="Betalt i alt:" />
         <e k="invoice_label_penalty" v="Forsinkelsesbøde" />
         <e k="invoice_setting_invoicePenalties" v="Forsinkelsesrenter" />
-        <e k="invoice_toolTip_invoicePenalties" v="Aktiverer forsinkelsesrenter på ubetalte fakturaer. Efter 1 måneds forfald pålægges automatisk en fast sats på 5% per måned. Begrænset til 25% af det samlede beløb." />
+        <e k="invoice_toolTip_invoicePenalties" v="Aktiverer forsinkelsesrenter på ubetalte fakturaer. Betalingsfristen er 1 måned. Fra første dag efter fristen pålægges automatisk 5% for hver påbegyndt måned. Begrænset til 25% af det samlede beløb." />
         <e k="invoice_notification_overdue" v="Faktura %s er forfalden: %s" />
         <e k="invoice_notification_overdue_warning" v="Der vil blive opkrævet forsinkelsesrenter." />
         <e k="invoice_dash_no_fields" v="Ingen mark påkrævet" />

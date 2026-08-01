@@ -1,5 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- CRUD + XML persistence. No business logic. No network.
+---Invoice repository and XML persistence
 InvoiceRepository = {}
 local InvoiceRepository_mt = Class(InvoiceRepository)
 
@@ -7,7 +7,7 @@ local InvoiceRepository_mt = Class(InvoiceRepository)
 InvoiceRepository.SAVE_VERSION = 5
 
 ---Create repository instance
--- @return InvoiceRepository instance Repository for managing invoices
+-- @return InvoiceRepository Invoice repository
 function InvoiceRepository.new()
     local self = setmetatable({}, InvoiceRepository_mt)
 
@@ -24,7 +24,7 @@ function InvoiceRepository:clear()
 end
 
 ---Generate next unique invoice ID
--- @return integer id The generated ID
+-- @return integer Generated invoice identifier
 function InvoiceRepository:generateId()
     local id = self.nextInvoiceId
     self.nextInvoiceId = self.nextInvoiceId + 1
@@ -46,7 +46,7 @@ end
 
 ---Retrieve invoice by ID
 -- @param integer id Invoice ID
--- @return Invoice|nil invoice The invoice or nil if not found
+-- @return Invoice|nil Invoice or nil when not found
 function InvoiceRepository:getById(id)
     for _, invoice in ipairs(self.invoices) do
         if invoice.id == id then
@@ -58,7 +58,7 @@ end
 
 ---Remove invoice by ID
 -- @param integer id Invoice ID
--- @return boolean success True if removed, false otherwise
+-- @return boolean True when removed
 function InvoiceRepository:removeById(id)
     for i, invoice in ipairs(self.invoices) do
         if invoice.id == id then
@@ -72,7 +72,7 @@ end
 ---Update invoice state by ID
 -- @param integer id Invoice ID
 -- @param integer newState New state value
--- @return boolean success True if updated, false otherwise
+-- @return boolean True when updated
 function InvoiceRepository:setState(id, newState)
     local invoice = self:getById(id)
     if invoice then
@@ -84,7 +84,7 @@ end
 
 ---Get invoices for a recipient farm
 -- @param integer farmId Farm ID
--- @return table invoices Invoices where this farm is recipient
+-- @return table Invoices where the farm is recipient
 function InvoiceRepository:getByRecipientFarm(farmId)
     local result = {}
     for _, invoice in ipairs(self.invoices) do
@@ -97,7 +97,7 @@ end
 
 ---Get invoices for a sender farm
 -- @param integer farmId Farm ID
--- @return table invoices Invoices where this farm is sender
+-- @return table Invoices where the farm is sender
 function InvoiceRepository:getBySenderFarm(farmId)
     local result = {}
     for _, invoice in ipairs(self.invoices) do
@@ -109,13 +109,13 @@ function InvoiceRepository:getBySenderFarm(farmId)
 end
 
 ---Get all invoices
--- @return table invoices All invoices in repository
+-- @return table All invoices in the repository
 function InvoiceRepository:getAll()
     return self.invoices
 end
 
 ---Get next invoice ID counter
--- @return integer id Next ID to be assigned
+-- @return integer Next invoice identifier
 function InvoiceRepository:getNextInvoiceId()
     return self.nextInvoiceId
 end
@@ -221,7 +221,7 @@ end
 ---Saves settings to existing invoices XML file
 -- @param string savegamePath Path to savegame directory
 -- @param table settings Settings table to persist
--- @return boolean success True if saved
+-- @return boolean True when saved
 function InvoiceRepository:saveSettingsToXML(savegamePath, settings)
     local filePath = savegamePath .. "invoices.xml"
     local xmlFile = nil
@@ -256,7 +256,7 @@ end
 
 ---Loads settings from invoices XML file
 -- @param string savegamePath Path to savegame directory
--- @return table|nil settings Loaded settings or nil
+-- @return table|nil Loaded settings or nil
 function InvoiceRepository:loadSettingsFromXML(savegamePath)
     local filePath = savegamePath .. "invoices.xml"
     if not fileExists(filePath) then

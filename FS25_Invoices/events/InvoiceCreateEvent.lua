@@ -1,12 +1,12 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Network event for invoice creation with server-authoritative ID assignment.
+---Network event for server-authoritative invoice creation
 InvoiceCreateEvent = {}
 local InvoiceCreateEvent_mt = Class(InvoiceCreateEvent, Event)
 
 InitEventClass(InvoiceCreateEvent, "InvoiceCreateEvent")
 
 ---Creates empty event instance
--- @return InvoiceCreateEvent instance Empty event
+-- @return InvoiceCreateEvent Empty event instance
 function InvoiceCreateEvent.emptyNew()
     local self = Event.new(InvoiceCreateEvent_mt)
     return self
@@ -14,7 +14,7 @@ end
 
 ---Creates initialized invoice create event
 -- @param Invoice invoice The invoice to create
--- @return InvoiceCreateEvent instance The new event instance
+-- @return InvoiceCreateEvent New event instance
 function InvoiceCreateEvent.new(invoice)
     local self = InvoiceCreateEvent.emptyNew()
     self.invoice = invoice
@@ -74,7 +74,6 @@ function InvoiceCreateEvent:run(connection)
             return
         end
 
-        -- Sanitize line items
         local items = invoice.lineItems or {}
         if #items > 100 then
             return
@@ -83,13 +82,11 @@ function InvoiceCreateEvent:run(connection)
             if (item.amount or 0) < 0 or (item.price or 0) < 0 then
                 return
             end
-            -- Server-authoritative discount: clamp to [0,1] and rebuild the line
-            -- amount from price/quantity/discount so the client cannot forge the total.
+            -- Rebuild the discounted amount server-side so the client cannot forge the total.
             item.discountRate = Invoice.sanitizeDiscountRate(item.discountRate)
             item.amount = Invoice.computeLineAmount(item.price, item.quantity, item.unitType, item.discountRate)
         end
 
-        -- Server-authoritative recalculation of totals
         local total, totalHT, totalVAT = Invoice.computeTotals(invoice.lineItems or {})
         invoice.totalAmount = total
         invoice.totalHT = totalHT

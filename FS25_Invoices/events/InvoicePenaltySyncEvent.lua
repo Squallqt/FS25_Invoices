@@ -1,19 +1,19 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Network event: server broadcasts penalty amount updates to clients.
+---Network event for penalty amount synchronization
 InvoicePenaltySyncEvent = {}
 local InvoicePenaltySyncEvent_mt = Class(InvoicePenaltySyncEvent, Event)
 
 InitEventClass(InvoicePenaltySyncEvent, "InvoicePenaltySyncEvent")
 
 ---Creates empty event instance
--- @return InvoicePenaltySyncEvent instance Empty event
+-- @return InvoicePenaltySyncEvent Empty event instance
 function InvoicePenaltySyncEvent.emptyNew()
     return Event.new(InvoicePenaltySyncEvent_mt)
 end
 
 ---Creates initialized penalty sync event
 -- @param table updates Array of penalty update records
--- @return InvoicePenaltySyncEvent instance The new event instance
+-- @return InvoicePenaltySyncEvent New event instance
 function InvoicePenaltySyncEvent.new(updates)
     local self = InvoicePenaltySyncEvent.emptyNew()
     self.updates = updates or {}

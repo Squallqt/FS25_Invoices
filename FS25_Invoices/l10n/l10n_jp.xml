@@ -145,7 +145,7 @@
         <e k="invoice_label_total_paid" v="支払済総額：" />
         <e k="invoice_label_penalty" v="延滞金" />
         <e k="invoice_setting_invoicePenalties" v="延滞金" />
-        <e k="invoice_toolTip_invoicePenalties" v="未払い請求書に対する延滞金を有効にします。1ヶ月の延滞後、月5%の固定料率が自動的に適用されます。合計金額の25%が上限です。" />
+        <e k="invoice_toolTip_invoicePenalties" v="未払い請求書の延滞金を有効にします。支払期限は1か月です。延滞初日から、延滞月が始まるごとに5%が自動的に加算されます。上限は合計金額の25%です。" />
         <e k="invoice_notification_overdue" v="請求書 %s が期限超過です: %s" />
         <e k="invoice_notification_overdue_warning" v="延滞金が適用されます。" />
         <e k="invoice_dash_no_fields" v="圃場不要" />

@@ -1,5 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Settings schema, InGameMenu control injection, and server-authoritative apply/broadcast for invoice flags.
+---Invoice settings and InGameMenu integration
 InvoiceSettings = {}
 
 InvoiceSettings.SETTINGS = {}
@@ -36,7 +36,7 @@ InvoiceSettings.SETTINGS.invoicePenalties = {
 ---Returns state index for a setting value
 -- @param string id Setting identifier
 -- @param any? value Current value to look up
--- @return integer index State index
+-- @return integer State index
 function InvoiceSettings.getStateIndex(id, value)
     local current = value
     if current == nil and g_currentMission ~= nil and g_currentMission.invoiceSettings ~= nil then
@@ -57,6 +57,7 @@ end
 InvoiceSettingsControls = {}
 
 ---Called when a menu option changes, applies and broadcasts
+-- @param table self Settings controls target
 -- @param integer state New state index
 -- @param table menuOption Menu option element
 function InvoiceSettingsControls.onMenuOptionChanged(self, state, menuOption)
@@ -196,7 +197,6 @@ function InvoiceSettings:injectMenu()
         menuOptionBox:loadProfile(g_gui:getProfile("fs25_multiTextOptionContainer"), true)
 
         local menuBinaryOption = BinaryOptionElement.new()
-        menuBinaryOption.useYesNoTexts = true
         menuBinaryOption:loadProfile(g_gui:getProfile("fs25_settingsBinaryOption"), true)
         menuBinaryOption.id = id
         menuBinaryOption.target = InvoiceSettingsControls
@@ -227,7 +227,6 @@ function InvoiceSettings:injectMenu()
         self.CONTROLS[id] = menuBinaryOption
     end
 
-    -- Section header
     local sectionTitle = TextElement.new()
     sectionTitle.name = "sectionHeader"
     sectionTitle:loadProfile(g_gui:getProfile("fs25_settingsSectionHeader"), true)

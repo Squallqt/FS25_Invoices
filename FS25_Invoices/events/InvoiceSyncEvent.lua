@@ -1,19 +1,19 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Late-join full sync. Sends all invoices to newly connected clients.
+---Network event for late-join invoice synchronization
 InvoiceSyncEvent = {}
 local InvoiceSyncEvent_mt = Class(InvoiceSyncEvent, Event)
 
 InitEventClass(InvoiceSyncEvent, "InvoiceSyncEvent")
 
 ---Creates empty event instance
--- @return InvoiceSyncEvent instance Empty event
+-- @return InvoiceSyncEvent Empty event instance
 function InvoiceSyncEvent.emptyNew()
     local self = Event.new(InvoiceSyncEvent_mt)
     return self
 end
 
 ---Creates initialized sync event for late-join clients
--- @return InvoiceSyncEvent instance The new event instance
+-- @return InvoiceSyncEvent New event instance
 function InvoiceSyncEvent.new()
     local self = InvoiceSyncEvent.emptyNew()
     return self
@@ -23,6 +23,8 @@ end
 -- @param integer streamId Network stream identifier
 -- @param Connection connection Network connection
 function InvoiceSyncEvent:readStream(streamId, connection)
+    if not connection:getIsServer() then return end
+
     -- Must read ALL stream data even if manager nil (prevents stream corruption)
     local nextId = streamReadInt32(streamId)
     local invoices = {}

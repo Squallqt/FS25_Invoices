@@ -1,5 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Unified pipeline: collect, normalize, and group all consumables (pallets, bigBags, bales).
+---Consumable collection, grouping, and ownership transfer
 InvoicesConsumablePipeline = {}
 
 ---Builds display name from fill type, level, and container prefix
@@ -7,7 +7,7 @@ InvoicesConsumablePipeline = {}
 -- @param float? fillLevel Current fill level
 -- @param string? storeItemName Fallback store item name
 -- @param string? containerPrefix Prefix label
--- @return string name Display name
+-- @return string Display name
 function InvoicesConsumablePipeline.resolveName(fillTypeIndex, fillLevel, storeItemName, containerPrefix)
     local name = nil
     if fillTypeIndex ~= nil and g_fillTypeManager ~= nil then
@@ -29,8 +29,8 @@ function InvoicesConsumablePipeline.resolveName(fillTypeIndex, fillLevel, storeI
 end
 
 ---Returns localized bale type name from XML filename
--- @param string xmlFilename Bale XML definition
--- @return string|nil name Bale type name or nil
+-- @param string? xmlFilename Bale XML definition
+-- @return string|nil Bale type name or nil
 function InvoicesConsumablePipeline.resolveBaleTypeName(xmlFilename)
     if xmlFilename == nil or xmlFilename == "" or g_baleManager == nil then return nil end
     local isRoundBale = g_baleManager:getBaleInfoByXMLFilename(xmlFilename, true)
@@ -42,7 +42,7 @@ end
 -- @param integer? fillTypeIndex Fill type index
 -- @param string? xmlFilename Consumable XML definition
 -- @param string? sourceType Source type ("bale" skips pallet lookup)
--- @return string iconFilename Icon path or empty string
+-- @return string Icon path or empty string
 function InvoicesConsumablePipeline.resolveIcon(fillTypeIndex, xmlFilename, sourceType)
     local fillTypeInfo = nil
     if fillTypeIndex ~= nil and g_fillTypeManager ~= nil then
@@ -55,7 +55,6 @@ function InvoicesConsumablePipeline.resolveIcon(fillTypeIndex, xmlFilename, sour
         end
     end
 
-    -- 1. Direct store item image
     if xmlFilename ~= nil and g_storeManager ~= nil then
         local storeItem = g_storeManager:getItemByXMLFilename(xmlFilename)
         if storeItem ~= nil and storeItem.imageFilename ~= nil and storeItem.imageFilename ~= "" then
@@ -63,10 +62,8 @@ function InvoicesConsumablePipeline.resolveIcon(fillTypeIndex, xmlFilename, sour
         end
     end
 
-    -- 2. FillType resolution
     if fillTypeInfo ~= nil then
-        -- For bales, skip palletFilename lookup (returns pallet/wooden box icon)
-        -- and fall through directly to hudOverlayFilename (the actual fill type icon)
+        -- Bale pallet filenames resolve to a generic box, so prefer the fill-type HUD icon.
         if sourceType ~= "bale" then
             if fillTypeInfo.palletFilename ~= nil and fillTypeInfo.palletFilename ~= "" and g_storeManager ~= nil then
                 local palletStoreItem = g_storeManager:getItemByXMLFilename(fillTypeInfo.palletFilename)
@@ -88,7 +85,7 @@ end
 -- @param integer? fillTypeIndex Fill type index
 -- @param float? fillLevel Current fill level
 -- @param integer? sellPriceOverride Override sell price
--- @return integer price Computed price
+-- @return integer Computed price
 function InvoicesConsumablePipeline.computePrice(fillTypeIndex, fillLevel, sellPriceOverride)
     if sellPriceOverride ~= nil and sellPriceOverride > 0 then
         return math.floor(sellPriceOverride)
@@ -106,8 +103,8 @@ function InvoicesConsumablePipeline.computePrice(fillTypeIndex, fillLevel, sellP
 end
 
 ---Normalizes filename path for comparison
--- @param string filename File path to normalize
--- @return string normalized Lowercase normalized path
+-- @param string? filename File path or nil
+-- @return string Lowercase normalized path
 function InvoicesConsumablePipeline.normalizeFilename(filename)
     if filename == nil or filename == "" then return "" end
     local norm = filename:gsub("\\", "/")
@@ -119,17 +116,15 @@ end
 -- @param string xmlFilename Consumable XML definition
 -- @param integer? fillTypeIndex Fill type index
 -- @param float? fillLevel Current fill level
--- @return string groupKey Group key string
+-- @return string Group key
 function InvoicesConsumablePipeline.computeGroupKey(xmlFilename, fillTypeIndex, fillLevel)
     local normFile = InvoicesConsumablePipeline.normalizeFilename(xmlFilename)
     return normFile .. "|" .. tostring(fillTypeIndex or 0) .. "|" .. tostring(math.floor(fillLevel or 0))
 end
 
--- Adapter: Vehicle (pallets / bigBags)
-
 ---Collects filled container vehicles owned by a farm
 -- @param integer playerFarmId Farm identifier
--- @return table items Array of container items with metadata
+-- @return table Container items with metadata
 function InvoicesConsumablePipeline.collectFromVehicles(playerFarmId)
     local items = {}
     if g_currentMission == nil or g_currentMission.vehicleSystem == nil then return items end
@@ -211,11 +206,9 @@ function InvoicesConsumablePipeline.collectFromVehicles(playerFarmId)
     return items
 end
 
--- Adapter: Bale (real objects in the world)
-
 ---Collects bales owned by a farm
 -- @param integer playerFarmId Farm identifier
--- @return table items Array of bale items with metadata
+-- @return table Bale items with metadata
 function InvoicesConsumablePipeline.collectFromBales(playerFarmId)
     local items = {}
     if g_currentMission == nil then return items end
@@ -260,11 +253,9 @@ function InvoicesConsumablePipeline.collectFromBales(playerFarmId)
     return items
 end
 
--- Public API
-
 ---Collects all consumables (vehicles and bales) for a farm
 -- @param integer playerFarmId Farm identifier
--- @return table items Array of all consumable items
+-- @return table All consumable items
 function InvoicesConsumablePipeline.collectAll(playerFarmId)
     local items = {}
 
@@ -289,7 +280,7 @@ end
 
 ---Collects all consumables with caching for the same farm
 -- @param integer playerFarmId Farm identifier
--- @return table items Array of all consumable items
+-- @return table All consumable items
 function InvoicesConsumablePipeline.collectAllCached(playerFarmId)
     if InvoicesConsumablePipeline._cache ~= nil and InvoicesConsumablePipeline._cacheFarmId == playerFarmId then
         return InvoicesConsumablePipeline._cache
@@ -302,7 +293,7 @@ end
 
 ---Groups consumable items by group key for display
 -- @param table items Array of consumable items
--- @return table groups Sorted array of grouped consumables
+-- @return table Sorted consumable groups
 function InvoicesConsumablePipeline.groupItems(items)
     local groupMap = {}
     local groupOrder = {}
@@ -343,7 +334,7 @@ end
 ---Returns stock count for a group key
 -- @param string groupKey Group key to count
 -- @param integer playerFarmId Farm identifier
--- @return integer count Number of matching items
+-- @return integer Number of matching items
 function InvoicesConsumablePipeline.getStockForGroup(groupKey, playerFarmId)
     local all = InvoicesConsumablePipeline.collectAllCached(playerFarmId)
     local count = 0
@@ -359,7 +350,7 @@ end
 -- @param string groupKey Group key to match
 -- @param integer playerFarmId Farm identifier
 -- @param integer? maxCount Maximum items to return
--- @return table items Matching items sorted by price
+-- @return table Matching items sorted by price
 function InvoicesConsumablePipeline.getItemsForGroup(groupKey, playerFarmId, maxCount)
     local all = InvoicesConsumablePipeline.collectAllCached(playerFarmId)
     local matching = {}
@@ -381,15 +372,13 @@ function InvoicesConsumablePipeline.getItemsForGroup(groupKey, playerFarmId, max
     return matching
 end
 
--- Ownership transfer
-
 ---Transfers consumable ownership between farms by criteria
 -- @param string xmlFilename Consumable XML definition
 -- @param integer fillTypeIndex Fill type index
 -- @param integer quantity Quantity to transfer
 -- @param integer senderFarmId Sender farm identifier
 -- @param integer recipientFarmId Recipient farm identifier
--- @return integer transferred Quantity transferred
+-- @return integer Transferred quantity
 function InvoicesConsumablePipeline.transferByCriteria(xmlFilename, fillTypeIndex, quantity, senderFarmId, recipientFarmId)
     local transferred = 0
     local remaining = quantity or 0
@@ -422,7 +411,7 @@ end
 -- @param integer maxCount Maximum bales to transfer
 -- @param integer senderFarmId Current owner farm identifier
 -- @param integer recipientFarmId New owner farm identifier
--- @return integer count Number of bales transferred
+-- @return integer Number of bales transferred
 function InvoicesConsumablePipeline.transferFreeBales(normTarget, fillTypeIndex, maxCount, senderFarmId, recipientFarmId)
     local count = 0
     if g_currentMission == nil then return 0 end
@@ -449,7 +438,7 @@ end
 -- @param integer maxCount Maximum vehicles to transfer
 -- @param integer senderFarmId Current owner farm identifier
 -- @param integer recipientFarmId New owner farm identifier
--- @return integer count Number of vehicles transferred
+-- @return integer Number of vehicles transferred
 function InvoicesConsumablePipeline.transferFreeVehicles(normTarget, fillTypeIndex, maxCount, senderFarmId, recipientFarmId)
     local count = 0
     if g_currentMission == nil or g_currentMission.vehicleSystem == nil then return 0 end

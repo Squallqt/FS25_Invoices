@@ -1,20 +1,17 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Mode-scoped wizard state managing multi-step invoice drafts: recipient, work type, fields, and line items.
+---Mode-specific state for invoice drafts
 InvoicesWizardState = {}
 
--- Wizard modes. "create": the player issues a normal invoice (player = sender).
--- "proposal": the player proposes an invoice they will pay (player = recipient), to be
--- validated by the selected farm (= sender/issuer). In both modes recipientFarmId stores
--- the farm selected in the list; roles are resolved at createInvoice time.
+-- In proposal mode the player pays an invoice issued by the selected farm; recipientFarmId still stores that selection until creation resolves the roles.
 InvoicesWizardState.MODE_CREATE = "create"
 InvoicesWizardState.MODE_PROPOSAL = "proposal"
 
 InvoicesWizardState.instances = {}
 InvoicesWizardState.activeMode = InvoicesWizardState.MODE_CREATE
 
----Normalizes unknown modes to the default invoice creation draft.
+---Normalizes unknown modes to invoice creation mode
 -- @param string? mode Requested wizard mode
--- @return string mode Normalized wizard mode
+-- @return string Normalized wizard mode
 function InvoicesWizardState.normalizeMode(mode)
     if mode == InvoicesWizardState.MODE_PROPOSAL then
         return InvoicesWizardState.MODE_PROPOSAL
@@ -22,9 +19,9 @@ function InvoicesWizardState.normalizeMode(mode)
     return InvoicesWizardState.MODE_CREATE
 end
 
----Returns or creates the wizard state for the active/requested mode.
+---Returns or creates a wizard state for a mode
 -- @param string? mode Optional mode to activate before returning the draft
--- @return InvoicesWizardState instance
+-- @return InvoicesWizardState Wizard state instance
 function InvoicesWizardState.getInstance(mode)
     mode = InvoicesWizardState.normalizeMode(mode or InvoicesWizardState.activeMode)
     InvoicesWizardState.activeMode = mode
@@ -36,7 +33,7 @@ function InvoicesWizardState.getInstance(mode)
     return InvoicesWizardState.instances[mode]
 end
 
----Clears all preserved drafts.
+---Clears all preserved drafts
 function InvoicesWizardState.resetAll()
     InvoicesWizardState.instances = {}
     InvoicesWizardState.activeMode = InvoicesWizardState.MODE_CREATE
@@ -44,7 +41,7 @@ end
 
 ---Creates a new wizard state instance
 -- @param string? mode Wizard mode for this draft
--- @return InvoicesWizardState instance
+-- @return InvoicesWizardState New wizard state instance
 function InvoicesWizardState.new(mode)
     local self = {}
     setmetatable(self, {__index = InvoicesWizardState})
@@ -66,7 +63,7 @@ function InvoicesWizardState:reset()
 end
 
 ---Returns whether the wizard is in proposal mode
--- @return boolean isProposal
+-- @return boolean True in proposal mode
 function InvoicesWizardState:isProposalMode()
     return self.mode == InvoicesWizardState.MODE_PROPOSAL
 end
@@ -182,13 +179,13 @@ function InvoicesWizardState:buildAllLineItems()
 end
 
 ---Checks if invoice creation is allowed
--- @return boolean canCreate True if recipient is set and items exist
+-- @return boolean True when recipient and line items are set
 function InvoicesWizardState:canCreateInvoice()
     return self.recipientFarmId ~= nil and #self.lineItems > 0
 end
 
 ---Creates and sends invoice from wizard state
--- @return Invoice|nil invoice Created invoice or nil on failure
+-- @return Invoice|nil Created invoice or nil on failure
 function InvoicesWizardState:createInvoice()
     if not self:canCreateInvoice() then
         return nil
@@ -209,9 +206,6 @@ function InvoicesWizardState:createInvoice()
         end
     end
 
-    -- Resolve invoice roles from the wizard mode.
-    -- create:   player issues the invoice -> sender = player,        recipient = selected farm
-    -- proposal: player proposes to pay    -> sender = selected farm, recipient = player
     local isProposal = self:isProposalMode()
     local invSenderFarmId, invRecipientFarmId
     if isProposal then

@@ -1,5 +1,5 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Domain model: invoice state, line items, VAT totals, XML/stream serialization, and savegame retrocompat.
+---Invoice domain model and serialization
 Invoice = {}
 local Invoice_mt = Class(Invoice)
 
@@ -16,12 +16,12 @@ Invoice.UNIT_HOUR = 2
 Invoice.UNIT_HECTARE = 3
 Invoice.UNIT_LITER = 4
 
----Computes the gross (tax-inclusive) line total before discount.
+---Computes the gross line total before discount
 -- Mirrors the wizard/input pricing: liter goods are priced per 1000 l, everything else per unit.
 -- @param number price Unit price
 -- @param number quantity Quantity
 -- @param integer unitType Unit type constant
--- @return number gross Rounded gross amount before discount
+-- @return number Rounded gross amount before discount
 function Invoice.computeLineGross(price, quantity, unitType)
     price = price or 0
     quantity = quantity or 0
@@ -31,9 +31,9 @@ function Invoice.computeLineGross(price, quantity, unitType)
     return MathUtil.round(price * quantity)
 end
 
----Clamps a discount rate to the valid [0, 1] range. Invalid (nil/NaN) becomes 0.
--- @param number rate Discount rate (0.10 = 10%)
--- @return number rate Sanitized rate in [0, 1]
+---Clamps a discount rate to the valid range
+-- @param number? rate Discount rate or nil for zero
+-- @return number Sanitized rate in [0, 1]
 function Invoice.sanitizeDiscountRate(rate)
     rate = tonumber(rate)
     if rate == nil or rate ~= rate then
@@ -44,27 +44,26 @@ function Invoice.sanitizeDiscountRate(rate)
     return rate
 end
 
----Computes the final (post-discount) gross line amount.
--- The discount is applied to the gross before VAT extraction, so VAT ends up
--- computed on the discounted base (rebate before tax).
+---Computes the gross line amount after discount
+-- Apply the discount before VAT extraction so tax is computed on the discounted base.
 -- @param number price Unit price
 -- @param number quantity Quantity
 -- @param integer unitType Unit type constant
 -- @param number discountRate Discount rate (0.10 = 10%)
--- @return number amount Rounded amount after discount
+-- @return number Rounded amount after discount
 function Invoice.computeLineAmount(price, quantity, unitType, discountRate)
     local gross = Invoice.computeLineGross(price, quantity, unitType)
     local rate = Invoice.sanitizeDiscountRate(discountRate)
     return MathUtil.round(gross * (1 - rate))
 end
 
----Aggregates invoice totals from tax-inclusive line amounts.
+---Aggregates totals from tax-inclusive line amounts
 -- VAT is extracted per line from the discounted amount.
 -- @param table lineItems Raw line items
 -- @param function? iteratorFactory Optional iterator factory, defaults to ipairs
--- @return number totalAmount Total incl. tax
--- @return number totalHT Total excl. tax
--- @return number vatAmount Total VAT
+-- @return number Total including tax
+-- @return number Total excluding tax
+-- @return number Total VAT
 function Invoice.computeTotals(lineItems, iteratorFactory)
     local totalAmount, totalHT, vatAmount = 0, 0, 0
     iteratorFactory = iteratorFactory or ipairs
@@ -85,11 +84,10 @@ function Invoice.computeTotals(lineItems, iteratorFactory)
     return totalAmount, totalHT, vatAmount
 end
 
----Computes the actual money reduction of a line: amount before discount minus after.
--- Uses the same pricing logic as the rest of the mod (liter goods per 1000 l).
--- Never negative.
+---Computes the discount amount of a line
+-- Keep discount reporting on the shared pricing formula and clamp it against malformed data.
 -- @param table item Line item
--- @return number discount Reduction in currency (>= 0)
+-- @return number Non-negative reduction amount
 function Invoice.computeLineDiscountAmount(item)
     if item == nil then return 0 end
     local unitType = item.unitType or item.unit or Invoice.UNIT_PIECE
@@ -101,9 +99,9 @@ function Invoice.computeLineDiscountAmount(item)
     return discount
 end
 
----Sums the actual money reduction over all line items.
+---Sums discount amounts over all line items
 -- @param table lineItems Raw line items
--- @return number total Total reduction in currency (>= 0)
+-- @return number Total non-negative reduction amount
 function Invoice.computeTotalDiscountAmount(lineItems)
     local total = 0
     for _, item in ipairs(lineItems or {}) do
@@ -114,7 +112,7 @@ end
 
 ---Create invoice instance
 -- @param table? customMt Optional custom metatable
--- @return Invoice instance The created invoice
+-- @return Invoice Created invoice
 function Invoice.new(customMt)
     local self = setmetatable({}, customMt or Invoice_mt)
     
@@ -155,7 +153,7 @@ function Invoice:populateFromData(id, items, recipientFarmId, senderFarmId)
     self:stampCreatedNow()
 end
 
----Stamps createdAt/createdDay from the current synced environment time.
+---Stamps the creation date from synchronized environment time
 -- Shared by initial creation and proposal validation (resets the overdue clock to now).
 function Invoice:stampCreatedNow()
     if g_currentMission and g_currentMission.environment then
@@ -166,14 +164,12 @@ function Invoice:stampCreatedNow()
             dayInPeriod = env:getDayInPeriodFromDay(currentDay)
         end
 
-        -- Convert agricultural period to calendar month
         local period = env.currentPeriod or 0
         local currentMonth = period + 2
         if currentMonth > 12 then
             currentMonth = currentMonth - 12
         end
 
-        -- Convert agricultural year to calendar year
         local currentYear = env.currentYear or 1
         if currentMonth < 3 then
             currentYear = currentYear + 1
@@ -314,20 +310,17 @@ function Invoice:readFromXML(xmlFile, key)
             local env = g_currentMission.environment
             local daysPerPeriod = env.plannedDaysPerPeriod or 1
 
-            -- Convert calendar month back to agricultural period
             local calMonth = self.createdAt.period
             local agPeriod = calMonth - 2
             if agPeriod <= 0 then
                 agPeriod = agPeriod + 12
             end
 
-            -- Convert calendar year back to agricultural year
             local agYear = self.createdAt.year
             if calMonth < 3 then
                 agYear = agYear - 1
             end
 
-            -- Estimate monotonic day from year/period/dayInPeriod
             local yearDiff = agYear - 1
             local estimatedDay = (yearDiff * 12 * daysPerPeriod) + ((agPeriod - 1) * daysPerPeriod) + (self.createdAt.day or 1)
 
@@ -394,6 +387,12 @@ function Invoice:readStream(streamId)
     self.senderFarmId = streamReadInt32(streamId)
     self.recipientFarmId = streamReadInt32(streamId)
     self.state = streamReadInt8(streamId)
+
+    if self.state < Invoice.STATE.NEW or self.state > Invoice.STATE.PROPOSED then
+        Logging.warning("[Invoices] Invalid state %d for invoice %d, defaulting to NEW", self.state, self.id)
+        self.state = Invoice.STATE.NEW
+    end
+
     self.vatAmount = streamReadInt32(streamId)
     self.totalHT = streamReadInt32(streamId)
 
@@ -460,7 +459,7 @@ function Invoice:readStream(streamId)
     end
 end
 
----Resolves the display icon for a line item from local store data.
+---Resolves a line item icon from local store data
 -- Vehicle items resolve from vehicleUniqueId, consumables from fillTypeIndex.
 -- @param table item Line item
 -- @return string Resolved icon path or empty string
@@ -469,9 +468,7 @@ function Invoice.resolveLocalIcon(item)
         return ""
     end
 
-    -- Consumable items (palette/bale) take precedence: icon resolves via consumable
-    -- store entry or fillType. vehicleUniqueId on a consumable is reserved for
-    -- ownership transfer at payment, not display.
+    -- A consumable's vehicleUniqueId is reserved for transfer, so its store or fill-type icon takes precedence.
     local hasConsumable = (item.consumableXmlFilename ~= nil and item.consumableXmlFilename ~= "")
         or ((item.consumableFillTypeIndex or 0) > 0)
 
@@ -490,9 +487,7 @@ function Invoice.resolveLocalIcon(item)
         end
     end
 
-    -- Pellets fillType bypass: their store icon is a generic white pallet,
-    -- so prefer the fillType hudOverlayFilename (the actual fill type icon).
-    -- Mirrors InvoicesConsumablePipeline.resolveIcon behavior.
+    -- Pellet store icons are generic pallets, so use the fill-type HUD icon as in InvoicesConsumablePipeline.
     local fillIdx = item.consumableFillTypeIndex
     if fillIdx ~= nil and fillIdx > 0 and g_fillTypeManager ~= nil then
         local fillTypeInfo = g_fillTypeManager:getFillTypeByIndex(fillIdx)

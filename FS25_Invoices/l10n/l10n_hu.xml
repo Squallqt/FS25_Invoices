@@ -145,7 +145,7 @@
         <e k="invoice_label_total_paid" v="Fizetett összeg:" />
         <e k="invoice_label_penalty" v="Késedelmi díj" />
         <e k="invoice_setting_invoicePenalties" v="Késedelmi pótlék" />
-        <e k="invoice_toolTip_invoicePenalties" v="Engedélyezi a késedelmi pótlékot a kifizetetlen számlákon. 1 hónap lejárat után automatikusan havi 5%-os fix pótlék kerül alkalmazásra. Maximum a teljes összeg 25%-a." />
+        <e k="invoice_toolTip_invoicePenalties" v="Engedélyezi a késedelmi pótlékot a kifizetetlen számlákon. A fizetési határidő 1 hónap. A késedelem első napjától minden megkezdett hónap után automatikusan 5% kerül felszámításra. Maximum a teljes összeg 25%-a." />
         <e k="invoice_notification_overdue" v="A(z) %s számla lejárt: %s" />
         <e k="invoice_notification_overdue_warning" v="Késedelmi pótlék kerül felszámításra." />
         <e k="invoice_dash_no_fields" v="Nincs szükséges parcella" />

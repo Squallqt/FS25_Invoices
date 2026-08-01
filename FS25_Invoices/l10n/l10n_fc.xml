@@ -145,7 +145,7 @@
 		<e k="invoice_label_total_paid" v="TOTAL RÉGLÉ :" />
 		<e k="invoice_label_penalty" v="Pénalité de retard" />
 		<e k="invoice_setting_invoicePenalties" v="Pénalités de retard" />
-		<e k="invoice_toolTip_invoicePenalties" v="Active les pénalités de retard sur les factures impayées. Après 1 mois de retard, un taux fixe de 5% par mois est appliqué automatiquement. Plafonné à 25% du montant total." />
+		<e k="invoice_toolTip_invoicePenalties" v="Active les pénalités de retard sur les factures impayées. Le délai de paiement est de 1 mois. Dès le premier jour de retard, 5% sont appliqués automatiquement par mois entamé. Plafonné à 25% du montant total." />
 		<e k="invoice_notification_overdue" v="Facture %s en retard : %s" />
 		<e k="invoice_notification_overdue_warning" v="Pénalités de retard appliquées." />
 		<e k="invoice_dash_no_fields" v="Aucune parcelle requise" />

@@ -1,11 +1,9 @@
 -- Copyright © 2026 Squallqt. All rights reserved.
--- Business logic: pricing, VAT rates, server-authoritative money transfers, penalty accrual, reminders, and notifications.
+---Invoice business logic and notifications
 InvoiceService = {}
 local InvoiceService_mt = Class(InvoiceService)
 
--- Base prices aligned with FS25 game contract rewardPerHa values, adjusted at runtime by economicDifficulty.
--- Verified in-game (Hard difficulty, multiplier 1.0).
--- Hourly rates based on AI worker cost references.
+-- Base prices follow FS25 contract rewardPerHa values and AI worker costs, then scale with economicDifficulty.
 InvoiceService.WORK_TYPES = {
     {id = 1,  nameKey = "invoice_work_stoneCollection",     basePrice = 2200, unit = Invoice.UNIT_HECTARE},
     {id = 2,  nameKey = "invoice_work_plowing",             basePrice = 2800, unit = Invoice.UNIT_HECTARE},
@@ -71,7 +69,7 @@ InvoiceService.PENALTY_CHECK_INTERVAL = 10000
 
 ---Creates new invoice service instance
 -- @param table repository Invoice repository instance
--- @return InvoiceService instance
+-- @return InvoiceService Invoice service instance
 function InvoiceService.new(repository)
     local self = setmetatable({}, InvoiceService_mt)
 
@@ -131,7 +129,7 @@ function InvoiceService:loadVatRates(xmlPath)
 end
 
 ---Returns whether VAT simulation is enabled
--- @return boolean isEnabled
+-- @return boolean True when VAT simulation is enabled
 function InvoiceService:isVatEnabled()
     if g_currentMission == nil or g_currentMission.invoiceSettings == nil then
         return true
@@ -144,7 +142,7 @@ InvoiceService.PENALTY_GRACE_PERIODS = 1
 InvoiceService.PENALTY_CAP_PERCENT = 25
 
 ---Returns whether penalty system is enabled
--- @return boolean isEnabled
+-- @return boolean True when penalties are enabled
 function InvoiceService:isPenaltyEnabled()
     if g_currentMission == nil or g_currentMission.invoiceSettings == nil then
         return false
@@ -153,13 +151,13 @@ function InvoiceService:isPenaltyEnabled()
 end
 
 ---Returns monthly penalty rate in percent
--- @return integer rate Penalty rate
+-- @return integer Monthly penalty rate in percent
 function InvoiceService:getPenaltyRate()
     return 5
 end
 
 ---Returns planned days per period from environment
--- @return integer daysPerPeriod
+-- @return integer Planned days per period
 function InvoiceService:getDaysPerPeriod()
     if g_currentMission ~= nil and g_currentMission.environment ~= nil then
         return g_currentMission.environment.plannedDaysPerPeriod or 1
@@ -183,15 +181,6 @@ function InvoiceService:processPenalties()
 
     local daysPerPeriod = math.max(1, self:getDaysPerPeriod())
 
-    -- Only process on the last day of a period
-    if daysPerPeriod > 1 then
-        local dayInPeriod = 0
-        if env.getDayInPeriodFromDay then
-            dayInPeriod = env:getDayInPeriodFromDay(currentDay)
-        end
-        if dayInPeriod ~= daysPerPeriod then return end
-    end
-
     local monthlyRate = self:getPenaltyRate() / 100
     local maxRate = InvoiceService.PENALTY_CAP_PERCENT / 100
     local gracePeriods = InvoiceService.PENALTY_GRACE_PERIODS
@@ -208,9 +197,9 @@ function InvoiceService:processPenalties()
             local createdDay = invoice.createdDay or 0
             local elapsedDays = currentDay - createdDay
             if createdDay >= 0 and elapsedDays > 0 then
-                local elapsedMonths = math.floor(elapsedDays / daysPerPeriod)
-                local penaltyMonths = elapsedMonths - gracePeriods
-                if penaltyMonths > 0 then
+                local overdueDays = elapsedDays - gracePeriods * daysPerPeriod
+                if overdueDays > 0 then
+                    local penaltyMonths = math.ceil(overdueDays / daysPerPeriod)
                     local rawRate = monthlyRate * penaltyMonths
                     local cappedRate = math.min(rawRate, maxRate)
                     local newPenalty = math.floor(cappedRate * invoice.totalAmount + 0.5)
@@ -280,7 +269,7 @@ end
 
 ---Returns VAT rate for a work type
 -- @param integer workTypeId Work type identifier
--- @return float rate VAT rate or 0
+-- @return float VAT rate or 0
 function InvoiceService:getVatRateForWorkType(workTypeId)
     local group = self.workTypeGroups[workTypeId]
     if group == nil then return 0 end
@@ -288,14 +277,14 @@ function InvoiceService:getVatRateForWorkType(workTypeId)
 end
 
 ---Returns all available work types
--- @return table workTypes Array of work type definitions
+-- @return table Work type definitions
 function InvoiceService:getWorkTypes()
     return InvoiceService.WORK_TYPES
 end
 
 ---Returns work type definition by identifier
 -- @param integer id Work type identifier
--- @return table|nil workType Work type definition or nil
+-- @return table|nil Work type definition or nil
 function InvoiceService:getWorkTypeById(id)
     for _, workType in ipairs(InvoiceService.WORK_TYPES) do
         if workType.id == id then
@@ -307,7 +296,7 @@ end
 
 ---Returns i18n key for a unit type
 -- @param integer unitType Unit type constant
--- @return string key Localization key
+-- @return string Localization key
 function InvoiceService:getUnitKey(unitType)
     if unitType == Invoice.UNIT_PIECE then
         return "invoice_invoices_unit_piece"
@@ -323,7 +312,7 @@ end
 
 -- Matches FS25 AbstractFieldMission:getReward() formula
 ---Returns economic difficulty multiplier
--- @return float multiplier Difficulty-adjusted price multiplier
+-- @return float Difficulty-adjusted price multiplier
 function InvoiceService:getDifficultyMultiplier()
     local difficulty = 2
     if g_currentMission ~= nil and g_currentMission.missionInfo ~= nil then
@@ -334,7 +323,7 @@ end
 
 ---Returns difficulty-adjusted price for a work type
 -- @param integer workTypeId Work type identifier
--- @return float price Adjusted price
+-- @return float Adjusted price
 function InvoiceService:getAdjustedPrice(workTypeId)
     local workType = self:getWorkTypeById(workTypeId)
     if workType == nil then
@@ -364,7 +353,6 @@ function InvoiceService:createAndSendInvoice(invoice, noEventSend)
     end
 
     if invoice.state == Invoice.STATE.PROPOSED then
-        -- Notify the sender (issuer) that a proposal awaits their validation.
         self:notifyNewProposal(invoice)
     else
         self:notifyNewInvoice(invoice)
@@ -398,8 +386,8 @@ end
 
 ---Builds payment confirmation dialog text
 -- @param table invoice Invoice to pay
--- @param table? i18n Internationalization context
--- @return string text Formatted confirmation text
+-- @param table i18n Internationalization context
+-- @return string Formatted confirmation text
 function InvoiceService:buildPaymentConfirmText(invoice, i18n)
     local penaltyAmount = invoice.penaltyAmount or 0
     local totalDue = invoice.totalAmount + penaltyAmount
@@ -458,7 +446,7 @@ end
 
 ---Executes proposal validation: state PROPOSED -> NEW, resets date to now
 -- @param integer invoiceId Invoice identifier
--- @return boolean success True if validated
+-- @return boolean True when validated
 function InvoiceService:executeValidate(invoiceId)
     local invoice = self.repository:getById(invoiceId)
     if invoice == nil then
@@ -473,7 +461,6 @@ function InvoiceService:executeValidate(invoiceId)
     invoice.penaltyAmount = 0
     self.repository:setState(invoiceId, Invoice.STATE.NEW)
 
-    -- It is now a real unpaid invoice: notify the payer (recipient) and start reminders.
     self:notifyNewInvoice(invoice)
     self:notifyUI()
     return true
@@ -496,7 +483,7 @@ end
 ---Executes payment with money transfer (server-authoritative)
 -- @param integer invoiceId Invoice identifier
 -- @param boolean isAuthoritative If true performs money transfer
--- @return boolean success True if payment succeeded
+-- @return boolean True when payment succeeds
 function InvoiceService:executePayment(invoiceId, isAuthoritative)
     local invoice = self.repository:getById(invoiceId)
     if invoice == nil then
@@ -661,7 +648,7 @@ end
 
 ---Deletes invoice from repository
 -- @param integer invoiceId Invoice identifier
--- @return boolean success True if deleted
+-- @return boolean True when deleted
 function InvoiceService:executeDelete(invoiceId)
     local result = self.repository:removeById(invoiceId)
     self:notifyUI()
@@ -688,8 +675,8 @@ function InvoiceService:applySyncData(invoices, nextId)
 end
 
 ---Returns all invoices and next ID for sync
--- @return table invoices All invoices
--- @return integer nextId Next invoice ID counter
+-- @return table All invoices
+-- @return integer Next invoice identifier
 function InvoiceService:getSyncData()
     return self.repository:getAll(), self.repository:getNextInvoiceId()
 end
@@ -705,7 +692,6 @@ end
 -- @param table invoice Newly created invoice
 function InvoiceService:notifyNewInvoice(invoice)
     if invoice == nil then return end
-    -- A proposal is not a payable invoice yet: handled by notifyNewProposal instead.
     if invoice.state == Invoice.STATE.PROPOSED then return end
     if g_localPlayer == nil then return end
 
@@ -747,7 +733,7 @@ function InvoiceService:initializeReminderSystem()
 end
 
 ---Returns whether invoice reminders are enabled
--- @return boolean isEnabled
+-- @return boolean True when reminders are enabled
 function InvoiceService:isRemindersEnabled()
     if g_currentMission == nil or g_currentMission.invoiceSettings == nil then
         return true
@@ -800,7 +786,7 @@ end
 
 ---Checks if any invoice in the list has a penalty
 -- @param table unpaidInvoices Array of unpaid invoices
--- @return boolean hasOverdue True if any has penalty > 0
+-- @return boolean True when any invoice has a penalty
 function InvoiceService:hasOverdueInvoices(unpaidInvoices)
     for _, invoice in ipairs(unpaidInvoices or {}) do
         if (invoice.penaltyAmount or 0) > 0 then
@@ -813,7 +799,7 @@ end
 ---Builds reminder notification text with amounts and overdue info
 -- @param table unpaidInvoices Array of unpaid invoices
 -- @param integer totalAmount Total amount due
--- @return string text Formatted notification text
+-- @return string Formatted notification text
 function InvoiceService:buildReminderText(unpaidInvoices, totalAmount)
     local amountStr = g_i18n:formatMoney(totalAmount or 0)
     local text
@@ -842,7 +828,7 @@ end
 ---Builds reminder notification text for proposals awaiting sender validation
 -- @param table proposals Array of PROPOSED invoices
 -- @param integer totalAmount Sum of proposal amounts
--- @return string text Formatted notification text
+-- @return string Formatted notification text
 function InvoiceService:buildProposalReminderText(proposals, totalAmount)
     local amountStr = g_i18n:formatMoney(totalAmount or 0)
     if #proposals == 1 then
@@ -855,7 +841,6 @@ end
 ---Called each frame to process penalties and reminders
 -- @param float dt Delta time in milliseconds
 function InvoiceService:update(dt)
-    -- Penalty accrual (server only, throttled)
     if g_server ~= nil then
         self.penaltyTimer = self.penaltyTimer - dt
         if self.penaltyTimer <= 0 then
@@ -883,7 +868,6 @@ function InvoiceService:update(dt)
                 self:activateReminder(currentFarmId)
             end
 
-            -- Also notify the sender farm if they have proposals waiting for validation.
             local pendingProposals = self:getPendingProposalsForSenderFarm(currentFarmId)
             if #pendingProposals > 0 then
                 local totalAmount = 0
@@ -926,7 +910,6 @@ function InvoiceService:update(dt)
             self:deactivateReminder()
         end
 
-        -- Periodic check for proposals waiting validation (sender side).
         local pendingProposals = self:getPendingProposalsForSenderFarm(self.reminderFarmId)
         if #pendingProposals > 0 then
             local totalAmount = 0
@@ -941,7 +924,7 @@ end
 
 ---Returns PROPOSED invoices that the sender farm must validate
 -- @param integer farmId Sender farm identifier
--- @return table proposals Array of PROPOSED invoices
+-- @return table Proposed invoices
 function InvoiceService:getPendingProposalsForSenderFarm(farmId)
     local proposals = {}
     local invoices = self.repository:getBySenderFarm(farmId)
@@ -955,7 +938,7 @@ end
 
 ---Returns unpaid invoices for a recipient farm
 -- @param integer farmId Recipient farm identifier
--- @return table unpaidInvoices Array of unpaid invoices
+-- @return table Unpaid invoices
 function InvoiceService:getUnpaidInvoicesForFarm(farmId)
     local unpaidInvoices = {}
     local invoices = self.repository:getByRecipientFarm(farmId)

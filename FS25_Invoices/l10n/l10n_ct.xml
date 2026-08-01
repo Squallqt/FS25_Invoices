@@ -145,7 +145,7 @@
         <e k="invoice_label_total_paid" v="已付總額：" />
         <e k="invoice_label_penalty" v="逾期罰款" />
         <e k="invoice_setting_invoicePenalties" v="逾期罰款" />
-        <e k="invoice_toolTip_invoicePenalties" v="啟用對未付發票的逾期罰款。逾期1個月後，每月自動收取5%的固定費率。上限為總金額的25%。" />
+        <e k="invoice_toolTip_invoicePenalties" v="啟用未付發票的逾期罰款。付款期限為1個月。從逾期第一天起，每開始一個月自動收取5%的罰款。上限為總金額的25%。" />
         <e k="invoice_notification_overdue" v="發票 %s 已逾期：%s" />
         <e k="invoice_notification_overdue_warning" v="將收取逾期罰款。" />
         <e k="invoice_dash_no_fields" v="無需選擇田地" />
